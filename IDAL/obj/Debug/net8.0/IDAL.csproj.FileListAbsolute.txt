@@ -1,0 +1,15 @@
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\bin\Debug\net8.0\IDAL.deps.json
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\bin\Debug\net8.0\IDAL.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\bin\Debug\net8.0\IDAL.pdb
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\bin\Debug\net8.0\DBEntities.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\bin\Debug\net8.0\DBEntities.pdb
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.csproj.AssemblyReference.cache
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.AssemblyInfoInputs.cache
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.AssemblyInfo.cs
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.csproj.CoreCompileInputs.cache
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.csproj.Up2Date
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\refint\IDAL.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\IDAL.pdb
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IDAL\obj\Debug\net8.0\ref\IDAL.dll
