@@ -16,7 +16,9 @@ namespace DTO
 
         public int ProgramSets { get; set; }
 
-        public int ProgramRepetitions { get; set; }
+        public int? ProgramRepetitionsMin { get; set; }
+
+        public int? ProgramRepetitionsMax { get; set; }
 
         public decimal ProgramWeight { get; set; }
             

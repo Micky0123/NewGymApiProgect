@@ -179,3 +179,4 @@ C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויק�
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\ref\API.dll
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.sourcelink.json

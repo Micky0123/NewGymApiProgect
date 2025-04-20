@@ -1,4 +1,5 @@
 ﻿using DBEntities.Models;
+using DTO;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -101,6 +102,41 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Error updating Exercise", ex);
+            }
+        }
+
+        public async Task AddExerciseToCategoryAsync(Exercise exercise, int categoryId)
+        {
+
+            // בדוק אם הקטגוריה קיימת במסד הנתונים
+            using (var context = new GymDbContext())
+            {
+                // יצירת מופע חדש של Exercise
+                var newExercise = new Exercise
+                {
+                    ExerciseName = exercise.ExerciseName 
+                };
+
+                // מציאת הקטגוריה שברצונך לקשר
+                var category = await context.Categories.FindAsync(categoryId);
+
+                if (category != null)
+                {
+                    // הוספת המכשיר לקטגוריה
+                    category.Exercises.Add(newExercise);
+
+                    // הוספת הקטגוריה למכשיר
+                    newExercise.Categories.Add(category);
+
+                    // שמירה למסד הנתונים
+                    await context.Exercises.AddAsync(newExercise);
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    // טיפול במקרה שהקטגוריה לא נמצאה
+                    throw new Exception("קטגוריה לא נמצאה");
+                }
             }
         }
     }

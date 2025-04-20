@@ -15,5 +15,6 @@ namespace IDAL
         Task<Exercise> GetExerciseByNameAsync(string name);
         Task UpdateExerciseAsync(Exercise exercise, int id);
         Task DeleteExerciseAsync(int id);
+        Task AddExerciseToCategoryAsync(Exercise exercise, int categoryId);
     }
 }

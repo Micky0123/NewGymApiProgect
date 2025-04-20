@@ -106,5 +106,21 @@ namespace DAL
                 throw new Exception("Error updating Goal", ex);
             }
         }
+
+        public async Task< int> GetIdOfGoalByNameAsync(string name)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var goal = await ctx.Goals.FirstOrDefaultAsync(g => g.GoalName == name);
+                int id= goal.GoalId;
+                return id;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Goal by name", ex);
+            }
+        }
     }
 }

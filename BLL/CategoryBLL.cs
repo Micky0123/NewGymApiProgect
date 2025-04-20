@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DAL;
 using DBEntities.Models;
 using DTO;
 using IBLL;
@@ -40,13 +41,13 @@ namespace BLL
 
         public async Task<CategoryDTO> GetCategoryByIdAsync(int id)
         {
-            var list = await categoryDAL.GetCategoryByIdAsync(id);
-            return list != null ? mapper.Map<CategoryDTO>(list) : null;
+            Category category = await categoryDAL.GetCategoryByIdAsync(id);
+            return mapper.Map<CategoryDTO>(category);
         }
         public async Task<CategoryDTO> GetCategoryByNameAsync(string name)
         {
-            var list = await categoryDAL.GetCategoryByNameAsync(name);
-            return list != null ? mapper.Map<CategoryDTO>(list) : null;
+            Category category = await categoryDAL.GetCategoryByNameAsync(name);
+            return mapper.Map<CategoryDTO>(category);
         }
 
         public async Task UpdateCategoryAsync(CategoryDTO category, int id)

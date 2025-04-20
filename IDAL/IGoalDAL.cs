@@ -13,6 +13,7 @@ namespace IDAL
         Task<List<Goal>> GetAllGoalsAsync();
         Task<Goal> GetGoalByIdAsync(int id);
         Task<Goal> GetGoalByNameAsync(string name);
+        Task<int> GetIdOfGoalByNameAsync(string name);
         Task UpdateGoalAsync(Goal goal, int id);
         Task DeleteGoalAsync(int id);
     }

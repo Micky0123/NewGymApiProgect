@@ -15,3 +15,4 @@ C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויק�
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IBLL\obj\Debug\net8.0\refint\IBLL.dll
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IBLL\obj\Debug\net8.0\IBLL.pdb
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IBLL\obj\Debug\net8.0\ref\IBLL.dll
+C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\IBLL\obj\Debug\net8.0\IBLL.sourcelink.json

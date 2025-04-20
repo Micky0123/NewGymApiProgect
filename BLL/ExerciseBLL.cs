@@ -61,5 +61,12 @@ namespace BLL
             Exercise exercise1 = mapper.Map<Exercise>(exercise);
             await exerciseDAL.UpdateExerciseAsync(exercise1, id);
         }
+
+
+        public async Task AddExerciseToCategoryAsync(ExerciseDTO exercise, int categoryId)
+        {
+            Exercise exercise1 = mapper.Map<Exercise>(exercise);
+            await exerciseDAL.AddExerciseToCategoryAsync(exercise1,categoryId);
+        }
     }
 }

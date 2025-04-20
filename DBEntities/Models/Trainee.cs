@@ -31,7 +31,7 @@ public partial class Trainee
 
     public int? TrainingDays { get; set; }
 
-    public string? TrainingDuration { get; set; }
+    public int? TrainingDuration { get; set; }
 
     public int? GoalId { get; set; }
 

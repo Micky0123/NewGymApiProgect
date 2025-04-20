@@ -1,4 +1,6 @@
-﻿using DTO;
+﻿using BLL;
+using DBEntities.Models;
+using DTO;
 using IBLL;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +13,11 @@ namespace API.Controllers
     public class ExerciseController : ControllerBase
     {
         readonly IExerciseBLL exerciseBLL;
-        public ExerciseController(IExerciseBLL exerciseBLL)
+        readonly ICategoryBLL categoryBLL;
+        public ExerciseController(IExerciseBLL exerciseBLL,ICategoryBLL categoryBLL)
         {
             this.exerciseBLL = exerciseBLL;
+            this.categoryBLL = categoryBLL;
         }
 
 
@@ -91,6 +95,22 @@ namespace API.Controllers
             }
             await exerciseBLL.DeleteExerciseAsync(id);
             return Ok($"Exercise with id {id} was deleted.");
+        }
+
+        [HttpPost("{id}/category")]
+        public async Task<ActionResult> AddExerciseToCategory(int id, [FromBody] ExerciseDTO exercise)
+        {
+            if (exercise == null)
+            {
+                return BadRequest("Exercise data is missing");
+            }
+            var catgory = await categoryBLL.GetCategoryByIdAsync(id);
+            if (catgory == null)
+            {
+                return NotFound($"catgory with id {id} was not found.");
+            }
+            await exerciseBLL.AddExerciseToCategoryAsync(exercise, id);
+            return Ok($"Exercise with id {id} was added to category.");
         }
     }
 }

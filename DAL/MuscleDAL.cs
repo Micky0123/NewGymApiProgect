@@ -59,6 +59,25 @@ namespace DAL
             }
         }
 
+        public async Task<int> GetIdOfMuscleByNameAsync(string name)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var mu= await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == name);
+                if (mu == null)
+                {
+                    throw new Exception("Muscle not found");
+                }
+                return mu.MuscleId;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Muscle by name", ex);
+            }
+        }
+
         public async Task<Muscle> GetMuscleByIdAsync(int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -105,6 +124,11 @@ namespace DAL
             {
                 throw new Exception("Error updating Muscle", ex);
             }
+        }
+
+        int IMuscleDAL.GetIdOfMuscleByNameAsync(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

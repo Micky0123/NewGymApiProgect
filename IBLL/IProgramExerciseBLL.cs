@@ -9,6 +9,7 @@ namespace IBLL
 {
     public interface IProgramExerciseBLL
     {
+        
         Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise);
         Task<List<ProgramExerciseDTO>> GetAllProgramExercisesAsync();
         Task<ProgramExerciseDTO> GetProgramExerciseByIdAsync(int id);
@@ -16,5 +17,6 @@ namespace IBLL
 
         Task UpdateProgramExerciseAsync(ProgramExerciseDTO programExercise, int id);
         Task DeleteProgramExerciseAsync(int id);
+        
     }
 }

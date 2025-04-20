@@ -13,6 +13,7 @@ namespace IDAL
         Task<List<Muscle>> GetAllMusclesAsync();
         Task<Muscle> GetMuscleByIdAsync(int id);
         Task<Muscle> GetMuscleByNameAsync(string name);
+        int GetIdOfMuscleByNameAsync(string name);
         Task UpdateMuscleAsync(Muscle muscle, int id);
         Task DeleteMuscleAsync(int id);
     }
