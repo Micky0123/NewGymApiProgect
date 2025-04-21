@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="automapper" Version="14.0.0" />
+    <PackageReference Include="EPPlus" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>

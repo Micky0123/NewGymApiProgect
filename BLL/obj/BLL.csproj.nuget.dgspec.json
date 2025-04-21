@@ -66,6 +66,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "automapper": {
               "target": "Package",
               "version": "[14.0.0, )"

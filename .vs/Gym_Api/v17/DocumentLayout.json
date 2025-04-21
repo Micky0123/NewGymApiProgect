@@ -7,6 +7,37 @@
       "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\programexercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{622BA72F-E46E-4B3B-BE38-4841E146C2FA}|IBLL\\IBLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\ibll\\iprogramexercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{622BA72F-E46E-4B3B-BE38-4841E146C2FA}|IBLL\\IBLL.csproj|solutionrelative:ibll\\iprogramexercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\programexercisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\programexercisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\musclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\musclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\equipmentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\equipmentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\exercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\exercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\bll.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\.nuget\\packages\\epplus\\8.0.2\\readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{09AEEC9E-F901-472A-8653-950DD1B1ECC4}|DAL\\DAL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\dal\\goaldal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{09AEEC9E-F901-472A-8653-950DD1B1ECC4}|DAL\\DAL.csproj|solutionrelative:dal\\goaldal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,10 +48,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\categorybll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\categorybll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\exercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\exercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C6C872AB-163B-40F8-A8C1-66646D3CC081}|IDAL\\IDAL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\idal\\iexercisedal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,16 +86,8 @@
       "RelativeMoniker": "D:0:0:{FF7EE128-62ED-4640-849A-E1F22FD4B51E}|DTO\\DTO.csproj|solutionrelative:dto\\traineedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{622BA72F-E46E-4B3B-BE38-4841E146C2FA}|IBLL\\IBLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\ibll\\iprogramexercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{622BA72F-E46E-4B3B-BE38-4841E146C2FA}|IBLL\\IBLL.csproj|solutionrelative:ibll\\iprogramexercisebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\musclebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\musclebll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\equipmentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\equipmentbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FF7EE128-62ED-4640-849A-E1F22FD4B51E}|DTO\\DTO.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\dto\\programexercisedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -127,10 +146,6 @@
       "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\traineecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\musclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\musclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\submusclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\submusclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -161,10 +176,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\sizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\sizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|solutionrelative:api\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5382B720-4DBC-4E74-861C-8F894E196A8C}|API\\API.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -217,10 +228,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\bll\\trainingprogrambll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4217838D-CBA6-4F3E-B934-21BC39ECC767}|BLL\\BLL.csproj|solutionrelative:bll\\trainingprogrambll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{09AEEC9E-F901-472A-8653-950DD1B1ECC4}|DAL\\DAL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\dal\\programexercisedal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{09AEEC9E-F901-472A-8653-950DD1B1ECC4}|DAL\\DAL.csproj|solutionrelative:dal\\programexercisedal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{09AEEC9E-F901-472A-8653-950DD1B1ECC4}|DAL\\DAL.csproj|c:\\users\\user\\pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\c#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\gym_api\\dal\\sizedal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -342,37 +349,19 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IExerciseDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IExerciseDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\IExerciseDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IExerciseDAL.cs",
-              "RelativeToolTip": "IDAL\\IExerciseDAL.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAAFAAAA",
+              "DocumentIndex": 2,
+              "Title": "ProgramExerciseController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ProgramExerciseController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\ProgramExerciseController.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ProgramExerciseController.cs",
+              "RelativeToolTip": "API\\Controllers\\ProgramExerciseController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAD4vyUAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:38:05.126Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MuscleDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\MuscleDAL.cs",
-              "RelativeDocumentMoniker": "DAL\\MuscleDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\MuscleDAL.cs",
-              "RelativeToolTip": "DAL\\MuscleDAL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIMAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:41:30.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-21T13:34:24.466Z"
             },
             {
               "$type": "Document",
@@ -382,390 +371,14 @@
               "RelativeDocumentMoniker": "BLL\\ProgramExerciseBLL.cs",
               "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\ProgramExerciseBLL.cs",
               "RelativeToolTip": "BLL\\ProgramExerciseBLL.cs",
-              "ViewState": "AQIAAGgAAAAAAAAAAAAMwHcAAAApAAAA",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAAADwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-20T10:42:28.01Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ExerciseBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\ExerciseBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\ExerciseBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\ExerciseBLL.cs",
-              "RelativeToolTip": "BLL\\ExerciseBLL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEQAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:51:21.292Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CategoryBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\CategoryBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\CategoryBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\CategoryBLL.cs",
-              "RelativeToolTip": "BLL\\CategoryBLL.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA4AAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:50:55.129Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GoalDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\GoalDAL.cs",
-              "RelativeDocumentMoniker": "DAL\\GoalDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\GoalDAL.cs",
-              "RelativeToolTip": "DAL\\GoalDAL.cs",
-              "ViewState": "AQIAAF8AAAAAAAAAAAD4v3QAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:39:19.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IGoalDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IGoalDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\IGoalDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IGoalDAL.cs",
-              "RelativeToolTip": "IDAL\\IGoalDAL.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA8AAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:38:57.832Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IMuscleDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IMuscleDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\IMuscleDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IMuscleDAL.cs",
-              "RelativeToolTip": "IDAL\\IMuscleDAL.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAWwA8AAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:41:06.098Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Goal.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Goal.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\Goal.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Goal.cs",
-              "RelativeToolTip": "DBEntities\\Models\\Goal.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:22:32.737Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ISubMuscleDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ISubMuscleDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\ISubMuscleDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ISubMuscleDAL.cs",
-              "RelativeToolTip": "IDAL\\ISubMuscleDAL.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAuwA4AAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:43:30.247Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IEquipmentDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IEquipmentDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\IEquipmentDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IEquipmentDAL.cs",
-              "RelativeToolTip": "IDAL\\IEquipmentDAL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:37:50.835Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ICategoryDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ICategoryDAL.cs",
-              "RelativeDocumentMoniker": "IDAL\\ICategoryDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ICategoryDAL.cs",
-              "RelativeToolTip": "IDAL\\ICategoryDAL.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAUwAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:37:35.517Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Trainee.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Trainee.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\Trainee.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Trainee.cs",
-              "RelativeToolTip": "DBEntities\\Models\\Trainee.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAAACEAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:23:10.822Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "TraineeDTO.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TraineeDTO.cs",
-              "RelativeDocumentMoniker": "DTO\\TraineeDTO.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TraineeDTO.cs",
-              "RelativeToolTip": "DTO\\TraineeDTO.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAA/wDUAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:25:46.766Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "IProgramExerciseBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IProgramExerciseBLL.cs",
-              "RelativeDocumentMoniker": "IBLL\\IProgramExerciseBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IProgramExerciseBLL.cs",
-              "RelativeToolTip": "IBLL\\IProgramExerciseBLL.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwBMAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:42:02.138Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "MuscleBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\MuscleBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\MuscleBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\MuscleBLL.cs",
-              "RelativeToolTip": "BLL\\MuscleBLL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAwwBkAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:41:37.382Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "EquipmentBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\EquipmentBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\EquipmentBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\EquipmentBLL.cs",
-              "RelativeToolTip": "BLL\\EquipmentBLL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T17:24:40.757Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ProgramExerciseDTO.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\ProgramExerciseDTO.cs",
-              "RelativeDocumentMoniker": "DTO\\ProgramExerciseDTO.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\ProgramExerciseDTO.cs",
-              "RelativeToolTip": "DTO\\ProgramExerciseDTO.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAA1wBQAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:25:10.406Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ProgramExercise.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\ProgramExercise.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\ProgramExercise.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\ProgramExercise.cs",
-              "RelativeToolTip": "DBEntities\\Models\\ProgramExercise.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAYwBAAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:22:52.468Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "GymDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Models\\GymDbContext.cs",
-              "RelativeDocumentMoniker": "API\\Models\\GymDbContext.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Models\\GymDbContext.cs",
-              "RelativeToolTip": "API\\Models\\GymDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T17:31:29.955Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "JointBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\JointBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\JointBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\JointBLL.cs",
-              "RelativeToolTip": "BLL\\JointBLL.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAYwC8AAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:40:51.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ICategoryBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ICategoryBLL.cs",
-              "RelativeDocumentMoniker": "IBLL\\ICategoryBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ICategoryBLL.cs",
-              "RelativeToolTip": "IBLL\\ICategoryBLL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:50:35.162Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "GymDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\GymDbContext.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\GymDbContext.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\GymDbContext.cs",
-              "RelativeToolTip": "DBEntities\\Models\\GymDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T12:00:11.52Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "IExerciseBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IExerciseBLL.cs",
-              "RelativeDocumentMoniker": "IBLL\\IExerciseBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IExerciseBLL.cs",
-              "RelativeToolTip": "IBLL\\IExerciseBLL.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAA2wBIAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:38:21.095Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "JointDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\JointDAL.cs",
-              "RelativeDocumentMoniker": "DAL\\JointDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\JointDAL.cs",
-              "RelativeToolTip": "DAL\\JointDAL.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAgwDQAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:40:43.047Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ExerciseController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ExerciseController.cs",
-              "RelativeDocumentMoniker": "API\\Controllers\\ExerciseController.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ExerciseController.cs",
-              "RelativeToolTip": "API\\Controllers\\ExerciseController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T13:33:18.844Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "ExerciseDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ExerciseDAL.cs",
-              "RelativeDocumentMoniker": "DAL\\ExerciseDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ExerciseDAL.cs",
-              "RelativeToolTip": "DAL\\ExerciseDAL.cs",
-              "ViewState": "AQIAAGgAAAAAAAAAAAAhwHcAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:51:13.269Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "IEquipmentBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IEquipmentBLL.cs",
-              "RelativeDocumentMoniker": "IBLL\\IEquipmentBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IEquipmentBLL.cs",
-              "RelativeToolTip": "IBLL\\IEquipmentBLL.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T16:44:51.546Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Exercise.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Exercise.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\Exercise.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Exercise.cs",
-              "RelativeToolTip": "DBEntities\\Models\\Exercise.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:29:44.522Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Category.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "DBEntities\\Models\\Category.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Category.cs",
-              "RelativeToolTip": "DBEntities\\Models\\Category.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:28:33.2Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "TraineeController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\TraineeController.cs",
-              "RelativeDocumentMoniker": "API\\Controllers\\TraineeController.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\TraineeController.cs",
-              "RelativeToolTip": "API\\Controllers\\TraineeController.cs",
-              "ViewState": "AQIAAEsAAAAAAAAAAAAIwFYAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T13:35:11.445Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "SubMuscleBLL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\SubMuscleBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\SubMuscleBLL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\SubMuscleBLL.cs",
-              "RelativeToolTip": "BLL\\SubMuscleBLL.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAhwCoAAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:44:01.699Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
               "Title": "MuscleController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\MuscleController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\MuscleController.cs",
@@ -777,7 +390,415 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IProgramExerciseBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IProgramExerciseBLL.cs",
+              "RelativeDocumentMoniker": "IBLL\\IProgramExerciseBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IProgramExerciseBLL.cs",
+              "RelativeToolTip": "IBLL\\IProgramExerciseBLL.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAawBUAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:42:02.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "API\\Controllers\\CategoryController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T13:31:34.68Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExerciseBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\ExerciseBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\ExerciseBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\ExerciseBLL.cs",
+              "RelativeToolTip": "BLL\\ExerciseBLL.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwEQAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:51:21.292Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BLL.csproj",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\BLL.csproj",
+              "RelativeDocumentMoniker": "BLL\\BLL.csproj",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\BLL.csproj",
+              "RelativeToolTip": "BLL\\BLL.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-21T13:26:39.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "readme.txt",
+              "DocumentMoniker": "C:\\Users\\user\\.nuget\\packages\\epplus\\8.0.2\\readme.txt",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\.nuget\\packages\\epplus\\8.0.2\\readme.txt",
+              "ToolTip": "C:\\Users\\user\\.nuget\\packages\\epplus\\8.0.2\\readme.txt",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\.nuget\\packages\\epplus\\8.0.2\\readme.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-04-21T13:24:17.371Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CategoryBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\CategoryBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\CategoryBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\CategoryBLL.cs",
+              "RelativeToolTip": "BLL\\CategoryBLL.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA4AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:50:55.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MuscleDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\MuscleDAL.cs",
+              "RelativeDocumentMoniker": "DAL\\MuscleDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\MuscleDAL.cs",
+              "RelativeToolTip": "DAL\\MuscleDAL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIMAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:41:30.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GoalDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\GoalDAL.cs",
+              "RelativeDocumentMoniker": "DAL\\GoalDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\GoalDAL.cs",
+              "RelativeToolTip": "DAL\\GoalDAL.cs",
+              "ViewState": "AQIAAF8AAAAAAAAAAAD4v3QAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:39:19.788Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EquipmentBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\EquipmentBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\EquipmentBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\EquipmentBLL.cs",
+              "RelativeToolTip": "BLL\\EquipmentBLL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T17:24:40.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IExerciseDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IExerciseDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\IExerciseDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IExerciseDAL.cs",
+              "RelativeToolTip": "IDAL\\IExerciseDAL.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:38:05.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IGoalDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IGoalDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\IGoalDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IGoalDAL.cs",
+              "RelativeToolTip": "IDAL\\IGoalDAL.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA8AAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:38:57.832Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IMuscleDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IMuscleDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\IMuscleDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IMuscleDAL.cs",
+              "RelativeToolTip": "IDAL\\IMuscleDAL.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAWwA8AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:41:06.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Goal.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Goal.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\Goal.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Goal.cs",
+              "RelativeToolTip": "DBEntities\\Models\\Goal.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:22:32.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ISubMuscleDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ISubMuscleDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\ISubMuscleDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ISubMuscleDAL.cs",
+              "RelativeToolTip": "IDAL\\ISubMuscleDAL.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAuwA4AAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:43:30.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IEquipmentDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IEquipmentDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\IEquipmentDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IEquipmentDAL.cs",
+              "RelativeToolTip": "IDAL\\IEquipmentDAL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:37:50.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ICategoryDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ICategoryDAL.cs",
+              "RelativeDocumentMoniker": "IDAL\\ICategoryDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ICategoryDAL.cs",
+              "RelativeToolTip": "IDAL\\ICategoryDAL.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAUwAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:37:35.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Trainee.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Trainee.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\Trainee.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Trainee.cs",
+              "RelativeToolTip": "DBEntities\\Models\\Trainee.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAACEAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:23:10.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "TraineeDTO.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TraineeDTO.cs",
+              "RelativeDocumentMoniker": "DTO\\TraineeDTO.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TraineeDTO.cs",
+              "RelativeToolTip": "DTO\\TraineeDTO.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAA/wDUAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:25:46.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MuscleBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\MuscleBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\MuscleBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\MuscleBLL.cs",
+              "RelativeToolTip": "BLL\\MuscleBLL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAwwBkAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:41:37.382Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ProgramExerciseDTO.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\ProgramExerciseDTO.cs",
+              "RelativeDocumentMoniker": "DTO\\ProgramExerciseDTO.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\ProgramExerciseDTO.cs",
+              "RelativeToolTip": "DTO\\ProgramExerciseDTO.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA1wBQAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:25:10.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ProgramExercise.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\ProgramExercise.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\ProgramExercise.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\ProgramExercise.cs",
+              "RelativeToolTip": "DBEntities\\Models\\ProgramExercise.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAYwBAAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:22:52.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "GymDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Models\\GymDbContext.cs",
+              "RelativeDocumentMoniker": "API\\Models\\GymDbContext.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Models\\GymDbContext.cs",
+              "RelativeToolTip": "API\\Models\\GymDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T17:31:29.955Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "JointBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\JointBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\JointBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\JointBLL.cs",
+              "RelativeToolTip": "BLL\\JointBLL.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAYwC8AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:40:51.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ICategoryBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ICategoryBLL.cs",
+              "RelativeDocumentMoniker": "IBLL\\ICategoryBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ICategoryBLL.cs",
+              "RelativeToolTip": "IBLL\\ICategoryBLL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:50:35.162Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "GymDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\GymDbContext.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\GymDbContext.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\GymDbContext.cs",
+              "RelativeToolTip": "DBEntities\\Models\\GymDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T12:00:11.52Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "IExerciseBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IExerciseBLL.cs",
+              "RelativeDocumentMoniker": "IBLL\\IExerciseBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IExerciseBLL.cs",
+              "RelativeToolTip": "IBLL\\IExerciseBLL.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAA2wBIAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:38:21.095Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 32,
+              "Title": "JointDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\JointDAL.cs",
+              "RelativeDocumentMoniker": "DAL\\JointDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\JointDAL.cs",
+              "RelativeToolTip": "DAL\\JointDAL.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAgwDQAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:40:43.047Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ExerciseController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ExerciseController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\ExerciseController.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\ExerciseController.cs",
+              "RelativeToolTip": "API\\Controllers\\ExerciseController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T13:33:18.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ExerciseDAL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ExerciseDAL.cs",
+              "RelativeDocumentMoniker": "DAL\\ExerciseDAL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ExerciseDAL.cs",
+              "RelativeToolTip": "DAL\\ExerciseDAL.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAhwHcAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:51:13.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "IEquipmentBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IEquipmentBLL.cs",
+              "RelativeDocumentMoniker": "IBLL\\IEquipmentBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IEquipmentBLL.cs",
+              "RelativeToolTip": "IBLL\\IEquipmentBLL.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T16:44:51.546Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Exercise.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Exercise.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\Exercise.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Exercise.cs",
+              "RelativeToolTip": "DBEntities\\Models\\Exercise.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:29:44.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "DBEntities\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Category.cs",
+              "RelativeToolTip": "DBEntities\\Models\\Category.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:28:33.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "TraineeController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\TraineeController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\TraineeController.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\TraineeController.cs",
+              "RelativeToolTip": "API\\Controllers\\TraineeController.cs",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAIwFYAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T13:35:11.445Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "SubMuscleBLL.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\SubMuscleBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\SubMuscleBLL.cs",
+              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\SubMuscleBLL.cs",
+              "RelativeToolTip": "BLL\\SubMuscleBLL.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAhwCoAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T10:44:01.699Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
               "Title": "SubMuscleController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\SubMuscleController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\SubMuscleController.cs",
@@ -789,7 +810,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 37,
               "Title": "ISubMuscleBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ISubMuscleBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\ISubMuscleBLL.cs",
@@ -801,7 +822,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 39,
               "Title": "SubMuscleDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\SubMuscleDAL.cs",
               "RelativeDocumentMoniker": "DAL\\SubMuscleDAL.cs",
@@ -813,7 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 40,
               "Title": "ITraineeDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ITraineeDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\ITraineeDAL.cs",
@@ -825,7 +846,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 41,
               "Title": "SubMuscleDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\SubMuscleDTO.cs",
               "RelativeDocumentMoniker": "DTO\\SubMuscleDTO.cs",
@@ -837,7 +858,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 42,
               "Title": "IMuscleBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IMuscleBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\IMuscleBLL.cs",
@@ -849,7 +870,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 43,
               "Title": "SizeController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\SizeController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\SizeController.cs",
@@ -861,19 +882,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "API\\Controllers\\CategoryController.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "API\\Controllers\\CategoryController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF4AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T13:31:34.68Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Program.cs",
               "RelativeDocumentMoniker": "API\\Program.cs",
@@ -885,7 +894,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "TrainingDayBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\TrainingDayBLL.cs",
               "RelativeDocumentMoniker": "BLL\\TrainingDayBLL.cs",
@@ -897,7 +906,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 47,
               "Title": "JointController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\JointController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\JointController.cs",
@@ -909,7 +918,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 46,
               "Title": "GoalController.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\API\\Controllers\\GoalController.cs",
               "RelativeDocumentMoniker": "API\\Controllers\\GoalController.cs",
@@ -921,7 +930,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 51,
               "Title": "Size.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Size.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\Size.cs",
@@ -933,7 +942,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 50,
               "Title": "SubMuscle.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\SubMuscle.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\SubMuscle.cs",
@@ -945,7 +954,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "TrainingDay.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\TrainingDay.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\TrainingDay.cs",
@@ -957,7 +966,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "TrainingProgram.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\TrainingProgram.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\TrainingProgram.cs",
@@ -969,7 +978,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 52,
               "Title": "Muscle.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Muscle.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\Muscle.cs",
@@ -981,7 +990,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 53,
               "Title": "Joint.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Joint.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\Joint.cs",
@@ -993,7 +1002,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 54,
               "Title": "ExerciseEquipment.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\ExerciseEquipment.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\ExerciseEquipment.cs",
@@ -1005,7 +1014,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 55,
               "Title": "Equipment.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DBEntities\\Models\\Equipment.cs",
               "RelativeDocumentMoniker": "DBEntities\\Models\\Equipment.cs",
@@ -1017,7 +1026,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 56,
               "Title": "TrainingProgramBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\TrainingProgramBLL.cs",
               "RelativeDocumentMoniker": "BLL\\TrainingProgramBLL.cs",
@@ -1029,7 +1038,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 57,
               "Title": "SizeDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\SizeDAL.cs",
               "RelativeDocumentMoniker": "DAL\\SizeDAL.cs",
@@ -1041,19 +1050,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "ProgramExerciseDAL.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ProgramExerciseDAL.cs",
-              "RelativeDocumentMoniker": "DAL\\ProgramExerciseDAL.cs",
-              "ToolTip": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\ProgramExerciseDAL.cs",
-              "RelativeToolTip": "DAL\\ProgramExerciseDAL.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAkwGEAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-20T10:42:13.501Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 58,
               "Title": "ITrainingProgramBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ITrainingProgramBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\ITrainingProgramBLL.cs",
@@ -1065,7 +1062,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 59,
               "Title": "ITrainingProgramDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ITrainingProgramDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\ITrainingProgramDAL.cs",
@@ -1077,7 +1074,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 60,
               "Title": "SizeBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\SizeBLL.cs",
               "RelativeDocumentMoniker": "BLL\\SizeBLL.cs",
@@ -1089,7 +1086,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 61,
               "Title": "GoalBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\BLL\\GoalBLL.cs",
               "RelativeDocumentMoniker": "BLL\\GoalBLL.cs",
@@ -1101,7 +1098,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 62,
               "Title": "CategoryDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\CategoryDAL.cs",
               "RelativeDocumentMoniker": "DAL\\CategoryDAL.cs",
@@ -1113,7 +1110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 63,
               "Title": "EquipmentDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\EquipmentDAL.cs",
               "RelativeDocumentMoniker": "DAL\\EquipmentDAL.cs",
@@ -1125,7 +1122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 64,
               "Title": "IProgramExerciseDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IProgramExerciseDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\IProgramExerciseDAL.cs",
@@ -1137,7 +1134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 65,
               "Title": "TraineeDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\TraineeDAL.cs",
               "RelativeDocumentMoniker": "DAL\\TraineeDAL.cs",
@@ -1149,7 +1146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 66,
               "Title": "TrainingDayDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\TrainingDayDAL.cs",
               "RelativeDocumentMoniker": "DAL\\TrainingDayDAL.cs",
@@ -1161,7 +1158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 67,
               "Title": "ITrainingDayDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ITrainingDayDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\ITrainingDayDAL.cs",
@@ -1173,7 +1170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 68,
               "Title": "TrainingProgramDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DAL\\TrainingProgramDAL.cs",
               "RelativeDocumentMoniker": "DAL\\TrainingProgramDAL.cs",
@@ -1185,7 +1182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 69,
               "Title": "IGoalBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IGoalBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\IGoalBLL.cs",
@@ -1197,7 +1194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 70,
               "Title": "IJointBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\IJointBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\IJointBLL.cs",
@@ -1209,7 +1206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 71,
               "Title": "ISizeBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ISizeBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\ISizeBLL.cs",
@@ -1221,7 +1218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 72,
               "Title": "ITrainingDayBLL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IBLL\\ITrainingDayBLL.cs",
               "RelativeDocumentMoniker": "IBLL\\ITrainingDayBLL.cs",
@@ -1233,7 +1230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 73,
               "Title": "ISizeDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\ISizeDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\ISizeDAL.cs",
@@ -1245,7 +1242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 74,
               "Title": "IJointDAL.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IJointDAL.cs",
               "RelativeDocumentMoniker": "IDAL\\IJointDAL.cs",
@@ -1257,7 +1254,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 75,
               "Title": "IDAL.csproj",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\IDAL\\IDAL.csproj",
               "RelativeDocumentMoniker": "IDAL\\IDAL.csproj",
@@ -1269,7 +1266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 76,
               "Title": "TrainingProgramDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TrainingProgramDTO.cs",
               "RelativeDocumentMoniker": "DTO\\TrainingProgramDTO.cs",
@@ -1281,7 +1278,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 77,
               "Title": "TrainingDayDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\TrainingDayDTO.cs",
               "RelativeDocumentMoniker": "DTO\\TrainingDayDTO.cs",
@@ -1293,7 +1290,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 78,
               "Title": "SizeDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\SizeDTO.cs",
               "RelativeDocumentMoniker": "DTO\\SizeDTO.cs",
@@ -1305,7 +1302,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 80,
               "Title": "JointDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\JointDTO.cs",
               "RelativeDocumentMoniker": "DTO\\JointDTO.cs",
@@ -1317,7 +1314,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 81,
               "Title": "GoalDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\GoalDTO.cs",
               "RelativeDocumentMoniker": "DTO\\GoalDTO.cs",
@@ -1329,7 +1326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 82,
               "Title": "ExerciseDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\ExerciseDTO.cs",
               "RelativeDocumentMoniker": "DTO\\ExerciseDTO.cs",
@@ -1341,7 +1338,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 83,
               "Title": "EquipmentDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\EquipmentDTO.cs",
               "RelativeDocumentMoniker": "DTO\\EquipmentDTO.cs",
@@ -1353,7 +1350,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 84,
               "Title": "CategoryDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\CategoryDTO.cs",
               "RelativeDocumentMoniker": "DTO\\CategoryDTO.cs",
@@ -1365,7 +1362,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 79,
               "Title": "MuscleDTO.cs",
               "DocumentMoniker": "C:\\Users\\user\\Pictures\\\u05EA\u05DB\u05E0\u05D5\u05EA\\\u05E9\u05E0\u05D4 \u05D1\\\u05E4\u05D5\u05E8\u05D9\u05E7\u05D8 \u05E9\u05E0\u05EA\u05D9\\C#\\\u05E4\u05E8\u05D5\u05D9\u05E7\u05D8 \u05D7\u05D3\u05E9 20.04\\Gym_Api\\DTO\\MuscleDTO.cs",
               "RelativeDocumentMoniker": "DTO\\MuscleDTO.cs",
