@@ -130,5 +130,33 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+
+        public async Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת השריר מתוך הטבלה Muscles
+                var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+
+                if (muscle == null)
+                {
+                    throw new Exception($"Muscle '{muscleName}' not found.");
+                }
+
+                // שליפת כל התרגילים הקשורים לשריר
+                var exercises = await ctx.Exercises
+                    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId))
+                    .ToListAsync();
+
+                return exercises;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating ProgramExercise", ex);
+            }
+        }
     }
+
 }

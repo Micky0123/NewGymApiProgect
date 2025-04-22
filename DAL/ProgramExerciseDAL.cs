@@ -1,4 +1,5 @@
 ﻿using DBEntities.Models;
+using DTO;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -95,7 +96,7 @@ namespace DAL
                     throw new Exception("ProgramExercise not found");
                 }
 
-               // existingProgramExercise. = programExercise.ExerciseName;
+                // existingProgramExercise. = programExercise.ExerciseName;
                 await ctx.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -103,5 +104,30 @@ namespace DAL
                 throw new Exception("Error updating ProgramExercise", ex);
             }
         }
+        public async Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת השריר מתוך הטבלה Muscles
+                var muscle = await ctx.Muscles
+                    .Include(m => m.Exercises) // טוען גם את התרגילים הקשורים לשריר
+                    .FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+
+                if (muscle == null)
+                {
+                    throw new Exception($"Muscle '{muscleName}' not found.");
+                }
+
+                // החזרת תרגילים שקשורים לשריר
+                return muscle.Exercises.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving exercises for muscle", ex);
+            }
+        }
+
+
     }
 }

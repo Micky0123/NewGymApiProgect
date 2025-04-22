@@ -15,5 +15,8 @@ namespace IDAL
        // Task<ProgramExercise> GetProgramExerciseByNameAsync(string name);
         Task UpdateProgramExerciseAsync(ProgramExercise programExercise, int id);
         Task DeleteProgramExerciseAsync(int id);
+        Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName);
+
+
     }
 }
