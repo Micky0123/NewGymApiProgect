@@ -3,47 +3,47 @@ using DBEntities.Models;
 using DTO;
 using IBLL;
 using IDAL;
+using Microsoft.Extensions.Logging;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OfficeOpenXml;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-
-
 
 namespace BLL
 {
-    //    public enum goal
-    //    {
-    //      1	ירידה במשקל
-    //      2	עליה במשקל
-    //      3	חיטוב
-    //      4	העלאת מסת שריר
-    //      5	שיפור כללי
-    //    }
-    //    public enum muscle
-    //    {
-    //      1	רגליים
-    //      2	חזה
-    //      3	גב
-    //      4	כתפיים
-    //      5	יד קדמית
-    //      6	יד אחורית
-    //      7	בטן
-    //      8	זוקפי גו
-    //     }
+    public class TrainingParams
+    {
+        public List<List<object>> DayLists { get; set; }
+        public List<object> LargeMuscleList { get; set; }
+        public List<object> SmallMuscleList { get; set; }
+        public int MinRep { get; set; }
+        public int MaxRep { get; set; }
+        public int LargeMuscleCount { get; set; }
+        public Dictionary<int, int> TimeCategoryList { get; set; }
+    }
 
-    //new
     public class ProgramExerciseBLL : IProgramExerciseBLL
     {
         private readonly IMuscleDAL muscleDAL;
-        private readonly IGoalDAL goalDAL;
+        private readonly ILogger<ProgramExerciseBLL> logger;
         private readonly IMapper mapper;
-        public ProgramExerciseBLL(IMuscleDAL muscleDAL)
+
+        // Sheet names
+        private const string DaysInWeekSheet = "DaysInWeek";
+        private const string LargeMuscleSheet = "LargeMuscle";
+        private const string SmallMuscleSheet = "SmallMuscle";
+        private const string RepitByGoalSheet = "RepitByGoal";
+        private const string SumOfLargeByTimeSheet = "SumOfLargeByTime";
+        private const string CategorySheet = "Category";
+        private const string TimeCategorySheet = "TimeCategory";
+
+        public ProgramExerciseBLL(IMuscleDAL muscleDAL, ILogger<ProgramExerciseBLL> logger)
         {
             this.muscleDAL = muscleDAL;
+            this.logger = logger;
+
             var configTaskConverter = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
@@ -51,138 +51,246 @@ namespace BLL
             mapper = new Mapper(configTaskConverter);
         }
 
-        public async Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, string filePath, int daysInWeek, int goal, int level, int time)
+        
+        public async Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time)
         {
-            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            //string filePath1 = "WorkoutData.xlsx";
+            string filePath1 = @"C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\BLL\WorkoutData.xlsx";
+            var trainingParams = await GetAllParams(filePath1, daysInWeek, goal, level, time);
+
+            if (trainingParams == null)
             {
-                // פונקציית עזר למציאת גיליון
-                ExcelWorksheet GetWorksheet(string sheetName)
+                throw new Exception("Failed to retrieve training parameters.");
+            }
+
+            // Log retrieved parameters
+            logger.LogInformation("Day Lists: " + string.Join(", ", trainingParams.DayLists));
+            logger.LogInformation("Large Muscles: " + string.Join(", ", trainingParams.LargeMuscleList));
+            logger.LogInformation("Small Muscles: " + string.Join(", ", trainingParams.SmallMuscleList));
+            logger.LogInformation($"Repetitions: {trainingParams.MinRep}-{trainingParams.MaxRep}");
+            logger.LogInformation($"Large Muscle Count: {trainingParams.LargeMuscleCount}");
+            logger.LogInformation("Time Categories: " + string.Join(", ", trainingParams.TimeCategoryList));
+        }
+
+        public async Task<TrainingParams> GetAllParams(string filePath, int daysInWeek, int goal, int level, int time)
+        {
+            try
+            {
+                using (var workbook = new XLWorkbook(filePath))
                 {
-                    var worksheet = package.Workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName);
-                    if (worksheet == null)
+                    var daysWorksheet = GetWorksheet(workbook, DaysInWeekSheet);
+                    var dayLists = ExtractDayLists(daysWorksheet, daysInWeek);
+
+                    //var dayLists = new List<List<object>>();
+                    var largeMuscleWorksheet = GetWorksheet(workbook, LargeMuscleSheet);
+                    var largeMuscleList = ExtractColumnValues(largeMuscleWorksheet, 1);
+
+                    var smallMuscleWorksheet = GetWorksheet(workbook, SmallMuscleSheet);
+                    var smallMuscleList = ExtractColumnValues(smallMuscleWorksheet, 1);
+
+                    var repWorksheet = GetWorksheet(workbook, RepitByGoalSheet);
+                    int colRep = FindColumnByValue(repWorksheet, 1, goal, "Column with the specified goal not found.");
+                    int minRep = GetValueFromWorksheet(repWorksheet, "min", colRep, "Min value not found.");
+                    int maxRep = GetValueFromWorksheet(repWorksheet, "max", colRep, "Max value not found.");
+
+                    var countToMuscleWorksheet = GetWorksheet(workbook, SumOfLargeByTimeSheet);
+                    int colCount = FindColumnByValue(countToMuscleWorksheet, 1, time, "Column with the specified time not found.");
+                    int rowCount = FindRowByValue(countToMuscleWorksheet, 1, goal, "Row with the specified goal not found.");
+                    int largeMuscleCount = countToMuscleWorksheet.Cell(rowCount, colCount).GetValue<int>();
+
+                    var categoryWorksheet = GetWorksheet(workbook, CategorySheet);
+                    var timeCategoryWorksheet = GetWorksheet(workbook, TimeCategorySheet);
+                    var timeCategoryList = ExtractTimeCategoryList(timeCategoryWorksheet, daysInWeek, categoryWorksheet.RowsUsed().Count());
+
+                    return new TrainingParams
                     {
-                        Console.WriteLine($"הגיליון בשם '{sheetName}' לא נמצא.");
-                    }
-                    return worksheet;
+                        DayLists = dayLists,
+                        LargeMuscleList = largeMuscleList,
+                        SmallMuscleList = smallMuscleList,
+                        MinRep = minRep,
+                        MaxRep = maxRep,
+                        LargeMuscleCount = largeMuscleCount,
+                        TimeCategoryList = timeCategoryList
+                    };
                 }
-
-                // פונקציית עזר לקריאת ערכים מעמודה
-                List<object> GetColumnValues(ExcelWorksheet worksheet, int column)
-                {
-                    var values = new List<object>();
-                    for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
-                    {
-                        values.Add(worksheet.Cells[row, column].Value);
-                    }
-                    return values;
-                }
-
-                // יצירת רשימות של שרירים לכל יום מימי האימון
-                var daysWorksheet = GetWorksheet("DaysInWeek");
-                if (daysWorksheet == null) return;
-
-                var dayLists = new List<List<object>>();
-                for (int col = 1; col <= daysWorksheet.Dimension.End.Column; col++)
-                {
-                    if (int.Parse(daysWorksheet.Cells[1, col].Text) == daysInWeek)
-                    {
-                        dayLists.Add(GetColumnValues(daysWorksheet, col));
-                    }
-                }
-
-                // יצירת רשימה של שרירים גדולים
-                var largeMuscleWorksheet = GetWorksheet("LargeMuscle");
-                if (largeMuscleWorksheet == null) return;
-
-                var largeMuscleList = GetColumnValues(largeMuscleWorksheet, 1);
-
-                // יצירת רשימה של שרירים קטנים
-                var smallMuscleWorksheet = GetWorksheet("SmallMuscle");
-                if (smallMuscleWorksheet == null) return;
-
-                var smallMuscleList = GetColumnValues(smallMuscleWorksheet, 1);
-
-                // מספר החזרות לפי המטרה
-                var repWorksheet = GetWorksheet("RepitByGoal");
-                if (repWorksheet == null) return;
-
-                int colRep = FindColumnByValue(repWorksheet, 1, goal, "לא נמצא עמודה עם הערך GOAL בשורה 1.");
-                if (colRep == -1) return;
-
-                int minRep = GetValueFromWorksheet(repWorksheet, "min", colRep, "לא נמצא ערך 'min' בעמודה.");
-                int maxRep = GetValueFromWorksheet(repWorksheet, "max", colRep, "לא נמצא ערך 'max' בעמודה.");
-
-                // כמות השרירים
-                var countToMuscleWorksheet = GetWorksheet("SumOfLargeByTime");
-                if (countToMuscleWorksheet == null) return;
-
-                int colCount = FindColumnByValue(countToMuscleWorksheet, 1, time, "לא נמצאה עמודה עם הזמן.");
-                if (colCount == -1) return;
-
-                int rowCount = FindRowByValue(countToMuscleWorksheet, 1, goal, "לא נמצא שורה עם הערך GOAL.");
-                if (rowCount == -1) return;
-
-                int largeMuscleCount = (short)(countToMuscleWorksheet.Cells[rowCount, colCount].Value);
-
-                // דיקשינרי של קטגוריות וזמן אימון
-                var categoryWorksheet = GetWorksheet("Category");
-                if (categoryWorksheet == null) return;
-
-                int categoryCount = categoryWorksheet.Dimension.End.Row;
-
-                var timeCategoryWorksheet = GetWorksheet("TimeCategory");
-                if (timeCategoryWorksheet == null) return;
-
-                var timeCategoryList = new Dictionary<int, int>();
-                int rowTimeCategory = FindRowByValue(timeCategoryWorksheet, 1, daysInWeek, "לא נמצא שורה עם ערך הימים.");
-                if (rowTimeCategory == -1) return;
-
-                for (int colT = 2; colT <= categoryCount; colT++)
-                {
-                    timeCategoryList.Add(colT, (short)(timeCategoryWorksheet.Cells[rowTimeCategory, colT].Value));
-                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error while processing training parameters.");
+                throw;
             }
         }
 
-        // פונקציית עזר למציאת עמודה לפי ערך
-        private int FindColumnByValue(ExcelWorksheet worksheet, int headerRow, int value, string errorMessage)
+        private IXLWorksheet GetWorksheet(XLWorkbook workbook, string sheetName)
         {
-            for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+            var worksheet = workbook.Worksheet(sheetName);
+            if (worksheet == null)
             {
-                if (worksheet.Cells[headerRow, col].GetValue<int>() == value) return col;
+                logger.LogWarning($"Worksheet '{sheetName}' not found.");
+                throw new Exception($"Worksheet '{sheetName}' does not exist.");
             }
-            Console.WriteLine(errorMessage);
-            return -1;
+            return worksheet;
         }
 
-        // פונקציית עזר למציאת שורה לפי ערך
-        private int FindRowByValue(ExcelWorksheet worksheet, int column, int value, string errorMessage)
-        {
-            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
-            {
-                if (worksheet.Cells[row, column].GetValue<int>() == value) return row;
-            }
-            Console.WriteLine(errorMessage);
-            return -1;
-        }
+        //private List<List<object>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
+        //{
+        //    //var dayLists = new List<List<object>>();
+        //    //foreach (var col in worksheet.ColumnsUsed())
+        //    //{
+        //    //    if (col.Cell(1).GetValue<int>() == daysInWeek)
+        //    //    {
+        //    //        //  dayLists.Add(col.CellsUsed().Skip(1).Select(c => c.Value).ToList());
+        //    //        dayLists.Add(col.CellsUsed().Skip(1).Select(c => (object)c.Value).ToList());
+        //    //    }
+        //    //}
+        //    //return dayLists;
+        //    var dayLists = new List<List<object>>();
 
-        // פונקציית עזר לקריאת ערך לפי שורה וטקסט
-        private int GetValueFromWorksheet(ExcelWorksheet worksheet, string rowText, int column, string errorMessage)
+        //    // מציאת העמודה המתאימה לפי הערך בשורה הראשונה
+        //    foreach (var col in worksheet.ColumnsUsed())
+        //    {
+        //        if (col.FirstCell().GetValue<int>() == daysInWeek)  // בדוק את הערך בשורה הראשונה של העמודה
+        //        {
+        //            // הוסף את הערכים מהעמודה (מתחיל משורה שנייה)
+        //            dayLists.Add(col.CellsUsed().Skip(1).Select(c => (object)c.Value).ToList());
+        //        }
+        //    }
+        //    return dayLists;
+        //}
+        //private List<List<object>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
+        //{
+        //    var dayLists = new List<List<object>>();
+
+        //    foreach (var col in worksheet.ColumnsUsed())
+        //    {
+        //        // בדוק אם הערך בשורה הראשונה תואם ל-daysInWeek
+        //        if (col.FirstCell().GetValue<int>() == daysInWeek)
+        //        {
+        //            // הוסף את הערכים מהעמודה (מתחיל משורה שנייה)
+        //            dayLists.Add(col.CellsUsed().Skip(1).Select(c => (object)c.Value).ToList());
+        //        }
+        //    }
+
+        //    return dayLists;
+        //}
+        private List<List<object>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
         {
-            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
+            var dayLists = new List<List<object>>();
+
+            foreach (var col in worksheet.ColumnsUsed())
             {
-                if (worksheet.Cells[row, 1].GetValue<string>() == rowText)
+                // בדוק אם הערך בשורה הראשונה תואם ל-daysInWeek
+                if (col.FirstCell().GetValue<int>() == daysInWeek)
                 {
-                    return worksheet.Cells[row, column].GetValue<int>();
+                    // הוסף את הערכים מהעמודה (מתחיל משורה שנייה)
+                    dayLists.Add(col.CellsUsed().Skip(1).Select(c => (object)c.Value).ToList());
                 }
             }
-            Console.WriteLine(errorMessage);
-            return -1;
+
+            return dayLists;
+        }
+
+        private List<object> ExtractColumnValues(IXLWorksheet worksheet, int column)
+        {
+            return worksheet.Column(column).CellsUsed().Skip(1).Select(c => (object)c.Value).ToList();
+            //return worksheet.Column(column).CellsUsed().Skip(1).Select(c => c.Value).ToList();
+        }
+
+        private int FindColumnByValue(IXLWorksheet worksheet, int headerRow, int value, string errorMessage)
+        {
+            foreach (var col in worksheet.ColumnsUsed())
+            {
+                if (col.Cell(headerRow).GetValue<int>() == value)
+                {
+                    return col.ColumnNumber();
+                }
+            }
+            logger.LogWarning(errorMessage);
+            throw new Exception(errorMessage);
+        }
+        private int FindColumnByValueInFirstRow(IXLWorksheet worksheet, int value, string errorMessage)
+        {
+            foreach (var col in worksheet.ColumnsUsed())
+            {
+                // בדוק את הערך בשורה הראשונה של העמודה
+                if (col.FirstCell().GetValue<int>() == value)
+                {
+                    return col.ColumnNumber(); // החזר את מספר העמודה
+                }
+            }
+
+            // אם הערך לא נמצא, רשום ביומן והשלך חריגה
+            logger.LogWarning(errorMessage);
+            throw new Exception(errorMessage);
+        }
+        //private int FindColumnByValueInFirstRow(IXLWorksheet worksheet, int value, string errorMessage)
+        //{
+        //    foreach (var col in worksheet.ColumnsUsed())
+        //    {
+        //        // בדוק את הערך בשורה הראשונה של העמודה (תא ראשון בכל עמודה)
+        //        if (col.FirstCell().GetValue<int>() == value)
+        //        {
+        //            return col.ColumnNumber(); // החזר את מספר העמודה
+        //        }
+        //    }
+
+        //    // אם הערך לא נמצא, רשום ביומן והשלך חריגה
+        //    logger.LogWarning(errorMessage);
+        //    throw new Exception(errorMessage);
+        //}
+        private int FindRowByValue(IXLWorksheet worksheet, int column, int value, string errorMessage)
+        {
+            foreach (var row in worksheet.RowsUsed())
+            {
+                if (row.Cell(column).GetValue<int>() == value)
+                {
+                    return row.RowNumber();
+                }
+            }
+            logger.LogWarning(errorMessage);
+            throw new Exception(errorMessage);
+        }
+
+        private int GetValueFromWorksheet(IXLWorksheet worksheet, string rowText, int column, string errorMessage)
+        {
+            foreach (var row in worksheet.RowsUsed())
+            {
+                if (row.Cell(1).GetValue<string>() == rowText)
+                {
+                    return row.Cell(column).GetValue<int>();
+                }
+            }
+            logger.LogWarning(errorMessage);
+            throw new Exception(errorMessage);
+        }
+
+        //private Dictionary<int, int> ExtractTimeCategoryList(IXLWorksheet worksheet, int daysInWeek, int categoryCount)
+        //{
+        //    int rowTimeCategory = FindRowByValue(worksheet, 1, daysInWeek, "Row with the specified days not found.");
+        //    var timeCategoryList = new Dictionary<int, int>();
+        //    for (int colT = 2; colT <= categoryCount; colT++)
+        //    {
+        //        timeCategoryList.Add(colT, worksheet.Cell(rowTimeCategory, colT).GetValue<int>());
+        //    }
+        //    return timeCategoryList;
+        //}
+        private Dictionary<int, int> ExtractTimeCategoryList(IXLWorksheet worksheet, int daysInWeek, int categoryCount)
+        {
+            // מצא את מספר העמודה שבו נמצא daysInWeek בשורה הראשונה
+            int colTimeCategory = FindColumnByValueInFirstRow(worksheet, daysInWeek, "Column with the specified days not found.");
+            var timeCategoryList = new Dictionary<int, int>();
+
+            // עבור על כל הערכים בעמודה שנמצאת לאחר העמודה הראשונה
+            for (int row = 2; row <= categoryCount; row++)
+            {
+                timeCategoryList.Add(row, worksheet.Cell(row, colTimeCategory).GetValue<int>());
+            }
+
+            return timeCategoryList;
         }
 
         public Task<List<ProgramExerciseDTO>> GetAllProgramExercisesAsync()
         {
-
             throw new NotImplementedException();
         }
 
@@ -220,243 +328,241 @@ namespace BLL
 
 
 
-//public async Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time)
+
+
+
+
+//using AutoMapper;
+//using DBEntities.Models;
+//using DTO;
+//using IBLL;
+//using IDAL;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using OfficeOpenXml;
+//using System.IO;
+//using System.Threading.Tasks;
+//using Microsoft.Extensions.Logging;
+
+//namespace BLL
 //{
-//    // this parameter is the number of days in a week that the user wants to train
-//    int SmallMuscle;//הכמות של תרגילים לשרירים קטנים
-//    int LargeMuscle;//הכמות של תרגילים לשרירים גדולים
-//    int minRep = 0;//הכמות של חזרות מינימליות
-//    int maxRep = 0;//הכמות של חזרות המקסימליות
-//    int warm;//זמן לחימום
-//    int power;//זמן לאימון כוח
-//    int Cardio;//זמן לאירובי
-//    List<string> muscleGroups1 = new List<string>();
-//    List<string> muscleGroups2 = new List<string>();
-//    List<string> muscleGroups3 = new List<string>();
-//    List<string> muscleGroups4 = new List<string>();
-//    bool isAerobic = false;
-
-
-
-
-//    // Set the number of repetitions based on the goal
-//    switch (goal)
+//    public class TrainingParams
 //    {
-//        case 1:
-//            //load the num of repititions from the excel file in num of days is 1
-
-//            minRep = 8;
-//            maxRep = 12;
-//            break;
-//        case 2:
-//            minRep = 8;
-//            maxRep = 12;
-//            break;
-//        case 3:
-//            minRep = 6;
-//            maxRep = 8;
-//            break;
-//        case 4:
-//            minRep = 6;
-//            maxRep = 12;
-//            break;
-//        case 5:
-//            minRep = 5;
-//            maxRep = 10;
-//            break;
-//        default:
-//            throw new ArgumentException("Invalid goal");
+//        public List<List<object>> DayLists { get; set; }
+//        public List<object> LargeMuscleList { get; set; }
+//        public List<object> SmallMuscleList { get; set; }
+//        public int MinRep { get; set; }
+//        public int MaxRep { get; set; }
+//        public int LargeMuscleCount { get; set; }
+//        public Dictionary<int, int> TimeCategoryList { get; set; }
 //    }
 
-//    //list of muscles to 1-3 days
-
-//    if (daysInWeek >= 1 & daysInWeek <= 3)
+//    public class ProgramExerciseBLL : IProgramExerciseBLL
 //    {
-//        muscleGroups1.Add("רגליים");
-//        muscleGroups1.Add("חזה");
-//        muscleGroups1.Add("גב");
-//        muscleGroups1.Add("כתפיים");
-//        muscleGroups1.Add("יד קדמית");
-//        muscleGroups1.Add("יד אחורית");
-//        muscleGroups1.Add("בטן");
-//        muscleGroups1.Add("זוקפי גו");
+//        private readonly IMuscleDAL muscleDAL;
+//        private readonly ILogger<ProgramExerciseBLL> logger;
+//        private readonly IMapper mapper;
 
-//        //במידה וזמן האימון הוא 40 דקות לכל שריר גדול 2 תרגילים 
-//        //לשרירים קטנים תרגיל אחד
-//        if (time == 40)
+//        //לשנות קבועים אלא טוען מתוך האקסל
+//        private const string DaysInWeekSheet = "DaysInWeek";
+//        private const string LargeMuscleSheet = "LargeMuscle";
+//        private const string SmallMuscleSheet = "SmallMuscle";
+//        private const string RepitByGoalSheet = "RepitByGoal";
+//        private const string SumOfLargeByTimeSheet = "SumOfLargeByTime";
+//        private const string CategorySheet = "Category";
+//        private const string TimeCategorySheet = "TimeCategory";
+
+//        public ProgramExerciseBLL(IMuscleDAL muscleDAL, ILogger<ProgramExerciseBLL> logger)
 //        {
-//            SmallMuscle = 1;
-//            LargeMuscle = 2;
+//            this.muscleDAL = muscleDAL;
+//            this.logger = logger;
 
-//            warm = 5;
-//            power = 20;
-//            Cardio = 20;
-//            if (await goalDAL.GetIdOfGoalByNameAsync("עליה במשקל") == goal)
+//            var configTaskConverter = new MapperConfiguration(cfg =>
 //            {
-//                Cardio = 15;
+//                cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
+//            });
+//            mapper = new Mapper(configTaskConverter);
+//        }
+
+//        public async Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, string filePath, int daysInWeek, int goal, int level, int time)
+//        {
+//            var trainingParams = await GetAllParams(filePath, daysInWeek, goal, level, time);
+
+//            if (trainingParams == null)
+//            {
+//                throw new Exception("Failed to retrieve training parameters.");
+//            }
+
+//            // שימוש בפרמטרים שהתקבלו
+//            logger.LogInformation("Day Lists: " + string.Join(", ", trainingParams.DayLists));
+//            logger.LogInformation("Large Muscles: " + string.Join(", ", trainingParams.LargeMuscleList));
+//            logger.LogInformation("Small Muscles: " + string.Join(", ", trainingParams.SmallMuscleList));
+//            logger.LogInformation($"Repetitions: {trainingParams.MinRep}-{trainingParams.MaxRep}");
+//            logger.LogInformation($"Large Muscle Count: {trainingParams.LargeMuscleCount}");
+//            logger.LogInformation("Time Categories: " + string.Join(", ", trainingParams.TimeCategoryList));
+//        }
+
+//        public async Task<TrainingParams> GetAllParams(string filePath, int daysInWeek, int goal, int level, int time)
+//        {
+//            try
+//            {
+//                using (var package = new ExcelPackage(new FileInfo(filePath)))
+//                {
+//                    var daysWorksheet = GetWorksheet(package, DaysInWeekSheet);
+//                    var dayLists = ExtractDayLists(daysWorksheet, daysInWeek);
+
+//                    var largeMuscleWorksheet = GetWorksheet(package, LargeMuscleSheet);
+//                    var largeMuscleList = ExtractColumnValues(largeMuscleWorksheet, 1);
+
+//                    var smallMuscleWorksheet = GetWorksheet(package, SmallMuscleSheet);
+//                    var smallMuscleList = ExtractColumnValues(smallMuscleWorksheet, 1);
+
+//                    var repWorksheet = GetWorksheet(package, RepitByGoalSheet);
+//                    int colRep = FindColumnByValue(repWorksheet, 1, goal, "Column with the specified goal not found.");
+//                    int minRep = GetValueFromWorksheet(repWorksheet, "min", colRep, "Min value not found.");
+//                    int maxRep = GetValueFromWorksheet(repWorksheet, "max", colRep, "Max value not found.");
+
+//                    var countToMuscleWorksheet = GetWorksheet(package, SumOfLargeByTimeSheet);
+//                    int colCount = FindColumnByValue(countToMuscleWorksheet, 1, time, "Column with the specified time not found.");
+//                    int rowCount = FindRowByValue(countToMuscleWorksheet, 1, goal, "Row with the specified goal not found.");
+//                    int largeMuscleCount = countToMuscleWorksheet.Cells[rowCount, colCount].GetValue<int>();
+
+//                    var categoryWorksheet = GetWorksheet(package, CategorySheet);
+//                    var timeCategoryWorksheet = GetWorksheet(package, TimeCategorySheet);
+//                    var timeCategoryList = ExtractTimeCategoryList(timeCategoryWorksheet, daysInWeek, categoryWorksheet.Dimension.End.Row);
+
+//                    return new TrainingParams
+//                    {
+//                        DayLists = dayLists,
+//                        LargeMuscleList = largeMuscleList,
+//                        SmallMuscleList = smallMuscleList,
+//                        MinRep = minRep,
+//                        MaxRep = maxRep,
+//                        LargeMuscleCount = largeMuscleCount,
+//                        TimeCategoryList = timeCategoryList
+//                    };
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                logger.LogError(ex, "Error while processing training parameters.");
+//                throw;
 //            }
 //        }
-//        //במידה וזמן האימון הוא 60 דקות לכל שריר גדול 3 תרגילים
-//        //לשרירים קטנים 2 תרגילים
-//        else if (time == 60)
-//        {
-//            SmallMuscle = 2;
-//            LargeMuscle = 3;
 
-//            warm = 10;
-//            power = 40;
-//            Cardio = 40;
-//        }
-//        else
+//        private ExcelWorksheet GetWorksheet(ExcelPackage package, string sheetName)
 //        {
-//            throw new ArgumentException("Invalid time");
+//            var worksheet = package.Workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName);
+//            if (worksheet == null)
+//            {
+//                logger.LogWarning($"Worksheet '{sheetName}' not found.");
+//                throw new Exception($"Worksheet '{sheetName}' does not exist.");
+//            }
+//            return worksheet;
+//        }
+
+//        private List<List<object>> ExtractDayLists(ExcelWorksheet worksheet, int daysInWeek)
+//        {
+//            var dayLists = new List<List<object>>();
+//            for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+//            {
+//                if (int.Parse(worksheet.Cells[1, col].Text) == daysInWeek)
+//                {
+//                    dayLists.Add(ExtractColumnValues(worksheet, col));
+//                }
+//            }
+//            return dayLists;
+//        }
+
+//        private List<object> ExtractColumnValues(ExcelWorksheet worksheet, int column)
+//        {
+//            var values = new List<object>();
+//            for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+//            {
+//                values.Add(worksheet.Cells[row, column].Value);
+//            }
+//            return values;
+//        }
+
+//        private int FindColumnByValue(ExcelWorksheet worksheet, int headerRow, int value, string errorMessage)
+//        {
+//            for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+//            {
+//                if (worksheet.Cells[headerRow, col].GetValue<int>() == value) return col;
+//            }
+//            logger.LogWarning(errorMessage);
+//            throw new Exception(errorMessage);
+//        }
+
+//        private int FindRowByValue(ExcelWorksheet worksheet, int column, int value, string errorMessage)
+//        {
+//            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
+//            {
+//                if (worksheet.Cells[row, column].GetValue<int>() == value) return row;
+//            }
+//            logger.LogWarning(errorMessage);
+//            throw new Exception(errorMessage);
+//        }
+
+//        private int GetValueFromWorksheet(ExcelWorksheet worksheet, string rowText, int column, string errorMessage)
+//        {
+//            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
+//            {
+//                if (worksheet.Cells[row, 1].GetValue<string>() == rowText)
+//                {
+//                    return worksheet.Cells[row, column].GetValue<int>();
+//                }
+//            }
+//            logger.LogWarning(errorMessage);
+//            throw new Exception(errorMessage);
+//        }
+
+//        private Dictionary<int, int> ExtractTimeCategoryList(ExcelWorksheet worksheet, int daysInWeek, int categoryCount)
+//        {
+//            int rowTimeCategory = FindRowByValue(worksheet, 1, daysInWeek, "Row with the specified days not found.");
+//            var timeCategoryList = new Dictionary<int, int>();
+//            for (int colT = 2; colT <= categoryCount; colT++)
+//            {
+//                timeCategoryList.Add(colT, worksheet.Cells[rowTimeCategory, colT].GetValue<int>());
+//            }
+//            return timeCategoryList;
+//        }
+
+//        public Task<List<ProgramExerciseDTO>> GetAllProgramExercisesAsync()
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task<ProgramExerciseDTO> GetProgramExerciseByIdAsync(int id)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task<ProgramExerciseDTO> GetProgramExerciseByNameAsync(string name)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task UpdateProgramExerciseAsync(ProgramExerciseDTO programExercise, int id)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task DeleteProgramExerciseAsync(int id)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Task ReadDataFromExcelAsync(string filePath)
+//        {
+//            throw new NotImplementedException();
 //        }
 //    }
-//    else if (daysInWeek == 4)
-//    {
-//        // Add logic for 4 days
-
-//        isAerobic = true;
-//        muscleGroups1.Add("רגליים");
-//        muscleGroups3.Add("חזה");
-//        muscleGroups2.Add("גב");
-//        muscleGroups2.Add("כתפיים");
-//        muscleGroups3.Add("יד קדמית");
-//        muscleGroups3.Add("יד אחורית");
-//        muscleGroups1.Add("בטן");
-//        muscleGroups1.Add("זוקפי גו");
-
-//        //במידה וזמן האימון הוא 40 דקות לכל שריר גדול 6 תרגילים
-//        //לשרירים קטנים 2 תרגילים
-//        if (time == 40)
-//        {
-//            SmallMuscle = 2;
-//            LargeMuscle = 6;
-//        }
-//        //(לשים לב ליום 1 של אימון זה...)
-//        //במידה וזמן האימון הוא 60 דקות לכל שריר גדול 8 תרגילים
-//        //לשרירים קטנים 4 תרגילים
-//        else if (time == 60)
-//        {
-//            SmallMuscle = 4;
-//            LargeMuscle = 8;
-//        }
-//        else
-//        {
-//            throw new ArgumentException("Invalid time");
-//        }
-//    }
-//    else if (daysInWeek == 5)
-//    {
-//        // Add logic for 5 days 
-//        isAerobic = true;
-//        muscleGroups1.Add("רגליים");
-//        muscleGroups3.Add("חזה");
-//        muscleGroups2.Add("גב");
-//        muscleGroups4.Add("כתפיים");
-//        muscleGroups3.Add("יד קדמית");
-//        muscleGroups4.Add("יד אחורית");
-//        muscleGroups1.Add("בטן");
-//        muscleGroups2.Add("זוקפי גו");
-
-//        //במידה וזמן האימון הוא 40 דקות לכל שריר גדול 6 תרגילים
-//        //לשרירים קטנים 2 תרגילים
-//        if (time == 40)
-//        {
-//            SmallMuscle = 2;
-//            LargeMuscle = 6;
-//        }
-//        //(לשים לב ליום 1 של אימון זה...)
-//        //במידה וזמן האימון הוא 60 דקות לכל שריר גדול 8 תרגילים
-//        //לשרירים קטנים 4 תרגילים
-//        else if (time == 60)
-//        {
-//            SmallMuscle = 4;
-//            LargeMuscle = 8;
-//        }
-//        else
-//        {
-//            throw new ArgumentException("Invalid time");
-//        }
-//    }
-
-//    //עכשיו צריך לבחור את התרגילים ולסדר אותם לתוכנית אימון
-
 //}
-
-// This class is responsible for managing the relationship between programs and exercises.
-// It will handle adding, updating, deleting, and retrieving exercises associated with a program.
-// It will also handle the logic for assigning exercises to specific categories within a program.
-
-// Add methods to manage exercises in a program
-// For example:
-// - AddExerciseToProgram
-// - RemoveExerciseFromProgram
-// - GetExercisesByProgramId
-
-//public Task List<List<string>> DivideMuscleGroups(int daysInWeek)
-//{
-//    // This method divides the muscle groups into a list of lists based on the number of days in a week.
-//    List<List<int>> muscleGroups = new List<List<int>>();
-
-//    for (int i = 0; i < daysInWeek; i++)
-//    {
-//        List<string> muscleGroup = new List<string>();
-//        muscleGroups.Add(muscleGroup);
-//    }
-
-//    muscleGroups[0].Add( "רגליים");
-//    muscleGroups[1].Add("חזה");
-//    muscleGroups[2].Add("גב");
-//    muscleGroups[3].Add("כתפיים");
-//    muscleGroups[4].Add("יד קדמית");
-//    muscleGroups[5].Add("יד אחורית");
-//    muscleGroups[6].Add("בטן");
-//    muscleGroups[7].Add("זוקפי גו");
-
-//    return muscleGroups;
-//}
-
-
-
-//public static string[][] DivideMuscleGroups(int daysInWeek)
-//{
-
-
-//    return muscleGroups;
-//}
-
-// This method divides the muscle groups into a list of lists based on the number of days in a week.
-//    List<List<int>> muscleGroups = new List<List<int>>();
-
-//    for (int i = 0; i < daysInWeek; i++)
-//    {
-//        List<string> muscleGroup = new List<string>();
-//        muscleGroups.Add(muscleGroup);
-//    }
-
-//    muscleGroups[0].Add(muscleDAL.GetIdOfMuscleByNameAsync("רגליים"));
-//    muscleGroups[1].Add(muscleDAL.GetIdOfMuscleByNameAsync("חזה"));
-//    muscleGroups[2].Add(muscleDAL.GetIdOfMuscleByNameAsync("גב"));
-//    muscleGroups[3].Add(muscleDAL.GetIdOfMuscleByNameAsync("כתפיים"));
-//    muscleGroups[4].Add(muscleDAL.GetIdOfMuscleByNameAsync("יד קדמית"));
-//    muscleGroups[5].Add(muscleDAL.GetIdOfMuscleByNameAsync("יד אחורית"));
-//    muscleGroups[6].Add(muscleDAL.GetIdOfMuscleByNameAsync("בטן"));
-//    muscleGroups[7].Add(muscleDAL.GetIdOfMuscleByNameAsync("זוקפי גו"));
-
-
-
-//    return muscleGroups;
-//}
-
-
-//int[][] muscleGroups = new int[daysInWeek][];
-
-//muscleGroups[0][0] = muscleDAL.GetIdOfMuscleByNameAsync("רגליים");
-//muscleGroups[1][0] = muscleDAL.GetIdOfMuscleByNameAsync("חזה");
-//muscleGroups[2][0] = muscleDAL.GetIdOfMuscleByNameAsync("גב");
-//muscleGroups[3][0] = muscleDAL.GetIdOfMuscleByNameAsync("כתפיים");
-//muscleGroups[4][0] = muscleDAL.GetIdOfMuscleByNameAsync("יד קדמית");
-//muscleGroups[5][0] = muscleDAL.GetIdOfMuscleByNameAsync("יד אחורית");
-//muscleGroups[6][0] = muscleDAL.GetIdOfMuscleByNameAsync("בטן");
-//muscleGroups[7][0] = muscleDAL.GetIdOfMuscleByNameAsync("זוקפי גו");

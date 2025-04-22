@@ -112,5 +112,17 @@ namespace API.Controllers
             await exerciseBLL.AddExerciseToCategoryAsync(exercise, id);
             return Ok($"Exercise with id {id} was added to category.");
         }
+
+        [HttpGet("{id}/exercise")]
+        public async Task<ActionResult> GetCategoryOfExercise(int id)
+        {
+            var exercise = await exerciseBLL.GetExerciseByIdAsync(id);
+            if (exercise == null)
+                {
+                return NotFound($"Exercise with id {id} was not found.");
+            }
+            var category = await exerciseBLL.GetCategoryIdsOfExercise(id);
+            return Ok(category);
+        }
     }
 }

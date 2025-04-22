@@ -139,5 +139,24 @@ namespace DAL
                 }
             }
         }
+
+        public async Task<List<int>> GetCategoryIdsOfExercise(int exerciseId)
+        {
+            using (var context = new GymDbContext())
+            {
+                // בדוק אם התרגיל קיים במסד הנתונים
+                var exercise = await context.Exercises
+                    .Include(e => e.Categories) // טען את הקטגוריות שקשורות לתרגיל
+                    .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+
+                if (exercise == null)
+                {
+                    throw new Exception("Exercise not found");
+                }
+
+                // החזרת רשימת ה-IDs של הקטגוריות
+                return exercise.Categories.Select(c => c.CategoryId).ToList();
+            }
+        }
     }
 }

@@ -16,5 +16,8 @@ namespace IDAL
         Task UpdateExerciseAsync(Exercise exercise, int id);
         Task DeleteExerciseAsync(int id);
         Task AddExerciseToCategoryAsync(Exercise exercise, int categoryId);
+       // Task<int> GetCategoryOfExercise(int exerciseId);
+        Task<List<int>> GetCategoryIdsOfExercise(int exerciseId);
+
     }
 }

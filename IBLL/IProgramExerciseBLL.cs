@@ -19,6 +19,6 @@ namespace IBLL
         Task DeleteProgramExerciseAsync(int id);
 
         Task ReadDataFromExcelAsync(string filePath);
-        Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, string filePath, int daysInWeek, int goal, int level, int time);
+        Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
     }
 }

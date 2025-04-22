@@ -17,5 +17,7 @@ namespace IBLL
         Task UpdateExerciseAsync(ExerciseDTO exercise, int id);
         Task DeleteExerciseAsync(int id);
         Task AddExerciseToCategoryAsync(ExerciseDTO exercise, int categoryId);
+        //Task<int> GetCategoryOfExercise(int exerciseId);
+        Task<List<int>> GetCategoryIdsOfExercise(int exerciseId);
     }
 }

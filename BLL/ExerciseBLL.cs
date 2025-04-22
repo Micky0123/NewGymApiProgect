@@ -68,5 +68,12 @@ namespace BLL
             Exercise exercise1 = mapper.Map<Exercise>(exercise);
             await exerciseDAL.AddExerciseToCategoryAsync(exercise1,categoryId);
         }
+        public async Task<List<int>> GetCategoryIdsOfExercise(int exerciseId)
+        {
+            var cat = await exerciseDAL.GetCategoryIdsOfExercise(exerciseId);
+            // למשל: אפשר לסנן קטגוריות שלא פעילות
+            // categories = categories.Where(c => c.IsActive).ToList();
+            return mapper.Map<List<int>>(cat);
+        }
     }
 }
