@@ -170,6 +170,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Castle.Windsor": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "ClosedXML": {
               "target": "Package",
               "version": "[0.104.2, )"
@@ -177,6 +181,14 @@
             "EPPlus": {
               "target": "Package",
               "version": "[8.0.2, )"
+            },
+            "Microsoft.Azure.Management.ResourceManager.Fluent": {
+              "target": "Package",
+              "version": "[1.38.1, )"
+            },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[5.77.0, )"
             },
             "automapper": {
               "target": "Package",

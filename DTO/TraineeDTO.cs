@@ -18,12 +18,7 @@ namespace DTO
             מתחיל = 1,
             מתקדם
         }
-        //public enum ETrainingDuration
-        //{
-        //    40-60 =1,
-        //    60-90
 
-        //}
 
         public int TraineeId { get; set; }
 

@@ -14,11 +14,12 @@ public partial class ProgramExercise
     public int? ProgramSets { get; set; }
 
     public int? ProgramRepetitionsMin { get; set; }
-    public int? ProgramRepetitionsMax { get; set; }
 
     public decimal? ProgramWeight { get; set; }
 
     public int? ExerciseOrder { get; set; }
+
+    public int? ProgramRepetitionsMax { get; set; }
 
     public virtual Exercise Exercise { get; set; } = null!;
 

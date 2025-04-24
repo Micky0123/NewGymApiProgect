@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="automapper" Version="14.0.0" />
+    <PackageReference Include="Castle.Windsor" Version="6.0.0" />
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="EPPlus" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.38.1" />
+    <PackageReference Include="Microsoft.Graph" Version="5.77.0" />
   </ItemGroup>
 
   <ItemGroup>

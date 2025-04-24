@@ -271,7 +271,6 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.TraineeHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.TraineeName).HasMaxLength(100);
             entity.Property(e => e.TraineeWeight).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.TrainingDuration).HasMaxLength(7);
 
             entity.HasMany(d => d.Goals).WithMany(p => p.Trainees)
                 .UsingEntity<Dictionary<string, object>>(

@@ -70,6 +70,7 @@ namespace API.Controllers
                 FitnessLevel = trainee.FitnessLevel,
                 TrainingDays = trainee.TrainingDays,
                 GoalId = trainee.GoalId,
+                TrainingDuration = trainee.TrainingDuration,
                 LoginDateTime=DateTime.Now
                 // Do not set a value for ID, it will be automatically assigned
             };
