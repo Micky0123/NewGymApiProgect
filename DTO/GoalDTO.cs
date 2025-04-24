@@ -11,5 +11,7 @@ namespace DTO
         public int GoalId { get; set; }
 
         public string GoalName { get; set; }
+        public bool Active { get; set; }
+
     }
 }

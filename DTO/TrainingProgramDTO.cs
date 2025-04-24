@@ -17,5 +17,11 @@ namespace DTO
         public DateTime CreationDate { get; set; }
 
         public DateTime TrainingDateTime { get; set; }
+        public DateTime? LastUpdateDate { get; set; }
+
+        public bool? IsDefaultProgram { get; set; }
+
+        public int? ParentProgramId { get; set; }
+
     }
 }

@@ -11,6 +11,6 @@ namespace DTO
         public int ExerciseId { get; set; }
 
         public string ExerciseName { get; set; }
-        //
+        public bool Active { get; set; }
     }
 }

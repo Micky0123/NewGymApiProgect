@@ -9,6 +9,8 @@ public partial class Exercise
 
     public string? ExerciseName { get; set; }
 
+    public bool? Active { get; set; }
+
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();

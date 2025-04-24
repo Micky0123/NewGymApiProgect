@@ -9,5 +9,7 @@ public partial class Goal
 
     public string? GoalName { get; set; }
 
+    public bool? Active { get; set; }
+
     public virtual ICollection<Trainee> Trainees { get; set; } = new List<Trainee>();
 }

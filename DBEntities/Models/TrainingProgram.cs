@@ -15,6 +15,18 @@ public partial class TrainingProgram
 
     public DateTime TrainingDateTime { get; set; }
 
+    public DateTime? LastUpdateDate { get; set; }
+
+    public bool? IsDefaultProgram { get; set; }
+
+    public int? ParentProgramId { get; set; }
+
+    public virtual ICollection<TrainingProgram> InverseParentProgram { get; set; } = new List<TrainingProgram>();
+
+    public virtual TrainingProgram? ParentProgram { get; set; }
+
+    public virtual ICollection<ProgramChange> ProgramChanges { get; set; } = new List<ProgramChange>();
+
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
 
     public virtual Trainee Trainee { get; set; } = null!;

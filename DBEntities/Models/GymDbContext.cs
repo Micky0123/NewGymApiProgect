@@ -27,6 +27,8 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Muscle> Muscles { get; set; }
 
+    public virtual DbSet<ProgramChange> ProgramChanges { get; set; }
+
     public virtual DbSet<ProgramExercise> ProgramExercises { get; set; }
 
     public virtual DbSet<Size> Sizes { get; set; }
@@ -209,6 +211,18 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.MuscleName).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<ProgramChange>(entity =>
+        {
+            entity.HasKey(e => e.ProgramChangeId).HasName("PK__ProgramC__8A8339333BADB3F6");
+
+            entity.Property(e => e.ChangeDateTime).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Program).WithMany(p => p.ProgramChanges)
+                .HasForeignKey(d => d.ProgramId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ProgramCh__Progr__7C1A6C5A");
+        });
+
         modelBuilder.Entity<ProgramExercise>(entity =>
         {
             entity.HasKey(e => e.ProgramExerciseId).HasName("PK__ProgramE__217C745EB399FA4A");
@@ -305,9 +319,15 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
+            entity.Property(e => e.IsDefaultProgram).HasDefaultValue(false);
+            entity.Property(e => e.LastUpdateDate).HasColumnType("datetime");
             entity.Property(e => e.ProgramName).HasMaxLength(100);
             entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
             entity.Property(e => e.TrainingDateTime).HasColumnType("datetime");
+
+            entity.HasOne(d => d.ParentProgram).WithMany(p => p.InverseParentProgram)
+                .HasForeignKey(d => d.ParentProgramId)
+                .HasConstraintName("FK_TrainingProgram_Parent");
 
             entity.HasOne(d => d.Trainee).WithMany(p => p.TrainingPrograms)
                 .HasForeignKey(d => d.TraineeId)
