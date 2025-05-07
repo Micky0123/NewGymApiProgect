@@ -1,6 +1,8 @@
 ﻿using DBEntities.Models;
+using IBLL;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,12 @@ namespace DAL
 {
     public class MuscleDAL : IMuscleDAL
     {
+        private readonly ILogger<MuscleDAL> logger;
+
+        public MuscleDAL(ILogger<MuscleDAL> logger)
+        {
+            this.logger = logger;
+        }
         public async Task AddMuscleAsync(Muscle muscle)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -64,7 +72,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                var mu= await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == name);
+                var mu = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == name);
                 if (mu == null)
                 {
                     throw new Exception("Muscle not found");
@@ -155,6 +163,104 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Error updating ProgramExercise", ex);
+            }
+        }
+        public async Task<List<Exercise>> GetExercisesForMuscleByCategoryAsync(string muscleName, string categoryName)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת השריר מתוך הטבלה Muscles
+                var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+
+                if (muscle == null)
+                {
+                    throw new Exception($"Muscle '{muscleName}' not found.");
+                }
+
+                // שליפת הקטגוריה מתוך הטבלה Categories
+                var category = await ctx.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
+                if (category == null)
+                {
+                    throw new Exception($"Category '{categoryName}' not found.");
+                }
+
+                // שליפת כל התרגילים הקשורים לשריר ולקטגוריה
+                var exercises = await ctx.Exercises
+                    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) && e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
+                    .ToListAsync();
+                return exercises;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating ProgramExercise", ex);
+            }
+
+        }
+        public async Task<List<Exercise>> GetExercisesForMuscleAndCategoryAsync(string muscleName, string categoryName)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            //try
+            //{
+            //    // שליפת השריר מתוך הטבלה Muscles
+            //    var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+
+            //    if (muscle == null)
+            //    {
+            //        throw new Exception($"Muscle '{muscleName}' not found.");
+            //    }
+
+            //    // שליפת הקטגוריה מתוך הטבלה Categories
+            //    var category = await ctx.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
+
+            //    if (category == null)
+            //    {
+            //        throw new Exception($"Category '{categoryName}' not found.");
+            //    }
+
+            //    // שליפת כל התרגילים הקשורים לשריר ולקטגוריה
+            //    var exercises = await ctx.Exercises
+            //        .Where(e =>
+            //            e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+            //            e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
+            //        .ToListAsync();
+
+            //    return exercises;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("Error retrieving exercises for muscle and category", ex);
+            //}
+            try
+            {
+                var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+                if (muscle == null)
+                {
+                    logger.LogWarning($"Muscle '{muscleName}' not found.");
+                    throw new Exception($"Muscle '{muscleName}' not found.");
+                }
+
+                var category = await ctx.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
+                if (category == null)
+                {
+                    logger.LogWarning($"Category '{categoryName}' not found.");
+                    throw new Exception($"Category '{categoryName}' not found.");
+                }
+
+                var exercises = await ctx.Exercises
+                    .Where(e =>
+                        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                        e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
+                .ToListAsync();
+
+                logger.LogInformation($"Found {exercises.Count} exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
+
+                return exercises;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error retrieving exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
+                throw;
             }
         }
     }

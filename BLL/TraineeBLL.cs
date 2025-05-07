@@ -26,6 +26,7 @@ namespace BLL
         }
         public async Task AddTraineeAsync(TraineeDTO Trainee)
         {
+
             Trainee trainee1 = mapper.Map<Trainee>(Trainee);
             await traineeDAL.AddTraineeAsync(trainee1);
         }

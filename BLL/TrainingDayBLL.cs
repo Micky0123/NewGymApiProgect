@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class TrainingDayBLL:ITrainingDayBLL
+    public class TrainingDayBLL : ITrainingDayBLL
     {
         private readonly ITrainingDayDAL trainingDayDAL;
         private readonly IMapper mapper;
@@ -25,36 +25,39 @@ namespace BLL
             mapper = new Mapper(configTaskConverter);
         }
 
-        public Task AddTrainingDayAsync(TrainingDayDTO trainingDay)
+        public async Task AddTrainingDayAsync(TrainingDayDTO trainingDay)
         {
-            throw new NotImplementedException();
+            TrainingDay trainingDayEntity = mapper.Map<TrainingDay>(trainingDay);
+            await trainingDayDAL.AddTrainingDayAsync(trainingDayEntity);
         }
 
-
-        public Task DeleteTrainingDayAsync(int id)
+        public async Task DeleteTrainingDayAsync(int id)
         {
-            throw new NotImplementedException();
+            await trainingDayDAL.DeleteTrainingDayAsync(id);
         }
 
-        public Task<List<TrainingDayDTO>> GetAllTrainingDaysAsync()
+        public async Task<List<TrainingDayDTO>> GetAllTrainingDaysAsync()
         {
-            throw new NotImplementedException();
+            var list = await trainingDayDAL.GetAllTrainingDaysAsync();
+            return mapper.Map<List<TrainingDayDTO>>(list);
         }
 
-        public Task<TrainingDayDTO> GetTrainingDayByIdAsync(int id)
+        public async Task<TrainingDayDTO> GetTrainingDayByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            TrainingDay trainingDay = await trainingDayDAL.GetTrainingDayByIdAsync(id);
+            return mapper.Map<TrainingDayDTO>(trainingDay);
         }
 
-        public Task<TrainingDayDTO> GetTrainingDayByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<TrainingDayDTO> GetTrainingDayByNameAsync(string name)
+        //{
+        //    TrainingDay trainingDay = await trainingDayDAL.GetTrainingDayByNameAsync(name);
+        //    return mapper.Map<TrainingDayDTO>(trainingDay);
+        //}
 
-
-        public Task UpdateTrainingDayAsync(TrainingDayDTO trainingDay, int id)
+        public async Task UpdateTrainingDayAsync(TrainingDayDTO trainingDay, int id)
         {
-            throw new NotImplementedException();
+            TrainingDay trainingDayEntity = mapper.Map<TrainingDay>(trainingDay);
+            await trainingDayDAL.UpdateTrainingDayAsync(trainingDayEntity, id);
         }
     }
 }

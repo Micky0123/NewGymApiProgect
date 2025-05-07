@@ -21,11 +21,15 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Exercise> Exercises { get; set; }
 
+    public virtual DbSet<FitnessLevel> FitnessLevels { get; set; }
+
     public virtual DbSet<Goal> Goals { get; set; }
 
     public virtual DbSet<Joint> Joints { get; set; }
 
     public virtual DbSet<Muscle> Muscles { get; set; }
+
+    public virtual DbSet<MuscleType> MuscleTypes { get; set; }
 
     public virtual DbSet<ProgramChange> ProgramChanges { get; set; }
 
@@ -38,6 +42,8 @@ public partial class GymDbContext : DbContext
     public virtual DbSet<Trainee> Trainees { get; set; }
 
     public virtual DbSet<TrainingDay> TrainingDays { get; set; }
+
+    public virtual DbSet<TrainingDuration> TrainingDurations { get; set; }
 
     public virtual DbSet<TrainingProgram> TrainingPrograms { get; set; }
 
@@ -146,6 +152,24 @@ public partial class GymDbContext : DbContext
                         j.IndexerProperty<int>("MuscleGroupId").HasColumnName("MuscleGroupID");
                     });
 
+            entity.HasMany(d => d.MuscleTypes).WithMany(p => p.Exercises)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ExerciseMuscleType",
+                    r => r.HasOne<MuscleType>().WithMany()
+                        .HasForeignKey("MuscleTypeId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_ExerciseMuscleTypes_MuscleTypes"),
+                    l => l.HasOne<Exercise>().WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_ExerciseMuscleTypes_Exercises"),
+                    j =>
+                    {
+                        j.HasKey("ExerciseId", "MuscleTypeId").HasName("PK__Exercise__D58AEA2909ACDA81");
+                        j.ToTable("ExerciseMuscleTypes");
+                        j.IndexerProperty<int>("ExerciseId").HasColumnName("ExerciseID");
+                    });
+
             entity.HasMany(d => d.Muscles).WithMany(p => p.Exercises)
                 .UsingEntity<Dictionary<string, object>>(
                     "ExerciseMuscle",
@@ -185,6 +209,17 @@ public partial class GymDbContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<FitnessLevel>(entity =>
+        {
+            entity.HasKey(e => e.FitnessLevelId).HasName("PK__FitnessL__A30B549EDFB241BA");
+
+            entity.ToTable("FitnessLevel");
+
+            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
+            entity.Property(e => e.Description).HasMaxLength(50);
+            entity.Property(e => e.FitnessLevelName).HasMaxLength(10);
+        });
+
         modelBuilder.Entity<Goal>(entity =>
         {
             entity.HasKey(e => e.GoalId).HasName("PK__Goal__8A4FFF3167EB44C3");
@@ -209,6 +244,15 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
             entity.Property(e => e.MuscleName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<MuscleType>(entity =>
+        {
+            entity.HasKey(e => e.MuscleTypeId).HasName("PK__MuscleTy__5FE4726626BD5844");
+
+            entity.Property(e => e.MuscleTypeName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<ProgramChange>(entity =>
@@ -273,7 +317,7 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
             entity.Property(e => e.Email).HasMaxLength(50);
-            entity.Property(e => e.FitnessLevel).HasMaxLength(10);
+            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
             entity.Property(e => e.Gender).HasMaxLength(6);
             entity.Property(e => e.GoalId).HasColumnName("GoalID");
             entity.Property(e => e.Idnumber)
@@ -285,6 +329,14 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.TraineeHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.TraineeName).HasMaxLength(100);
             entity.Property(e => e.TraineeWeight).HasColumnType("decimal(5, 2)");
+
+            entity.HasOne(d => d.FitnessLevel).WithMany(p => p.Trainees)
+                .HasForeignKey(d => d.FitnessLevelId)
+                .HasConstraintName("FK_Trainee_FitnessLevel");
+
+            entity.HasOne(d => d.TimeTrainingDurationNavigation).WithMany(p => p.Trainees)
+                .HasForeignKey(d => d.TimeTrainingDuration)
+                .HasConstraintName("FK_Trainees_TrainingDuration");
 
             entity.HasMany(d => d.Goals).WithMany(p => p.Trainees)
                 .UsingEntity<Dictionary<string, object>>(
@@ -311,6 +363,15 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.TrainingDaysId).HasName("PK__Training__3991020463F29237");
 
             entity.Property(e => e.TrainingDaysId).HasColumnName("TrainingDaysID");
+        });
+
+        modelBuilder.Entity<TrainingDuration>(entity =>
+        {
+            entity.HasKey(e => e.TrainingDurationId).HasName("PK__Training__EC863E0E8599230F");
+
+            entity.ToTable("TrainingDuration");
+
+            entity.Property(e => e.TrainingDurationId).HasColumnName("TrainingDurationID");
         });
 
         modelBuilder.Entity<TrainingProgram>(entity =>

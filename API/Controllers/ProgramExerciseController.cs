@@ -42,6 +42,32 @@ namespace API.Controllers
 
         // פעולה חדשה: הוספת תוכנית אימון
         [HttpPost("AddProgramExercise")]
+        //public async Task<IActionResult> AddProgramExerciseAsync([FromBody] ProgramExerciseRequest request)
+        //{
+        //    if (request == null)
+        //    {
+        //        return BadRequest("Invalid request data.");
+        //    }
+
+        //    try
+        //    {
+        //        var programExercise = new ProgramExerciseDTO
+        //        {
+        //            // הנח שצריך לעדכן נתונים מ-ProgramExerciseRequest ל-ProgramExerciseDTO
+        //            // הוספת שדות לפי הצורך
+        //        };
+        //        string filePath = "WorkoutData.xlsx";
+        //         programExerciseBLL.AddProgramExerciseAsync(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time);
+        //        //  var result =  await programExerciseBLL.AddProgramExerciseAsync(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time);
+        //        // return Ok(result);
+        //        //return Ok("Program exercise added successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"An error occurred: {ex.Message}");
+        //    }
+        //}
+
         public async Task<IActionResult> AddProgramExerciseAsync([FromBody] ProgramExerciseRequest request)
         {
             if (request == null)
@@ -57,7 +83,7 @@ namespace API.Controllers
                     // הוספת שדות לפי הצורך
                 };
                 string filePath = "WorkoutData.xlsx";
-                await programExerciseBLL.AddProgramExerciseAsync(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time);
+                await programExerciseBLL.addProgramExerciseAsync1(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time);
                 return Ok("Program exercise added successfully.");
             }
             catch (Exception ex)

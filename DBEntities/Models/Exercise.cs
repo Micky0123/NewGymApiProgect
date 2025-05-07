@@ -21,6 +21,8 @@ public partial class Exercise
 
     public virtual ICollection<Size> MuscleGroups { get; set; } = new List<Size>();
 
+    public virtual ICollection<MuscleType> MuscleTypes { get; set; } = new List<MuscleType>();
+
     public virtual ICollection<Muscle> Muscles { get; set; } = new List<Muscle>();
 
     public virtual ICollection<SubMuscle> SubMuscles { get; set; } = new List<SubMuscle>();

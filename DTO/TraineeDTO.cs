@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBEntities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,11 @@ namespace DTO
             זכר=1,
             נקבה
         }
-        public enum EFitnessLevel 
-        {
-            מתחיל = 1,
-            מתקדם
-        }
+        //public enum EFitnessLevel 
+        //{
+        //    מתחיל = 1,
+        //    מתקדם
+        //}
 
 
         public int TraineeId { get; set; }
@@ -42,8 +43,6 @@ namespace DTO
 
         public string Password { get; set; } = null!;
 
-        public EFitnessLevel FitnessLevel { get; set; }
-
         public int TrainingDays { get; set; }
 
         public int TrainingDuration { get; set; }
@@ -51,5 +50,7 @@ namespace DTO
         public int GoalId { get; set; }
 
         public DateTime LoginDateTime { get; set; }
+        public int FitnessLevelId { get; set; }
+
     }
 }

@@ -1,43 +1,111 @@
 ﻿using DBEntities.Models;
 using IDAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL
 {
     public class EquipmentDAL : IEquipmentDAL
     {
-        public Task AddEquipmentAsync(Equipment equipment)
+        public async Task AddEquipmentAsync(Equipment equipment)
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                await ctx.Equipment.AddAsync(equipment);
+                await ctx.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding new Equipment", ex);
+            }
         }
 
-        public Task DeleteEquipmentAsync(int id)
+        public async Task DeleteEquipmentAsync(int id)
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var equipment = await ctx.Equipment.FindAsync(id);
+                if (equipment == null)
+                {
+                    throw new Exception("Equipment not found");
+                }
+
+                ctx.Equipment.Remove(equipment);
+                await ctx.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting Equipment", ex);
+            }
         }
 
-        public Task<List<Equipment>> GetAllEquipmentsAsync()
+        public async Task<List<Equipment>> GetAllEquipmentsAsync()
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.Equipment.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving all Equipments", ex);
+            }
         }
 
-        public Task<Equipment> GetEquipmentByIdAsync(int id)
+        public async Task<Equipment> GetEquipmentByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var equipment = await ctx.Equipment.FindAsync(id);
+                if (equipment == null)
+                {
+                    throw new Exception("Equipment not found");
+                }
+                return equipment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Equipment by ID", ex);
+            }
         }
 
-        public Task<Equipment> GetEquipmentByNameAsync(string name)
+        public async Task<Equipment> GetEquipmentByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.Equipment.FirstOrDefaultAsync(e => e.EquipmentName == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Equipment by name", ex);
+            }
         }
 
-        public Task UpdateEquipmentAsync(Equipment equipment, int id)
+        public async Task UpdateEquipmentAsync(Equipment equipment, int id)
         {
-            throw new NotImplementedException();
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var existingEquipment = await ctx.Equipment.FindAsync(id);
+                if (existingEquipment == null)
+                {
+                    throw new Exception("Equipment not found");
+                }
+
+                existingEquipment.EquipmentName = equipment.EquipmentName;
+                await ctx.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating Equipment", ex);
+            }
         }
     }
 }

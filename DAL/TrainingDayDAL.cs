@@ -71,19 +71,6 @@ namespace DAL
             }
         }
 
-        //public async Task<TrainingDay> GetTrainingDayByNameAsync(string name)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.TrainingDays.FirstOrDefaultAsync(t => t.MinNumberDays == name);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error retrieving TrainingDay by name", ex);
-        //    }
-        //}
-
         public async Task UpdateTrainingDayAsync(TrainingDay trainingDay, int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -95,7 +82,6 @@ namespace DAL
                     throw new Exception("TrainingDay not found");
                 }
 
-               // existingTrainingDay.TrainingDayName = trainingDay.TrainingDayName;
                 await ctx.SaveChangesAsync();
             }
             catch (Exception ex)

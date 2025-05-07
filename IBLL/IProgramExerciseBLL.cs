@@ -20,6 +20,8 @@ namespace IBLL
         Dictionary<int, int> TimeCategoryList { get; set; }
         List<object> OrderOfMuscle { get; set; }
     }
+
+
     public interface IProgramExerciseBLL
     {
         
@@ -32,8 +34,11 @@ namespace IBLL
         Task DeleteProgramExerciseAsync(int id);
 
         Task ReadDataFromExcelAsync(string filePath);
-        Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
+       // Task<List<List<ExerciseDTO>>> AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
+        Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
         Task<List<ExerciseDTO>> GetExercisesForMuscleAsync(string muscleName, int count);
-        Task<List<List<ExerciseDTO>>> GenerateExercisePlanAsync(TrainingParams trainingParams);
+        // Task<List<List<ExerciseDTO>>> GenerateExercisePlanAsync(TrainingParams trainingParams);
+
+    //    Task<List<List<List<ExerciseDTO>>>> GenerateExercisePlanAsync(TrainingParams trainingParams);
     }
 }
