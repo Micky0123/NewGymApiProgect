@@ -17,7 +17,12 @@ namespace IDAL
         Task UpdateMuscleAsync(Muscle muscle, int id);
         Task DeleteMuscleAsync(int id);
         Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName);
+        Task<List<Exercise>> GetExercisesForSubMuscleAsync(string subMuscleName);
         Task<List<Exercise>> GetExercisesForMuscleByCategoryAsync(string muscleName, string categoryName);
         Task<List<Exercise>> GetExercisesForMuscleAndCategoryAsync(string muscleName, string categoryName);
+        // Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string typeMuscle);
+        Task <List<SubMuscle>> GetSubMusclesOfMuscaleAsync(Muscle muscle);
+        Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string TypeMuscle);
+
     }
 }
