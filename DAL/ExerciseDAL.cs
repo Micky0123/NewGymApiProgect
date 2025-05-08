@@ -158,5 +158,50 @@ namespace DAL
                 return exercise.Categories.Select(c => c.CategoryId).ToList();
             }
         }
+        public async Task<List<Equipment>> GetEquipmentByExercisesIdAsync(List<int> exerciseIds)
+        {
+            using (var context = new GymDbContext())
+            {
+                return await context.Exercises
+                    .Where(e => exerciseIds.Contains(e.ExerciseId))
+                    .SelectMany(e => e.Equipment)
+                    .ToListAsync();
+            }
+        }
+        public async Task<List<Exercise>> GetExercisesBy(string muscleName, string TypeMuscle)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת השריר מתוך הטבלה Muscles
+                var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+                if (muscle == null)
+                {
+                    throw new Exception($"Muscle '{muscleName}' not found.");
+                }
+
+                var muscleType = await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == TypeMuscle);
+                if (muscleType == null)
+                {
+                    throw new Exception($"TypeMuscle '{TypeMuscle}' not found.");
+                }
+                // שליפת כל התרגילים הקשורים לשריר ולסוג שריר
+                //var exercises = await ctx.Exercises
+                //    .Where
+                //    (e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId)
+                //    && e.MuscleTypes == muscleType)
+                //    .ToListAsync();
+                var exercises = await ctx.Exercises
+                   .Where(e =>
+                       e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                       e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId))
+               .ToListAsync();
+                return exercises;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving exercises for muscle and type", ex);
+            }
+        }
     }
 }
