@@ -20,7 +20,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error adding new Equipment", ex);
+                throw new Exception($"Error adding new Equipment{equipment.EquipmentName}", ex);
             }
         }
 

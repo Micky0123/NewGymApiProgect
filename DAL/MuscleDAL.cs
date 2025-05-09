@@ -263,18 +263,19 @@ namespace DAL
                 throw;
             }
         }
-        public async Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string TypeMuscle,List<int>equipmentIds)
+        public async Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string TypeMuscle, List<int> equipmentIds)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
                 // שליפת השריר מתוך הטבלה Muscles
                 var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
-                if (muscle == null) {
+                if (muscle == null)
+                {
                     throw new Exception($"Muscle '{muscleName}' not found.");
                 }
 
-                var muscleType= await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == TypeMuscle);
+                var muscleType = await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == TypeMuscle);
                 if (muscleType == null)
                 {
                     throw new Exception($"TypeMuscle '{TypeMuscle}' not found.");
@@ -289,13 +290,13 @@ namespace DAL
                 //        throw new Exception($"Equipment '{equipmentIds[i]}' not found.");
                 //    }
                 //}
-               
-               // var exercises = await ctx.Exercises
-               //    .Where(e =>
-               //        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-               //        e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
-               //        e.Equipment.Any < ec => ec.EquipmentId == equipment.EquipmentId))
-               //.ToListAsync();
+
+                // var exercises = await ctx.Exercises
+                //    .Where(e =>
+                //        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                //        e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
+                //        e.Equipment.Any < ec => ec.EquipmentId == equipment.EquipmentId))
+                //.ToListAsync();
                 var exercises = await ctx.Exercises
                 .Where(e =>
                     e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
@@ -397,7 +398,7 @@ namespace DAL
         public async Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName)
         {
             using GymDbContext ctx = new GymDbContext();
-                try
+            try
             {
                 // שליפת השריר הראשי לפי שם השריר
                 var muscle = await ctx.Muscles
@@ -418,7 +419,7 @@ namespace DAL
             catch (Exception ex)
             {
                 // כתיבת שגיאות ללוג
-                //_logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
+                logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
                 throw;
             }
         }

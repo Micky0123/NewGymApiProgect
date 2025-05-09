@@ -18,8 +18,11 @@ namespace BLL
 {
     public class DayEntry
     {
+        //קטגוריה
         public string Key { get; set; }
+        //מספר התרגילים לשריר 
         public int Values { get; set; }
+        //שם השריר
         public string Name { get; set; }
     }
 
@@ -31,12 +34,9 @@ namespace BLL
         public int MaxRep { get; set; }
         public Dictionary<(string Category, string MuscleSize), int> TimeCategories { get; set; }
         public List<string> TypMuscle { get; set; }//רשימה של סוגי שרירים
-        public List<Dictionary<int, List<string>>> TypeMuscleData { get; set; }
+        public List<Dictionary<int, List<string>>> TypeMuscleData { get; set; }//רשימה של סוגי השרירים לאימון מסודרת לפי חשיבות
         public List<string> equipment { get; set; }//רשימה של ציוד למתאמן
-
-        //*******************************************
-        public List<SubMuscleDTO> SubMuscleList { get; set; }
-        public List<string> NeedSubMuscleList { get; set; }
+        public List<string> NeedSubMuscleList { get; set; }//רשימה של סוגי השרירים שצריכים תת שריר
 
     }
 
@@ -50,7 +50,6 @@ namespace BLL
         private readonly IMapper mapper;
 
         // Sheet names
-
         //**********מיכלוש שימי לב שצריך לקבל את השמות ושהם לא יהיו קבועים//****************************
         private const string DaysInWeekSheet = "List1";
         private const string MuscleSheet = "MuscleSize";
@@ -62,10 +61,6 @@ namespace BLL
         private const string TypMuscleSheet = "MuscleType";
         private const string EquipmentSheet = "Equipment";
         private const string NeedSubMuscleSheet = "NeedSubMuscle";
-
-
-
-
         public ProgramExerciseBLL(IMuscleDAL muscleDAL, ILogger<ProgramExerciseBLL> logger, IMuscleTypeDAL muscleTypeDAL, IEquipmentDAL equipmentDAL, IExerciseDAL exerciseDAL)
         {
             this.muscleDAL = muscleDAL;
@@ -81,7 +76,6 @@ namespace BLL
             mapper = new Mapper(configTaskConverter);
             this.exerciseDAL = exerciseDAL;
         }
-
 
         public async Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time)
         {
@@ -109,16 +103,6 @@ namespace BLL
             }
 
             trainingParams.DayLists = trainingParams.DayLists.Select(list => list.Where(de => de.Values != 0).ToList()).ToList();
-
-            // הדפסת רשימות השרירים לכל יום ולכל עמודה
-            //for (int i = 0; i < trainingParams.DayLists.Count; i++)
-            //{
-            //    logger.LogInformation($"Day List {i + 1}:");
-            //    foreach (var entry in trainingParams.DayLists[i])
-            //    {
-            //        logger.LogInformation($"Key: {entry.Key}, Values: {entry.Values}");
-            //    }
-            //}
             for (int i = 0; i < trainingParams.DayLists.Count; i++)
             {
                 // הדפסת הכותרת של DayList
@@ -130,19 +114,7 @@ namespace BLL
                     // הדפסת ה-Key וה-Values
                     logger.LogInformation($"Key: {entry.Key}, Values: {entry.Values}");
                 }
-                //  logger.LogInformation($"Number of DayLists: {trainingParams.DayLists.Count}");
-                //foreach (var dayList in trainingParams.DayLists)
-                //{
-                //    logger.LogInformation($"Number of entries in this DayList: {dayList.Count}");
-                //}
             }
-            // הדפסת כל גדלי השרירים ורשימות השרירים שלהם
-            //foreach (var muscleSize in trainingParams.MuscleSizeData)
-            //{
-            //    logger.LogInformation($"Muscle Size: {muscleSize.Key}");
-            //    logger.LogInformation("Muscles: " + string.Join(", ", muscleSize.Value));
-            //}
-
             // הדפסת מספר החזרות
             logger.LogInformation($"Repetitions: {trainingParams.MinRep}-{trainingParams.MaxRep}");
 
@@ -159,9 +131,7 @@ namespace BLL
             }
             logger.LogInformation("List of Need SubMuscle: " + string.Join(", ", trainingParams.NeedSubMuscleList));
             logger.LogInformation("List of equipment: " + string.Join(", ", trainingParams.equipment));
-            // כאן ניתן להוסיף קריאה ל-GenerateExercisePlanAsync אם יש צורך
             // var exercisePlan = await GenerateExercisePlanAsync(trainingParams);
-
             ///// await GenerateExercisePlanAndLogAsync(trainingParams);
             //   await GenerateExercisePlanWithEquipmentAsync(trainingParams);
             await GenerateOptimizedExercisePlanAsync(trainingParams);
@@ -216,7 +186,7 @@ namespace BLL
                         TimeCategories = categoryMuscleSizeData,
                         TypeMuscleData = typMuscleData,
                         equipment = equipmentData,
-                        NeedSubMuscleList=muscleTypeData,
+                        NeedSubMuscleList = muscleTypeData,
 
                     };
                 }
@@ -265,46 +235,6 @@ namespace BLL
             }
             return worksheet;
         }
-
-        private List<List<DayEntry>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
-        {
-            var dayLists = new List<List<DayEntry>>(); // רשימה של רשימות DayEntry
-
-            // מציאת העמודות בשורה הראשונה (Header) עם הערך daysInWeek
-            var matchingColumns = worksheet.Row(1).CellsUsed()
-                .Where(cell => cell.GetValue<int>() == daysInWeek)
-                .Select(cell => cell.Address.ColumnNumber)
-                .ToList();
-
-            // עבור כל עמודה שמתאימה לערך daysInWeek
-            foreach (var col in matchingColumns)
-            {
-                var dayEntries = new List<DayEntry>(); // רשימה עבור עמודה נוכחית
-
-                // מעבר על כל השורות מתחת לכותרת
-                foreach (var row in worksheet.RowsUsed().Skip(1))
-                {
-                    var key = row.Cell(1).GetValue<string>(); // קבלת הערך בעמודה הראשונה (Key)
-                    var value = row.Cell(col).GetValue<int>(); // קבלת הערך בעמודה הנוכחית (Value)
-
-                    // יצירת אובייקט DayEntry והוספתו לרשימה
-                    dayEntries.Add(new DayEntry
-                    {
-                        Key = key,
-                        Values = value
-                    });
-                }
-
-                // הוספת הרשימה של העמודה הנוכחית לרשימה הכללית
-                dayLists.Add(dayEntries);
-            }
-
-            return dayLists;
-        }
-        private List<object> ExtractColumnValues(IXLWorksheet worksheet, int column)
-        {
-            return worksheet.Column(column).CellsUsed().Skip(1).Select(c => (object)c.Value).ToList();
-        }
         private int FindColumnByValue(IXLWorksheet worksheet, int headerRow, int value, string errorMessage)
         {
             foreach (var col in worksheet.ColumnsUsed())
@@ -317,35 +247,6 @@ namespace BLL
             logger.LogWarning(errorMessage);
             throw new Exception(errorMessage);
         }
-        private int FindColumnByValueInFirstRow(IXLWorksheet worksheet, int value, string errorMessage)
-        {
-            foreach (var col in worksheet.ColumnsUsed())
-            {
-                // בדוק את הערך בשורה הראשונה של העמודה
-                if (col.FirstCell().GetValue<int>() == value)
-                {
-                    return col.ColumnNumber(); // החזר את מספר העמודה
-                }
-            }
-
-            // אם הערך לא נמצא, רשום ביומן והשלך חריגה
-            logger.LogWarning(errorMessage);
-            throw new Exception(errorMessage);
-        }
-
-        private int FindRowByValue(IXLWorksheet worksheet, int column, int value, string errorMessage)
-        {
-            foreach (var row in worksheet.RowsUsed())
-            {
-                if (row.Cell(column).GetValue<int>() == value)
-                {
-                    return row.RowNumber();
-                }
-            }
-            logger.LogWarning(errorMessage);
-            throw new Exception(errorMessage);
-        }
-
         private int GetValueFromWorksheet(IXLWorksheet worksheet, string rowText, int column, string errorMessage)
         {
             foreach (var row in worksheet.RowsUsed())
@@ -359,18 +260,6 @@ namespace BLL
             throw new Exception(errorMessage);
         }
 
-        //private List<string> ExtractTypMuscleData(IXLWorksheet worksheet, int daysInWeek)
-        //{
-        //    var listTypeMuscle = new List<string>();
-        //    var col = FindColumnByValue(worksheet, 1, daysInWeek, "Column not found");
-        //    foreach (var row in worksheet.RowsUsed().Skip(1)) // מעבר על כל השורות
-        //    {
-
-        //        var value = row.Cell(col).GetValue<string>(); // הערך מהעמודה שנמצאה
-        //        listTypeMuscle.Add(value);
-        //    }
-        //    return listTypeMuscle;
-        //}
         private List<string> ExtractEquipmentData(IXLWorksheet worksheet, int level)
         {
             var listEquipment = new List<string>();
@@ -385,25 +274,6 @@ namespace BLL
             return listEquipment;
         }
 
-        //private List<Dictionary<int, string>> ExtractTypMuscleData(IXLWorksheet worksheet, int daysInWeek)
-        //{
-        //    var OrderListOfTypeMuscle = new List<Dictionary<int, string>>();
-
-        //    foreach (var row in worksheet.RowsUsed().Skip(1))
-        //    {
-        //        if (row.Cell(1).GetValue<int>() == daysInWeek)
-        //        {
-        //            var dict = new Dictionary<int, string>();
-        //            for (int col = 3; col <= row.LastCellUsed().Address.ColumnNumber; col++)
-        //            {
-        //                dict.Add(row.Cell(2).GetValue<int>(), row.Cell(col).GetValue<string>());
-        //            }
-        //            OrderListOfTypeMuscle.Add(dict);
-        //        }
-        //    }
-        //    //מחזיר רשימה של דיקשינרי של הסוגי שרירים שמסודרים לפי סדר לפי המפתח בסדר עולה (1 הכי חשוב וכו) 0
-        //    return OrderListOfTypeMuscle;
-        //}
         private List<Dictionary<int, List<string>>> ExtractTypMuscleData(IXLWorksheet worksheet, int daysInWeek)
         {
             var OrderListOfTypeMuscle = new List<Dictionary<int, List<string>>>();
@@ -469,7 +339,6 @@ namespace BLL
 
             return categoryMuscleSizeData;
         }
-
         private Dictionary<string, int> ExtractTimeCategoryList(IXLWorksheet worksheet, int goal, int time)
         {
             var timeCategoryList = new Dictionary<string, int>();
@@ -539,42 +408,6 @@ namespace BLL
             throw new NotImplementedException();
         }
 
-        public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanAsync(IBLL.TrainingParams trainingParams)
-        {
-            // רשימה שתכיל את כל רשימות התרגילים לכל הימים
-            var exercisePlan = new List<List<ExerciseDTO>>();
-
-            // עבור כל רשימה ב-DayLists (כל יום)
-            foreach (var dayList in trainingParams.DayLists)
-            {
-                var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים של יום זה
-
-                // עבור על כל שריר ברשימה של היום
-                foreach (var muscle in dayList)
-                {
-                    // בדוק אם השריר נמצא ב-LargeMuscleList
-                    if (trainingParams.LargeMuscleList.Contains(muscle))
-                    {
-                        // שלוף תרגילים לשריר זה לפי LargeMuscleCount
-                        var exercises = await GetExercisesForMuscleAsync(muscle.ToString(), trainingParams.LargeMuscleCount);
-                        dayExercises.AddRange(exercises);
-                    }
-                    // בדוק אם השריר נמצא ב-SmallMuscleList
-                    else if (trainingParams.SmallMuscleList.Contains(muscle))
-                    {
-                        // שלוף תרגילים לשריר זה לפי SmallMuscleCount
-                        var exercises = await GetExercisesForMuscleAsync(muscle.ToString(), trainingParams.SmallMuscleCount);
-                        dayExercises.AddRange(exercises);
-                    }
-                }
-
-                // הוסף את רשימת התרגילים של היום לרשימה הכללית
-                exercisePlan.Add(dayExercises);
-            }
-
-            return exercisePlan;
-        }
-
         public async Task<List<ExerciseDTO>> GetExercisesForMuscleAsync(string muscleName, int count)
         {
             // שליפת תרגילים מה-DAL
@@ -590,122 +423,26 @@ namespace BLL
             // בחר מספר תרגילים באופן אקראי
             return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
         }
-        public async Task<List<ExerciseDTO>> GetExercisesForMuscleByCategoryAsync(string muscleName, string categoryName, int count)
+        public async Task<List<ExerciseDTO>> GetExercisesForMuscleAndTypeAsync(string MuscleName, string TypeMuscle, int count, List<int> allowedEquipment)
         {
-            // שליפת תרגילים מה-DAL
-            var exercises = await muscleDAL.GetExercisesForMuscleByCategoryAsync(muscleName, categoryName);
-
-            // המרת התרגילים ל-DTO
-            var exerciseDTOs = exercises.Select(e => new ExerciseDTO
+            try
             {
-                ExerciseId = e.ExerciseId,
-                ExerciseName = e.ExerciseName
-            }).ToList();
+                var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(MuscleName, TypeMuscle, allowedEquipment);
 
-            // בחר מספר תרגילים באופן אקראי
-            return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
-        }
-
-        public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanWithEquipmentAsync(TrainingParams trainingParams)
-        {
-            var exercisePlan = new List<List<ExerciseDTO>>(); // רשימה של רשימות תרגילים (כל יום הוא רשימה)
-
-            // מעבר על כל יום ברשימת הימים
-            foreach (var dayList in trainingParams.DayLists)
-            {
-                var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים עבור היום הנוכחי
-                var usedExercises = new HashSet<int>(); // שמירה על תרגילים שכבר נבחרו כדי למנוע כפילויות
-
-                // מעבר על כל DayEntry ברשימת היום
-                foreach (var muscle in dayList)
+                var exerciseDTOs = exercises.Select(e => new ExerciseDTO
                 {
-                    var muscleKey = muscle.Key; // שם השריר
-                    var exerciseCount = muscle.Values; // כמות התרגילים הנדרשת
-                    var category = muscle.Name; // קטגוריה
+                    ExerciseId = e.ExerciseId,
+                    ExerciseName = e.ExerciseName
+                }).ToList();
 
-                    // בדיקת תת-שרירים אם הערך "מבודדים" קיים ב-TypeMuscle
-                    if (trainingParams.TypMuscle.Contains("מבודד"))
-                    {
-                        var muscles = await muscleDAL.GetMuscleByNameAsync(muscleKey);
-                        // שליפת תת-שרירים מהמסד נתונים
-                        var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscles);
-
-                        foreach (var subMuscle in subMuscles)
-                        {
-                            if (exerciseCount <= 0) break;
-
-                            if (trainingParams.equipment == null || !trainingParams.equipment.Any())
-                            {
-                                throw new Exception("Equipment list is empty or not defined.");
-                            }
-                            // שליפת תרגיל אחד עבור תת-שריר
-                            var exercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1, trainingParams.equipment);
-                            var filteredExercises = exercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
-
-                            foreach (var exercise in filteredExercises)
-                            {
-                                if (exerciseCount <= 0) break;
-
-                                dayExercises.Add(exercise);
-                                usedExercises.Add(exercise.ExerciseId);
-                                exerciseCount--;
-                            }
-                        }
-                    }
-
-                    // השלמת תרגילים משרירים מורכבים אם נדרש ואם הערך "מורכבים" קיים ב-TypeMuscle
-                    if (exerciseCount > 0 && trainingParams.TypMuscle.Contains("מורכב"))
-                    {
-
-                        if (trainingParams.equipment == null || !trainingParams.equipment.Any())
-                        {
-                            throw new Exception("Equipment list is empty or not defined.");
-                        }
-
-                        var equipmentIds = new List<int>();
-
-                        foreach (var equipmentName in trainingParams.equipment)
-                        {
-                            var equipment = await equipmentDAL.GetEquipmentByNameAsync(equipmentName);
-                            equipmentIds.Add(equipment.EquipmentId);
-                        }
-                        var complexExercises = await GetExercisesForMuscleAndTypeAsync(muscleKey, "מורכב", exerciseCount, equipmentIds);//***********************
-
-                        var filteredComplexExercises = complexExercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
-
-                        //var filteredComplexExercises = complexExercises
-                        //    .Where(e => trainingParams.equipment.Contains(e.Equipment) && !usedExercises.Contains(e.ExerciseId))
-                        //    .ToList();
-
-                        foreach (var exercise in filteredComplexExercises)
-                        {
-                            if (exerciseCount <= 0) break;
-
-                            dayExercises.Add(exercise);
-                            usedExercises.Add(exercise.ExerciseId);
-                            exerciseCount--;
-                        }
-                    }
-                }
-
-                // הוספת רשימת התרגילים של היום לרשימה הכללית
-                exercisePlan.Add(dayExercises);
+                return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
             }
-
-            // הדפסת התוכנית ללוג
-            foreach (var (day, dayIndex) in exercisePlan.Select((value, index) => (value, index)))
+            catch (Exception ex)
             {
-                logger.LogInformation($"Day {dayIndex + 1} Exercises:");
-
-                foreach (var exercise in day)
-                {
-                    logger.LogInformation($"  - {exercise.ExerciseName}");
-                }
+                logger.LogError(ex, $"Error while fetching exercises for sub-muscle: {MuscleName}");
+                throw;
             }
-
-            return exercisePlan;
         }
-
 
         public async Task<List<ExerciseDTO>> GetExercisesForSubMuscleAsync(string subMuscleName, int v, List<string> allowedEquipment)
         {
@@ -736,132 +473,6 @@ namespace BLL
             }
         }
 
-        public async Task<List<Exercise>> GetExercisesWithEquipmentFilter(string muscleName, string muscleType, List<int> equipmentIds)
-        {
-            var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(muscleName, muscleType, equipmentIds);
-
-            var filteredExercises = exercises.Where(e => e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId))).ToList();
-            return filteredExercises;
-        }
-
-        public async Task<List<ExerciseDTO>> GetExercisesForMuscleAndTypeAsync(string MuscleName, string TypeMuscle, int count, List<int> allowedEquipment)
-        {
-            try
-            {
-                //var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(MuscleName, TypeMuscle);
-                //var equipmentIds = new List<int>();
-
-                //foreach (var equipmentName in allowedEquipment)
-                //{
-                //    var equipment = await equipmentDAL.GetEquipmentByNameAsync(equipmentName);
-                //    equipmentIds.Add(equipment.EquipmentId);
-                //}
-
-                ////var filteredExercises = exercises
-                ////    .Where(e => e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId)))
-                ////    .Distinct()
-                ////    .ToList();
-                //var filteredExercises = exercises
-                //.Where(e => e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId)))
-                //.ToList();
-
-                //var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(MuscleName, TypeMuscle);
-
-                //var exerciseEquipment = await exerciseDAL.GetExerciseEquipmentAsync(exercises.Select(e => e.ExerciseId));
-
-                //var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(MuscleName, TypeMuscle);
-
-                //var exerciseEquipment = await exerciseDAL.GetEquipmentByExercisesIdAsync(exercises.Select(e => e.ExerciseId).ToList());
-                ////var exerciseEquipment = await exerciseDAL.GetExerciseEquipmentAsync(exercises.Select(e => e.ExerciseId));
-
-                ////id של כל הציוד 
-                //var equipmentIds = exerciseEquipment.Select(e => e.EquipmentId).ToList();
-
-
-                //var filteredExercises = exercises.Where(e => e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId))).ToList();
-
-
-                //var filteredExercises = exercises.Where(e => exerciseEquipment.Any(eq => eq.ExerciseId == e.ExerciseId && equipmentIds.Contains(eq.EquipmentId))).ToList();
-
-
-                //var filteredExercises = exercises
-                //.Where(e => e.Equipment.Any(eq => equipmentIds.Any(id => id == eq.EquipmentId)))
-                //.Distinct()
-                //.ToList();
-                //var exercises = GetExercisesWithEquipmentFilter(MuscleName, TypeMuscle, allowedEquipment);
-
-                //var exerciseDTOs = exercises.Select(e => new ExerciseDTO
-                //{
-                //    ExerciseId = e.ExerciseId,
-                //    ExerciseName = e.ExerciseName
-                //}).ToList();
-
-                //var exercises = await GetExercisesWithEquipmentFilter(MuscleName, TypeMuscle, allowedEquipment);
-                var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(MuscleName, TypeMuscle, allowedEquipment);
-
-                var exerciseDTOs = exercises.Select(e => new ExerciseDTO
-                {
-                    ExerciseId = e.ExerciseId,
-                    ExerciseName = e.ExerciseName
-                }).ToList();
-
-                return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, $"Error while fetching exercises for sub-muscle: {MuscleName}");
-                throw;
-            }
-        }
-        public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanAndLogAsync(TrainingParams trainingParams)
-        {
-            var exercisePlan = new List<List<ExerciseDTO>>(); // רשימה של רשימות תרגילים (כל יום הוא רשימה)
-
-            // מעבר על כל יום ברשימת הימים
-            foreach (var dayList in trainingParams.DayLists)
-            {
-                var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים עבור היום הנוכחי
-
-                // מעבר על כל DayEntry ברשימת היום
-                foreach (var muscle in dayList)
-                {
-                    var muscleKey = muscle.Key; // ה-Key מייצג את שם השריר
-                    var exerciseCount = muscle.Values; // ה-Value מייצג את כמות התרגילים הנדרשת
-                    var caregory = muscle.Name;
-                    if (exerciseCount > 0)
-                    {
-                        // שליפת תרגילים מהמסד נתונים לפי שם השריר וכמות התרגילים
-                        var exercises = await GetExercisesForMuscleByCategoryAsync(muscleKey, caregory, exerciseCount);
-
-                        if (!exercises.Any())
-                        {
-                            logger.LogWarning($"No exercises found for Muscle '{muscleKey}' with requested count '{exerciseCount}' in category '{caregory}'.");
-                            continue; // אם אין תרגילים לשריר, דלג עליו
-                        }
-
-                        // הוספת התרגילים לרשימה של היום
-                        dayExercises.AddRange(exercises);
-                    }
-                }
-
-                // הוספת רשימת התרגילים של היום לרשימה הכללית
-                exercisePlan.Add(dayExercises);
-            }
-
-            // הדפסת התוכנית ללוג
-            foreach (var (day, dayIndex) in exercisePlan.Select((value, index) => (value, index)))
-            {
-                logger.LogInformation($"Day {dayIndex + 1} Exercises:");
-
-                foreach (var exercise in day)
-                {
-                    logger.LogInformation($"  - {exercise.ExerciseName} ");
-                }
-            }
-
-            // החזרת התוכנית
-            return exercisePlan;
-        }
         public List<List<DayEntry>> ExtractDayListsNew(IXLWorksheet worksheet, int daysInWeek, int trainingDuration)
         {
             var dayLists = new List<List<DayEntry>>(); // רשימה של רשימות DayEntry
@@ -904,81 +515,139 @@ namespace BLL
 
             return dayLists;
         }
-
-
-        private async Task<List<ExerciseDTO>> GetExercisesForMuscleAndCategoryAsync(string muscleName, string categoryName, int count)
-        {
-            // שליפת תרגילים עבור שריר וקטגוריה
-            var exercises = await muscleDAL.GetExercisesForMuscleAndCategoryAsync(muscleName, categoryName);
-
-            // המרת התרגילים ל-DTO
-            var exerciseDTOs = exercises.Select(e => new ExerciseDTO
-            {
-                ExerciseId = e.ExerciseId,
-                ExerciseName = e.ExerciseName
-            }).ToList();
-
-            // בחר את מספר התרגילים הנדרש
-            return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
-        }
-
-
         public async Task<List<List<ExerciseDTO>>> GenerateOptimizedExercisePlanAsync(TrainingParams trainingParams)
         {
             var exercisePlan = new List<List<ExerciseDTO>>(); // תוכנית האימונים לכל הימים
-            var usedExercises = new HashSet<int>(); // לשמירה על תרגילים שכבר נבחרו
+            var usedExercises = new HashSet<int>(); // שמירה על מזהי תרגילים שכבר נבחרו
+
+            var typeMuscleList = new List<string>();
+
+            foreach (var dict in trainingParams.TypeMuscleData)
+            {
+                foreach (var pair in dict)
+                {
+                    foreach (var TypeValue in pair.Value)
+                    {
+                        typeMuscleList.Add(TypeValue);
+                    }
+
+                }
+                break;
+            }
 
             foreach (var dayList in trainingParams.DayLists) // מעבר על כל יום
             {
                 var dayExercises = new List<ExerciseDTO>();
-                foreach (var typeMuscleData in trainingParams.TypeMuscleData) // מעבר על סוגי השרירים לפי תעדוף
+
+                foreach (var muscleEntry in dayList) // מעבר על כל שריר ברשימה
                 {
-                    foreach (var muscleType in typeMuscleData.OrderBy(d => d.Key)) // סדר עדיפות
+                    string muscleName = muscleEntry.Key;
+                    int exerciseCount = muscleEntry.Values;
+                    string categoryName = muscleEntry.Name;//השריר הספציפי
+
+                    // בדיקת תת-שרירים אם נדרש
+                    foreach (var typeMuscle in typeMuscleList)
                     {
-                        foreach (var muscleName in muscleType.Value) // מעבר על כל שריר בסוג
+                        if (trainingParams.NeedSubMuscleList.Contains(typeMuscle))///לשנות לבדיקה על הסוג שריר
                         {
-                            var exerciseCount = dayList.FirstOrDefault(d => d.Key == muscleName)?.Values ?? 0;
-                            if (exerciseCount <= 0) continue;
-
-                            // שליפת תרגילים לפי סוג שריר
-                            var exercises = await GetExercisesForMuscleAndTypeAsync(muscleName, muscleType.Value[1], exerciseCount, trainingParams.equipment.Select(e => int.Parse(e)).ToList());
-                            var filteredExercises = exercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
-
-                            foreach (var exercise in filteredExercises)
+                            var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscleName);
+                            if (subMuscles.Count > 0)//רק במידה שיש תת שריר לשריר הספציפי
                             {
-                                dayExercises.Add(exercise);
-                                usedExercises.Add(exercise.ExerciseId);
-                                if (--exerciseCount <= 0) break;
-                            }
-
-                            if (exerciseCount > 0)
-                            {
-                                // נסיון להוסיף תרגילים מתת-שרירים
-                                var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscleName);
+                                //מעבר על כל תת שריר
                                 foreach (var subMuscle in subMuscles)
                                 {
-                                    var subExercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, exerciseCount, trainingParams.equipment);
-                                    foreach (var subExercise in subExercises)
+                                    //מתחיל לפי הסדר ובמידה ונגמר כמות התרגילים הוא מסיים לקחת
+                                    if (exerciseCount <= 0) break;
+
+                                    //שליחה לפונקציה שמוצאת את כל התרגילים שעובדים על השריר 
+                                    var exercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1, trainingParams.equipment);
+                                    //מכניס רק את התרגילים שלא משתמשים ביום הזה כבר
+                                    var filteredExercises = exercises
+                                        .Where(e => !usedExercises.Contains(e.ExerciseId))
+                                        .ToList();
+                                    //מעבר על כל רשימת התרגילים 
+                                    foreach (var exercise in filteredExercises)
                                     {
-                                        if (usedExercises.Contains(subExercise.ExerciseId)) continue;
-                                        dayExercises.Add(subExercise);
-                                        usedExercises.Add(subExercise.ExerciseId);
-                                        if (--exerciseCount <= 0) break;
+                                        dayExercises.Add(exercise);
+                                        usedExercises.Add(exercise.ExerciseId);
+                                        exerciseCount--;
+
+                                        if (exerciseCount <= 0) break;
+                                        //לא בטוח
+                                        break;
                                     }
                                 }
                             }
                         }
                     }
+
+                    // אם נשארו עוד תרגילים שצריך, בדוק סוגי שרירים אחרים
+                    if (exerciseCount > 0)
+                    {
+                        var equipment = new List<int>();
+                        foreach (var equipmentName in trainingParams.equipment)
+                        {
+                            var e = await equipmentDAL.GetEquipmentByNameAsync(equipmentName);
+                            equipment.Add(e.EquipmentId);
+                        }
+                        //מעבר על כל הסוגי שרירים השימושיים לפי סדר
+                        foreach (var muscleType in trainingParams.TypeMuscleData.SelectMany(d => d))
+                        {
+
+                            var a = 0;
+                            //קבלת כל התרגילים שעובדים על שריר מסוים וסוג שריר ובציוד האפשרי
+                            foreach (var nuscleTypeName in muscleType.Value)
+                            {
+                                var exercises = await GetExercisesForMuscleAndTypeAsync(
+                               muscleName,
+                               nuscleTypeName,
+                               exerciseCount,
+                               equipment);
+                                //סינון רק התרגילים שלא משתמשים בהם כבר בתוכנית
+                                var filteredExercises = exercises
+                                    .Where(e => !usedExercises.Contains(e.ExerciseId))
+                                    .ToList();
+                                //מעבר על רשימת התרגילים האפשרית
+                                foreach (var exercise in filteredExercises)
+                                {
+                                    dayExercises.Add(exercise);
+                                    usedExercises.Add(exercise.ExerciseId);
+                                    exerciseCount--;
+
+                                    if (exerciseCount <= 0) break;
+                                }
+                            }
+                            if (exerciseCount <= 0) break;
+
+                        }
+                    }
+
+                    // אם עדיין חסרים תרגילים, חפש בכל הציוד
+                    if (exerciseCount > 0)
+                    {
+                        //בוחר מספר אקראי של תרגילים כמספר החסר
+                        var allEquipmentExercises = await GetExercisesForMuscleAsync(muscleName, exerciseCount);
+                        foreach (var exercise in allEquipmentExercises)
+                        {
+                            if (usedExercises.Contains(exercise.ExerciseId)) continue;
+
+                            dayExercises.Add(exercise);
+                            usedExercises.Add(exercise.ExerciseId);
+                            exerciseCount--;
+
+                            if (exerciseCount <= 0) break;
+                        }
+                    }
                 }
 
-                exercisePlan.Add(dayExercises); // הוספת תרגילי היום הנוכחי לתוכנית
+                exercisePlan.Add(dayExercises); // הוספת תרגילי היום לתוכנית
             }
+
             // הדפסת התוכנית ללוג
             for (int dayIndex = 0; dayIndex < exercisePlan.Count; dayIndex++)
             {
-                var dayExercises = exercisePlan[dayIndex];
                 logger.LogInformation($"Day {dayIndex + 1} Exercises:");
-                foreach (var exercise in dayExercises)
+                foreach (var exercise in exercisePlan[dayIndex])
                 {
                     logger.LogInformation($"  - {exercise.ExerciseName} (ID: {exercise.ExerciseId})");
                 }
@@ -986,6 +655,390 @@ namespace BLL
 
             return exercisePlan;
         }
+
+        //private List<List<DayEntry>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
+        //{
+        //    var dayLists = new List<List<DayEntry>>(); // רשימה של רשימות DayEntry
+
+        //    // מציאת העמודות בשורה הראשונה (Header) עם הערך daysInWeek
+        //    var matchingColumns = worksheet.Row(1).CellsUsed()
+        //        .Where(cell => cell.GetValue<int>() == daysInWeek)
+        //        .Select(cell => cell.Address.ColumnNumber)
+        //        .ToList();
+
+        //    // עבור כל עמודה שמתאימה לערך daysInWeek
+        //    foreach (var col in matchingColumns)
+        //    {
+        //        var dayEntries = new List<DayEntry>(); // רשימה עבור עמודה נוכחית
+
+        //        // מעבר על כל השורות מתחת לכותרת
+        //        foreach (var row in worksheet.RowsUsed().Skip(1))
+        //        {
+        //            var key = row.Cell(1).GetValue<string>(); // קבלת הערך בעמודה הראשונה (Key)
+        //            var value = row.Cell(col).GetValue<int>(); // קבלת הערך בעמודה הנוכחית (Value)
+
+        //            // יצירת אובייקט DayEntry והוספתו לרשימה
+        //            dayEntries.Add(new DayEntry
+        //            {
+        //                Key = key,
+        //                Values = value
+        //            });
+        //        }
+
+        //        // הוספת הרשימה של העמודה הנוכחית לרשימה הכללית
+        //        dayLists.Add(dayEntries);
+        //    }
+
+        //    return dayLists;
+        //}
+        //private List<object> ExtractColumnValues(IXLWorksheet worksheet, int column)
+        //{
+        //    return worksheet.Column(column).CellsUsed().Skip(1).Select(c => (object)c.Value).ToList();
+        //}
+        //private int FindColumnByValueInFirstRow(IXLWorksheet worksheet, int value, string errorMessage)
+        //{
+        //    foreach (var col in worksheet.ColumnsUsed())
+        //    {
+        //        // בדוק את הערך בשורה הראשונה של העמודה
+        //        if (col.FirstCell().GetValue<int>() == value)
+        //        {
+        //            return col.ColumnNumber(); // החזר את מספר העמודה
+        //        }
+        //    }
+
+        //    // אם הערך לא נמצא, רשום ביומן והשלך חריגה
+        //    logger.LogWarning(errorMessage);
+        //    throw new Exception(errorMessage);
+        //}
+
+        //private int FindRowByValue(IXLWorksheet worksheet, int column, int value, string errorMessage)
+        //{
+        //    foreach (var row in worksheet.RowsUsed())
+        //    {
+        //        if (row.Cell(column).GetValue<int>() == value)
+        //        {
+        //            return row.RowNumber();
+        //        }
+        //    }
+        //    logger.LogWarning(errorMessage);
+        //    throw new Exception(errorMessage);
+        //}
+
+
+        //private List<string> ExtractTypMuscleData(IXLWorksheet worksheet, int daysInWeek)
+        //{
+        //    var listTypeMuscle = new List<string>();
+        //    var col = FindColumnByValue(worksheet, 1, daysInWeek, "Column not found");
+        //    foreach (var row in worksheet.RowsUsed().Skip(1)) // מעבר על כל השורות
+        //    {
+
+        //        var value = row.Cell(col).GetValue<string>(); // הערך מהעמודה שנמצאה
+        //        listTypeMuscle.Add(value);
+        //    }
+        //    return listTypeMuscle;
+        //}
+
+        //private List<Dictionary<int, string>> ExtractTypMuscleData(IXLWorksheet worksheet, int daysInWeek)
+        //{
+        //    var OrderListOfTypeMuscle = new List<Dictionary<int, string>>();
+
+        //    foreach (var row in worksheet.RowsUsed().Skip(1))
+        //    {
+        //        if (row.Cell(1).GetValue<int>() == daysInWeek)
+        //        {
+        //            var dict = new Dictionary<int, string>();
+        //            for (int col = 3; col <= row.LastCellUsed().Address.ColumnNumber; col++)
+        //            {
+        //                dict.Add(row.Cell(2).GetValue<int>(), row.Cell(col).GetValue<string>());
+        //            }
+        //            OrderListOfTypeMuscle.Add(dict);
+        //        }
+        //    }
+        //    //מחזיר רשימה של דיקשינרי של הסוגי שרירים שמסודרים לפי סדר לפי המפתח בסדר עולה (1 הכי חשוב וכו) 0
+        //    return OrderListOfTypeMuscle;
+        //}
+
+        //public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanAsync(IBLL.TrainingParams trainingParams)
+        //{
+        //    // רשימה שתכיל את כל רשימות התרגילים לכל הימים
+        //    var exercisePlan = new List<List<ExerciseDTO>>();
+
+        //    // עבור כל רשימה ב-DayLists (כל יום)
+        //    foreach (var dayList in trainingParams.DayLists)
+        //    {
+        //        var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים של יום זה
+
+        //        // עבור על כל שריר ברשימה של היום
+        //        foreach (var muscle in dayList)
+        //        {
+        //            // בדוק אם השריר נמצא ב-LargeMuscleList
+        //            if (trainingParams.LargeMuscleList.Contains(muscle))
+        //            {
+        //                // שלוף תרגילים לשריר זה לפי LargeMuscleCount
+        //                var exercises = await GetExercisesForMuscleAsync(muscle.ToString(), trainingParams.LargeMuscleCount);
+        //                dayExercises.AddRange(exercises);
+        //            }
+        //            // בדוק אם השריר נמצא ב-SmallMuscleList
+        //            else if (trainingParams.SmallMuscleList.Contains(muscle))
+        //            {
+        //                // שלוף תרגילים לשריר זה לפי SmallMuscleCount
+        //                var exercises = await GetExercisesForMuscleAsync(muscle.ToString(), trainingParams.SmallMuscleCount);
+        //                dayExercises.AddRange(exercises);
+        //            }
+        //        }
+
+        //        // הוסף את רשימת התרגילים של היום לרשימה הכללית
+        //        exercisePlan.Add(dayExercises);
+        //    }
+
+        //    return exercisePlan;
+        //}
+
+
+        //public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanWithEquipmentAsync(TrainingParams trainingParams)
+        //{
+        //    var exercisePlan = new List<List<ExerciseDTO>>(); // רשימה של רשימות תרגילים (כל יום הוא רשימה)
+
+        //    // מעבר על כל יום ברשימת הימים
+        //    foreach (var dayList in trainingParams.DayLists)
+        //    {
+        //        var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים עבור היום הנוכחי
+        //        var usedExercises = new HashSet<int>(); // שמירה על תרגילים שכבר נבחרו כדי למנוע כפילויות
+
+        //        // מעבר על כל DayEntry ברשימת היום
+        //        foreach (var muscle in dayList)
+        //        {
+        //            var muscleKey = muscle.Key; // שם השריר
+        //            var exerciseCount = muscle.Values; // כמות התרגילים הנדרשת
+        //            var category = muscle.Name; // קטגוריה
+
+        //            // בדיקת תת-שרירים אם הערך "מבודדים" קיים ב-TypeMuscle
+        //            if (trainingParams.TypMuscle.Contains("מבודד"))
+        //            {
+        //                var muscles = await muscleDAL.GetMuscleByNameAsync(muscleKey);
+        //                // שליפת תת-שרירים מהמסד נתונים
+        //                var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscles);
+
+        //                //מעבר על כל תת שריר ובחירת תרגיל מתאים בשבילו
+        //                foreach (var subMuscle in subMuscles)
+        //                {
+        //                    if (exerciseCount <= 0) break;
+
+        //                    if (trainingParams.equipment == null || !trainingParams.equipment.Any())
+        //                    {
+        //                        throw new Exception("Equipment list is empty or not defined.");
+        //                    }
+        //                    //שליפה של כל התרגילים שעובדים על תת שריר בציוד האפשרי
+        //                    var exercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1, trainingParams.equipment);
+        //                    //מכניס רק את התרגילים שלא משתמשים ביום הזה כבר
+        //                    var filteredExercises = exercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
+        //                    //מעבר על כל רשימת התרגילים 
+        //                    foreach (var exercise in filteredExercises)
+        //                    {
+        //                        if (exerciseCount <= 0) break;
+
+        //                        dayExercises.Add(exercise);
+        //                        usedExercises.Add(exercise.ExerciseId);
+        //                        exerciseCount--;
+        //                        //לא בטוח
+        //                        break;
+        //                    }
+        //                }
+        //            }
+
+        //            // השלמת תרגילים משרירים מורכבים אם נדרש ואם הערך "מורכבים" קיים ב-TypeMuscle
+        //            if (exerciseCount > 0 && trainingParams.TypMuscle.Contains("מורכב"))
+        //            {
+
+        //                if (trainingParams.equipment == null || !trainingParams.equipment.Any())
+        //                {
+        //                    throw new Exception("Equipment list is empty or not defined.");
+        //                }
+
+        //                var equipmentIds = new List<int>();
+
+        //                foreach (var equipmentName in trainingParams.equipment)
+        //                {
+        //                    var equipment = await equipmentDAL.GetEquipmentByNameAsync(equipmentName);
+        //                    equipmentIds.Add(equipment.EquipmentId);
+        //                }
+        //                var complexExercises = await GetExercisesForMuscleAndTypeAsync(muscleKey, "מורכב", exerciseCount, equipmentIds);//***********************
+
+        //                var filteredComplexExercises = complexExercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
+
+        //                //var filteredComplexExercises = complexExercises
+        //                //    .Where(e => trainingParams.equipment.Contains(e.Equipment) && !usedExercises.Contains(e.ExerciseId))
+        //                //    .ToList();
+
+        //                foreach (var exercise in filteredComplexExercises)
+        //                {
+        //                    if (exerciseCount <= 0) break;
+
+        //                    dayExercises.Add(exercise);
+        //                    usedExercises.Add(exercise.ExerciseId);
+        //                    exerciseCount--;
+        //                }
+        //            }
+        //        }
+
+        //        // הוספת רשימת התרגילים של היום לרשימה הכללית
+        //        exercisePlan.Add(dayExercises);
+        //    }
+
+        //    // הדפסת התוכנית ללוג
+        //    foreach (var (day, dayIndex) in exercisePlan.Select((value, index) => (value, index)))
+        //    {
+        //        logger.LogInformation($"Day {dayIndex + 1} Exercises:");
+
+        //        foreach (var exercise in day)
+        //        {
+        //            logger.LogInformation($"  - {exercise.ExerciseName}");
+        //        }
+        //    }
+
+        //    return exercisePlan;
+        //}
+
+
+        //public async Task<List<Exercise>> GetExercisesWithEquipmentFilter(string muscleName, string muscleType, List<int> equipmentIds)
+        //{
+        //    var exercises = await muscleDAL.GetExercisesForMuscleAndTypeAsync(muscleName, muscleType, equipmentIds);
+
+        //    var filteredExercises = exercises.Where(e => e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId))).ToList();
+        //    return filteredExercises;
+        //}
+
+        //public async Task<List<List<ExerciseDTO>>> GenerateExercisePlanAndLogAsync(TrainingParams trainingParams)
+        //{
+        //    var exercisePlan = new List<List<ExerciseDTO>>(); // רשימה של רשימות תרגילים (כל יום הוא רשימה)
+
+        //    // מעבר על כל יום ברשימת הימים
+        //    foreach (var dayList in trainingParams.DayLists)
+        //    {
+        //        var dayExercises = new List<ExerciseDTO>(); // רשימה לתרגילים עבור היום הנוכחי
+
+        //        // מעבר על כל DayEntry ברשימת היום
+        //        foreach (var muscle in dayList)
+        //        {
+        //            var muscleKey = muscle.Key; // ה-Key מייצג את שם השריר
+        //            var exerciseCount = muscle.Values; // ה-Value מייצג את כמות התרגילים הנדרשת
+        //            var caregory = muscle.Name;
+        //            if (exerciseCount > 0)
+        //            {
+        //                // שליפת תרגילים מהמסד נתונים לפי שם השריר וכמות התרגילים
+        //                var exercises = await GetExercisesForMuscleByCategoryAsync(muscleKey, caregory, exerciseCount);
+
+        //                if (!exercises.Any())
+        //                {
+        //                    logger.LogWarning($"No exercises found for Muscle '{muscleKey}' with requested count '{exerciseCount}' in category '{caregory}'.");
+        //                    continue; // אם אין תרגילים לשריר, דלג עליו
+        //                }
+
+        //                // הוספת התרגילים לרשימה של היום
+        //                dayExercises.AddRange(exercises);
+        //            }
+        //        }
+
+        //        // הוספת רשימת התרגילים של היום לרשימה הכללית
+        //        exercisePlan.Add(dayExercises);
+        //    }
+
+        //    // הדפסת התוכנית ללוג
+        //    foreach (var (day, dayIndex) in exercisePlan.Select((value, index) => (value, index)))
+        //    {
+        //        logger.LogInformation($"Day {dayIndex + 1} Exercises:");
+
+        //        foreach (var exercise in day)
+        //        {
+        //            logger.LogInformation($"  - {exercise.ExerciseName} ");
+        //        }
+        //    }
+
+        //    // החזרת התוכנית
+        //    return exercisePlan;
+        //}
+
+
+        //private async Task<List<ExerciseDTO>> GetExercisesForMuscleAndCategoryAsync(string muscleName, string categoryName, int count)
+        //{
+        //    // שליפת תרגילים עבור שריר וקטגוריה
+        //    var exercises = await muscleDAL.GetExercisesForMuscleAndCategoryAsync(muscleName, categoryName);
+
+        //    // המרת התרגילים ל-DTO
+        //    var exerciseDTOs = exercises.Select(e => new ExerciseDTO
+        //    {
+        //        ExerciseId = e.ExerciseId,
+        //        ExerciseName = e.ExerciseName
+        //    }).ToList();
+
+        //    // בחר את מספר התרגילים הנדרש
+        //    return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
+        //}
+
+
+        //public async Task<List<List<ExerciseDTO>>> GenerateOptimizedExercisePlanAsync(TrainingParams trainingParams)
+        //{
+        //    var exercisePlan = new List<List<ExerciseDTO>>(); // תוכנית האימונים לכל הימים
+        //    var usedExercises = new HashSet<int>(); // לשמירה על תרגילים שכבר נבחרו
+
+        //    foreach (var dayList in trainingParams.DayLists) // מעבר על כל יום
+        //    {
+        //        var dayExercises = new List<ExerciseDTO>();
+        //        foreach (var typeMuscleData in trainingParams.TypeMuscleData) // מעבר על סוגי השרירים לפי תעדוף
+        //        {
+        //            foreach (var muscleType in typeMuscleData.OrderBy(d => d.Key)) // סדר עדיפות
+        //            {
+        //                foreach (var muscleName in muscleType.Value) // מעבר על כל שריר בסוג
+        //                {
+        //                    var exerciseCount = dayList.FirstOrDefault(d => d.Key == muscleName)?.Values ?? 0;
+        //                    if (exerciseCount <= 0) continue;
+
+        //                    // שליפת תרגילים לפי סוג שריר
+        //                    var exercises = await GetExercisesForMuscleAndTypeAsync(muscleName, muscleType.Value[1], exerciseCount, trainingParams.equipment.Select(e => int.Parse(e)).ToList());
+        //                    var filteredExercises = exercises.Where(e => !usedExercises.Contains(e.ExerciseId)).ToList();
+
+        //                    foreach (var exercise in filteredExercises)
+        //                    {
+        //                        dayExercises.Add(exercise);
+        //                        usedExercises.Add(exercise.ExerciseId);
+        //                        if (--exerciseCount <= 0) break;
+        //                    }
+
+        //                    if (exerciseCount > 0)
+        //                    {
+        //                        // נסיון להוסיף תרגילים מתת-שרירים
+        //                        var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscleName);
+        //                        foreach (var subMuscle in subMuscles)
+        //                        {
+        //                            var subExercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, exerciseCount, trainingParams.equipment);
+        //                            foreach (var subExercise in subExercises)
+        //                            {
+        //                                if (usedExercises.Contains(subExercise.ExerciseId)) continue;
+        //                                dayExercises.Add(subExercise);
+        //                                usedExercises.Add(subExercise.ExerciseId);
+        //                                if (--exerciseCount <= 0) break;
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //        exercisePlan.Add(dayExercises); // הוספת תרגילי היום הנוכחי לתוכנית
+        //    }
+        //    // הדפסת התוכנית ללוג
+        //    for (int dayIndex = 0; dayIndex < exercisePlan.Count; dayIndex++)
+        //    {
+        //        var dayExercises = exercisePlan[dayIndex];
+        //        logger.LogInformation($"Day {dayIndex + 1} Exercises:");
+        //        foreach (var exercise in dayExercises)
+        //        {
+        //            logger.LogInformation($"  - {exercise.ExerciseName} (ID: {exercise.ExerciseId})");
+        //        }
+        //    }
+
+        //    return exercisePlan;
+        //}
 
 
         /****************************************/
@@ -1791,6 +1844,21 @@ namespace BLL
         //    }
         //}
 
+        //public async Task<List<ExerciseDTO>> GetExercisesForMuscleByCategoryAsync(string muscleName, string categoryName, int count)
+        //{
+        //    // שליפת תרגילים מה-DAL
+        //    var exercises = await muscleDAL.GetExercisesForMuscleByCategoryAsync(muscleName, categoryName);
+
+        //    // המרת התרגילים ל-DTO
+        //    var exerciseDTOs = exercises.Select(e => new ExerciseDTO
+        //    {
+        //        ExerciseId = e.ExerciseId,
+        //        ExerciseName = e.ExerciseName
+        //    }).ToList();
+
+        //    // בחר מספר תרגילים באופן אקראי
+        //    return exerciseDTOs.OrderBy(e => Guid.NewGuid()).Take(count).ToList();
+        //}
 
 
     }
