@@ -16,6 +16,10 @@ using DAL;
 
 namespace BLL
 {
+    //***********
+    //לבדוק ששולף לכל התרגילים ואם אין שידפיס שאין
+    //מיכלוש שימי לב שצריך לקבל את השמות ושהם לא יהיו קבועים//****************************
+
     public class DayEntry
     {
         //קטגוריה
@@ -37,6 +41,8 @@ namespace BLL
         public List<Dictionary<int, List<string>>> TypeMuscleData { get; set; }//רשימה של סוגי השרירים לאימון מסודרת לפי חשיבות
         public List<string> equipment { get; set; }//רשימה של ציוד למתאמן
         public List<string> NeedSubMuscleList { get; set; }//רשימה של סוגי השרירים שצריכים תת שריר
+        public List<string> subMuscleOfMuscleList { get; set; }//רשימה של כל השרירים שיש להם תת שריר
+        public Dictionary<int, string> OrderList { get; set; }//דיקשינרי של סדר התרגילים בתוכנית
 
     }
 
@@ -48,6 +54,7 @@ namespace BLL
         private readonly IExerciseDAL exerciseDAL;
         private readonly ILogger<ProgramExerciseBLL> logger;
         private readonly IMapper mapper;
+        private readonly List<string> equipmentList;
 
         // Sheet names
         //**********מיכלוש שימי לב שצריך לקבל את השמות ושהם לא יהיו קבועים//****************************
@@ -61,6 +68,7 @@ namespace BLL
         private const string TypMuscleSheet = "MuscleType";
         private const string EquipmentSheet = "Equipment";
         private const string NeedSubMuscleSheet = "NeedSubMuscle";
+        private const string OrderListSheet = "OrderList";
         public ProgramExerciseBLL(IMuscleDAL muscleDAL, ILogger<ProgramExerciseBLL> logger, IMuscleTypeDAL muscleTypeDAL, IEquipmentDAL equipmentDAL, IExerciseDAL exerciseDAL)
         {
             this.muscleDAL = muscleDAL;
@@ -68,6 +76,7 @@ namespace BLL
             this.muscleTypeDAL = muscleTypeDAL;
             this.exerciseDAL = exerciseDAL;
             this.logger = logger;
+            this.equipmentList= new List<string>();
 
             var configTaskConverter = new MapperConfiguration(cfg =>
             {
@@ -81,7 +90,11 @@ namespace BLL
         {
             //**********מיכלוש שימי לב שצריך לקבל את השמות ושהם לא יהיו קבועים//****************************
             string filePath1 = @"C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\BLL\new.xlsx";
-
+            var equi= await equipmentDAL.GetAllEquipmentsAsync();
+            foreach (var e in equi)
+            {
+                this.equipmentList.Add(e.EquipmentName);
+            }
             var trainingParams = new TrainingParams
             {
                 DayLists = new List<List<DayEntry>>(),
@@ -131,9 +144,13 @@ namespace BLL
             }
             logger.LogInformation("List of Need SubMuscle: " + string.Join(", ", trainingParams.NeedSubMuscleList));
             logger.LogInformation("List of equipment: " + string.Join(", ", trainingParams.equipment));
-            // var exercisePlan = await GenerateExercisePlanAsync(trainingParams);
-            ///// await GenerateExercisePlanAndLogAsync(trainingParams);
-            //   await GenerateExercisePlanWithEquipmentAsync(trainingParams);
+            //logger.LogInformation("List of subMuscleOfMuscleList: " + string.Join(", ", trainingParams.subMuscleOfMuscleList));
+            foreach (var dict in trainingParams.subMuscleOfMuscleList)
+            {
+                logger.LogInformation($"List of subMuscleOfMuscleList: {dict}");
+            }
+
+
             await GenerateOptimizedExercisePlanAsync(trainingParams);
         }
 
@@ -176,6 +193,10 @@ namespace BLL
                     var muscleTypeWorksheet = GetWorksheet(workbook, NeedSubMuscleSheet);
                     var muscleTypeData = ExtractMuscleTypeData(muscleTypeWorksheet);
 
+                    var subMuscleOfMuscleListData = await muscleDAL.GetMusclesOfSubMuscle();
+
+                    var orderListSheet = GetWorksheet(workbook, OrderListSheet);
+                    var orderListData = ExtractOrderListData(orderListSheet);
                     // החזרת כל הנתונים
                     return new TrainingParams
                     {
@@ -187,7 +208,8 @@ namespace BLL
                         TypeMuscleData = typMuscleData,
                         equipment = equipmentData,
                         NeedSubMuscleList = muscleTypeData,
-
+                        subMuscleOfMuscleList = subMuscleOfMuscleListData,
+                        OrderList = orderListData,
                     };
                 }
             }
@@ -224,6 +246,17 @@ namespace BLL
             }
 
             return muscleTypeListData;
+        }
+        private Dictionary<int,string> ExtractOrderListData(IXLWorksheet worksheet)
+        {
+            var orderListData = new Dictionary<int, string>();
+
+            // מעבר על כל העמודות בשורה הראשונה
+            foreach (var row in worksheet.RowsUsed())
+            {
+                orderListData.Add(row.Cell(1).GetValue<int>(), row.Cell(2).Value.ToString());
+            }
+            return orderListData;
         }
         private IXLWorksheet GetWorksheet(XLWorkbook workbook, string sheetName)
         {
@@ -373,40 +406,6 @@ namespace BLL
 
             return timeCategoryList;
         }
-        public Task<List<ProgramExerciseDTO>> GetAllProgramExercisesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProgramExerciseDTO> GetProgramExerciseByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProgramExerciseDTO> GetProgramExerciseByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateProgramExerciseAsync(ProgramExerciseDTO programExercise, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteProgramExerciseAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ReadDataFromExcelAsync(string filePath)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<List<ExerciseDTO>> GetExercisesForMuscleAsync(string muscleName, int count)
         {
@@ -519,9 +518,8 @@ namespace BLL
         {
             var exercisePlan = new List<List<ExerciseDTO>>(); // תוכנית האימונים לכל הימים
             var usedExercises = new HashSet<int>(); // שמירה על מזהי תרגילים שכבר נבחרו
-
+            var subMuscleOfMuscleList = new List<Muscle>();
             var typeMuscleList = new List<string>();
-
             foreach (var dict in trainingParams.TypeMuscleData)
             {
                 foreach (var pair in dict)
@@ -550,31 +548,41 @@ namespace BLL
                     {
                         if (trainingParams.NeedSubMuscleList.Contains(typeMuscle))///לשנות לבדיקה על הסוג שריר
                         {
-                            var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscleName);
-                            if (subMuscles.Count > 0)//רק במידה שיש תת שריר לשריר הספציפי
+                            if (trainingParams.subMuscleOfMuscleList.Contains(muscleName))
                             {
-                                //מעבר על כל תת שריר
-                                foreach (var subMuscle in subMuscles)
+                                var subMuscles = await muscleDAL.GetSubMusclesOfMuscaleAsync(muscleName);
+                                if (subMuscles.Count > 0)//רק במידה שיש תת שריר לשריר הספציפי
                                 {
-                                    //מתחיל לפי הסדר ובמידה ונגמר כמות התרגילים הוא מסיים לקחת
-                                    if (exerciseCount <= 0) break;
-
-                                    //שליחה לפונקציה שמוצאת את כל התרגילים שעובדים על השריר 
-                                    var exercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1, trainingParams.equipment);
-                                    //מכניס רק את התרגילים שלא משתמשים ביום הזה כבר
-                                    var filteredExercises = exercises
-                                        .Where(e => !usedExercises.Contains(e.ExerciseId))
-                                        .ToList();
-                                    //מעבר על כל רשימת התרגילים 
-                                    foreach (var exercise in filteredExercises)
+                                    //מעבר על כל תת שריר
+                                    foreach (var subMuscle in subMuscles)
                                     {
-                                        dayExercises.Add(exercise);
-                                        usedExercises.Add(exercise.ExerciseId);
-                                        exerciseCount--;
-
+                                        //מתחיל לפי הסדר ובמידה ונגמר כמות התרגילים הוא מסיים לקחת
                                         if (exerciseCount <= 0) break;
-                                        //לא בטוח
-                                        break;
+
+                                        //שליחה לפונקציה שמוצאת את כל התרגילים שעובדים על השריר 
+                                        var exercises = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1, trainingParams.equipment);
+                                        //מכניס רק את התרגילים שלא משתמשים ביום הזה כבר
+                                        if (exercises == null)
+                                        {
+                                            var exercises1 = await GetExercisesForSubMuscleAsync(subMuscle.SubMuscleName, 1,this.equipmentList);
+                                        }
+                                        var filteredExercises = exercises
+                                            .Where(e => !usedExercises.Contains(e.ExerciseId))
+                                            .ToList();
+                                        //מעבר על כל רשימת התרגילים 
+
+                                        foreach (var exercise in filteredExercises)
+                                        {
+                                            dayExercises.Add(exercise);
+                                            usedExercises.Add(exercise.ExerciseId);
+                                            exerciseCount--;
+
+                                            if (exerciseCount <= 0) break;
+                                            //לא בטוח
+                                            break;
+                                        }
+
+
                                     }
                                 }
                             }
@@ -593,8 +601,6 @@ namespace BLL
                         //מעבר על כל הסוגי שרירים השימושיים לפי סדר
                         foreach (var muscleType in trainingParams.TypeMuscleData.SelectMany(d => d))
                         {
-
-                            var a = 0;
                             //קבלת כל התרגילים שעובדים על שריר מסוים וסוג שריר ובציוד האפשרי
                             foreach (var nuscleTypeName in muscleType.Value)
                             {
@@ -655,6 +661,41 @@ namespace BLL
 
             return exercisePlan;
         }
+
+        public Task UpdateProgramExerciseAsync(ProgramExerciseDTO programExercise, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteProgramExerciseAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddProgramExerciseAsync(ProgramExerciseDTO programExercise)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ReadDataFromExcelAsync(string filePath)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<List<ProgramExerciseDTO>> GetAllProgramExercisesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProgramExerciseDTO> GetProgramExerciseByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProgramExerciseDTO> GetProgramExerciseByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //private List<List<DayEntry>> ExtractDayLists(IXLWorksheet worksheet, int daysInWeek)
         //{

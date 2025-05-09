@@ -423,6 +423,28 @@ namespace DAL
                 throw;
             }
         }
+        public async Task<List<string>> GetMusclesOfSubMuscle()
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var muscalList= await ctx.Muscles
+                    .Include(m => m.SubMuscles)
+                    .Where(m => m.SubMuscles.Any())
+                    .ToListAsync();
+                var StringList=new List<string>();
+                foreach(var muscle in muscalList)
+                {
+                    StringList.Add(muscle.MuscleName);
+                }
+                return StringList;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error find Muscles Of SubMuscle");
+                throw;
+            }
+        }
 
     }
 

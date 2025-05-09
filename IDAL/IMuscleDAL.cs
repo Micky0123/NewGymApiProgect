@@ -25,6 +25,7 @@ namespace IDAL
         //Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string TypeMuscle);
         Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string TypeMuscle, List<int> equipmentIds);
         Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName);
+        Task<List<string>> GetMusclesOfSubMuscle();
 
     }
 }
