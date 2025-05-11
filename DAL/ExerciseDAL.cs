@@ -203,5 +203,20 @@ namespace DAL
                 throw new Exception("Error retrieving exercises for muscle and type", ex);
             }
         }
+
+        //שליפת השריר הראשי עבור תרגיל
+        public async Task<string> GetMuscleByExerciseAsync(int exerciseId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            var exercise = await ctx.Exercises.Include(e => e.Muscles).FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+            return exercise?.Muscles.FirstOrDefault()?.MuscleName ?? string.Empty;
+        }
+        //שליפת תת-השריר עבור תרגיל
+        public async Task<string> GetSubMuscleByExerciseAsync(int exerciseId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            var exercise = await ctx.Exercises.Include(e => e.SubMuscles).FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+            return exercise?.SubMuscles.FirstOrDefault()?.SubMuscleName ?? string.Empty;
+        }
     }
 }

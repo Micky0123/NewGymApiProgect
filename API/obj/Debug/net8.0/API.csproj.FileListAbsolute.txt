@@ -162,7 +162,6 @@ C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויק�
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.AssemblyInfo.cs
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
-C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\API\obj\Debug\net8.0\staticwebassets.development.json

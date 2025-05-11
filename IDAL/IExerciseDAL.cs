@@ -19,6 +19,8 @@ namespace IDAL
        // Task<int> GetCategoryOfExercise(int exerciseId);
         Task<List<int>> GetCategoryIdsOfExercise(int exerciseId);
         Task<List<Equipment>> GetEquipmentByExercisesIdAsync(List<int> exerciseIds);
+        Task<string> GetSubMuscleByExerciseAsync(int exerciseId);
+        Task<string> GetMuscleByExerciseAsync(int exerciseId);
 
     }
 }

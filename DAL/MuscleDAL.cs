@@ -332,31 +332,63 @@ namespace DAL
 
 
 
+        //public async Task<List<Exercise>> GetExercisesForSubMuscleAsync(string subMuscleName)
+        //{
+        //    using GymDbContext ctx = new GymDbContext();
+        //    try
+        //    {
+        //        // שליפת השריר מתוך הטבלה Muscles
+        //        var submuscle = await ctx.SubMuscles.FirstOrDefaultAsync(m => m.SubMuscleName == subMuscleName);
+
+        //        if (submuscle == null)
+        //        {
+        //            throw new Exception($"subMuscle '{submuscle}' not found.");
+        //        }
+
+        //        // שליפת כל התרגילים הקשורים לשריר
+        //        var exercises = await ctx.Exercises
+        //            .Where(e => e.SubMuscles.Any(em => em.SubMuscleId == submuscle.SubMuscleId))
+        //            .ToListAsync();
+
+        //        return exercises;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error updating ProgramExercise", ex);
+        //    }
+        //}
+
         public async Task<List<Exercise>> GetExercisesForSubMuscleAsync(string subMuscleName)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // שליפת השריר מתוך הטבלה Muscles
+                // שליפת תת-השריר לפי שם
                 var submuscle = await ctx.SubMuscles.FirstOrDefaultAsync(m => m.SubMuscleName == subMuscleName);
 
                 if (submuscle == null)
                 {
-                    throw new Exception($"subMuscle '{submuscle}' not found.");
+                    logger.LogWarning($"Sub-muscle '{subMuscleName}' not found.");
+                    throw new Exception($"Sub-muscle '{subMuscleName}' not found.");
                 }
 
-                // שליפת כל התרגילים הקשורים לשריר
+                // שליפת כל התרגילים הקשורים לתת-השריר
                 var exercises = await ctx.Exercises
                     .Where(e => e.SubMuscles.Any(em => em.SubMuscleId == submuscle.SubMuscleId))
                     .ToListAsync();
 
+                logger.LogInformation($"Found {exercises.Count} exercises for sub-muscle '{subMuscleName}'.");
                 return exercises;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating ProgramExercise", ex);
+                logger.LogError(ex, $"Error fetching exercises for sub-muscle: {subMuscleName}");
+                throw new Exception("Error fetching exercises for sub-muscle", ex);
             }
         }
+
+
+
         //public async Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string typeMuscle)
         //{
         //    using GymDbContext ctx = new GymDbContext();
@@ -395,34 +427,34 @@ namespace DAL
         //    }
         //}
 
-        public async Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName)
-        {
-            using GymDbContext ctx = new GymDbContext();
-            try
-            {
-                // שליפת השריר הראשי לפי שם השריר
-                var muscle = await ctx.Muscles
-                    .FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+        //public async Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName)
+        //{
+        //    using GymDbContext ctx = new GymDbContext();
+        //    try
+        //    {
+        //        // שליפת השריר הראשי לפי שם השריר
+        //        var muscle = await ctx.Muscles
+        //            .FirstOrDefaultAsync(m => m.MuscleName == muscleName);
 
-                if (muscle == null)
-                {
-                    throw new Exception($"Muscle with name '{muscleName}' not found.");
-                }
+        //        if (muscle == null)
+        //        {
+        //            throw new Exception($"Muscle with name '{muscleName}' not found.");
+        //        }
 
-                // שליפת תת-שרירים הקשורים לשריר הראשי
-                var subMuscles = await ctx.SubMuscles
-                    .Where(sm => sm.MuscleId == muscle.MuscleId)
-                    .ToListAsync();
+        //        // שליפת תת-שרירים הקשורים לשריר הראשי
+        //        var subMuscles = await ctx.SubMuscles
+        //            .Where(sm => sm.MuscleId == muscle.MuscleId)
+        //            .ToListAsync();
 
-                return subMuscles;
-            }
-            catch (Exception ex)
-            {
-                // כתיבת שגיאות ללוג
-                logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
-                throw;
-            }
-        }
+        //        return subMuscles;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // כתיבת שגיאות ללוג
+        //        logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
+        //        throw;
+        //    }
+        //}
         public async Task<List<string>> GetMusclesOfSubMuscle()
         {
             using GymDbContext ctx = new GymDbContext();
@@ -445,6 +477,37 @@ namespace DAL
                 throw;
             }
         }
+        public async Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת השריר הראשי לפי שם השריר
+                var muscle = await ctx.Muscles
+                    .FirstOrDefaultAsync(m => m.MuscleName == muscleName);
+
+                if (muscle == null)
+                {
+                    logger.LogWarning($"Muscle with name '{muscleName}' not found.");
+                    throw new Exception($"Muscle with name '{muscleName}' not found.");
+                }
+
+                // שליפת תת-שרירים הקשורים לשריר הראשי
+                var subMuscles = await ctx.SubMuscles
+                    .Where(sm => sm.MuscleId == muscle.MuscleId)
+                    .ToListAsync();
+
+                logger.LogInformation($"Found {subMuscles.Count} sub-muscles for muscle '{muscleName}'.");
+                return subMuscles;
+            }
+            catch (Exception ex)
+            {
+                // כתיבת שגיאות ללוג
+                logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
+                throw;
+            }
+        }
+
 
     }
 
