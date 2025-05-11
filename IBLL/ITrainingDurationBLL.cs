@@ -14,6 +14,7 @@ namespace IBLL
         Task<List<TrainingDurationDTO>> GetAllTrainingDurationAsync();
         Task<TrainingDurationDTO> GetTrainingDurationByIdAsync(int id);
         Task UpdateTrainingDurationAsync(TrainingDurationDTO trainingDuration, int id);
+        Task<TrainingDurationDTO> GetTrainingDurationByValue(int time);
         Task DeleteTrainingDurationAsync(int id);
     }
 }

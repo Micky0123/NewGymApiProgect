@@ -16,5 +16,6 @@ namespace IDAL
         Task<List<SubMuscle>> GetAllSubMuscleByMuscleIdAsync(int id);
         Task UpdateSubMuscleAsync(SubMuscle subMuscle, int id);
         Task DeleteSubMuscleAsync(int id);
+        Task<int> GetIdOfSubMuscleByNameAsync(string name);
     }
 }

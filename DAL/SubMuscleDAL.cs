@@ -122,5 +122,23 @@ namespace DAL
                 throw new Exception("Error updating SubMuscle", ex);
             }
         }
+        public async Task<int> GetIdOfSubMuscleByNameAsync(string name)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var smu = await ctx.SubMuscles.FirstOrDefaultAsync(m => m.SubMuscleName == name);
+                if (smu == null)
+                {
+                    throw new Exception("subMuscle not found");
+                }
+                return smu.SubMuscleId;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving subMuscle by name", ex);
+            }
+        }
     }
 }

@@ -134,10 +134,7 @@ namespace DAL
             }
         }
 
-        int IMuscleDAL.GetIdOfMuscleByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
+
 
 
         public async Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName)

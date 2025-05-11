@@ -21,13 +21,21 @@ public partial class TrainingProgram
 
     public int? ParentProgramId { get; set; }
 
+    public bool? IsHistoricalProgram { get; set; }
+
+    public virtual ICollection<DefaultProgram> DefaultPrograms { get; set; } = new List<DefaultProgram>();
+
     public virtual ICollection<TrainingProgram> InverseParentProgram { get; set; } = new List<TrainingProgram>();
+
+    public virtual ICollection<MonthlyProgram> MonthlyPrograms { get; set; } = new List<MonthlyProgram>();
 
     public virtual TrainingProgram? ParentProgram { get; set; }
 
     public virtual ICollection<ProgramChange> ProgramChanges { get; set; } = new List<ProgramChange>();
 
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
+
+    public virtual ICollection<RealTimeTraining> RealTimeTrainings { get; set; } = new List<RealTimeTraining>();
 
     public virtual Trainee Trainee { get; set; } = null!;
 }

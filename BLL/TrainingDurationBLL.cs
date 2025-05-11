@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using DAL;
 using DBEntities.Models;
+using DocumentFormat.OpenXml.Wordprocessing;
 using DTO;
 using IBLL;
 using IDAL;
@@ -53,6 +55,12 @@ namespace BLL
         {
             TrainingDuration trainingDurationEntity = mapper.Map<TrainingDuration>(trainingDuration);
             await trainingDurationDAL.UpdateTrainingDurationAsync(trainingDurationEntity, id);
+        }
+
+        public async Task<TrainingDurationDTO> GetTrainingDurationByValue(int time)
+        {
+            TrainingDuration trainingDurationEntity = await trainingDurationDAL.GetTrainingDurationByValue(time);
+            return mapper.Map<TrainingDurationDTO>(trainingDurationEntity);
         }
     }
 }

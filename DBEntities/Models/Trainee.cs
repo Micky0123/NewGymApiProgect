@@ -27,19 +27,11 @@ public partial class Trainee
 
     public string Password { get; set; } = null!;
 
-    public int? TrainingDays { get; set; }
-
-    public int? GoalId { get; set; }
-
     public DateTime? LoginDateTime { get; set; }
 
-    public int? FitnessLevelId { get; set; }
+    public virtual ICollection<MonthlyProgram> MonthlyPrograms { get; set; } = new List<MonthlyProgram>();
 
-    public int? TimeTrainingDuration { get; set; }
-
-    public virtual FitnessLevel? FitnessLevel { get; set; }
-
-    public virtual TrainingDuration? TimeTrainingDurationNavigation { get; set; }
+    public virtual ICollection<RealTimeTraining> RealTimeTrainings { get; set; } = new List<RealTimeTraining>();
 
     public virtual ICollection<TrainingProgram> TrainingPrograms { get; set; } = new List<TrainingProgram>();
 

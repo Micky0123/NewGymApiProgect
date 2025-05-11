@@ -50,7 +50,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                return await ctx.TrainingDurations.Include(td => td.Trainees).ToListAsync();
+                return await ctx.TrainingDurations.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -63,16 +63,20 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                var trainingDuration = await ctx.TrainingDurations
-                    .Include(td => td.Trainees)
-                    .FirstOrDefaultAsync(td => td.TrainingDurationId == id);
+                return await ctx.TrainingDurations.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving TrainingDuration by ID", ex);
+            }
+        }
 
-                if (trainingDuration == null)
-                {
-                    throw new Exception("TrainingDuration not found");
-                }
-
-                return trainingDuration;
+        public async Task<TrainingDuration>GetTrainingDurationByValue(int time)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.TrainingDurations.FirstOrDefaultAsync(s => s.TimeTrainingDuration == time);
             }
             catch (Exception ex)
             {

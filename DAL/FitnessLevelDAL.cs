@@ -48,7 +48,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                return await ctx.FitnessLevels.Include(fl => fl.Trainees).ToListAsync();
+                return await ctx.FitnessLevels.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -61,16 +61,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                var fitnessLevel = await ctx.FitnessLevels
-                    .Include(fl => fl.Trainees)
-                    .FirstOrDefaultAsync(fl => fl.FitnessLevelId == id);
-
-                if (fitnessLevel == null)
-                {
-                    throw new Exception("FitnessLevel not found");
-                }
-
-                return fitnessLevel;
+               return await ctx.FitnessLevels.FindAsync(id);
             }
             catch (Exception ex)
             {

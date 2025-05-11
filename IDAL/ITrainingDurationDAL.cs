@@ -13,6 +13,7 @@ namespace IDAL
         Task<List<TrainingDuration>> GetAllTrainingDurationAsync();
         Task<TrainingDuration> GetTrainingDurationByIdAsync(int id);
         Task UpdateTrainingDurationAsync(TrainingDuration trainingDuration, int id);
+        Task<TrainingDuration> GetTrainingDurationByValue(int time);
         Task DeleteTrainingDurationAsync(int id);
     }
 }

@@ -11,65 +11,65 @@ namespace DAL
 {
     public class TraineeDAL : ITraineeDAL
     {
-        //public async Task AddTraineeAsync(Trainee trainee)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        await ctx.Trainees.AddAsync(trainee);
-        //        await ctx.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error adding new Trainee", ex);
-        //    }
-        //}
         public async Task AddTraineeAsync(Trainee trainee)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // מציאת המטרה שברצונך לקשר
-                var goal = await ctx.Goals.FindAsync(trainee.GoalId);
-                //var trainingDuration = await ctx.TrainingDurations.FindAsync(trainee.TimeTrainingDuration);
-                if ( goal != null)
-                {
-                    // הוספת המתאמן למטרה
-                    goal.Trainees.Add(trainee);
-                    // הוספת המטרה למתאמן
-                    trainee.Goals.Add(goal);
-
-                  ///  trainingDuration.Trainees.Add(trainee);
-                    //  trainee.TimeTrainingDuration.Add(trainingDuration);
-
-                    await ctx.Trainees.AddAsync(trainee);
-                    await ctx.SaveChangesAsync();
-                }
-
-
-                //if (goal != null)
-                //{
-                //    // הוספת המתאמן למטרה
-                //    goal.Trainees.Add(trainee);
-
-                //    // הוספת המטרה למתאמן
-                //    trainee.Goals.Add(goal);
-
-                //    // שמירה למסד הנתונים
-                //    await ctx.Trainees.AddAsync(trainee);
-                //    await ctx.SaveChangesAsync();
-                //}
-                else
-                {
-                    // טיפול במקרה שהמטרה לא נמצאה
-                    throw new Exception("מטרה לא נמצאה");
-                }
+                await ctx.Trainees.AddAsync(trainee);
+                await ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw new Exception("Error adding new Trainee", ex);
             }
         }
+        //public async Task AddTraineeAsync(Trainee trainee)
+        //{
+        //    using GymDbContext ctx = new GymDbContext();
+        //    try
+        //    {
+        //        // מציאת המטרה שברצונך לקשר
+        //        var goal = await ctx.Goals.FindAsync(trainee.GoalId);
+        //        //var trainingDuration = await ctx.TrainingDurations.FindAsync(trainee.TimeTrainingDuration);
+        //        if ( goal != null)
+        //        {
+        //            // הוספת המתאמן למטרה
+        //            goal.Trainees.Add(trainee);
+        //            // הוספת המטרה למתאמן
+        //            trainee.Goals.Add(goal);
+
+        //          ///  trainingDuration.Trainees.Add(trainee);
+        //            //  trainee.TimeTrainingDuration.Add(trainingDuration);
+
+        //            await ctx.Trainees.AddAsync(trainee);
+        //            await ctx.SaveChangesAsync();
+        //        }
+
+
+        //        //if (goal != null)
+        //        //{
+        //        //    // הוספת המתאמן למטרה
+        //        //    goal.Trainees.Add(trainee);
+
+        //        //    // הוספת המטרה למתאמן
+        //        //    trainee.Goals.Add(goal);
+
+        //        //    // שמירה למסד הנתונים
+        //        //    await ctx.Trainees.AddAsync(trainee);
+        //        //    await ctx.SaveChangesAsync();
+        //        //}
+        //        else
+        //        {
+        //            // טיפול במקרה שהמטרה לא נמצאה
+        //            throw new Exception("מטרה לא נמצאה");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error adding new Trainee", ex);
+        //    }
+        //}
 
         //public async Task AddTraineeAsync(Trainee trainee)
         //{

@@ -11,7 +11,13 @@ public partial class Exercise
 
     public bool? Active { get; set; }
 
+    public virtual ICollection<ExerciseChange> ExerciseChangeNewExercises { get; set; } = new List<ExerciseChange>();
+
+    public virtual ICollection<ExerciseChange> ExerciseChangeOriginalExercises { get; set; } = new List<ExerciseChange>();
+
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
+
+    public virtual ICollection<RealTimeTraining> RealTimeTrainings { get; set; } = new List<RealTimeTraining>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
@@ -26,6 +32,4 @@ public partial class Exercise
     public virtual ICollection<Muscle> Muscles { get; set; } = new List<Muscle>();
 
     public virtual ICollection<SubMuscle> SubMuscles { get; set; } = new List<SubMuscle>();
-    // מאפיין מחושב שמחזיר את כמות המפרקים שמעורבים בתרגיל
-    public int JointCount => Joints.Count;
 }

@@ -17,15 +17,21 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<DefaultProgram> DefaultPrograms { get; set; }
+
     public virtual DbSet<Equipment> Equipment { get; set; }
 
     public virtual DbSet<Exercise> Exercises { get; set; }
+
+    public virtual DbSet<ExerciseChange> ExerciseChanges { get; set; }
 
     public virtual DbSet<FitnessLevel> FitnessLevels { get; set; }
 
     public virtual DbSet<Goal> Goals { get; set; }
 
     public virtual DbSet<Joint> Joints { get; set; }
+
+    public virtual DbSet<MonthlyProgram> MonthlyPrograms { get; set; }
 
     public virtual DbSet<Muscle> Muscles { get; set; }
 
@@ -34,6 +40,8 @@ public partial class GymDbContext : DbContext
     public virtual DbSet<ProgramChange> ProgramChanges { get; set; }
 
     public virtual DbSet<ProgramExercise> ProgramExercises { get; set; }
+
+    public virtual DbSet<RealTimeTraining> RealTimeTrainings { get; set; }
 
     public virtual DbSet<Size> Sizes { get; set; }
 
@@ -59,6 +67,37 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.CategoryName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<DefaultProgram>(entity =>
+        {
+            entity.HasKey(e => e.DefaultProgramId).HasName("PK__DefaultP__D6224AE9DEF22B35");
+
+            entity.Property(e => e.DefaultProgramId).HasColumnName("DefaultProgramID");
+            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
+            entity.Property(e => e.GoalId).HasColumnName("GoalID");
+            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+            entity.Property(e => e.TrainingDurationId).HasColumnName("TrainingDurationID");
+
+            entity.HasOne(d => d.FitnessLevel).WithMany(p => p.DefaultPrograms)
+                .HasForeignKey(d => d.FitnessLevelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DefaultPr__Fitne__2EA5EC27");
+
+            entity.HasOne(d => d.Goal).WithMany(p => p.DefaultPrograms)
+                .HasForeignKey(d => d.GoalId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DefaultPr__GoalI__2CBDA3B5");
+
+            entity.HasOne(d => d.Program).WithMany(p => p.DefaultPrograms)
+                .HasForeignKey(d => d.ProgramId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DefaultPr__Progr__2F9A1060");
+
+            entity.HasOne(d => d.TrainingDuration).WithMany(p => p.DefaultPrograms)
+                .HasForeignKey(d => d.TrainingDurationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DefaultPr__Train__2DB1C7EE");
         });
 
         modelBuilder.Entity<Equipment>(entity =>
@@ -209,6 +248,32 @@ public partial class GymDbContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<ExerciseChange>(entity =>
+        {
+            entity.HasKey(e => e.ChangeId).HasName("PK__Exercise__0E05C5B78CC77A79");
+
+            entity.Property(e => e.ChangeId).HasColumnName("ChangeID");
+            entity.Property(e => e.ChangeDateTime).HasColumnType("datetime");
+            entity.Property(e => e.NewExerciseId).HasColumnName("NewExerciseID");
+            entity.Property(e => e.OriginalExerciseId).HasColumnName("OriginalExerciseID");
+            entity.Property(e => e.RealTimeTrainingId).HasColumnName("RealTimeTrainingID");
+
+            entity.HasOne(d => d.NewExercise).WithMany(p => p.ExerciseChangeNewExercises)
+                .HasForeignKey(d => d.NewExerciseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ExerciseC__NewEx__345EC57D");
+
+            entity.HasOne(d => d.OriginalExercise).WithMany(p => p.ExerciseChangeOriginalExercises)
+                .HasForeignKey(d => d.OriginalExerciseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ExerciseC__Origi__336AA144");
+
+            entity.HasOne(d => d.RealTimeTraining).WithMany(p => p.ExerciseChanges)
+                .HasForeignKey(d => d.RealTimeTrainingId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ExerciseC__RealT__32767D0B");
+        });
+
         modelBuilder.Entity<FitnessLevel>(entity =>
         {
             entity.HasKey(e => e.FitnessLevelId).HasName("PK__FitnessL__A30B549EDFB241BA");
@@ -236,6 +301,28 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.JointId).HasColumnName("JointID");
             entity.Property(e => e.JointName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<MonthlyProgram>(entity =>
+        {
+            entity.HasKey(e => e.MonthlyProgramId).HasName("PK__MonthlyP__280DEA2B6BD8BD2F");
+
+            entity.Property(e => e.MonthlyProgramId).HasColumnName("MonthlyProgramID");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
+            entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
+
+            entity.HasOne(d => d.Program).WithMany(p => p.MonthlyPrograms)
+                .HasForeignKey(d => d.ProgramId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MonthlyPr__Progr__39237A9A");
+
+            entity.HasOne(d => d.Trainee).WithMany(p => p.MonthlyPrograms)
+                .HasForeignKey(d => d.TraineeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MonthlyPr__Train__382F5661");
         });
 
         modelBuilder.Entity<Muscle>(entity =>
@@ -272,19 +359,81 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.ProgramExerciseId).HasName("PK__ProgramE__217C745EB399FA4A");
 
             entity.Property(e => e.ProgramExerciseId).HasColumnName("ProgramExerciseID");
+            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
+            entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
             entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
             entity.Property(e => e.ProgramWeight).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.ProgramExercises)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProgramExercises_Categories");
 
             entity.HasOne(d => d.Exercise).WithMany(p => p.ProgramExercises)
                 .HasForeignKey(d => d.ExerciseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProgramExercises_Exercises");
 
+            entity.HasOne(d => d.Muscle).WithMany(p => p.ProgramExercises)
+                .HasForeignKey(d => d.MuscleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProgramExercises_Muscles");
+
             entity.HasOne(d => d.Program).WithMany(p => p.ProgramExercises)
                 .HasForeignKey(d => d.ProgramId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProgramExercises_TrainingPrograms");
+
+            entity.HasOne(d => d.SubMuscle).WithMany(p => p.ProgramExercises)
+                .HasForeignKey(d => d.SubMuscleId)
+                .HasConstraintName("FK_ProgramExercises_SubMuscles");
+        });
+
+        modelBuilder.Entity<RealTimeTraining>(entity =>
+        {
+            entity.HasKey(e => e.RealTimeTrainingId).HasName("PK__RealTime__B2A7ADF45C8C661B");
+
+            entity.ToTable("RealTimeTraining");
+
+            entity.Property(e => e.RealTimeTrainingId).HasColumnName("RealTimeTrainingID");
+            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+            entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
+            entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
+            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+            entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
+            entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
+            entity.Property(e => e.TrainingDateTime).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RealTimeT__Categ__2704CA5F");
+
+            entity.HasOne(d => d.Exercise).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.ExerciseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RealTimeT__Exerc__251C81ED");
+
+            entity.HasOne(d => d.Muscle).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.MuscleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RealTimeT__Muscl__27F8EE98");
+
+            entity.HasOne(d => d.Program).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.ProgramId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RealTimeT__Progr__24285DB4");
+
+            entity.HasOne(d => d.SubMuscle).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.SubMuscleId)
+                .HasConstraintName("FK__RealTimeT__SubMu__28ED12D1");
+
+            entity.HasOne(d => d.Trainee).WithMany(p => p.RealTimeTrainings)
+                .HasForeignKey(d => d.TraineeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RealTimeT__Train__2610A626");
         });
 
         modelBuilder.Entity<Size>(entity =>
@@ -317,9 +466,7 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
             entity.Property(e => e.Email).HasMaxLength(50);
-            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
             entity.Property(e => e.Gender).HasMaxLength(6);
-            entity.Property(e => e.GoalId).HasColumnName("GoalID");
             entity.Property(e => e.Idnumber)
                 .HasMaxLength(9)
                 .HasColumnName("IDNumber");
@@ -329,14 +476,6 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.TraineeHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.TraineeName).HasMaxLength(100);
             entity.Property(e => e.TraineeWeight).HasColumnType("decimal(5, 2)");
-
-            entity.HasOne(d => d.FitnessLevel).WithMany(p => p.Trainees)
-                .HasForeignKey(d => d.FitnessLevelId)
-                .HasConstraintName("FK_Trainee_FitnessLevel");
-
-            entity.HasOne(d => d.TimeTrainingDurationNavigation).WithMany(p => p.Trainees)
-                .HasForeignKey(d => d.TimeTrainingDuration)
-                .HasConstraintName("FK_Trainees_TrainingDuration");
 
             entity.HasMany(d => d.Goals).WithMany(p => p.Trainees)
                 .UsingEntity<Dictionary<string, object>>(
@@ -381,6 +520,7 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
             entity.Property(e => e.CreationDate).HasColumnType("datetime");
             entity.Property(e => e.IsDefaultProgram).HasDefaultValue(false);
+            entity.Property(e => e.IsHistoricalProgram).HasDefaultValue(false);
             entity.Property(e => e.LastUpdateDate).HasColumnType("datetime");
             entity.Property(e => e.ProgramName).HasMaxLength(100);
             entity.Property(e => e.TraineeId).HasColumnName("TraineeID");

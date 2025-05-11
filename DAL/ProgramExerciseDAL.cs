@@ -127,6 +127,36 @@ namespace DAL
                 throw new Exception("Error retrieving exercises for muscle", ex);
             }
         }
+        // שמירת תוכנית האימון בטבלת TrainingPrograms
+        public async Task<int> SaveTrainingProgramAsync(TrainingProgram trainingProgram)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                ctx.TrainingPrograms.Add(trainingProgram);
+                await ctx.SaveChangesAsync();
+                return trainingProgram.ProgramId; // החזרת ה-ProgramID שנוצר
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving TrainingProgram", ex);
+            }
+        }
+
+        // שמירת התרגילים בטבלת ProgramExercises
+        public async Task SaveProgramExercisesAsync(List<ProgramExercise> programExercises)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                ctx.ProgramExercises.AddRange(programExercises);
+                await ctx.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving ProgramExercises", ex);
+            }
+        }
 
 
     }
