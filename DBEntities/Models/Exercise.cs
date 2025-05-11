@@ -26,4 +26,6 @@ public partial class Exercise
     public virtual ICollection<Muscle> Muscles { get; set; } = new List<Muscle>();
 
     public virtual ICollection<SubMuscle> SubMuscles { get; set; } = new List<SubMuscle>();
+    // מאפיין מחושב שמחזיר את כמות המפרקים שמעורבים בתרגיל
+    public int JointCount => Joints.Count;
 }

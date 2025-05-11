@@ -21,6 +21,7 @@ namespace IDAL
         Task<List<Equipment>> GetEquipmentByExercisesIdAsync(List<int> exerciseIds);
         Task<string> GetSubMuscleByExerciseAsync(int exerciseId);
         Task<string> GetMuscleByExerciseAsync(int exerciseId);
+        Task<int> GetJointCount(int exerciseId);
 
     }
 }

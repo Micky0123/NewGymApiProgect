@@ -218,5 +218,24 @@ namespace DAL
             var exercise = await ctx.Exercises.Include(e => e.SubMuscles).FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
             return exercise?.SubMuscles.FirstOrDefault()?.SubMuscleName ?? string.Empty;
         }
+
+        public async Task<int> GetJointCount(int exerciseId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // שליפת כמות המפרקים שמקושרים לתרגיל עם ExerciseId מסוים
+                var jointCount = await ctx.Exercises
+                    .Where(e => e.ExerciseId == exerciseId)
+                    .Select(e => e.Joints.Count)
+                    .FirstOrDefaultAsync(); // שליפה של כמות המפרקים בלבד
+
+                return jointCount; // החזרת כמות המפרקים
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving joint count for ExerciseId {exerciseId}", ex);
+            }
+        }
     }
 }
