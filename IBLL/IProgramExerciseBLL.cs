@@ -56,7 +56,7 @@ namespace IBLL
 
         Task ReadDataFromExcelAsync(string filePath);
        // Task<List<List<ExerciseDTO>>> AddProgramExerciseAsync(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
-        Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time);
+        Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time, int traineeID);
         Task<List<ExerciseDTO>> GetExercisesForMuscleAsync(string muscleName, int count);
         // Task<List<List<ExerciseDTO>>> GenerateExercisePlanAsync(TrainingParams trainingParams);
 

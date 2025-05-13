@@ -68,7 +68,7 @@ namespace API.Controllers
         //    }
         //}
 
-        public async Task<IActionResult> AddProgramExerciseAsync([FromBody] ProgramExerciseRequest request)
+        public async Task<IActionResult> AddProgramExerciseAsync([FromBody] ProgramExerciseRequest request,int traineeid)
         {
             if (request == null)
             {
@@ -83,7 +83,7 @@ namespace API.Controllers
                     // הוספת שדות לפי הצורך
                 };
                 string filePath = "WorkoutData.xlsx";
-                await programExerciseBLL.addProgramExerciseAsync1(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time);
+                await programExerciseBLL.addProgramExerciseAsync1(programExercise, request.DaysInWeek, request.Goal, request.Level, request.Time, traineeid);
                 return Ok("Program exercise added successfully.");
             }
             catch (Exception ex)

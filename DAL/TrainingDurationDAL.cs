@@ -83,6 +83,19 @@ namespace DAL
                 throw new Exception("Error retrieving TrainingDuration by ID", ex);
             }
         }
+        public async Task<int> GetTrainingDurationIDByValue(int time)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                var t= await ctx.TrainingDurations.FirstOrDefaultAsync(s => s.TimeTrainingDuration == time);
+                return t.TrainingDurationId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving TrainingDuration by ID", ex);
+            }
+        }
 
         public async Task UpdateTrainingDurationAsync(TrainingDuration trainingDuration, int id)
         {

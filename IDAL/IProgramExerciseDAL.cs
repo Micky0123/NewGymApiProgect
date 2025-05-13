@@ -17,6 +17,7 @@ namespace IDAL
         Task DeleteProgramExerciseAsync(int id);
         Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName);
         Task<int> SaveTrainingProgramAsync(TrainingProgram trainingProgram);
+        Task<int> SaveDefaultProgramsAsync(DefaultProgram defaultProgram);
         Task SaveProgramExercisesAsync(List<ProgramExercise> programExercises);
 
     }

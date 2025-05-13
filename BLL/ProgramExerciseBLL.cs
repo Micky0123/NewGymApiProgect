@@ -108,7 +108,7 @@ namespace BLL
             this.exerciseDAL = exerciseDAL;
         }
 
-        public async Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time1)
+        public async Task addProgramExerciseAsync1(ProgramExerciseDTO programExercise, int daysInWeek, int goal, int level, int time1,int traineeID)
         {
             //**********מיכלוש שימי לב שצריך לקבל את השמות ושהם לא יהיו קבועים/***************************
             string filePath1 = @"C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\BLL\new.xlsx";
@@ -130,7 +130,7 @@ namespace BLL
                 NeedSubMuscleList = new List<string>(),
             };
 
-            var time = trainingDurationDAL.GetTrainingDurationByValue(time1);
+            var time =await trainingDurationDAL.GetTrainingDurationIDByValue(time1);
             // שליפת כל הפרמטרים מהקובץ
             trainingParams = await GetAllParams(filePath1, daysInWeek, goal, level, time1);
 
@@ -176,7 +176,7 @@ namespace BLL
 
 
             var ListOfProgram = await GenerateOptimizedExercisePlanAsync(trainingParams);
-            await SaveDefaultProgramAsync(trainingParams, ListOfProgram, traineeId: 1, programName: "Default Training Program");
+            await SaveProgramDefaultAsync(trainingParams, ListOfProgram, traineeID, programName: "Default Training Program",daysInWeek,goal,level,time);
         }
 
         public async Task<TrainingParams> GetAllParams(string filePath, int daysInWeek, int goal, int level, int time)
@@ -570,6 +570,11 @@ namespace BLL
 
             return dayLists;
         }
+        public Task SaveDefaultProgramAsync(IBLL.TrainingParams trainingParams, int traineeId, string programName)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task<List<List<ExerciseWithMuscleInfo>>> GenerateOptimizedExercisePlanAsync(TrainingParams trainingParams)
         {
@@ -756,11 +761,7 @@ namespace BLL
             return exercisePlan;
         }
 
-        public Task SaveDefaultProgramAsync(IBLL.TrainingParams trainingParams, int traineeId, string programName)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task SaveDefaultProgramAsync(TrainingParams trainingParams, List<List<ExerciseWithMuscleInfo>> listOfProgram, int traineeId, string programName)
+        public async Task SaveProgramDefaultAsync(TrainingParams trainingParams, List<List<ExerciseWithMuscleInfo>> listOfProgram, int traineeId, string programName ,int daysInWeek, int goal, int level, int time)
         {
             try
             {
@@ -781,8 +782,18 @@ namespace BLL
                 // שמירת התוכנית ב-DAL וקבלת ProgramID
                 int programId = await programExerciseDAL.SaveTrainingProgramAsync(trainingProgram);
 
+                var defaultPrograms = new DefaultProgram
+                {
+                    GoalId = goal,
+                    TrainingDays = daysInWeek,
+                    TrainingDurationId = time,
+                    FitnessLevelId = level,
+                    ProgramId = programId,
+                };
+                int defaultProgramID = await programExerciseDAL.SaveDefaultProgramsAsync(defaultPrograms);
                 // הכנת רשימת התרגילים לשמירה
                 var programExercises = new List<ProgramExercise>();
+                int y = 0;
                 foreach (var (dayIndex, dayExercises) in listOfProgram.Select((day, index) => (index, day)))
                 {
                     int i = 0;
@@ -805,15 +816,18 @@ namespace BLL
                             ProgramRepetitionsMax = trainingParams.MaxRep,
                             ProgramWeight = 10,
                             ExerciseOrder = i + 1, // סדר היום בתוכנית
+                            DayOrder = y + 1,
                             CategoryId = exerciseEntry.categoryId,
-                            TimesMin= 5,
-                            TimesMax=10,
-                            MuscleId= muscleId,
-                            SubMuscleId= subMuscleId,
+                            TimesMin = 5,
+                            TimesMax = 10,
+                            MuscleId = muscleId,
+                            SubMuscleId = subMuscleId,
                         };
 
                         programExercises.Add(programExercise);
+                        i++;
                     }
+                    y++;
                 }
 
                 // שמירת התרגילים ב-DAL

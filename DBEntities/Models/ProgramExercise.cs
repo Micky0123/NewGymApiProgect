@@ -31,6 +31,8 @@ public partial class ProgramExercise
 
     public int? SubMuscleId { get; set; }
 
+    public int? DayOrder { get; set; }
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual Exercise Exercise { get; set; } = null!;

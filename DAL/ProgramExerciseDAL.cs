@@ -142,6 +142,20 @@ namespace DAL
                 throw new Exception("Error saving TrainingProgram", ex);
             }
         }
+        public async Task<int> SaveDefaultProgramsAsync(DefaultProgram defaultProgram)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                ctx.DefaultPrograms.Add(defaultProgram);
+                await ctx.SaveChangesAsync();
+                return defaultProgram.DefaultProgramId; // החזרת ה-ProgramID שנוצר
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving TrainingProgram", ex);
+            }
+        }
 
         // שמירת התרגילים בטבלת ProgramExercises
         public async Task SaveProgramExercisesAsync(List<ProgramExercise> programExercises)
