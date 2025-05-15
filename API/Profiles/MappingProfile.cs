@@ -11,6 +11,7 @@ namespace API.Profiles
         {
             CreateMap<TraineeDTO, Trainee>()
                 .ForMember(dest => dest.TraineeId, opt => opt.Ignore()); // מתעלם מהמיפוי של TraineeId
+            CreateMap<DeviceMuscleEdge, DeviceMuscleEdgeDTO>();
         }
     }
 }

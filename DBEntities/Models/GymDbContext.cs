@@ -19,6 +19,8 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<DefaultProgram> DefaultPrograms { get; set; }
 
+    public virtual DbSet<DeviceMuscleEdge> DeviceMuscleEdges { get; set; }
+
     public virtual DbSet<Equipment> Equipment { get; set; }
 
     public virtual DbSet<Exercise> Exercises { get; set; }
@@ -29,11 +31,15 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Goal> Goals { get; set; }
 
+    public virtual DbSet<GraphEdge> GraphEdges { get; set; }
+
     public virtual DbSet<Joint> Joints { get; set; }
 
     public virtual DbSet<MonthlyProgram> MonthlyPrograms { get; set; }
 
     public virtual DbSet<Muscle> Muscles { get; set; }
+
+    public virtual DbSet<MuscleEdge> MuscleEdges { get; set; }
 
     public virtual DbSet<MuscleType> MuscleTypes { get; set; }
 
@@ -98,6 +104,19 @@ public partial class GymDbContext : DbContext
                 .HasForeignKey(d => d.TrainingDurationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__DefaultPr__Train__2DB1C7EE");
+        });
+
+        modelBuilder.Entity<DeviceMuscleEdge>(entity =>
+        {
+            entity.HasKey(e => e.EdgeId).HasName("PK__DeviceMu__DD62104605501A82");
+
+            entity.HasOne(d => d.Device).WithMany(p => p.DeviceMuscleEdges)
+                .HasForeignKey(d => d.DeviceId)
+                .HasConstraintName("FK_Device");
+
+            entity.HasOne(d => d.Muscle).WithMany(p => p.DeviceMuscleEdges)
+                .HasForeignKey(d => d.MuscleId)
+                .HasConstraintName("FK_Muscle");
         });
 
         modelBuilder.Entity<Equipment>(entity =>
@@ -295,6 +314,23 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.GoalName).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<GraphEdge>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__GraphEdg__3214EC277687C829");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+
+            entity.HasOne(d => d.Device1).WithMany(p => p.GraphEdgeDevice1s)
+                .HasForeignKey(d => d.Device1Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ExerciseID1");
+
+            entity.HasOne(d => d.Device2).WithMany(p => p.GraphEdgeDevice2s)
+                .HasForeignKey(d => d.Device2Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ExerciseID2");
+        });
+
         modelBuilder.Entity<Joint>(entity =>
         {
             entity.HasKey(e => e.JointId).HasName("PK__Joints__E918E8095BA0336E");
@@ -331,6 +367,21 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
             entity.Property(e => e.MuscleName).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<MuscleEdge>(entity =>
+        {
+            entity.HasKey(e => e.MuscleEdgeId).HasName("PK__MuscleEd__367B88E60B6DE6BF");
+
+            entity.HasOne(d => d.MuscleId1Navigation).WithMany(p => p.MuscleEdgeMuscleId1Navigations)
+                .HasForeignKey(d => d.MuscleId1)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MuscleEdges1");
+
+            entity.HasOne(d => d.MuscleId2Navigation).WithMany(p => p.MuscleEdgeMuscleId2Navigations)
+                .HasForeignKey(d => d.MuscleId2)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MuscleEdges2");
         });
 
         modelBuilder.Entity<MuscleType>(entity =>

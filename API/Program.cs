@@ -65,7 +65,12 @@ namespace API
             builder.Services.AddScoped<IEquipmentDAL, EquipmentDAL>();
             builder.Services.AddScoped<IMuscleTypeBLL, MuscleTypeBLL>();
             builder.Services.AddScoped<IMuscleTypeDAL, MuscleTypeDAL>();
-
+            builder.Services.AddScoped<IGraphEdgeBLL, GraphEdgeBLL>();
+            builder.Services.AddScoped<IGraphEdgeDAL, GraphEdgeDAL>();
+            builder.Services.AddScoped<IDeviceMuscleEdgeBLL, DeviceMuscleEdgeBLL>();
+            builder.Services.AddScoped<IDeviceMuscleEdgeDAL, DeviceMuscleEdgeDAL>();
+            builder.Services.AddScoped<IMuscleEdgeBLL, MuscleEdgeBLL>();
+            builder.Services.AddScoped<IMuscleEdgeDAL, MuscleEdgeDAL>();
 
             // Add services to the container.
 

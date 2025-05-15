@@ -11,9 +11,15 @@ public partial class Exercise
 
     public bool? Active { get; set; }
 
+    public virtual ICollection<DeviceMuscleEdge> DeviceMuscleEdges { get; set; } = new List<DeviceMuscleEdge>();
+
     public virtual ICollection<ExerciseChange> ExerciseChangeNewExercises { get; set; } = new List<ExerciseChange>();
 
     public virtual ICollection<ExerciseChange> ExerciseChangeOriginalExercises { get; set; } = new List<ExerciseChange>();
+
+    public virtual ICollection<GraphEdge> GraphEdgeDevice1s { get; set; } = new List<GraphEdge>();
+
+    public virtual ICollection<GraphEdge> GraphEdgeDevice2s { get; set; } = new List<GraphEdge>();
 
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
 

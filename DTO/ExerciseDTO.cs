@@ -12,5 +12,6 @@ namespace DTO
 
         public string ExerciseName { get; set; }
         public bool Active { get; set; }
+
     }
 }

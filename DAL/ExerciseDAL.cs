@@ -211,6 +211,19 @@ namespace DAL
             var exercise = await ctx.Exercises.Include(e => e.Muscles).FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
             return exercise?.Muscles.FirstOrDefault()?.MuscleName ?? string.Empty;
         }
+
+        public async Task<List<Muscle>> GetAllMusclesByExerciseAsync(int exerciseId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            var exercise = await ctx.Exercises
+                                    .Include(e => e.Muscles)
+                                    .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+
+            // מחזיר את כל השרירים או רשימה ריקה
+            return exercise?.Muscles.ToList() ?? new List<Muscle>();
+        }
+
+
         //שליפת תת-השריר עבור תרגיל
         public async Task<string> GetSubMuscleByExerciseAsync(int exerciseId)
         {

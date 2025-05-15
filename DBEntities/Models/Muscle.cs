@@ -9,6 +9,12 @@ public partial class Muscle
 
     public string? MuscleName { get; set; }
 
+    public virtual ICollection<DeviceMuscleEdge> DeviceMuscleEdges { get; set; } = new List<DeviceMuscleEdge>();
+
+    public virtual ICollection<MuscleEdge> MuscleEdgeMuscleId1Navigations { get; set; } = new List<MuscleEdge>();
+
+    public virtual ICollection<MuscleEdge> MuscleEdgeMuscleId2Navigations { get; set; } = new List<MuscleEdge>();
+
     public virtual ICollection<ProgramExercise> ProgramExercises { get; set; } = new List<ProgramExercise>();
 
     public virtual ICollection<RealTimeTraining> RealTimeTrainings { get; set; } = new List<RealTimeTraining>();
