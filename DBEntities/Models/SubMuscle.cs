@@ -7,7 +7,7 @@ public partial class SubMuscle
 {
     public int SubMuscleId { get; set; }
 
-    public string? SubMuscleName { get; set; }
+    public string SubMuscleName { get; set; } = null!;
 
     public int MuscleId { get; set; }
 

@@ -7,9 +7,9 @@ public partial class Exercise
 {
     public int ExerciseId { get; set; }
 
-    public string? ExerciseName { get; set; }
+    public string ExerciseName { get; set; } = null!;
 
-    public bool? Active { get; set; }
+    public bool Active { get; set; }
 
     public int? MuscleId { get; set; }
 

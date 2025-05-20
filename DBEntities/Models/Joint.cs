@@ -7,7 +7,7 @@ public partial class Joint
 {
     public int JointId { get; set; }
 
-    public string? JointName { get; set; }
+    public string JointName { get; set; } = null!;
 
     public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
 }

@@ -7,7 +7,7 @@ public partial class Muscle
 {
     public int MuscleId { get; set; }
 
-    public string? MuscleName { get; set; }
+    public string MuscleName { get; set; } = null!;
 
     public virtual ICollection<DeviceMuscleEdge> DeviceMuscleEdges { get; set; } = new List<DeviceMuscleEdge>();
 

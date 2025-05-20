@@ -64,7 +64,7 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B039B50AE");
 
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.CategoryName).HasMaxLength(100);
+            entity.Property(e => e.CategoryName).HasMaxLength(20);
         });
 
         modelBuilder.Entity<DeviceMuscleEdge>(entity =>
@@ -85,7 +85,7 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.EquipmentId).HasName("PK__Equipmen__34474599FC86338E");
 
             entity.Property(e => e.EquipmentId).HasColumnName("EquipmentID");
-            entity.Property(e => e.EquipmentName).HasMaxLength(100);
+            entity.Property(e => e.EquipmentName).HasMaxLength(20);
         });
 
         modelBuilder.Entity<Exercise>(entity =>
@@ -254,7 +254,7 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.JointId).HasName("PK__Joints__E918E8095BA0336E");
 
             entity.Property(e => e.JointId).HasColumnName("JointID");
-            entity.Property(e => e.JointName).HasMaxLength(100);
+            entity.Property(e => e.JointName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Muscle>(entity =>
@@ -262,7 +262,7 @@ public partial class GymDbContext : DbContext
             entity.HasKey(e => e.MuscleId).HasName("PK__Muscles__A75D075EAE5420E4");
 
             entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
-            entity.Property(e => e.MuscleName).HasMaxLength(100);
+            entity.Property(e => e.MuscleName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<MuscleEdge>(entity =>
@@ -313,7 +313,7 @@ public partial class GymDbContext : DbContext
             entity.ToTable("Size");
 
             entity.Property(e => e.MuscleGroupId).HasColumnName("MuscleGroupID");
-            entity.Property(e => e.MuscleGroupName).HasMaxLength(100);
+            entity.Property(e => e.MuscleGroupName).HasMaxLength(20);
         });
 
         modelBuilder.Entity<SubMuscle>(entity =>
@@ -322,7 +322,7 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
             entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
-            entity.Property(e => e.SubMuscleName).HasMaxLength(100);
+            entity.Property(e => e.SubMuscleName).HasMaxLength(50);
 
             entity.HasOne(d => d.Muscle).WithMany(p => p.SubMuscles)
                 .HasForeignKey(d => d.MuscleId)
@@ -344,7 +344,7 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(10);
             entity.Property(e => e.TraineeHeight).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.TraineeName).HasMaxLength(100);
+            entity.Property(e => e.TraineeName).HasMaxLength(50);
             entity.Property(e => e.TraineeWeight).HasColumnType("decimal(5, 2)");
         });
 
