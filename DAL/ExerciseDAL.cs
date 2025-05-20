@@ -168,34 +168,23 @@ namespace DAL
                     .ToListAsync();
             }
         }
-        public async Task<List<Exercise>> GetExercisesBy(string muscleName, string TypeMuscle)
+        public async Task<List<Exercise>> GetExercisesBy(string muscleName, string typeMuscle)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // שליפת השריר מתוך הטבלה Muscles
                 var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
                 if (muscle == null)
-                {
                     throw new Exception($"Muscle '{muscleName}' not found.");
-                }
 
-                var muscleType = await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == TypeMuscle);
+                var muscleType = await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == typeMuscle);
                 if (muscleType == null)
-                {
-                    throw new Exception($"TypeMuscle '{TypeMuscle}' not found.");
-                }
-                // שליפת כל התרגילים הקשורים לשריר ולסוג שריר
-                //var exercises = await ctx.Exercises
-                //    .Where
-                //    (e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId)
-                //    && e.MuscleTypes == muscleType)
-                //    .ToListAsync();
+                    throw new Exception($"TypeMuscle '{typeMuscle}' not found.");
+
                 var exercises = await ctx.Exercises
-                   .Where(e =>
-                       e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-                       e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId))
-               .ToListAsync();
+                    .Where(e => e.MuscleId == muscle.MuscleId && e.MuscleTypeId == muscleType.MuscleTypeId)
+                    .ToListAsync();
+
                 return exercises;
             }
             catch (Exception ex)
@@ -208,21 +197,25 @@ namespace DAL
         public async Task<string> GetMuscleByExerciseAsync(int exerciseId)
         {
             using GymDbContext ctx = new GymDbContext();
-            var exercise = await ctx.Exercises.Include(e => e.Muscles).FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
-            return exercise?.Muscles.FirstOrDefault()?.MuscleName ?? string.Empty;
+            var exercise = await ctx.Exercises
+                .Include(e => e.Muscle)
+                .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+
+            return exercise?.Muscle?.MuscleName ?? string.Empty;
         }
 
-        public async Task<List<Muscle>> GetAllMusclesByExerciseAsync(int exerciseId)
+        public async Task<Muscle> GetAllMusclesByExerciseAsync(int exerciseId)
         {
             using GymDbContext ctx = new GymDbContext();
             var exercise = await ctx.Exercises
-                                    .Include(e => e.Muscles)
-                                    .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
+                .Include(e => e.Muscle)
+                .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
 
-            // מחזיר את כל השרירים או רשימה ריקה
-            return exercise?.Muscles.ToList() ?? new List<Muscle>();
+            // מחזיר את השריר הראשי אם קיים, אחרת רשימה ריקה
+            return exercise?.Muscle != null
+                ?  exercise.Muscle 
+                : null;
         }
-
 
         //שליפת תת-השריר עבור תרגיל
         public async Task<string> GetSubMuscleByExerciseAsync(int exerciseId)

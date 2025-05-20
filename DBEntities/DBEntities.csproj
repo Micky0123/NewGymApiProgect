@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\DefaultProgram.cs" />
+    <Compile Remove="Models\ExerciseChange.cs" />
+    <Compile Remove="Models\MonthlyProgram.cs" />
+    <Compile Remove="Models\ProgramChange.cs" />
+    <Compile Remove="Models\ProgramExercise.cs" />
+    <Compile Remove="Models\RealTimeTraining.cs" />
+    <Compile Remove="Models\TrainingProgram.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="microsoft.entityframeworkcore" Version="9.0.4" />
     <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="9.0.4" />
     <PackageReference Include="microsoft.entityframeworkcore.tools" Version="9.0.4">

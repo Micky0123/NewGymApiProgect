@@ -29,11 +29,5 @@ public partial class Trainee
 
     public DateTime? LoginDateTime { get; set; }
 
-    public virtual ICollection<MonthlyProgram> MonthlyPrograms { get; set; } = new List<MonthlyProgram>();
-
-    public virtual ICollection<RealTimeTraining> RealTimeTrainings { get; set; } = new List<RealTimeTraining>();
-
-    public virtual ICollection<TrainingProgram> TrainingPrograms { get; set; } = new List<TrainingProgram>();
-
-    public virtual ICollection<Goal> Goals { get; set; } = new List<Goal>();
+    public virtual ICollection<TrainingPlan> TrainingPlans { get; set; } = new List<TrainingPlan>();
 }

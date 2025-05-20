@@ -152,7 +152,7 @@ namespace DAL
 
                 // שליפת כל התרגילים הקשורים לשריר
                 var exercises = await ctx.Exercises
-                    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId))
+                    .Where(e => e.MuscleId == muscle.MuscleId)
                     .ToListAsync();
 
                 return exercises;
@@ -183,9 +183,12 @@ namespace DAL
                 }
 
                 // שליפת כל התרגילים הקשורים לשריר ולקטגוריה
+                //var exercises = await ctx.Exercises
+                //    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) && e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
+                //    .ToListAsync();
                 var exercises = await ctx.Exercises
-                    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) && e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-                    .ToListAsync();
+                          .Where(e => e.MuscleId == muscle.MuscleId)
+                          .ToListAsync();
                 return exercises;
             }
             catch (Exception ex)
@@ -244,14 +247,20 @@ namespace DAL
                     throw new Exception($"Category '{categoryName}' not found.");
                 }
 
+                //var exercises = await ctx.Exercises
+                //    .Where(e =>
+                //        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                //        e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
+                //.ToListAsync();
+
+                //logger.LogInformation($"Found {exercises.Count} exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
                 var exercises = await ctx.Exercises
                     .Where(e =>
-                        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                        e.MuscleId == muscle.MuscleId &&
                         e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-                .ToListAsync();
+                    .ToListAsync();
 
                 logger.LogInformation($"Found {exercises.Count} exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
-
                 return exercises;
             }
             catch (Exception ex)
@@ -294,13 +303,22 @@ namespace DAL
                 //        e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
                 //        e.Equipment.Any < ec => ec.EquipmentId == equipment.EquipmentId))
                 //.ToListAsync();
+                //var exercises = await ctx.Exercises
+                //.Where(e =>
+                //    e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
+                //    e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
+                //    e.Equipment.Any(ec => equipmentIds.Contains(ec.EquipmentId)))
+                //.ToListAsync();
+                //return exercises;
                 var exercises = await ctx.Exercises
                 .Where(e =>
-                    e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-                    e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
-                    e.Equipment.Any(ec => equipmentIds.Contains(ec.EquipmentId)))
+                    e.MuscleId == muscle.MuscleId &&
+                    e.MuscleTypeId == muscleType.MuscleTypeId &&
+                    e.Equipment.Any(eq => equipmentIds.Contains(eq.EquipmentId)))
                 .ToListAsync();
+
                 return exercises;
+
                 // שליפת כל התרגילים הקשורים לשריר ולסוג שריר
                 //var exercises = await ctx.Exercises
                 //    .Where

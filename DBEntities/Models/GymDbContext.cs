@@ -17,15 +17,13 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<DefaultProgram> DefaultPrograms { get; set; }
-
     public virtual DbSet<DeviceMuscleEdge> DeviceMuscleEdges { get; set; }
 
     public virtual DbSet<Equipment> Equipment { get; set; }
 
     public virtual DbSet<Exercise> Exercises { get; set; }
 
-    public virtual DbSet<ExerciseChange> ExerciseChanges { get; set; }
+    public virtual DbSet<ExercisePlan> ExercisePlans { get; set; }
 
     public virtual DbSet<FitnessLevel> FitnessLevels { get; set; }
 
@@ -35,19 +33,13 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<Joint> Joints { get; set; }
 
-    public virtual DbSet<MonthlyProgram> MonthlyPrograms { get; set; }
-
     public virtual DbSet<Muscle> Muscles { get; set; }
 
     public virtual DbSet<MuscleEdge> MuscleEdges { get; set; }
 
     public virtual DbSet<MuscleType> MuscleTypes { get; set; }
 
-    public virtual DbSet<ProgramChange> ProgramChanges { get; set; }
-
-    public virtual DbSet<ProgramExercise> ProgramExercises { get; set; }
-
-    public virtual DbSet<RealTimeTraining> RealTimeTrainings { get; set; }
+    public virtual DbSet<PlanDay> PlanDays { get; set; }
 
     public virtual DbSet<Size> Sizes { get; set; }
 
@@ -59,7 +51,7 @@ public partial class GymDbContext : DbContext
 
     public virtual DbSet<TrainingDuration> TrainingDurations { get; set; }
 
-    public virtual DbSet<TrainingProgram> TrainingPrograms { get; set; }
+    public virtual DbSet<TrainingPlan> TrainingPlans { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -73,37 +65,6 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.CategoryName).HasMaxLength(100);
-        });
-
-        modelBuilder.Entity<DefaultProgram>(entity =>
-        {
-            entity.HasKey(e => e.DefaultProgramId).HasName("PK__DefaultP__D6224AE9DEF22B35");
-
-            entity.Property(e => e.DefaultProgramId).HasColumnName("DefaultProgramID");
-            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
-            entity.Property(e => e.GoalId).HasColumnName("GoalID");
-            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-            entity.Property(e => e.TrainingDurationId).HasColumnName("TrainingDurationID");
-
-            entity.HasOne(d => d.FitnessLevel).WithMany(p => p.DefaultPrograms)
-                .HasForeignKey(d => d.FitnessLevelId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DefaultPr__Fitne__2EA5EC27");
-
-            entity.HasOne(d => d.Goal).WithMany(p => p.DefaultPrograms)
-                .HasForeignKey(d => d.GoalId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DefaultPr__GoalI__2CBDA3B5");
-
-            entity.HasOne(d => d.Program).WithMany(p => p.DefaultPrograms)
-                .HasForeignKey(d => d.ProgramId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DefaultPr__Progr__2F9A1060");
-
-            entity.HasOne(d => d.TrainingDuration).WithMany(p => p.DefaultPrograms)
-                .HasForeignKey(d => d.TrainingDurationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DefaultPr__Train__2DB1C7EE");
         });
 
         modelBuilder.Entity<DeviceMuscleEdge>(entity =>
@@ -133,6 +94,20 @@ public partial class GymDbContext : DbContext
 
             entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
             entity.Property(e => e.ExerciseName).HasMaxLength(100);
+            entity.Property(e => e.MuscleGroupId).HasColumnName("MuscleGroupID");
+            entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
+
+            entity.HasOne(d => d.MuscleGroup).WithMany(p => p.Exercises)
+                .HasForeignKey(d => d.MuscleGroupId)
+                .HasConstraintName("FK_Exercises_Size");
+
+            entity.HasOne(d => d.Muscle).WithMany(p => p.Exercises)
+                .HasForeignKey(d => d.MuscleId)
+                .HasConstraintName("FK_Exercises_Muscles");
+
+            entity.HasOne(d => d.MuscleType).WithMany(p => p.Exercises)
+                .HasForeignKey(d => d.MuscleTypeId)
+                .HasConstraintName("FK_Exercises_MuscleTypes");
 
             entity.HasMany(d => d.Categories).WithMany(p => p.Exercises)
                 .UsingEntity<Dictionary<string, object>>(
@@ -191,62 +166,6 @@ public partial class GymDbContext : DbContext
                         j.IndexerProperty<int>("JointId").HasColumnName("JointID");
                     });
 
-            entity.HasMany(d => d.MuscleGroups).WithMany(p => p.Exercises)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ExercisesSize",
-                    r => r.HasOne<Size>().WithMany()
-                        .HasForeignKey("MuscleGroupId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExercisesSize_Size"),
-                    l => l.HasOne<Exercise>().WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExercisesSize_Exercises"),
-                    j =>
-                    {
-                        j.HasKey("ExerciseId", "MuscleGroupId").HasName("PK__Exercise__D0E3038F7312BA46");
-                        j.ToTable("ExercisesSize");
-                        j.IndexerProperty<int>("ExerciseId").HasColumnName("ExerciseID");
-                        j.IndexerProperty<int>("MuscleGroupId").HasColumnName("MuscleGroupID");
-                    });
-
-            entity.HasMany(d => d.MuscleTypes).WithMany(p => p.Exercises)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ExerciseMuscleType",
-                    r => r.HasOne<MuscleType>().WithMany()
-                        .HasForeignKey("MuscleTypeId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExerciseMuscleTypes_MuscleTypes"),
-                    l => l.HasOne<Exercise>().WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExerciseMuscleTypes_Exercises"),
-                    j =>
-                    {
-                        j.HasKey("ExerciseId", "MuscleTypeId").HasName("PK__Exercise__D58AEA2909ACDA81");
-                        j.ToTable("ExerciseMuscleTypes");
-                        j.IndexerProperty<int>("ExerciseId").HasColumnName("ExerciseID");
-                    });
-
-            entity.HasMany(d => d.Muscles).WithMany(p => p.Exercises)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ExerciseMuscle",
-                    r => r.HasOne<Muscle>().WithMany()
-                        .HasForeignKey("MuscleId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExerciseMuscles_Muscles"),
-                    l => l.HasOne<Exercise>().WithMany()
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_ExerciseMuscles_Exercises"),
-                    j =>
-                    {
-                        j.HasKey("ExerciseId", "MuscleId").HasName("PK__Exercise__5A017D7A69B0D6EC");
-                        j.ToTable("ExerciseMuscles");
-                        j.IndexerProperty<int>("ExerciseId").HasColumnName("ExerciseID");
-                        j.IndexerProperty<int>("MuscleId").HasColumnName("MuscleID");
-                    });
-
             entity.HasMany(d => d.SubMuscles).WithMany(p => p.Exercises)
                 .UsingEntity<Dictionary<string, object>>(
                     "ExerciseSubMuscle",
@@ -267,30 +186,29 @@ public partial class GymDbContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<ExerciseChange>(entity =>
+        modelBuilder.Entity<ExercisePlan>(entity =>
         {
-            entity.HasKey(e => e.ChangeId).HasName("PK__Exercise__0E05C5B78CC77A79");
+            entity.HasKey(e => e.ExercisePlanId).HasName("PK__Exercise__8A3C5C39108344DA");
 
-            entity.Property(e => e.ChangeId).HasColumnName("ChangeID");
-            entity.Property(e => e.ChangeDateTime).HasColumnType("datetime");
-            entity.Property(e => e.NewExerciseId).HasColumnName("NewExerciseID");
-            entity.Property(e => e.OriginalExerciseId).HasColumnName("OriginalExerciseID");
-            entity.Property(e => e.RealTimeTrainingId).HasColumnName("RealTimeTrainingID");
+            entity.ToTable("ExercisePlan");
 
-            entity.HasOne(d => d.NewExercise).WithMany(p => p.ExerciseChangeNewExercises)
-                .HasForeignKey(d => d.NewExerciseId)
+            entity.Property(e => e.ExercisePlanId).HasColumnName("ExercisePlanID");
+            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+            entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
+            entity.Property(e => e.PlanDayId).HasColumnName("PlanDayID");
+            entity.Property(e => e.PlanWeight).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
+            entity.Property(e => e.TrainingDateTime).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Exercise).WithMany(p => p.ExercisePlans)
+                .HasForeignKey(d => d.ExerciseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ExerciseC__NewEx__345EC57D");
+                .HasConstraintName("FK_ExerciseID");
 
-            entity.HasOne(d => d.OriginalExercise).WithMany(p => p.ExerciseChangeOriginalExercises)
-                .HasForeignKey(d => d.OriginalExerciseId)
+            entity.HasOne(d => d.PlanDay).WithMany(p => p.ExercisePlans)
+                .HasForeignKey(d => d.PlanDayId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ExerciseC__Origi__336AA144");
-
-            entity.HasOne(d => d.RealTimeTraining).WithMany(p => p.ExerciseChanges)
-                .HasForeignKey(d => d.RealTimeTrainingId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ExerciseC__RealT__32767D0B");
+                .HasConstraintName("FK_PlanDayID");
         });
 
         modelBuilder.Entity<FitnessLevel>(entity =>
@@ -339,28 +257,6 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.JointName).HasMaxLength(100);
         });
 
-        modelBuilder.Entity<MonthlyProgram>(entity =>
-        {
-            entity.HasKey(e => e.MonthlyProgramId).HasName("PK__MonthlyP__280DEA2B6BD8BD2F");
-
-            entity.Property(e => e.MonthlyProgramId).HasColumnName("MonthlyProgramID");
-            entity.Property(e => e.EndDate).HasColumnType("datetime");
-            entity.Property(e => e.IsActive).HasDefaultValue(true);
-            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-            entity.Property(e => e.StartDate).HasColumnType("datetime");
-            entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
-
-            entity.HasOne(d => d.Program).WithMany(p => p.MonthlyPrograms)
-                .HasForeignKey(d => d.ProgramId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MonthlyPr__Progr__39237A9A");
-
-            entity.HasOne(d => d.Trainee).WithMany(p => p.MonthlyPrograms)
-                .HasForeignKey(d => d.TraineeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MonthlyPr__Train__382F5661");
-        });
-
         modelBuilder.Entity<Muscle>(entity =>
         {
             entity.HasKey(e => e.MuscleId).HasName("PK__Muscles__A75D075EAE5420E4");
@@ -393,98 +289,21 @@ public partial class GymDbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<ProgramChange>(entity =>
+        modelBuilder.Entity<PlanDay>(entity =>
         {
-            entity.HasKey(e => e.ProgramChangeId).HasName("PK__ProgramC__8A8339333BADB3F6");
+            entity.HasKey(e => e.PlanDayId).HasName("PK__PlanDay__BA415CF8997F3AB5");
 
-            entity.Property(e => e.ChangeDateTime).HasColumnType("datetime");
+            entity.ToTable("PlanDay");
 
-            entity.HasOne(d => d.Program).WithMany(p => p.ProgramChanges)
-                .HasForeignKey(d => d.ProgramId)
+            entity.Property(e => e.PlanDayId).HasColumnName("PlanDayID");
+            entity.Property(e => e.CreationDate).HasColumnType("datetime");
+            entity.Property(e => e.ProgramName).HasMaxLength(20);
+            entity.Property(e => e.TrainingPlanId).HasColumnName("TrainingPlanID");
+
+            entity.HasOne(d => d.TrainingPlan).WithMany(p => p.PlanDays)
+                .HasForeignKey(d => d.TrainingPlanId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ProgramCh__Progr__7C1A6C5A");
-        });
-
-        modelBuilder.Entity<ProgramExercise>(entity =>
-        {
-            entity.HasKey(e => e.ProgramExerciseId).HasName("PK__ProgramE__217C745EB399FA4A");
-
-            entity.Property(e => e.ProgramExerciseId).HasColumnName("ProgramExerciseID");
-            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
-            entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
-            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-            entity.Property(e => e.ProgramWeight).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
-
-            entity.HasOne(d => d.Category).WithMany(p => p.ProgramExercises)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProgramExercises_Categories");
-
-            entity.HasOne(d => d.Exercise).WithMany(p => p.ProgramExercises)
-                .HasForeignKey(d => d.ExerciseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProgramExercises_Exercises");
-
-            entity.HasOne(d => d.Muscle).WithMany(p => p.ProgramExercises)
-                .HasForeignKey(d => d.MuscleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProgramExercises_Muscles");
-
-            entity.HasOne(d => d.Program).WithMany(p => p.ProgramExercises)
-                .HasForeignKey(d => d.ProgramId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ProgramExercises_TrainingPrograms");
-
-            entity.HasOne(d => d.SubMuscle).WithMany(p => p.ProgramExercises)
-                .HasForeignKey(d => d.SubMuscleId)
-                .HasConstraintName("FK_ProgramExercises_SubMuscles");
-        });
-
-        modelBuilder.Entity<RealTimeTraining>(entity =>
-        {
-            entity.HasKey(e => e.RealTimeTrainingId).HasName("PK__RealTime__B2A7ADF45C8C661B");
-
-            entity.ToTable("RealTimeTraining");
-
-            entity.Property(e => e.RealTimeTrainingId).HasColumnName("RealTimeTrainingID");
-            entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.ExerciseId).HasColumnName("ExerciseID");
-            entity.Property(e => e.MuscleId).HasColumnName("MuscleID");
-            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-            entity.Property(e => e.SubMuscleId).HasColumnName("SubMuscleID");
-            entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
-            entity.Property(e => e.TrainingDateTime).HasColumnType("datetime");
-
-            entity.HasOne(d => d.Category).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RealTimeT__Categ__2704CA5F");
-
-            entity.HasOne(d => d.Exercise).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.ExerciseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RealTimeT__Exerc__251C81ED");
-
-            entity.HasOne(d => d.Muscle).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.MuscleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RealTimeT__Muscl__27F8EE98");
-
-            entity.HasOne(d => d.Program).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.ProgramId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RealTimeT__Progr__24285DB4");
-
-            entity.HasOne(d => d.SubMuscle).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.SubMuscleId)
-                .HasConstraintName("FK__RealTimeT__SubMu__28ED12D1");
-
-            entity.HasOne(d => d.Trainee).WithMany(p => p.RealTimeTrainings)
-                .HasForeignKey(d => d.TraineeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RealTimeT__Train__2610A626");
+                .HasConstraintName("FK_DefaultProgramID");
         });
 
         modelBuilder.Entity<Size>(entity =>
@@ -527,25 +346,6 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.TraineeHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.TraineeName).HasMaxLength(100);
             entity.Property(e => e.TraineeWeight).HasColumnType("decimal(5, 2)");
-
-            entity.HasMany(d => d.Goals).WithMany(p => p.Trainees)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TraineeGoal",
-                    r => r.HasOne<Goal>().WithMany()
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_TraineeGoal_Goal"),
-                    l => l.HasOne<Trainee>().WithMany()
-                        .HasForeignKey("TraineeId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_TraineeGoal_Trainees"),
-                    j =>
-                    {
-                        j.HasKey("TraineeId", "GoalId").HasName("PK__TraineeG__330DEE59BAF6BB03");
-                        j.ToTable("TraineeGoal");
-                        j.IndexerProperty<int>("TraineeId").HasColumnName("TraineeID");
-                        j.IndexerProperty<int>("GoalId").HasColumnName("GoalID");
-                    });
         });
 
         modelBuilder.Entity<TrainingDay>(entity =>
@@ -564,27 +364,39 @@ public partial class GymDbContext : DbContext
             entity.Property(e => e.TrainingDurationId).HasColumnName("TrainingDurationID");
         });
 
-        modelBuilder.Entity<TrainingProgram>(entity =>
+        modelBuilder.Entity<TrainingPlan>(entity =>
         {
-            entity.HasKey(e => e.ProgramId).HasName("PK__Training__75256038C36759E1");
+            entity.HasKey(e => e.TrainingPlanId).HasName("PK__Training__D6224AE96CEF725D");
 
-            entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
-            entity.Property(e => e.CreationDate).HasColumnType("datetime");
-            entity.Property(e => e.IsDefaultProgram).HasDefaultValue(false);
-            entity.Property(e => e.IsHistoricalProgram).HasDefaultValue(false);
-            entity.Property(e => e.LastUpdateDate).HasColumnType("datetime");
-            entity.Property(e => e.ProgramName).HasMaxLength(100);
+            entity.ToTable("TrainingPlan");
+
+            entity.Property(e => e.TrainingPlanId).HasColumnName("TrainingPlanID");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
+            entity.Property(e => e.FitnessLevelId).HasColumnName("FitnessLevelID");
+            entity.Property(e => e.GoalId).HasColumnName("GoalID");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.TraineeId).HasColumnName("TraineeID");
-            entity.Property(e => e.TrainingDateTime).HasColumnType("datetime");
+            entity.Property(e => e.TrainingDurationId).HasColumnName("TrainingDurationID");
 
-            entity.HasOne(d => d.ParentProgram).WithMany(p => p.InverseParentProgram)
-                .HasForeignKey(d => d.ParentProgramId)
-                .HasConstraintName("FK_TrainingProgram_Parent");
+            entity.HasOne(d => d.FitnessLevel).WithMany(p => p.TrainingPlans)
+                .HasForeignKey(d => d.FitnessLevelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_FitnessLevelID");
 
-            entity.HasOne(d => d.Trainee).WithMany(p => p.TrainingPrograms)
+            entity.HasOne(d => d.Goal).WithMany(p => p.TrainingPlans)
+                .HasForeignKey(d => d.GoalId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GoalID");
+
+            entity.HasOne(d => d.Trainee).WithMany(p => p.TrainingPlans)
                 .HasForeignKey(d => d.TraineeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TrainingPrograms_Trainees");
+                .HasConstraintName("FK_TraineeID");
+
+            entity.HasOne(d => d.TrainingDuration).WithMany(p => p.TrainingPlans)
+                .HasForeignKey(d => d.TrainingDurationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TrainingDurationID");
         });
 
         OnModelCreatingPartial(modelBuilder);

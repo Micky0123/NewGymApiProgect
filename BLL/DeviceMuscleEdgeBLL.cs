@@ -85,19 +85,28 @@ namespace BLL
                 foreach (var exercise in exercises)
                 {
                     var muscleList = await exerciseDAL.GetAllMusclesByExerciseAsync(exercise.ExerciseId);
-                    foreach(var muscle1 in muscleList)
-                    {
-                            // יצירת קשת לטבלה GraphEdge
-                            var deviceMuscleEdge = new DeviceMuscleEdge
-                            {
-                                DeviceId = exercise.ExerciseId,
-                                MuscleId = muscle1.MuscleId
-                            };
+                    //foreach(var muscle1 in muscleList)
+                    //{
+                    //        // יצירת קשת לטבלה GraphEdge
+                    //        var deviceMuscleEdge = new DeviceMuscleEdge
+                    //        {
+                    //            DeviceId = exercise.ExerciseId,
+                    //            MuscleId = muscle1.MuscleId
+                    //        };
 
-                            // שימוש ב-DAL להוספת הקשת
-                            await deviceMuscleEdgeDAL.AddDeviceMuscleEdgeAsync(deviceMuscleEdge);
-                    }
+                    //        // שימוש ב-DAL להוספת הקשת
+                    //        await deviceMuscleEdgeDAL.AddDeviceMuscleEdgeAsync(deviceMuscleEdge);
+                    //}
+                    var deviceMuscleEdge = new DeviceMuscleEdge
+                    {
+                        DeviceId = exercise.ExerciseId,
+                        MuscleId = muscleList.MuscleId
+                    };
+
+                    // שימוש ב-DAL להוספת הקשת
+                    await deviceMuscleEdgeDAL.AddDeviceMuscleEdgeAsync(deviceMuscleEdge);
                 }
+
                 Console.WriteLine("Graph deviceMuscle Edge created successfully.");
                 // אם הכל עבר בהצלחה
                 return true;

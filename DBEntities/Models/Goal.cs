@@ -11,7 +11,5 @@ public partial class Goal
 
     public bool? Active { get; set; }
 
-    public virtual ICollection<DefaultProgram> DefaultPrograms { get; set; } = new List<DefaultProgram>();
-
-    public virtual ICollection<Trainee> Trainees { get; set; } = new List<Trainee>();
+    public virtual ICollection<TrainingPlan> TrainingPlans { get; set; } = new List<TrainingPlan>();
 }

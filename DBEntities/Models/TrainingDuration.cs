@@ -9,5 +9,5 @@ public partial class TrainingDuration
 
     public int TimeTrainingDuration { get; set; }
 
-    public virtual ICollection<DefaultProgram> DefaultPrograms { get; set; } = new List<DefaultProgram>();
+    public virtual ICollection<TrainingPlan> TrainingPlans { get; set; } = new List<TrainingPlan>();
 }

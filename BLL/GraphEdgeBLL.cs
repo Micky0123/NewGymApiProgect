@@ -95,9 +95,10 @@ namespace BLL
 
                         var muscles1 = await exerciseDAL.GetAllMusclesByExerciseAsync(exercise1.ExerciseId);
                         var muscle2 = await exerciseDAL.GetAllMusclesByExerciseAsync(exercise2.ExerciseId);
-                        bool hasCommonMuscle = muscles1.Any(m1 => muscle2.Any(m2 => m1.MuscleId == m2.MuscleId));
+                        //bool hasCommonMuscle = muscles1.Any(m1 => muscle2.Any(m2 => m1.MuscleId == m2.MuscleId));
                         // בדיקה אם יש שריר משותף
                         //bool hasCommonMuscle = exercise1.Muscles.Any(m1 => exercise2.Muscles.Any(m2 => m1.MuscleId == m2.MuscleId));
+                        bool hasCommonMuscle= muscles1==muscle2;
 
                         if (hasCommonMuscle)
                         {

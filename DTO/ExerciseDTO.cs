@@ -10,8 +10,15 @@ namespace DTO
     {
         public int ExerciseId { get; set; }
 
-        public string ExerciseName { get; set; }
-        public bool Active { get; set; }
+        public string? ExerciseName { get; set; }
+
+        public bool? Active { get; set; }
+
+        public int? MuscleId { get; set; }
+
+        public int? MuscleTypeId { get; set; }
+
+        public int? MuscleGroupId { get; set; }
 
     }
 }

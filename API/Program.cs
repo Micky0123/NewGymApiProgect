@@ -53,8 +53,8 @@ namespace API
             builder.Services.AddScoped<ISubMuscleDAL, SubMuscleDAL>();
             builder.Services.AddScoped<ITraineeBLL, TraineeBLL>();
             builder.Services.AddScoped<ITraineeDAL, TraineeDAL>();
-            builder.Services.AddScoped<IProgramExerciseBLL, ProgramExerciseBLL>();
-            builder.Services.AddScoped<IProgramExerciseDAL, ProgramExerciseDAL>();
+            //builder.Services.AddScoped<IProgramExerciseBLL, ProgramExerciseBLL>();
+            //builder.Services.AddScoped<IProgramExerciseDAL, ProgramExerciseDAL>();
             builder.Services.AddScoped<ITrainingDayBLL, TrainingDayBLL>();
             builder.Services.AddScoped<ITrainingDayDAL, TrainingDayDAL>();
             builder.Services.AddScoped<IFitnessLevelBLL, FitnessLevelBLL>();
@@ -72,6 +72,12 @@ namespace API
             builder.Services.AddScoped<IMuscleEdgeBLL, MuscleEdgeBLL>();
             builder.Services.AddScoped<IMuscleEdgeDAL, MuscleEdgeDAL>();
 
+            builder.Services.AddScoped<IExercisePlanDAL, ExercisePlanDAL>();
+            builder.Services.AddScoped<IExercisePlanBLL, ExercisePlanBLL>();
+            builder.Services.AddScoped<IPlanDayDAL, PlanDayDAL>();
+            builder.Services.AddScoped<IPlanDayBLL, PlanDayBLL>();
+            builder.Services.AddScoped<ITrainingPlanDAL, TrainingPlanDAL>();
+            builder.Services.AddScoped<ITrainingPlanBLL, TrainingPlanBLL>();
             // Add services to the container.
 
             builder.Services.AddControllers();

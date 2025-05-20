@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IProgramChangeDAL.cs" />
+    <Compile Remove="IProgramExerciseDAL.cs" />
+    <Compile Remove="ITrainingProgramDAL.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DBEntities\DBEntities.csproj" />
   </ItemGroup>
 

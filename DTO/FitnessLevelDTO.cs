@@ -13,7 +13,7 @@ namespace DTO
 
         public string FitnessLevelName { get; set; } = null!;
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
     }
 }

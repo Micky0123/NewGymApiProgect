@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
 
-namespace DBEntities.Models;
+//namespace DBEntities.Models;
 
-public partial class ProgramChange
-{
-    public int ProgramChangeId { get; set; }
+//public partial class ProgramChange
+//{
+//    public int ProgramChangeId { get; set; }
 
-    public int ProgramId { get; set; }
+//    public int ProgramId { get; set; }
 
-    public string ChangeDescription { get; set; } = null!;
+//    public string ChangeDescription { get; set; } = null!;
 
-    public DateTime ChangeDateTime { get; set; }
+//    public DateTime ChangeDateTime { get; set; }
 
-    public virtual TrainingProgram Program { get; set; } = null!;
-}
+//    public virtual TrainingProgram Program { get; set; } = null!;
+//}
