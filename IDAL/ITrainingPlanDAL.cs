@@ -9,7 +9,8 @@ namespace IDAL
 {
     public interface ITrainingPlanDAL
     {
-        Task AddTrainingPlanAsync(TrainingPlan trainingPlan);
+       // Task AddTrainingPlanAsync(TrainingPlan trainingPlan);
+        Task <int> AddTrainingPlanAsync(TrainingPlan trainingPlan);
         Task<List<TrainingPlan>> GetAllTrainingPlansAsync();
         Task<TrainingPlan> GetTrainingPlanByIdAsync(int id);
        // Task<TrainingPlan> GetTrainingPlanByNameAsync(string name);

@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class TrainingPlanDAL : ITrainingPlanDAL
+    public class TrainingPlanDAL :ITrainingPlanDAL
     {
-        public async Task AddTrainingPlanAsync(TrainingPlan trainingPlan)
-        {
-            using GymDbContext ctx = new GymDbContext();
-            try
-            {
-                await ctx.TrainingPlans.AddAsync(trainingPlan);
-                await ctx.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error adding new Training Plan", ex);
-            }
-        }
+        //public async Task AddTrainingPlanAsync(TrainingPlan trainingPlan)
+        //{
+        //    using GymDbContext ctx = new GymDbContext();
+        //    try
+        //    {
+        //        await ctx.TrainingPlans.AddAsync(trainingPlan);
+        //        await ctx.SaveChangesAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error adding new Training Plan", ex);
+        //    }
+        //}
 
         public async Task DeleteTrainingPlanAsync(int id)
         {
@@ -107,6 +107,22 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Error updating Training Plan", ex);
+            }
+        }
+
+       public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                await ctx.TrainingPlans.AddAsync(trainingPlan);
+                await ctx.SaveChangesAsync();
+                return trainingPlan.TrainingPlanId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding new Training Plan", ex);
+
             }
         }
     }

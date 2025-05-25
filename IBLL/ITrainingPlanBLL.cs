@@ -9,7 +9,8 @@ namespace IBLL
 {
     public interface ITrainingPlanBLL
     {
-        Task AddTrainingPlanAsync(TrainingPlanDTO trainingPlan);
+        Task <int> AddTrainingPlanAsync(TrainingPlanDTO trainingPlan);
+        //Task <int> AddTrainingPlanAsync(TrainingPlanDTO trainingPlan);
         Task<List<TrainingPlanDTO>> GetAllTrainingPlansAsync();
         Task<TrainingPlanDTO> GetTrainingPlanByIdAsync(int id);
         //Task<TrainingPlanDTO> GetTrainingPlanByNameAsync(string name);

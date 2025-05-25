@@ -9,7 +9,9 @@ namespace IDAL
 {
     public interface IPlanDayDAL
     {
-        Task AddPlanDayAsync(PlanDay planDay);
+        //Task AddPlanDayAsync(PlanDay planDay);
+        Task <int> AddPlanDayAsync(PlanDay planDay);
+
         Task<List<PlanDay>> GetAllPlanDaysAsync();
         Task<PlanDay> GetPlanDayByIdAsync(int id);
        // Task<PlanDay> GetPlanDayByNameAsync(string name);

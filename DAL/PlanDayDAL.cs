@@ -9,13 +9,27 @@ namespace DAL
 {
     public class PlanDayDAL : IPlanDayDAL
     {
-        public async Task AddPlanDayAsync(PlanDay planDay)
+        //public async Task AddPlanDayAsync(PlanDay planDay)
+        //{
+        //    using GymDbContext ctx = new GymDbContext();
+        //    try
+        //    {
+        //        await ctx.PlanDays.AddAsync(planDay);
+        //        await ctx.SaveChangesAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error adding new Plan Day", ex);
+        //    }
+        //}
+        public async Task<int> AddPlanDayAsync(PlanDay planDay)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
                 await ctx.PlanDays.AddAsync(planDay);
                 await ctx.SaveChangesAsync();
+                return planDay.PlanDayId;
             }
             catch (Exception ex)
             {

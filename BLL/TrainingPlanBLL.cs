@@ -24,11 +24,19 @@ namespace BLL
             mapper = new Mapper(config);
         }
 
-        public async Task AddTrainingPlanAsync(TrainingPlanDTO trainingPlan)
+        //public async Task AddTrainingPlanAsync(TrainingPlanDTO trainingPlan)
+        //{
+        //    TrainingPlan plan = mapper.Map<TrainingPlan>(trainingPlan);
+        //    await trainingPlanDAL.AddTrainingPlanAsync(plan);
+        //}
+
+        public async Task<int> AddTrainingPlanAsync(TrainingPlanDTO trainingPlan)
         {
             TrainingPlan plan = mapper.Map<TrainingPlan>(trainingPlan);
-            await trainingPlanDAL.AddTrainingPlanAsync(plan);
+           return await trainingPlanDAL.AddTrainingPlanAsync(plan);
         }
+
+
 
         public async Task DeleteTrainingPlanAsync(int id)
         {

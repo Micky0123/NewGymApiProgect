@@ -38,5 +38,6 @@ namespace DTO
 
         public DateTime? LoginDateTime { get; set; }
 
+        Dictionary<int, TraineeExerciseStatus> traineesExerciseStatus = new();
     }
 }
