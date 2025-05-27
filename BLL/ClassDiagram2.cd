@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BLL.CategoryBLL" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAIAAAAAAAAAgAgAEAAAAAAAAEAJAAAAAA=</HashCode>
+      <FileName>CategoryBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.CreateTrainingPlan">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CkAAAAgAGUFIIIAKSAAQSCQABFhBBAQSdCMBgAhAIDE=</HashCode>
+      <FileName>CreateTrainingPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.DayEntry">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>CreateTrainingPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.DeviceMuscleEdgeBLL" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIABAAAAAQAIAgAAABgBAABSAAAgAAAAA=</HashCode>
+      <FileName>DeviceMuscleEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.EquipmentBLL" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAgMIAABAAAAIABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EquipmentBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.ExerciseWithMuscleInfo">
+    <Position X="10.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACCAAAAgAAAAAEAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>CreateTrainingPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.FitnessLevelBLL" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAIAAIAAAQAAACAAAAAAgAABAAAAAAAAAA=</HashCode>
+      <FileName>FitnessLevelBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.GoalBLL" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAABAAgIAEAEIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GoalBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.GraphEdgeBLL" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAQAIAAAQAAAAAACIAAAAAAAAAiISAAAAAAA=</HashCode>
+      <FileName>GraphEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.MuscleEdgeBLL" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAoAAQQAKBAAACAAIADAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MuscleEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.MuscleTypeBLL" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAIAAAICAAAAAAIgIAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>MuscleTypeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.PlanDayBLL" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAGIAAAAQIAAAAAAAAgAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanDayBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.SubMuscleBLL" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAIAAAAABAAACAAAEIEAAAQAgAAAAAAAAA=</HashCode>
+      <FileName>SubMuscleBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.TraineeBLL" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEIIAAABAEAgAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>TraineeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.TrainingDayBLL" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAIIAAAAAAAAQAgAAAAAAIAAAgAAAAAAAA=</HashCode>
+      <FileName>TrainingDayBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.TrainingDurationBLL" BaseTypeListCollapsed="true">
+    <Position X="14.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAIAAAAoAAAAAQAAAAAACAAQAEAAAAAAAA=</HashCode>
+      <FileName>TrainingDurationBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.TrainingPlanBLL" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAAAABAAQAAAAAAAAAAABAAAoAAAAAAA=</HashCode>
+      <FileName>TrainingPlanBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.BacktrackingScheduler">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="BLL.BacktrackingScheduler.CachedResult">
+        <TypeIdentifier>
+          <NewMemberFileName>BacktrackingScheduler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BBAAhAgiAAAgTYAECUBAAIAAAIIhAEAACXBAAgAiQGA=</HashCode>
+      <FileName>BacktrackingScheduler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.ExerciseBLL" BaseTypeListCollapsed="true">
+    <Position X="16" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAiAIAAAAAEAEQAAAAAAAAAAAACAAAAAACAA=</HashCode>
+      <FileName>ExerciseBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.ExercisePlanBLL" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAIAgAAAAAAABQACAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>ExercisePlanBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.JointBLL" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAAAIAAKAAAAAAAAAAARAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>JointBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.MuscleBLL" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAIAgAAAAAAAAABAAABAABAAAACAAAACAA=</HashCode>
+      <FileName>MuscleBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.SchedulerManager">
+    <Position X="12.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>SchedulerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BLL.SizeBLL" BaseTypeListCollapsed="true">
+    <Position X="16" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAoAAAIAgAAAAAAAAAAAAECAAAAAAAABAA=</HashCode>
+      <FileName>SizeBLL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BLL.TrainingParams">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAACAIABAAACAiAAAAAGAAACAgAAAAAAEAA=</HashCode>
+      <FileName>CreateTrainingPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

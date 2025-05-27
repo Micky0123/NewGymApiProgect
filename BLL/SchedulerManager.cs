@@ -27,7 +27,7 @@ namespace BLL
             );
         }
 
-        // קריאה לאלגוריתם - אפשר לקרוא כמה פעמים שרוצים
+        // קריאה לאלגוריתם - לכל מתאמן בכניסה לחדר כושר
         public PathResult RunAlgorithmForTrainee(TraineeDTO trainee, List<int> exerciseOrder, DateTime startTime)
         {
             return scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);

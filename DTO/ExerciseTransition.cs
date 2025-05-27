@@ -19,8 +19,6 @@ namespace DTO
             QueueSlots = queueSlot;
         }
 
-        //פונקצית בדיקת זמינות במקום מסוים
-
     }
 }
 

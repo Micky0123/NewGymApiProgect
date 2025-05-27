@@ -11,6 +11,7 @@ using DTO;
 namespace API
 {
     using API.Profiles;
+    using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
     using OfficeOpenXml;
     public class Program
     {
@@ -78,6 +79,8 @@ namespace API
             builder.Services.AddScoped<IPlanDayBLL, PlanDayBLL>();
             builder.Services.AddScoped<ITrainingPlanDAL, TrainingPlanDAL>();
             builder.Services.AddScoped<ITrainingPlanBLL, TrainingPlanBLL>();
+
+            builder.Services.AddScoped<CreateTrainingPlan2>();
             // Add services to the container.
 
             builder.Services.AddControllers();

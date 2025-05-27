@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DAL.CategoryDAL" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAEAJAAAAAA=</HashCode>
+      <FileName>CategoryDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.DeviceMuscleEdgeDAL" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAIAgAAAAgBAABAAAAgAAAAA=</HashCode>
+      <FileName>DeviceMuscleEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.EquipmentDAL" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgMAAABAAAAIABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EquipmentDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.ExerciseDAL" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAiEAAAABAEAEQAAAAAAAAAAAgAAAAEgACAE=</HashCode>
+      <FileName>ExerciseDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.ExercisePlanDAL" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExercisePlanDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.FitnessLevelDAL" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAQAAACAAAAAAgAABAAAAAAAAAA=</HashCode>
+      <FileName>FitnessLevelDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.GoalDAL" BaseTypeListCollapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAAAAAgAAEAEIAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>GoalDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.GraphEdgeDAL" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAQAAAAAQAAAAAACIAAAAAAAAAAIQAAAAAAA=</HashCode>
+      <FileName>GraphEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.JointDAL" BaseTypeListCollapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAAAAAAKAAAAAAAAAAABAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>JointDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.MuscleDAL" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgASAABAAAABIAAAAABiACICAAAACAA=</HashCode>
+      <FileName>MuscleDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.MuscleEdgeDAL" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQQAABAAACAAIACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MuscleEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.MuscleTypeDAL" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAACAAAAAAAgIAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>MuscleTypeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.PlanDayDAL" BaseTypeListCollapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAGAAAAAQIAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>PlanDayDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.SizeDAL" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAAAIAgAAAAAAAAAAAAEAAAAAAAAABAA=</HashCode>
+      <FileName>SizeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.SubMuscleDAL" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAACAAAEMEAAAAAgAQAAAAAAA=</HashCode>
+      <FileName>SubMuscleDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.TraineeDAL" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAIAAAAAEAgAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>TraineeDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.TrainingDayDAL" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAIAAAAAAAAQAAAAAAAAIAAAgAAAAAAAA=</HashCode>
+      <FileName>TrainingDayDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.TrainingDurationDAL" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAAAAAAAAAAAAoAAAAAQAAAAAACAAAAEAAAAAAAA=</HashCode>
+      <FileName>TrainingDurationDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.TrainingPlanDAL" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAABAAAAAAAAAAAAAABAAAoAAAAAAA=</HashCode>
+      <FileName>TrainingPlanDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

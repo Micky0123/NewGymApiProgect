@@ -33,6 +33,7 @@ namespace BLL
         }
 
         #region אתחול המערכת
+        // מאתחל את המערכת עם כל הרשומות והמבנים הנדרשים לעבודה
         public void Initialize(List<ExerciseDTO> exerciseList,
                               List<GraphEdgeDTO> exerciseEdges,
                               List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
@@ -47,7 +48,7 @@ namespace BLL
             InitQueueSlots(equipmentCount, firstSlotStart, slotMinutes, slotCount);
             BuildReachabilityMatrix();
         }
-
+        // בונה את מטריצת המעברים בין תרגילים, כולל חישוב חוקיות המעבר בין תרגיל אחד לאחר.
         private void InitTransitionMatrix(List<ExerciseDTO> exercises,
                                         List<GraphEdgeDTO> exerciseEdges,
                                         List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
@@ -90,7 +91,7 @@ namespace BLL
                 }
             }
         }
-
+        // מחשב את ערך החוקיות (LegalityValue) של מעבר בין שני תרגילים, בהתאם לחיבורים ישירים ולקשרי שרירים.
         private int CalculateLegalityValue(int to, int from, int toId, int fromId,
                                          int toMuscle, int fromMuscle,
                                          HashSet<(int from, int to)> directEdges,
@@ -109,7 +110,7 @@ namespace BLL
 
             return -1; // לא חוקי
         }
-
+        // מאתחל את כל תורי התרגילים (QueueSlots) עבור כל התרגילים, בהתאם למספר עמדות, זמן התחלה ומרווחי זמן
         private void InitQueueSlots(int equipmentCount, DateTime firstSlotStart,
                                    int slotMinutes, int slotCount)
         {
@@ -119,7 +120,7 @@ namespace BLL
                 queueSlots[i] = new QueueSlot(equipmentCount, firstSlotStart, slotMinutes, slotCount);
             }
         }
-
+        // בונה מטריצת Reachability המאפשרת לדעת אילו תרגילים נגישים מכל תרגיל אחר.
         private void BuildReachabilityMatrix()
         {
             if (reachabilityCache != null) return;
@@ -143,7 +144,7 @@ namespace BLL
         #endregion
 
         #region האלגוריתם הראשי
-
+        // מחשב את המסלול האופטימלי עבור מתאמן, כולל סדר התרגילים וזמני התחלה/סיום.
         public PathResult FindOptimalPath(TraineeDTO trainee, List<int> exerciseOrder, DateTime startTime)
         {
             // כאן איתחול הסטטוס התרגילים של המתאמן
@@ -180,7 +181,8 @@ namespace BLL
 
             return null;
         }
-
+        // אלגוריתם רקורסיבי עיקרי למציאת מסלול אופטימלי, תוך שמירה על חוקיות וזמינות.
+        // משתמש בזיכרון (memoization) להאצת חישוב.
         private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
             BacktrackWithPriority(List<int> exerciseOrder, int mask, List<int> currentPath,
                                 int currentAlternatives, DateTime currentTime, out DateTime endTime, bool isReschedulingAnotherTrainee = false)
@@ -292,7 +294,7 @@ namespace BLL
         #endregion
 
         #region אסטרטגיות חיפוש
-
+        // מנסה לבצע את התרגילים המקוריים לפי הסדר, כל עוד אפשרי וזמין
         private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
             TryRegularExercises(List<int> exerciseOrder, int mask, List<int> currentPath,
                               int currentAlternatives, DateTime currentTime, int lastNodeId)
@@ -352,7 +354,7 @@ namespace BLL
             return (foundAny, minAlternatives, bestPath, bestEndTime);
             //return (false, int.MaxValue, null, DateTime.MinValue);
         }
-
+        // מנסה לבצע תרגילים חילופיים במקום תרגילים שלא ניתן לבצע
         private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
             TryAlternativeExercises(List<int> exerciseOrder, int mask, List<int> currentPath,
                                   int currentAlternatives, DateTime currentTime, int lastNodeId)
@@ -426,137 +428,7 @@ namespace BLL
             return (foundAny, minAlternatives, bestPath, bestEndTime);
            // return (false, int.MaxValue, null, DateTime.MinValue);
         }
-
-        //private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
-        //    TryReschedulingOthers(List<int> exerciseOrder, int mask, List<int> currentPath,
-        //                        int currentAlternatives, DateTime currentTime, int lastNodeId)
-        //{
-        //    for (int i = 0; i < exerciseOrder.Count; i++)
-        //    {
-        //        if (IsExerciseDone(mask, i)) continue;
-
-        //        int nodeId = exerciseOrder[i];
-
-        //        if (!IsLegalTransition(lastNodeId, nodeId, currentTime)) continue;
-        //        if (!CanReachAllRemainingExercises(nodeId, exerciseOrder, mask)) continue;
-
-        //        var occupyingTrainee = GetOccupyingTraineeInSlot(nodeId, currentTime);
-        //        //if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
-        //        //{
-        //        //    if (TryRescheduleOtherTrainee(occupyingTrainee, nodeId, currentTime))
-        //        //    {
-        //        //        var duration = GetExerciseDuration(nodeId);
-        //        //        AddTraineeToSlot(nodeId, currentTime, duration, currentTrainee);
-        //        //        currentPath.Add(nodeId);
-
-        //        //        var result = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
-        //        //                                         currentPath, currentAlternatives + 2,
-        //        //                                         currentTime.Add(duration),
-        //        //                                         out DateTime candidateEndTime);
-
-        //        //        if (result.found)
-        //        //        {
-        //        //            return (true, result.numAlternatives, result.bestPath, candidateEndTime);
-        //        //        }
-
-        //        //        // החזר את המצב הקודם
-        //        //        RemoveTraineeFromSlot(nodeId, currentTime, duration);
-        //        //        currentPath.RemoveAt(currentPath.Count - 1);
-        //        //        RestoreTraineeToSlot(occupyingTrainee, nodeId, currentTime);
-        //        //    }
-        //        //}
-        //        // עבור כל מתאמן שתופס את הסלוט
-        //        if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
-        //        {
-        //            // רשימת התרגילים שנותרו לאותו מתאמן
-        //            var remainingExercises = GetRemainingExercisesForTrainee(occupyingTrainee, currentTime);
-
-        //            // נסה להריץ אלגוריתם מלא עבורו, אבל עם דגל שמונע ממנו לשנות אחרים
-        //            var result = BacktrackWithPriority(
-        //                remainingExercises,
-        //                /*mask*/ 0,
-        //                /*currentPath*/ new List<int>(),
-        //                /*currentAlternatives*/ 0,
-        //                /*currentTime*/ currentTime,
-        //                out DateTime _,
-        //                isReschedulingAnotherTrainee: true // חשוב!
-        //            );
-
-        //            if (result.found)
-        //            {
-        //                // החלף לו את הסדר בפועל, עדכן סלוטים וכו'
-        //                ApplyNewExerciseOrderToTrainee(occupyingTrainee, result.bestPath, currentTime);
-        //                // עכשיו אפשר להכניס את המתאמן שלך לתרגיל
-        //                // ...
-        //            }
-        //        }
-        //    }
-
-        //    return (false, int.MaxValue, null, DateTime.MinValue);
-        //}
-        //private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
-        //    TryReschedulingOthers(List<int> exerciseOrder, int mask, List<int> currentPath,
-        //                 int currentAlternatives, DateTime currentTime, int lastNodeId)
-        //{
-        //    for (int i = 0; i < exerciseOrder.Count; i++)
-        //    {
-        //        if (IsExerciseDone(mask, i)) continue;
-
-        //        int nodeId = exerciseOrder[i];
-
-        //        // גם תרגילים חילופיים
-        //        var alternatives = new List<int> { nodeId };
-        //        int nextNodeId = GetNextExerciseId(exerciseOrder, mask, i);
-        //        alternatives.AddRange(GetAlternativeExercises(lastNodeId, nodeId, nextNodeId));
-
-        //        foreach (var alt in alternatives)
-        //        {
-        //            var occupyingTrainee = GetOccupyingTraineeInSlot(alt, currentTime);
-        //            if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
-        //            {
-        //                // שלוף את רשימת התרגילים שנותרו למתאמן זה
-        //                var othersRemainingExercises = GetRemainingExercisesForTrainee(occupyingTrainee, currentTime);
-
-        //                // נסה להריץ אלגוריתם מלא עבורו (אבל לא יוכל להזיז אחרים)
-        //                var result = BacktrackWithPriority(
-        //                    othersRemainingExercises,
-        //                    0,
-        //                    new List<int>(),
-        //                    0,
-        //                    currentTime,
-        //                    out DateTime _,
-        //                    isReschedulingAnotherTrainee: true // מונע רקורסיה
-        //                );
-
-        //                if (result.found)
-        //                {
-        //                    // עדכן בפועל את סדר התרגילים של המתאמן ואת הסלוטים
-        //                    ApplyNewExerciseOrderToTrainee(occupyingTrainee, result.bestPath, currentTime);
-
-        //                    // עכשיו ניתן להכניס את המתאמן הנוכחי לתרגיל שהתפנה
-        //                    var duration = GetExerciseDuration(alt);
-        //                    AddTraineeToSlot(alt, currentTime, duration, currentTrainee);
-        //                    currentPath.Add(alt);
-
-        //                    var res = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
-        //                                                 currentPath, currentAlternatives + 2,
-        //                                                 currentTime.Add(duration),
-        //                                                 out DateTime candidateEndTime);
-
-        //                    if (res.found)
-        //                        return (true, res.numAlternatives, res.bestPath, candidateEndTime);
-
-        //                    // החזר את המצב לקדמותו
-        //                    RemoveTraineeFromSlot(alt, currentTime, duration);
-        //                    currentPath.RemoveAt(currentPath.Count - 1);
-        //                    UndoApplyNewExerciseOrderToTrainee(occupyingTrainee, currentTime); // פונקציה שתשחזר את הסדר והסלוטים
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return (false, int.MaxValue, null, DateTime.MinValue);
-        //}
+        // מנסה לסדר מחדש מתאמנים אחרים כדי לפנות תרגיל למתאמן הנוכחי, כולל טיפול באלטרנטיבות#########
         private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
             TryReschedulingOthers(List<int> exerciseOrder, int mask, List<int> currentPath,
                                  int currentAlternatives, DateTime currentTime, int lastNodeId)
@@ -578,6 +450,7 @@ namespace BLL
 
                 foreach (var alt in alternatives)
                 {
+                    //צריך לבדוק נראה לי שצריך את כל המתאמנים
                     var occupyingTrainee = GetOccupyingTraineeInSlot(alt, currentTime);
                     if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
                     {
@@ -637,17 +510,17 @@ namespace BLL
         #endregion
 
         #region פונקציות עזר - בדיקות חוקיות
-
+        // בודק האם תרגיל מסוים כבר בוצע
         private bool IsExerciseDone(int mask, int exerciseIndex)
         {
             return (mask & (1 << exerciseIndex)) != 0;
         }
-
+        // מסמן תרגיל כבוצע במפת הסיום (mask)
         private int MarkExerciseDone(int mask, int exerciseIndex)
         {
             return mask | (1 << exerciseIndex);
         }
-
+        // ###בודק אם מותר לעבור בין שני תרגילים בזמן נתון
         private bool IsLegalTransition(int fromNodeId, int toNodeId, DateTime currentTime)
         {
             if (fromNodeId == -1) return true; // התחלה
@@ -659,7 +532,7 @@ namespace BLL
 
             return transitionMatrix[toIdx, fromIdx].LegalityValue > 0;
         }
-
+        // בודק האם ניתן להגיע מכל תרגיל נוכחי לכל התרגילים שנותרו
         private bool CanReachAllRemainingExercises(int currentNodeId, List<int> exerciseOrder, int mask)
         {
             if (!reachabilityCache.TryGetValue(currentNodeId, out var reachable))
@@ -676,7 +549,7 @@ namespace BLL
 
             return true;
         }
-
+        //מחזיר את האינדקס של תרגיל לפי מזהה
         private int GetExerciseIndex(int exerciseId)
         {
             return exerciseIdToIndex.TryGetValue(exerciseId, out int index) ? index : -1;
@@ -685,7 +558,7 @@ namespace BLL
         #endregion
 
         #region פונקציות עזר - ניהול סלוטים
-
+        // בודק האם יש סלוט פנוי לתרגיל בזמן מסוים###
         private bool IsSlotAvailable(int exerciseId, DateTime startTime)
         {
             int exerciseIndex = GetExerciseIndex(exerciseId);
@@ -694,7 +567,7 @@ namespace BLL
             var queueSlot = queueSlots[exerciseIndex];
             if (!queueSlot.SlotsByStartTime.TryGetValue(startTime, out var slot))
                 return false;
-
+            //צריך לבדוק האם נותנים לפי משך זמן של תרגיל או משך זמן של מתאמן************
             var duration = GetExerciseDuration(exerciseId);
             var slotsNeeded = GetSlotsNeeded(duration);
 
@@ -712,7 +585,7 @@ namespace BLL
 
             return true;
         }
-
+        // מוסיף מתאמן לסלוט של תרגיל בזמן נתון
         private void AddTraineeToSlot(int exerciseId, DateTime startTime, TimeSpan duration, TraineeDTO trainee)
         {
             int exerciseIndex = GetExerciseIndex(exerciseId);
@@ -721,7 +594,7 @@ namespace BLL
 
             queueSlot.AddTraineeToSlot(startTime, slotsNeeded, trainee);
         }
-
+        // מסיר מתאמן מסלוט של תרגיל#######
         private void RemoveTraineeFromSlot(int exerciseId, DateTime startTime, TimeSpan duration)
         {
             int exerciseIndex = GetExerciseIndex(exerciseId);
@@ -742,7 +615,7 @@ namespace BLL
                 currentSlotTime = slot?.EndTime ?? currentSlotTime.AddMinutes(5); // ברירת מחדל
             }
         }
-
+        // מחזיר את המתאמן שתופס סלוט מסוים, אם קיים
         private TraineeDTO GetOccupyingTraineeInSlot(int exerciseId, DateTime startTime)
         {
             int exerciseIndex = GetExerciseIndex(exerciseId);
@@ -755,7 +628,7 @@ namespace BLL
 
             return null;
         }
-
+        // מחשב כמה סלוטים דרושים למשך התרגיל#######
         private int GetSlotsNeeded(TimeSpan duration)
         {
             return (int)Math.Ceiling(duration.TotalMinutes / 5.0); // נניח שכל סלוט הוא 5 דקות
@@ -764,27 +637,7 @@ namespace BLL
         #endregion
 
         #region פונקציות עזר - תרגילים חילופיים
-
-        //private List<int> GetAlternativeExercises(int originalExerciseId)
-        //{
-        //    // פונקציה זו צריכה להחזיר רשימה של תרגילים חילופיים
-        //    // בהתבסס על קבוצות שרירים או סוג התרגיל
-        //    var alternatives = new List<int>();
-
-        //    // כאן תוכל להוסיף לוגיקה מתוחכמת יותר
-        //    // לדוגמה: תרגילים שמאמנים את אותם השרירים
-        //    var originalExercise = exercises.FirstOrDefault(e => e.ExerciseId == originalExerciseId);
-        //    if (originalExercise != null)
-        //    {
-        //        // מצא תרגילים דומים (זו דוגמה פשוטה)
-        //        alternatives.AddRange(exercises
-        //            .Where(e => e.ExerciseId != originalExerciseId &&
-        //                       e.MuscleGroupId == originalExercise.MuscleGroupId)
-        //            .Select(e => e.ExerciseId));
-        //    }
-
-        //    return alternatives;
-        //}
+        // מחפש תרגילים חילופיים אפשריים לפי מעבר חוקי במטריצת המעברים
         private List<int> GetAlternativeExercises(int prevExerciseId, int currentExerciseId, int nextExerciseId)
         {
             var alternatives = new List<int>();
@@ -826,6 +679,141 @@ namespace BLL
         #endregion
 
         #region פונקציות עזר - סידור מחדש של מתאמנים
+        // מחזיר את מזהה התרגיל הבא שטרם בוצע### לא בטוח שהוא עובד נכון
+        private int GetNextExerciseId(List<int> exerciseOrder, int mask, int currentIdx)
+        {
+            for (int j = currentIdx + 1; j < exerciseOrder.Count; j++)
+            {
+                if (!IsExerciseDone(mask, j))
+                    return exerciseOrder[j];
+            }
+            return -1;
+        }
+        // מחזיר רשימת תרגילים שעדיין לא בוצעו עבור מתאמן
+        private List<int> GetRemainingExercisesForTrainee(TraineeDTO trainee, DateTime currentTime)
+        {
+            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
+                return new List<int>();
+            // בחר רק תרגילים שלא בוצעו
+            return status.Exercises
+                .Where(e => !e.IsDone)
+                .OrderBy(e => e.OrderInList)
+                .Select(e => e.ExerciseId)
+                .ToList();
+        }
+        // מחליף למתאמן את סדר התרגילים בפועל, כולל אפשרות לשחזור (Undo)
+        private void ApplyNewExerciseOrderToTrainee(TraineeDTO trainee, List<int> newOrder, DateTime currentTime)
+        {
+            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
+                return;
+
+            // שמור מצב קודם ל-Undo
+            status.History.Push(status.Exercises.Select(e => new ExerciseStatusEntry
+            {
+                ExerciseId = e.ExerciseId,
+                OrderInList = e.OrderInList,
+                IsDone = e.IsDone,
+                PerformedAt = e.PerformedAt
+            }).ToList());
+
+            // צור סדר חדש - שומר על אותם IsDone/PerformedAt לפי ExerciseId
+            var dictById = status.Exercises.ToDictionary(e => e.ExerciseId);
+            status.Exercises = newOrder
+                .Select((exId, idx) =>
+                    dictById.ContainsKey(exId)
+                        ? new ExerciseStatusEntry
+                        {
+                            ExerciseId = exId,
+                            OrderInList = idx,
+                            IsDone = dictById[exId].IsDone,
+                            PerformedAt = dictById[exId].PerformedAt
+                        }
+                        : new ExerciseStatusEntry
+                        {
+                            ExerciseId = exId,
+                            OrderInList = idx,
+                            IsDone = false,
+                            PerformedAt = null
+                        }
+                ).ToList();
+        }
+        // מחזיר למתאמן את סדר התרגילים הקודם (Undo)
+        private void UndoApplyNewExerciseOrderToTrainee(TraineeDTO trainee, DateTime currentTime)
+        {
+            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
+                return;
+
+            if (status.History.Count > 0)
+                status.Exercises = status.History.Pop();
+        }
+        #endregion
+
+        #region פונקציות עזר - כלליות
+        // מבטל סימון של תרגיל כבוצע אצל מתאמן
+        private void UndoMarkExerciseAsDone(TraineeDTO trainee, int exerciseId)
+        {
+            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
+                return;
+
+            var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+            if (ex != null)
+            {
+                ex.IsDone = false;
+                ex.PerformedAt = null;
+            }
+        }
+        // מסמן תרגיל כבוצע אצל מתאמן ומעדכן את זמן הביצוע
+        private void MarkExerciseAsDone(TraineeDTO trainee, int exerciseId, DateTime performedAt)
+        {
+            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
+                return;
+
+            var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+            if (ex != null)
+            {
+                ex.IsDone = true;
+                ex.PerformedAt = performedAt;
+            }
+        }
+        //************// מחזיר את משך הזמן של תרגיל לפי מזהה
+        private TimeSpan GetExerciseDuration(int exerciseId)
+        {
+            var exercise = exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+            return exercise?.Duration ?? TimeSpan.FromMinutes(15); // ברירת מחדל
+        }
+        // יוצר אובייקטים של ExerciseEntry עבור כל תרגיל במסלול הנבחר
+        private Dictionary<int, ExerciseEntry> CreateExerciseEntries(List<int> exercisePath)
+        {
+            var entries = new Dictionary<int, ExerciseEntry>();
+
+            for (int i = 0; i < exercisePath.Count; i++)
+            {
+                int exerciseId = exercisePath[i];
+                int exerciseIndex = GetExerciseIndex(exerciseId);
+
+                entries[i] = new ExerciseEntry
+                {
+                    ExerciseId = exerciseId,
+                    OrderInList = i,
+                    Slot = exerciseIndex >= 0 ? queueSlots[exerciseIndex] : null
+                };
+            }
+
+            return entries;
+        }
+
+        #endregion
+    }
+}
+
+
+
+
+
+
+
+
+
 
         //private bool TryRescheduleOtherTrainee(TraineeDTO otherTrainee, int exerciseId, DateTime desiredTime)
         //{
@@ -914,126 +902,29 @@ namespace BLL
         //    return alternatives.OrderBy(t => Math.Abs((t - originalTime).TotalMinutes)).ToList();
         //}
 
-        private int GetNextExerciseId(List<int> exerciseOrder, int mask, int currentIdx)
-        {
-            for (int j = currentIdx + 1; j < exerciseOrder.Count; j++)
-            {
-                if (!IsExerciseDone(mask, j))
-                    return exerciseOrder[j];
-            }
-            return -1;
-        }
-        private List<int> GetRemainingExercisesForTrainee(TraineeDTO trainee, DateTime currentTime)
-        {
-            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-                return new List<int>();
-            // בחר רק תרגילים שלא בוצעו
-            return status.Exercises
-                .Where(e => !e.IsDone)
-                .OrderBy(e => e.OrderInList)
-                .Select(e => e.ExerciseId)
-                .ToList();
-        }
-        private void ApplyNewExerciseOrderToTrainee(TraineeDTO trainee, List<int> newOrder, DateTime currentTime)
-        {
-            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-                return;
 
-            // שמור מצב קודם ל-Undo
-            status.History.Push(status.Exercises.Select(e => new ExerciseStatusEntry
-            {
-                ExerciseId = e.ExerciseId,
-                OrderInList = e.OrderInList,
-                IsDone = e.IsDone,
-                PerformedAt = e.PerformedAt
-            }).ToList());
 
-            // צור סדר חדש - שומר על אותם IsDone/PerformedAt לפי ExerciseId
-            var dictById = status.Exercises.ToDictionary(e => e.ExerciseId);
-            status.Exercises = newOrder
-                .Select((exId, idx) =>
-                    dictById.ContainsKey(exId)
-                        ? new ExerciseStatusEntry
-                        {
-                            ExerciseId = exId,
-                            OrderInList = idx,
-                            IsDone = dictById[exId].IsDone,
-                            PerformedAt = dictById[exId].PerformedAt
-                        }
-                        : new ExerciseStatusEntry
-                        {
-                            ExerciseId = exId,
-                            OrderInList = idx,
-                            IsDone = false,
-                            PerformedAt = null
-                        }
-                ).ToList();
-        }
-        private void UndoApplyNewExerciseOrderToTrainee(TraineeDTO trainee, DateTime currentTime)
-        {
-            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-                return;
 
-            if (status.History.Count > 0)
-                status.Exercises = status.History.Pop();
-        }
-        #endregion
+        //private List<int> GetAlternativeExercises(int originalExerciseId)
+        //{
+        //    // פונקציה זו צריכה להחזיר רשימה של תרגילים חילופיים
+        //    // בהתבסס על קבוצות שרירים או סוג התרגיל
+        //    var alternatives = new List<int>();
 
-        #region פונקציות עזר - כלליות
-        private void UndoMarkExerciseAsDone(TraineeDTO trainee, int exerciseId)
-        {
-            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-                return;
+        //    // כאן תוכל להוסיף לוגיקה מתוחכמת יותר
+        //    // לדוגמה: תרגילים שמאמנים את אותם השרירים
+        //    var originalExercise = exercises.FirstOrDefault(e => e.ExerciseId == originalExerciseId);
+        //    if (originalExercise != null)
+        //    {
+        //        // מצא תרגילים דומים (זו דוגמה פשוטה)
+        //        alternatives.AddRange(exercises
+        //            .Where(e => e.ExerciseId != originalExerciseId &&
+        //                       e.MuscleGroupId == originalExercise.MuscleGroupId)
+        //            .Select(e => e.ExerciseId));
+        //    }
 
-            var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-            if (ex != null)
-            {
-                ex.IsDone = false;
-                ex.PerformedAt = null;
-            }
-        }
-        private void MarkExerciseAsDone(TraineeDTO trainee, int exerciseId, DateTime performedAt)
-        {
-            if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-                return;
-
-            var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-            if (ex != null)
-            {
-                ex.IsDone = true;
-                ex.PerformedAt = performedAt;
-            }
-        }
-        private TimeSpan GetExerciseDuration(int exerciseId)
-        {
-            var exercise = exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-            return exercise?.Duration ?? TimeSpan.FromMinutes(15); // ברירת מחדל
-        }
-
-        private Dictionary<int, ExerciseEntry> CreateExerciseEntries(List<int> exercisePath)
-        {
-            var entries = new Dictionary<int, ExerciseEntry>();
-
-            for (int i = 0; i < exercisePath.Count; i++)
-            {
-                int exerciseId = exercisePath[i];
-                int exerciseIndex = GetExerciseIndex(exerciseId);
-
-                entries[i] = new ExerciseEntry
-                {
-                    ExerciseId = exerciseId,
-                    OrderInList = i,
-                    Slot = exerciseIndex >= 0 ? queueSlots[exerciseIndex] : null
-                };
-            }
-
-            return entries;
-        }
-
-        #endregion
-    }
-}
-
+        //    return alternatives;
+        //}
 
 
 
@@ -1066,6 +957,144 @@ public static class Extensions
         }
     }
 }
+
+
+
+//private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+//    TryReschedulingOthers(List<int> exerciseOrder, int mask, List<int> currentPath,
+//                        int currentAlternatives, DateTime currentTime, int lastNodeId)
+//{
+//    for (int i = 0; i < exerciseOrder.Count; i++)
+//    {
+//        if (IsExerciseDone(mask, i)) continue;
+
+//        int nodeId = exerciseOrder[i];
+
+//        if (!IsLegalTransition(lastNodeId, nodeId, currentTime)) continue;
+//        if (!CanReachAllRemainingExercises(nodeId, exerciseOrder, mask)) continue;
+
+//        var occupyingTrainee = GetOccupyingTraineeInSlot(nodeId, currentTime);
+//        //if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
+//        //{
+//        //    if (TryRescheduleOtherTrainee(occupyingTrainee, nodeId, currentTime))
+//        //    {
+//        //        var duration = GetExerciseDuration(nodeId);
+//        //        AddTraineeToSlot(nodeId, currentTime, duration, currentTrainee);
+//        //        currentPath.Add(nodeId);
+
+//        //        var result = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
+//        //                                         currentPath, currentAlternatives + 2,
+//        //                                         currentTime.Add(duration),
+//        //                                         out DateTime candidateEndTime);
+
+//        //        if (result.found)
+//        //        {
+//        //            return (true, result.numAlternatives, result.bestPath, candidateEndTime);
+//        //        }
+
+//        //        // החזר את המצב הקודם
+//        //        RemoveTraineeFromSlot(nodeId, currentTime, duration);
+//        //        currentPath.RemoveAt(currentPath.Count - 1);
+//        //        RestoreTraineeToSlot(occupyingTrainee, nodeId, currentTime);
+//        //    }
+//        //}
+//        // עבור כל מתאמן שתופס את הסלוט
+//        if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
+//        {
+//            // רשימת התרגילים שנותרו לאותו מתאמן
+//            var remainingExercises = GetRemainingExercisesForTrainee(occupyingTrainee, currentTime);
+
+//            // נסה להריץ אלגוריתם מלא עבורו, אבל עם דגל שמונע ממנו לשנות אחרים
+//            var result = BacktrackWithPriority(
+//                remainingExercises,
+//                /*mask*/ 0,
+//                /*currentPath*/ new List<int>(),
+//                /*currentAlternatives*/ 0,
+//                /*currentTime*/ currentTime,
+//                out DateTime _,
+//                isReschedulingAnotherTrainee: true // חשוב!
+//            );
+
+//            if (result.found)
+//            {
+//                // החלף לו את הסדר בפועל, עדכן סלוטים וכו'
+//                ApplyNewExerciseOrderToTrainee(occupyingTrainee, result.bestPath, currentTime);
+//                // עכשיו אפשר להכניס את המתאמן שלך לתרגיל
+//                // ...
+//            }
+//        }
+//    }
+
+//    return (false, int.MaxValue, null, DateTime.MinValue);
+//}
+//private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+//    TryReschedulingOthers(List<int> exerciseOrder, int mask, List<int> currentPath,
+//                 int currentAlternatives, DateTime currentTime, int lastNodeId)
+//{
+//    for (int i = 0; i < exerciseOrder.Count; i++)
+//    {
+//        if (IsExerciseDone(mask, i)) continue;
+
+//        int nodeId = exerciseOrder[i];
+
+//        // גם תרגילים חילופיים
+//        var alternatives = new List<int> { nodeId };
+//        int nextNodeId = GetNextExerciseId(exerciseOrder, mask, i);
+//        alternatives.AddRange(GetAlternativeExercises(lastNodeId, nodeId, nextNodeId));
+
+//        foreach (var alt in alternatives)
+//        {
+//            var occupyingTrainee = GetOccupyingTraineeInSlot(alt, currentTime);
+//            if (occupyingTrainee != null && occupyingTrainee.TraineeId != currentTrainee.TraineeId)
+//            {
+//                // שלוף את רשימת התרגילים שנותרו למתאמן זה
+//                var othersRemainingExercises = GetRemainingExercisesForTrainee(occupyingTrainee, currentTime);
+
+//                // נסה להריץ אלגוריתם מלא עבורו (אבל לא יוכל להזיז אחרים)
+//                var result = BacktrackWithPriority(
+//                    othersRemainingExercises,
+//                    0,
+//                    new List<int>(),
+//                    0,
+//                    currentTime,
+//                    out DateTime _,
+//                    isReschedulingAnotherTrainee: true // מונע רקורסיה
+//                );
+
+//                if (result.found)
+//                {
+//                    // עדכן בפועל את סדר התרגילים של המתאמן ואת הסלוטים
+//                    ApplyNewExerciseOrderToTrainee(occupyingTrainee, result.bestPath, currentTime);
+
+//                    // עכשיו ניתן להכניס את המתאמן הנוכחי לתרגיל שהתפנה
+//                    var duration = GetExerciseDuration(alt);
+//                    AddTraineeToSlot(alt, currentTime, duration, currentTrainee);
+//                    currentPath.Add(alt);
+
+//                    var res = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
+//                                                 currentPath, currentAlternatives + 2,
+//                                                 currentTime.Add(duration),
+//                                                 out DateTime candidateEndTime);
+
+//                    if (res.found)
+//                        return (true, res.numAlternatives, res.bestPath, candidateEndTime);
+
+//                    // החזר את המצב לקדמותו
+//                    RemoveTraineeFromSlot(alt, currentTime, duration);
+//                    currentPath.RemoveAt(currentPath.Count - 1);
+//                    UndoApplyNewExerciseOrderToTrainee(occupyingTrainee, currentTime); // פונקציה שתשחזר את הסדר והסלוטים
+//                }
+//            }
+//        }
+//    }
+
+//    return (false, int.MaxValue, null, DateTime.MinValue);
+//}
+
+
+
+
+
 
 //// DTOs נוספים שעשויים להידרש
 //public class ExerciseDTO

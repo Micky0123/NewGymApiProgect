@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DBEntities.Models.Category">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAEAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.DeviceMuscleEdge">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAABAAIAAECAAAAAAAAA=</HashCode>
+      <FileName>Models\DeviceMuscleEdge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Equipment">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAEAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Equipment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Exercise">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABECAAAAAAAAQAAAAQBEABAEoAggABoAAAAAgA=</HashCode>
+      <FileName>Models\Exercise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.ExercisePlan">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAABIAABgAAkAEAAAAIECQAAAAAEAEAAAAAAAA=</HashCode>
+      <FileName>Models\ExercisePlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.FitnessLevel">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\FitnessLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Goal">
+    <Position X="14" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Goal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.GraphEdge">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAIABAAAwAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GraphEdge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.GymDbContext">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAABAAAAQAQAAQAEQEAAASBEAEAEgAAsAAAAYAAIEA=</HashCode>
+      <FileName>Models\GymDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Joint">
+    <Position X="12.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAEAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Joint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Muscle">
+    <Position X="17.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAASAAIAAAAAAAAEAAAABAABAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\Muscle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.MuscleEdge">
+    <Position X="5.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAABAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\MuscleEdge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.MuscleType">
+    <Position X="14" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\MuscleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.PlanDay">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAACBAACAQgAgAAAAAAAAAAAQAEAAAAABAA=</HashCode>
+      <FileName>Models\PlanDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Size">
+    <Position X="7" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAACIAAAAAAA=</HashCode>
+      <FileName>Models\Size.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.SubMuscle">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAEAAAAAAABAAIAAAAAAACAAAAA=</HashCode>
+      <FileName>Models\SubMuscle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.Trainee">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAABAiAEEAAAAAgCAAAIAACAAAAIABAAAA=</HashCode>
+      <FileName>Models\Trainee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.TrainingDay">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAA=</HashCode>
+      <FileName>Models\TrainingDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.TrainingDuration">
+    <Position X="17.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAUAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TrainingDuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DBEntities.Models.TrainingPlan">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUgABAAAAAAAAAAAEAAAAAAgIAEAAAAkQAEAAEAAAAA=</HashCode>
+      <FileName>Models\TrainingPlan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

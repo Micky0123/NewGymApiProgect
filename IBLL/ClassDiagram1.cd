@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="IBLL.ICategoryBLL">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAEAJAAAAAA=</HashCode>
+      <FileName>ICategoryBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IDeviceMuscleEdgeBLL">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAIAgAAAAgBAABQAAAgAAAAA=</HashCode>
+      <FileName>IDeviceMuscleEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IEquipmentBLL">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgMAAABAAAAIABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IEquipmentBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IExerciseBLL">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAiAAAAAAAEAEQAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>IExerciseBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IExercisePlanBLL">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IExercisePlanBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IFitnessLevelBLL">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAQAAACAAAAAAgAABAAAAAAAAAA=</HashCode>
+      <FileName>IFitnessLevelBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IGoalBLL">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAAAAAgAAEAEIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IGoalBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IGraphBuilderServiceBLL">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IGraphBuilderServiceBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IGraphEdgeBLL">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAQAAAAAQAAAAAACIAAAAAAAAAgIQAAAAAAA=</HashCode>
+      <FileName>IGraphEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IJointBLL">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAAAAAAKAAAAAAAAAAABAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>IJointBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IMuscleBLL">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAAAABAAAAAABAAAACAAAACAA=</HashCode>
+      <FileName>IMuscleBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IMuscleEdgeBLL">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQQAIBAAACAAIACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMuscleEdgeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IMuscleTypeBLL">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAACAAAAAAIgIAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>IMuscleTypeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.IPlanDayBLL">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAGAAAAAQIAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>IPlanDayBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ISizeBLL">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAAAIAgAAAAAAAAAAAAEAAAAAAAAABAA=</HashCode>
+      <FileName>ISizeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ISubMuscleBLL">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAABAAACAAAEIEAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>ISubMuscleBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ITraineeBLL">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAIAAAAAEAgAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ITraineeBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ITrainingDayBLL">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAIAAAAAAAAQAAAAAAAAIAAAgAAAAAAAA=</HashCode>
+      <FileName>ITrainingDayBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ITrainingDurationBLL">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAoAAAAAQAAAAAACAAAAEAAAAAAAA=</HashCode>
+      <FileName>ITrainingDurationBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBLL.ITrainingPlanBLL">
+    <Position X="11" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAABAAAAAAAAAAAAAABAAAoAAAAAAA=</HashCode>
+      <FileName>ITrainingPlanBLL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

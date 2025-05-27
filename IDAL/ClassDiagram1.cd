@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="IDAL.ICategoryDAL">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAEAJAAAAAA=</HashCode>
+      <FileName>ICategoryDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IDeviceMuscleEdgeDAL">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAIAgAAAAgBAABAAAAgAAAAA=</HashCode>
+      <FileName>IDeviceMuscleEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IEquipmentDAL">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgMAAABAAAAIABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IEquipmentDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IExerciseDAL">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAiEAAAABAEAEQAAAAAAAAAAAAAAAAEgACAE=</HashCode>
+      <FileName>IExerciseDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IExercisePlanDAL">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IExercisePlanDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IFitnessLevelDAL">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAQAAACAAAAAAgAABAAAAAAAAAA=</HashCode>
+      <FileName>IFitnessLevelDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IGoalDAL">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAAAAAgAAEAEIAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>IGoalDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IGraphEdgeDAL">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAQAAAAAQAAAAAACIAAAAAAAAAAIQAAAAAAA=</HashCode>
+      <FileName>IGraphEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IJointDAL">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAAAAAAKAAAAAAAAAAABAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>IJointDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IMuscleDAL">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgASAABAAAABIAAAAABiACICAAAACAA=</HashCode>
+      <FileName>IMuscleDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IMuscleEdgeDAL">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQQAABAAACAAIACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMuscleEdgeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IMuscleTypeDAL">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAACAAAAAAAgIAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>IMuscleTypeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.IPlanDayDAL">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAGAAAAAQIAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>IPlanDayDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ISizeDAL">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAAAIAgAAAAAAAAAAAAEAAAAAAAAABAA=</HashCode>
+      <FileName>ISizeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ISubMuscleDAL">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAACAAAEMEAAAAAgAQAAAAAAA=</HashCode>
+      <FileName>ISubMuscleDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ITraineeDAL">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAIAAAAAEAgAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ITraineeDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ITrainingDayDAL">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAIAAAAAAAAQAAAAAAAAIAAAgAAAAAAAA=</HashCode>
+      <FileName>ITrainingDayDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ITrainingDurationDAL">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAAAAAAAAAAAAoAAAAAQAAAAAACAAAAEAAAAAAAA=</HashCode>
+      <FileName>ITrainingDurationDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IDAL.ITrainingPlanDAL">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAABAAAAAAAAAAAAAABAAAoAAAAAAA=</HashCode>
+      <FileName>ITrainingPlanDAL.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

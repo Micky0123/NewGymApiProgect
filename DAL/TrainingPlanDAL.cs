@@ -66,6 +66,20 @@ namespace DAL
                 throw new Exception("Error retrieving Training Plan by ID", ex);
             }
         }
+        public async Task<List<TrainingPlan>> GetTrainingPlansByTraineeIdAsync(int traineeId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.TrainingPlans
+                    .Where(tp => tp.TraineeId == traineeId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Training Plans by TraineeId", ex);
+            }
+        }
 
         //public async Task<TrainingPlan> GetTrainingPlanByNameAsync(string name)
         //{

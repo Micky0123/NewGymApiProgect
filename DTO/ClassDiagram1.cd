@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DTO.CategoryDTO">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CategoryDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.DeviceMuscleEdgeDTO">
+    <Position X="9.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAECAAAAAAAAA=</HashCode>
+      <FileName>DeviceMuscleEdgeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.EquipmentDTO">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EquipmentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.ExerciseDTO">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABEAAACAAAAAAAAAAAAEABAAAAgAAAIAAAAAAA=</HashCode>
+      <FileName>ExerciseDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.ExerciseEntry">
+    <Position X="9.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ExerciseEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.ExercisePlanDTO">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAABIAABgAAkAAAAAAIEAQAAAAAEAEAAAAAAAA=</HashCode>
+      <FileName>ExercisePlanDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.ExerciseStatusEntry">
+    <Position X="9.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACgIAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExerciseStatusEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.ExerciseTransition">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExerciseTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.FitnessLevelDTO">
+    <Position X="8" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FitnessLevelDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.GoalDTO">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>GoalDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.GraphEdgeDTO">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GraphEdgeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.JointDTO">
+    <Position X="2.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JointDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.MuscleDTO">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MuscleDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.MuscleEdgeDTO">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>MuscleEdgeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.MuscleTypeDTO">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>MuscleTypeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.PathResult">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAIAAgAAAEAAAAABAAAAA=</HashCode>
+      <FileName>PathResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.PlanDayDTO">
+    <Position X="4.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAACBAACAAAAgAAAAAAAAAAAQAEAAAAABAA=</HashCode>
+      <FileName>PlanDayDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.QueueSlot">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAACAAAAAAAAAAAAAgAAAAQABAAAAAAAAA=</HashCode>
+      <FileName>QueueSlot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.SizeDTO">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAA=</HashCode>
+      <FileName>SizeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.Slot">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAIAAQIAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Slot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.SubMuscleDTO">
+    <Position X="13.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAABAAIAAAAAAACAAAAA=</HashCode>
+      <FileName>SubMuscleDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.TraineeDTO">
+    <Position X="1" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="DTO.TraineeDTO.EGender" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TraineeDTO.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAABAiAAEAAAAAgCAAAIEACAAAAIABAAAA=</HashCode>
+      <FileName>TraineeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.TraineeExerciseStatus">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEAAACAAAAAAA=</HashCode>
+      <FileName>TraineeExerciseStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.TrainingDayDTO">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAgAAA=</HashCode>
+      <FileName>TrainingDayDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.TrainingDurationDTO">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrainingDurationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.TrainingPlanDTO">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAAAEAAAAAAgIAAAAAAgQAAAAEAAAAA=</HashCode>
+      <FileName>TrainingPlanDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
