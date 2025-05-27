@@ -21,45 +21,6 @@ using DocumentFormat.OpenXml.Spreadsheet;
 namespace BLL
 {
 
-    #region Data Models - מודלי נתונים
-
-    // מייצג יום אימון בתוכנית
-    public class DayEntry
-    {
-        public string Key { get; set; }// קטגוריה - סוג השריר או קבוצת השרירים
-        public int Values { get; set; }// מספר התרגילים הנדרש לשריר זה
-        public string Name { get; set; }// שם השריר
-    }
-
-    // מכיל מידע על תרגיל ושריר קשור
-    public class ExerciseWithMuscleInfo
-    {
-        public ExerciseDTO Exercise { get; set; }// פרטי התרגיל
-        public string MuscleName { get; set; }// שם השריר הראשי
-        public string SubMuscleName { get; set; }// שם תת-השריר
-        public int categoryId { get; set; }// מזהה הקטגוריה
-        public int JointCount { get; set; }// מספר המפרקים המעורבים בתרגיל
-    }
-
-    /// מכיל את כל הפרמטרים הנדרשים ליצירת תוכנית אימונים
-    public class TrainingParams
-    {
-        public List<List<DayEntry>> DayLists { get; set; }// רשימה של רשימות יומיות - כל רשימה פנימית מייצגת יום אימון
-        public Dictionary<string, List<object>> MuscleSizeData { get; set; }// מילון המכיל מידע על גדלי השרירים (גדול/בינוני/קטן)
-        public int MinRep { get; set; }// מספר החזרות המינימלי בתרגיל
-        public int MaxRep { get; set; }// מספר החזרות המקסימלי בתרגיל
-        public Dictionary<(string Category, string MuscleSize), int> TimeCategories { get; set; }// מילון המגדיר זמן אימון לפי קטגוריה וגודל שריר
-        public List<string> TypMuscle { get; set; }// רשימה של סוגי השרירים השונים
-        public List<Dictionary<int, List<string>>> TypeMuscleData { get; set; }// רשימה של סוגי השרירים לאימון מסודרת לפי חשיבות
-        public List<string> equipment { get; set; }// רשימת הציוד הזמין למתאמן
-        public List<string> NeedSubMuscleList { get; set; }// רשימת השרירים הדורשים תת-שריר
-        public List<string> subMuscleOfMuscleList { get; set; }// רשימת כל השרירים שיש להם תת-שריר
-        public Dictionary<int, string> OrderList { get; set; }// מילון המגדיר את סדר התרגילים בתוכנית
-        public List<string> musclePriorityOrder { get; set; }// רשימת עדיפויות השרירים הראשיים
-        public List<string> subMusclePriorityOrder { get; set; }// רשימת עדיפויות תת-השרירים
-    }
-
-    #endregion
 
     // מחלקה ראשית ליצירת תוכניות אימונים מותאמות אישית
     public class CreateTrainingPlan2
@@ -67,18 +28,18 @@ namespace BLL
         //********
         #region Constants - קבועים
 
-        // שמות הגיליונות בקובץ Excel
-        private const string DaysInWeekSheet = "List1";              // גיליון ימי השבוע
-        private const string MuscleSheet = "MuscleSize";             // גיליון גדלי השרירים
-        private const string SmallMuscleSheet = "SmallMuscle";       // גיליון שרירים קטנים
-        private const string RepitByGoalSheet = "Repeat";            // גיליון מספר חזרות לפי מטרה
-        private const string CategorySheet = "TimeForCategory";       // גיליון זמן לקטגוריה
-        private const string SumOfLargeByTimeSheet = "Amount";       // גיליון כמות שרירים גדולים
-        private const string SumOfSmallByTimeSheet = "Amount";       // גיליון כמות שרירים קטנים
-        private const string TypMuscleSheet = "MuscleType";          // גיליון סוגי שרירים
-        private const string EquipmentSheet = "Equipment";           // גיליון ציוד
-        private const string NeedSubMuscleSheet = "NeedSubMuscle";   // גיליון שרירים הזקוקים לתת-שריר
-        private const string OrderListSheet = "OrderList";          // גיליון סדר התרגילים
+        //// שמות הגיליונות בקובץ Excel
+        //private const string DaysInWeekSheet = "List1";              // גיליון ימי השבוע
+        //private const string MuscleSheet = "MuscleSize";             // גיליון גדלי השרירים
+        //private const string SmallMuscleSheet = "SmallMuscle";       // גיליון שרירים קטנים
+        //private const string RepitByGoalSheet = "Repeat";            // גיליון מספר חזרות לפי מטרה
+        //private const string CategorySheet = "TimeForCategory";       // גיליון זמן לקטגוריה
+        //private const string SumOfLargeByTimeSheet = "Amount";       // גיליון כמות שרירים גדולים
+        //private const string SumOfSmallByTimeSheet = "Amount";       // גיליון כמות שרירים קטנים
+        //private const string TypMuscleSheet = "MuscleType";          // גיליון סוגי שרירים
+        //private const string EquipmentSheet = "Equipment";           // גיליון ציוד
+        //private const string NeedSubMuscleSheet = "NeedSubMuscle";   // גיליון שרירים הזקוקים לתת-שריר
+        //private const string OrderListSheet = "OrderList";          // גיליון סדר התרגילים
 
         #endregion
 
@@ -100,8 +61,11 @@ namespace BLL
         private readonly ILogger<TrainingPlanBLL> logger;
         private readonly IMapper mapper;
         private readonly List<string> exerciseList;
+        private readonly TrainingConfig config;
 
         #endregion
+        // "config.json" should be assigned to a variable or used in a meaningful way
+        //var configFilePath = "config.json",
 
         #region Constructor - בנאי
         // בנאי המחלקה - מאתחל את כל התלויות הנדרשות
@@ -117,7 +81,12 @@ namespace BLL
             IExercisePlanDAL exercisePlanDAL,
             ITrainingPlanDAL trainingPlanDAL,
             IPlanDayDAL planDayDAL)
+
+            // Fix the syntax error by assigning the value from config dictionary to configPath
+           // string configPath = config["ExcelFilePath"]; )// ברירת מחדל - אפשר להעביר נתיב אחר אם רוצים
         {
+
+            //"config.json"
             // אתחול כל השדות
             this.muscleDAL = muscleDAL;
             this.equipmentDAL = equipmentDAL;
@@ -131,6 +100,9 @@ namespace BLL
             this.planDayDAL = planDayDAL;
             this.logger = logger;
             this.exerciseList = new List<string>();
+            //this.config = TrainingConfig.Load("C:\\Users\\user\\Pictures\\תכנות\\שנה ב\\פוריקט שנתי\\C#\\פרויקט חדש 20.04\\Gym_Api\\BLL\\new.xlsx"); // טוען את הקונפיגורציה מקובץ JSON
+            // קריאת קובץ הקונפיגורציה
+            this.config = TrainingConfig.Load("config.json");
 
             // הגדרת AutoMapper להמרת אובייקטים
             var configTaskConverter = new MapperConfiguration(cfg =>
@@ -153,11 +125,18 @@ namespace BLL
         {
             try
             {
+
                 logger.LogInformation($"Starting training plan creation for trainee: {traineeID}");
 
                 // נתיב לקובץ Excel עם הפרמטרים
                 // TODO: העבר את הנתיב לקונפיגורציה במקום לקודד אותו
-                string filePath1 = @"C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\BLL\new.xlsx";
+                //string filePath1 = @"C:\Users\user\Pictures\תכנות\שנה ב\פוריקט שנתי\C#\פרויקט חדש 20.04\Gym_Api\BLL\new.xlsx";
+                // טען את הנתיב לקובץ האקסל מהקונפיגורציה
+                // שימוש בנתיב לקובץ האקסל מתוך הקונפיגורציה
+                string filePath1 = config.ExcelFilePath;
+               // string excelPath = config.ExcelFilePath;
+                //string muscleSheet = config.MuscleSheet;
+
 
                 // טעינת רשימת הציוד הזמין
                 await LoadExerciseListAsync();
@@ -813,21 +792,21 @@ namespace BLL
         // שליפת תכנון יומי מגיליון Excel
         private List<List<DayEntry>> ExtractDayPlanning(XLWorkbook workbook, int daysInWeek, int time)
         {
-            var daysWorksheet = GetWorksheet(workbook, DaysInWeekSheet);
+            var daysWorksheet = GetWorksheet(workbook, config.DaysInWeekSheet);
             return ExtractDayListsNew(daysWorksheet, daysInWeek, time);
         }
 
         // שליפת מידע על גדלי השרירים
         private Dictionary<string, List<object>> ExtractMuscleSizeData(XLWorkbook workbook)
         {
-            var muscleSizeWorksheet = GetWorksheet(workbook, MuscleSheet);
+            var muscleSizeWorksheet = GetWorksheet(workbook, config.MuscleSheet);
             return ExtractMuscleSizeData(muscleSizeWorksheet);
         }
 
         // שליפת מידע על מספר החזרות
         private (int minRep, int maxRep) ExtractRepetitionData(XLWorkbook workbook, int goal)
         {
-            var repWorksheet = GetWorksheet(workbook, RepitByGoalSheet);
+            var repWorksheet = GetWorksheet(workbook, config.RepitByGoalSheet);
             int colRep = FindColumnByValue(repWorksheet, 1, goal, "Column with the specified goal not found.");
             int minRep = GetValueFromWorksheet(repWorksheet, "min", colRep, "Min value not found.");
             int maxRep = GetValueFromWorksheet(repWorksheet, "max", colRep, "Max value not found.");
@@ -837,7 +816,7 @@ namespace BLL
         // שליפת מידע על זמן לקטגוריות
         private Dictionary<string, int> ExtractTimeCategoryData(XLWorkbook workbook, int goal, int time)
         {
-            var timeCategoryWorksheet = GetWorksheet(workbook, CategorySheet);
+            var timeCategoryWorksheet = GetWorksheet(workbook, config.CategorySheet);
             return ExtractTimeCategoryList(timeCategoryWorksheet, goal, time);
         }
 
@@ -845,42 +824,42 @@ namespace BLL
         private Dictionary<(string Category, string MuscleSize), int> ExtractExerciseCountData(
             XLWorkbook workbook, int time, int daysInWeek)
         {
-            var countToMuscleWorksheet = GetWorksheet(workbook, SumOfLargeByTimeSheet);
+            var countToMuscleWorksheet = GetWorksheet(workbook, config.SumOfLargeByTimeSheet);
             return ExtractCategoryMuscleSizeData(countToMuscleWorksheet, time, daysInWeek);
         }
 
         // שליפת מידע על סוגי השרירים
         private List<Dictionary<int, List<string>>> ExtractMuscleTypeData(XLWorkbook workbook, int daysInWeek)
         {
-            var typMuscleWorksheet = GetWorksheet(workbook, TypMuscleSheet);
+            var typMuscleWorksheet = GetWorksheet(workbook, config.TypMuscleSheet);
             return ExtractTypMuscleData(typMuscleWorksheet, daysInWeek);
         }
 
         // שליפת מידע על ציוד זמין
         private List<string> ExtractEquipmentData(XLWorkbook workbook, int level)
         {
-            var equipmentWorksheet = GetWorksheet(workbook, EquipmentSheet);
+            var equipmentWorksheet = GetWorksheet(workbook, config.EquipmentSheet);
             return ExtractEquipmentData(equipmentWorksheet, level);
         }
 
         // שליפת דרישות תת-שרירים
         private List<string> ExtractSubMuscleRequirements(XLWorkbook workbook)
         {
-            var muscleTypeWorksheet = GetWorksheet(workbook, NeedSubMuscleSheet);
+            var muscleTypeWorksheet = GetWorksheet(workbook, config.NeedSubMuscleSheet);
             return ExtractMuscleTypeData(muscleTypeWorksheet);
         }
 
         // שליפת מידע על סדר התרגילים
         private Dictionary<int, string> ExtractOrderData(XLWorkbook workbook)
         {
-            var orderListSheet = GetWorksheet(workbook, OrderListSheet);
+            var orderListSheet = GetWorksheet(workbook, config.OrderListSheet);
             return ExtractOrderListData(orderListSheet);
         }
 
         // שליפת סדר עדיפויות השרירים
         private (List<string> subMuscleData, List<string> muscleData) ExtractPriorityOrderData(XLWorkbook workbook)
         {
-            var orderListSheet = GetWorksheet(workbook, OrderListSheet);
+            var orderListSheet = GetWorksheet(workbook, config.OrderListSheet);
             var subMuscleData = ExtractSubMuscleOrderListData(orderListSheet);
             var muscleData = ExtractMuscleOrderListData(orderListSheet);
             return (subMuscleData, muscleData);
@@ -1284,9 +1263,6 @@ namespace BLL
 
 
     }
-
-
-
 }
 
 

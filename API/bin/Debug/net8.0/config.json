@@ -1,0 +1,14 @@
+{
+  "DaysInWeekSheet": "List1",
+  "MuscleSheet": "MuscleSize",
+  "SmallMuscleSheet": "SmallMuscle",
+  "RepitByGoalSheet": "Repeat",
+  "CategorySheet": "TimeForCategory",
+  "SumOfLargeByTimeSheet": "Amount",
+  "SumOfSmallByTimeSheet": "Amount",
+  "TypMuscleSheet": "MuscleType",
+  "EquipmentSheet": "Equipment",
+  "NeedSubMuscleSheet": "NeedSubMuscle",
+  "OrderListSheet": "OrderList",
+  "ExcelFilePath": "C:\\Users\\user\\Pictures\\תכנות\\שנה ב\\פוריקט שנתי\\C#\\פרויקט חדש 20.04\\Gym_Api\\BLL\\new.xlsx"
+}
