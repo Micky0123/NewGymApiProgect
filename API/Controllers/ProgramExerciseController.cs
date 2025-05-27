@@ -10,11 +10,11 @@ namespace API.Controllers
     [ApiController]
     public class ProgramExerciseController : ControllerBase
     {
-        private readonly CreateTrainingPlan2 createTrainingPlan2;
+        private readonly CreateTrainingPlan createTrainingPlan;
 
-        public ProgramExerciseController(CreateTrainingPlan2 createTrainingPlan2)
+        public ProgramExerciseController(CreateTrainingPlan createTrainingPlan2)
         {
-            this.createTrainingPlan2 = createTrainingPlan2;
+            this.createTrainingPlan = createTrainingPlan2;
         }
 
         // GET: api/<ProgramExerciseController>
@@ -82,8 +82,8 @@ namespace API.Controllers
                 //    // הנח שצריך לעדכן נתונים מ-ProgramExerciseRequest ל-ProgramExerciseDTO
                 //    // הוספת שדות לפי הצורך
                 //};
-                string filePath = "WorkoutData.xlsx";
-                await createTrainingPlan2.addProgramExerciseAsync1( request.DaysInWeek, request.Goal, request.Level, request.Time, traineeid);
+               // string filePath = "WorkoutData.xlsx";
+                await createTrainingPlan.addProgramExerciseAsync( request.DaysInWeek, request.Goal, request.Level, request.Time, traineeid);
                 return Ok("Program exercise added successfully.");
             }
             catch (Exception ex)

@@ -22,6 +22,10 @@ namespace DTO
         public string NeedSubMuscleSheet { get; set; }
         public string OrderListSheet { get; set; }
         public string ExcelFilePath { get; set; }
+        public int set { get; set; }
+        public int Weight {  get; set; }
+        public int TimesMin {  get; set; }
+        public int TimesMax { get; set; }
 
         public static TrainingConfig Load(string path)
         {

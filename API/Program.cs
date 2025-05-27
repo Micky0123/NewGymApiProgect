@@ -80,7 +80,7 @@ namespace API
             builder.Services.AddScoped<ITrainingPlanDAL, TrainingPlanDAL>();
             builder.Services.AddScoped<ITrainingPlanBLL, TrainingPlanBLL>();
 
-            builder.Services.AddScoped<CreateTrainingPlan2>();
+            builder.Services.AddScoped<CreateTrainingPlan>();
             // Add services to the container.
 
             builder.Services.AddControllers();
