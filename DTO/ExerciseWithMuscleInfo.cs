@@ -14,5 +14,6 @@ namespace DTO
         public string SubMuscleName { get; set; }// שם תת-השריר
         public int categoryId { get; set; }// מזהה הקטגוריה
         public int JointCount { get; set; }// מספר המפרקים המעורבים בתרגיל
+        public int Time { get; set; } = 5;//❤
     }
 }

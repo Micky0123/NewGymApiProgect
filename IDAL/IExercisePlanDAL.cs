@@ -12,7 +12,8 @@ namespace IDAL
         Task AddExercisePlanAsync(ExercisePlan exercisePlan);
         Task<List<ExercisePlan>> GetAllExercisePlansAsync();
         Task<ExercisePlan> GetExercisePlanByIdAsync(int id);
-      // Task<ExercisePlan> GetExercisePlanByNameAsync(string name);
+        // Task<ExercisePlan> GetExercisePlanByNameAsync(string name);
+        Task<List<ExercisePlan>> GetExercisesByPlanDayIdAsync(int planDayId);
         Task UpdateExercisePlanAsync(ExercisePlan exercisePlan, int id);
         Task DeleteExercisePlanAsync(int id);
     }

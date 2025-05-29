@@ -17,6 +17,8 @@ public partial class Exercise
 
     public int? MuscleGroupId { get; set; }
 
+    public int? Count { get; set; }
+
     public virtual ICollection<DeviceMuscleEdge> DeviceMuscleEdges { get; set; } = new List<DeviceMuscleEdge>();
 
     public virtual ICollection<ExercisePlan> ExercisePlans { get; set; } = new List<ExercisePlan>();

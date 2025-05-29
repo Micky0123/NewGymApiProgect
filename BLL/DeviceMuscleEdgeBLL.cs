@@ -24,7 +24,7 @@ namespace BLL
             this.deviceMuscleEdgeDAL = deviceMuscle;
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<GraphEdge, GraphEdgeDTO>().ReverseMap();
+                cfg.CreateMap<DeviceMuscleEdge, DeviceMuscleEdgeDTO>().ReverseMap();
             });
             mapper = new Mapper(config);
             this.exerciseDAL = exerciseDAL;

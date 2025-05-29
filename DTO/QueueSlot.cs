@@ -26,10 +26,12 @@ namespace DTO
         public void GenerateSlots(DateTime firstSlotStart, int slotMinutes, int slotCount)
         {
             SlotsByStartTime.Clear();
+            // התאריך של היום הנוכחי בשעה 07:00
             for (int i = 0; i < slotCount; i++)
             {
                 var start = firstSlotStart.AddMinutes(i * slotMinutes);
                 var end = start.AddMinutes(slotMinutes);
+
                 SlotsByStartTime[start] = new Slot(start, end);
             }
         }

@@ -7,6 +7,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="1.cs" />
+    <Compile Remove="2.cs" />
+    <Compile Remove="3.cs" />
+    <Compile Remove="4.cs" />
+    <Compile Remove="5.cs" />
+    <Compile Remove="Backtracking.cs" />
+    <Compile Remove="BacktrackingScheduler2.cs" />
+    <Compile Remove="CreateTrainingPlan1.cs" />
+    <Compile Remove="GraphBuilderServiceBLL.cs" />
+    <Compile Remove="GymManagementSystem.cs" />
+    <Compile Remove="Initialize.cs" />
+    <Compile Remove="Michal.cs" />
+    <Compile Remove="newALgorithem.cs" />
+    <Compile Remove="newAlgorithem2.cs" />
+    <Compile Remove="PathFinderService.cs" />
+    <Compile Remove="PathFinderServiceBLL.cs" />
+    <Compile Remove="PathFinderServiceBLLNEW.cs" />
+    <Compile Remove="ProgramChangeBLL.cs" />
+    <Compile Remove="ProgramExerciseBLL.cs" />
+    <Compile Remove="ProgramExerciseBLL2.cs" />
+    <Compile Remove="QueueManagerBLL.cs" />
+    <Compile Remove="SchedulerInit.cs" />
+    <Compile Remove="TimeSlotManagerBLL.cs" />
+    <Compile Remove="TrainingProgramBLL.cs" />
+    <Compile Remove="TransitionMatrix.cs" />
+    <Compile Remove="TransitionMatrixBuilder.cs" />
+    <Compile Remove="try.cs" />
+    <Compile Remove="TryProgram.cs" />
+    <Compile Remove="WorkoutPathFinderBLL.cs" />
+    <Compile Remove="WorkoutSchedulerBLL.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="automapper" Version="14.0.0" />
     <PackageReference Include="Castle.Windsor" Version="6.0.0" />
     <PackageReference Include="ClosedXML" Version="0.104.2" />

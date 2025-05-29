@@ -14,13 +14,14 @@ namespace DTO
         public Dictionary<TraineeDTO, PathResult> ExercisesByTrainee { get; set; } = new();
        // public List<ExerciseEntry> Exercises { get; set; } = new List<ExerciseEntry>(); //רשימה של תרגילים כלומר מצביעים לתרגילים בתוכנית אימון 
         public bool available { get; set; } = true; //זמינות התרגיל
-        //public int MaxCapacity { get; set; }//הגדרת משך הזמן של כל סלוט
+        public long MaxCapacity { get; set; }//הגדרת משך הזמן של כל סלוט
 
         public Slot( DateTime startTime, DateTime endTime)
         {
             //MaxCapacity = maxCapacity;
             StartTime = startTime;
             EndTime = endTime;
+            MaxCapacity= this.EndTime.Ticks - this.StartTime.Ticks;
         }
         public void AddTranee(TraineeDTO trainee)
         {

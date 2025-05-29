@@ -1,14 +1,18 @@
 {
-  "DaysInWeekSheet": "List1",
-  "MuscleSheet": "MuscleSize",
-  "SmallMuscleSheet": "SmallMuscle",
-  "RepitByGoalSheet": "Repeat",
   "CategorySheet": "TimeForCategory",
+  "DaysInWeekSheet": "List1",
+  "EquipmentSheet": "Equipment",
+  "ExcelFilePath": "C:\\Users\\user\\Pictures\\תכנות\\שנה ב\\פוריקט שנתי\\C#\\פרויקט חדש 20.04\\Gym_Api\\BLL\\new.xlsx",
+  "MuscleSheet": "MuscleSize",
+  "NeedSubMuscleSheet": "NeedSubMuscle",
+  "OrderListSheet": "OrderList",
+  "RepitByGoalSheet": "Repeat",
+  "set": 3,
+  "SmallMuscleSheet": "SmallMuscle",
   "SumOfLargeByTimeSheet": "Amount",
   "SumOfSmallByTimeSheet": "Amount",
   "TypMuscleSheet": "MuscleType",
-  "EquipmentSheet": "Equipment",
-  "NeedSubMuscleSheet": "NeedSubMuscle",
-  "OrderListSheet": "OrderList",
-  "ExcelFilePath": "C:\\Users\\user\\Pictures\\תכנות\\שנה ב\\פוריקט שנתי\\C#\\פרויקט חדש 20.04\\Gym_Api\\BLL\\new.xlsx"
+  "TimesMin": 5,
+  "TimesMax": 5,
+  "Weight": 1
 }

@@ -26,7 +26,7 @@ namespace BLL
 
         public async Task AddExercisePlanAsync(ExercisePlanDTO exercisePlan)
         {
-            ExercisePlan plan = mapper.Map<ExercisePlan>(exercisePlan);
+           ExercisePlan plan = mapper.Map<ExercisePlan>(exercisePlan);
             await exercisePlanDAL.AddExercisePlanAsync(plan);
         }
 
@@ -46,6 +46,11 @@ namespace BLL
             ExercisePlan plan = await exercisePlanDAL.GetExercisePlanByIdAsync(id);
             return mapper.Map<ExercisePlanDTO>(plan);
         }
+        public async Task<List<ExercisePlanDTO>> GetExercisesByPlanDayIdAsync(int planDayId)
+        {
+            List< ExercisePlan> plan = await exercisePlanDAL.GetExercisesByPlanDayIdAsync(planDayId);
+            return mapper.Map<List<ExercisePlanDTO>>(plan);
+        }
 
         //public async Task<ExercisePlanDTO> GetExercisePlanByNameAsync(string name)
         //{
@@ -55,7 +60,7 @@ namespace BLL
 
         public async Task UpdateExercisePlanAsync(ExercisePlanDTO exercisePlan, int id)
         {
-            ExercisePlan plan = mapper.Map<ExercisePlan>(exercisePlan);
+            DBEntities.Models.ExercisePlan plan = mapper.Map<DBEntities.Models.ExercisePlan>(exercisePlan);
             await exercisePlanDAL.UpdateExercisePlanAsync(plan, id);
         }
     }

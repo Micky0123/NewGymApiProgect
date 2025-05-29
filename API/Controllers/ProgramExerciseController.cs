@@ -12,9 +12,9 @@ namespace API.Controllers
     {
         private readonly CreateTrainingPlan createTrainingPlan;
 
-        public ProgramExerciseController(CreateTrainingPlan createTrainingPlan2)
+        public ProgramExerciseController(CreateTrainingPlan createTrainingPlan)
         {
-            this.createTrainingPlan = createTrainingPlan2;
+            this.createTrainingPlan = createTrainingPlan;
         }
 
         // GET: api/<ProgramExerciseController>

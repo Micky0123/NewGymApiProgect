@@ -1,5 +1,7 @@
 ﻿using DTO;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Models;
+using Microsoft.Kiota.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +13,28 @@ namespace BLL
     public class SchedulerManager
     {
         private BacktrackingScheduler scheduler;
-        public SchedulerManager()
+        public SchedulerManager(List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+            List<MuscleEdgeDTO> muscleEdges,Dictionary<int, int> equipmentCountByExercise,int slotMinutes, int slotCount,DateTime firstSlotStart)
         {
             scheduler = new BacktrackingScheduler();
             // אתחול (פעם אחת בלבד)
             scheduler.Initialize(
-                exerciseList: new List<ExerciseDTO>(),
-                exerciseEdges: new List<GraphEdgeDTO>(),
-                exerciseToMuscleEdges: new List<DeviceMuscleEdgeDTO>(),
-                muscleEdges: new List<MuscleEdgeDTO>(),
-                equipmentCount: 5,
-                firstSlotStart: DateTime.Now,
-                slotMinutes: 15,
-                slotCount: 10
+                exerciseList: exerciseList,
+                exerciseEdges: exerciseEdges,
+                exerciseToMuscleEdges:exerciseToMuscleEdges,
+                muscleEdges:muscleEdges,
+                equipmentCountByExercise: equipmentCountByExercise,
+                firstSlotStart: firstSlotStart,
+                slotMinutes: slotMinutes,
+                slotCount: slotCount
             );
         }
-
+        public void Print()
+        {
+            scheduler.PrintTransitionMatrixToConsole();
+        }
         // קריאה לאלגוריתם - לכל מתאמן בכניסה לחדר כושר
-        public PathResult RunAlgorithmForTrainee(TraineeDTO trainee, List<int> exerciseOrder, DateTime startTime)
+        public PathResult RunAlgorithmForTrainee(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime)
         {
             return scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
         }

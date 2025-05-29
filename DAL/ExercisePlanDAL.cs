@@ -1,4 +1,5 @@
 ﻿using DBEntities.Models;
+using DTO;
 using IDAL;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -68,7 +69,32 @@ namespace DAL
                 throw new Exception("Error retrieving Exercise Plan by ID", ex);
             }
         }
+        //❤
 
+        public async Task<List<ExercisePlan>> GetExercisesByPlanDayIdAsync(int planDayId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            return await ctx.ExercisePlans
+                .Where(e => e.PlanDayId == planDayId)
+                .OrderBy(e => e.IndexOrder)
+                .Select(e => new ExercisePlan
+                {
+                    ExercisePlanId = e.ExercisePlanId,
+                    PlanDayId = e.PlanDayId,
+                    ExerciseId = e.ExerciseId,
+                    PlanSets = e.PlanSets,
+                    PlanRepetitionsMin = e.PlanRepetitionsMin,
+                    PlanWeight = e.PlanWeight,
+                    PlanRepetitionsMax = e.PlanRepetitionsMax,
+                    CategoryId = e.CategoryId,
+                    TimesMin = e.TimesMin,
+                    TimesMax = e.TimesMax,
+                    SubMuscleId = e.SubMuscleId,
+                    IndexOrder = e.IndexOrder,
+                    TrainingDateTime = e.TrainingDateTime
+                })
+                .ToListAsync();
+        }
         //public async Task<ExercisePlan> GetExercisePlanByNameAsync(string name)
         //{
         //    using GymDbContext ctx = new GymDbContext();
@@ -110,5 +136,7 @@ namespace DAL
                 throw new Exception("Error updating Exercise Plan", ex);
             }
         }
+
+
     }
 }

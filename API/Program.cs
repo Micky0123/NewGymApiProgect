@@ -73,8 +73,8 @@ namespace API
             builder.Services.AddScoped<IMuscleEdgeBLL, MuscleEdgeBLL>();
             builder.Services.AddScoped<IMuscleEdgeDAL, MuscleEdgeDAL>();
 
-            builder.Services.AddScoped<IExercisePlanDAL, ExercisePlanDAL>();
             builder.Services.AddScoped<IExercisePlanBLL, ExercisePlanBLL>();
+            builder.Services.AddScoped<IExercisePlanDAL, ExercisePlanDAL>();
             builder.Services.AddScoped<IPlanDayDAL, PlanDayDAL>();
             builder.Services.AddScoped<IPlanDayBLL, PlanDayBLL>();
             builder.Services.AddScoped<ITrainingPlanDAL, TrainingPlanDAL>();

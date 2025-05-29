@@ -84,7 +84,7 @@ namespace BLL
                 cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
                 cfg.CreateMap<TrainingPlan, TrainingPlanDTO>().ReverseMap();
                 cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-                cfg.CreateMap<ExercisePlanDTO, ExercisePlan>().ReverseMap();
+                cfg.CreateMap<ExercisePlanDTO, ExercisePlanDTO>().ReverseMap();
             });
             mapper = new Mapper(configTaskConverter);
 
@@ -599,17 +599,17 @@ namespace BLL
                             PlanDayId = planDay.PlanDayId,
                             ExerciseId = exerciseInfo.Exercise.ExerciseId,
                             IndexOrder = exerciseIndex + 1,
-                            PlanSets =config.set,
+                            PlanSets = config.set,
                             PlanRepetitionsMin = trainingParams.MinRep,
                             PlanRepetitionsMax = trainingParams.MaxRep,
                             CategoryId = exerciseInfo.categoryId,
                             TimesMin= config.TimesMin,
-                            TimesMax =config.TimesMax,
-                            PlanWeight =config.Weight,
+                            TimesMax = config.TimesMax,
+                            PlanWeight = config.Weight,
                             SubMuscleId = subId == 0 ? (int?)null : subId,
-                            TrainingDateTime=DateTime.Now,
+                            TrainingDateTime= DateTime.Now,
                         };
-                        ExercisePlan exerciseP = mapper.Map<ExercisePlanDTO, ExercisePlan>(exercisePlan);
+                        var exerciseP = mapper.Map< ExercisePlanDTO,ExercisePlan>(exercisePlan);
                         await exercisePlanDAL.AddExercisePlanAsync(exerciseP);
 
                         logger.LogDebug($"Main ExercisePlan created");
