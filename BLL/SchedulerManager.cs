@@ -1,4 +1,5 @@
 ﻿using DTO;
+using IBLL;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
@@ -13,10 +14,10 @@ namespace BLL
     public class SchedulerManager
     {
         private BacktrackingScheduler scheduler;
-        public SchedulerManager(List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
             List<MuscleEdgeDTO> muscleEdges,Dictionary<int, int> equipmentCountByExercise,int slotMinutes, int slotCount,DateTime firstSlotStart)
         {
-            scheduler = new BacktrackingScheduler();
+            scheduler = new BacktrackingScheduler(traineeBLL);
             // אתחול (פעם אחת בלבד)
             scheduler.Initialize(
                 exerciseList: exerciseList,
@@ -34,9 +35,9 @@ namespace BLL
             scheduler.PrintTransitionMatrixToConsole();
         }
         // קריאה לאלגוריתם - לכל מתאמן בכניסה לחדר כושר
-        public PathResult RunAlgorithmForTrainee(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime)
+        public async Task<PathResult> RunAlgorithmForTrainee(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime)
         {
-            return scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
+            return await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
         }
     }
 }

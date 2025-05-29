@@ -2,6 +2,8 @@
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Vml;
 using DTO;
+using IBLL;
+using IDAL;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,10 +25,13 @@ namespace BLL
         private Dictionary<int, int> exerciseIdToIndex;
         private Dictionary<int, HashSet<int>> reachabilityCache;
         Dictionary<int, TraineeExerciseStatus> traineesExerciseStatus = new();
+
+        private readonly ITraineeBLL traineeBLL;
         //private readonly ILogger<BacktrackingScheduler> _logger;
 
-        public BacktrackingScheduler()
+        public BacktrackingScheduler(ITraineeBLL traineeBLL)
         {
+            this.traineeBLL = traineeBLL;
         }
         public static int SlotMinutes { get; private set; }
 
@@ -61,7 +66,7 @@ namespace BLL
             InitQueueSlots(equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount);
 
             InitTransitionMatrix(exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges);
-           // InitQueueSlots(equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount);
+            // InitQueueSlots(equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount);
             BuildReachabilityMatrix();
         }
         // בונה את מטריצת המעברים בין תרגילים, כולל חישוב חוקיות המעבר בין תרגיל אחד לאחר.
@@ -127,7 +132,7 @@ namespace BLL
             return -1; // לא חוקי
         }
         // מאתחל את כל תורי התרגילים (QueueSlots) עבור כל התרגילים, בהתאם למספר עמדות, זמן התחלה ומרווחי זמן
-        private void InitQueueSlots(Dictionary<int, int> equipmentCountByExercise,  DateTime firstSlotStart,
+        private void InitQueueSlots(Dictionary<int, int> equipmentCountByExercise, DateTime firstSlotStart,
                                    int slotMinutes, int slotCount)
         {
             //queueSlots = new Dictionary<int, QueueSlot>();
@@ -166,7 +171,7 @@ namespace BLL
             }
         }
 
-        #endregion
+        //הדפסת המטריצה
         public void PrintTransitionMatrixToConsole()
         {
             if (transitionMatrix == null || exercises == null)
@@ -224,10 +229,23 @@ namespace BLL
             }
         }
 
+        #endregion
+
         #region האלגוריתם הראשי
         // מחשב את המסלול האופטימלי עבור מתאמן, כולל סדר התרגילים וזמני התחלה/סיום.
-        public PathResult FindOptimalPath(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime)
+        public async Task<PathResult> FindOptimalPath(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime)
         {
+            //בדיקה אם יש זמן התחלה בסולט
+            if (!queueSlots.Any() || !queueSlots.Values.Any(q => q.SlotsByStartTime.ContainsKey(startTime)))
+            {
+                //throw new InvalidOperationException("No available slots at the specified start time.");
+                //תעגל את הזמן התחלה של המתאמןלה למעלה לזמן זמין הקרוב ביותר
+                startTime = queueSlots.Values
+                    .SelectMany(q => q.SlotsByStartTime.Keys)
+                    .Where(t => t > startTime)
+                    .OrderBy(t => t)
+                    .FirstOrDefault();
+            }
             //איתחול הסטטוס התרגילים של המתאמן
             traineesExerciseStatus[trainee.TraineeId] = new TraineeExerciseStatus
             {
@@ -245,29 +263,35 @@ namespace BLL
             currentTrainee = trainee;
             memo.Clear();
 
-            var result = BacktrackWithPriority(exerciseOrder, 0, new List<int>(),
-                                             0, startTime, out DateTime endTime);
+            var result = await BacktrackWithPriority(exerciseOrder, 0, new List<int>(),
+                                             0, startTime);
 
             if (result.found)
             {
+                // נקה קודם כל שיבוצים ישנים
+                RemoveTraineeFromAllSlots(trainee);
+
+                // עדכן את השיבוץ הסופי
+                AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime);
+
                 return new PathResult
                 {
                     Trainee = trainee,
                     ExerciseIdsInPath = CreateExerciseEntries(result.bestPath),
                     StartTime = startTime,
-                    EndTime = endTime,
+                    EndTime = result.endTime,
                     AlternativesUsed = result.numAlternatives
                 };
             }
-
             return null;
+
         }
 
         // אלגוריתם רקורסיבי עיקרי למציאת מסלול אופטימלי, תוך שמירה על חוקיות וזמינות.
         // משתמש בזיכרון (memoization) להאצת חישוב.
-        private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
-            BacktrackWithPriority(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
-                                int currentAlternatives, DateTime currentTime, out DateTime endTime, bool isReschedulingAnotherTrainee = false)
+        private async Task<(bool found, int numAlternatives, List<int> bestPath, DateTime endTime)>
+        BacktrackWithPriority(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
+                            int currentAlternatives, DateTime currentTime, bool isReschedulingAnotherTrainee = false)
         {
             // בדיקת מטמון
             int lastNodeId = currentPath.Count > 0 ? currentPath.Last() : -1;
@@ -277,7 +301,7 @@ namespace BLL
             {
                 if (cachedResult.Found && cachedResult.NumAlternatives <= currentAlternatives)
                 {
-                    endTime = cachedResult.EndTime;
+                    //endTime = cachedResult.EndTime;
                     return (cachedResult.Found, cachedResult.NumAlternatives, cachedResult.BestPath, cachedResult.EndTime);
                 }
                 // אחרת תמשיך לבדוק, אולי תמצא מסלול עם פחות חלופות
@@ -286,7 +310,7 @@ namespace BLL
             // תנאי סיום - כל התרגילים בוצעו
             if (mask == (1 << exerciseOrder.Count) - 1)
             {
-                endTime = currentTime;
+                //endTime = currentTime;
                 var result = (true, currentAlternatives, new List<int>(currentPath), currentTime);
 
                 // עדכון memo רק אם המסלול הזה טוב יותר
@@ -299,7 +323,7 @@ namespace BLL
                         Found = true,
                         NumAlternatives = result.Item2,
                         BestPath = result.Item3,
-                        EndTime = endTime
+                        EndTime = result.Item4// endTime
                     };
                 }
 
@@ -311,16 +335,16 @@ namespace BLL
             (bool found, int numAlternatives, List<int> bestPath, DateTime endTime) bestResult = (false, int.MaxValue, null, DateTime.MinValue);
 
             // אסטרטגיה 1: נסה תרגילים רגילים
-            var strategy1Result = TryRegularExercises(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
+            var strategy1Result = await TryRegularExercises(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
             if (strategy1Result.found && strategy1Result.numAlternatives == 0)
             {
-                endTime = strategy1Result.endTime;
+                // endTime = strategy1Result.endTime;
                 memo[memoKey] = new CachedResult
                 {
                     Found = true,
                     NumAlternatives = 0,
                     BestPath = new List<int>(strategy1Result.bestPath),
-                    EndTime = endTime
+                    EndTime = strategy1Result.endTime
                 };
                 return strategy1Result;
             }
@@ -328,14 +352,14 @@ namespace BLL
                 bestResult = strategy1Result;
 
             // אסטרטגיה 2: תרגיל חילופי
-            var strategy2Result = TryAlternativeExercises(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
+            var strategy2Result = await TryAlternativeExercises(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
             if (strategy2Result.found && strategy2Result.numAlternatives < bestResult.numAlternatives)
                 bestResult = strategy2Result;
 
             // אסטרטגיה 3: סידור מתאמנים אחרים (רק אם לא ברקורסיה)
             if (!isReschedulingAnotherTrainee)
             {
-                var strategy3Result = TryReschedulingOthers(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
+                var strategy3Result = await TryReschedulingOthers(exerciseOrder, mask, currentPath, currentAlternatives, currentTime, lastNodeId);
                 if (strategy3Result.found && strategy3Result.numAlternatives < bestResult.numAlternatives)
                     bestResult = strategy3Result;
             }
@@ -344,7 +368,7 @@ namespace BLL
             // אם מצאנו מסלול, נעדכן את ה־memo ונחזיר אותו
             if (bestResult.found)
             {
-                endTime = bestResult.endTime;
+                //endTime = bestResult.endTime;
                 if (!memo.ContainsKey(memoKey) ||
                     (memo[memoKey].Found && memo[memoKey].NumAlternatives > bestResult.numAlternatives) ||
                     !memo[memoKey].Found)
@@ -361,8 +385,8 @@ namespace BLL
             }
 
             // לא נמצא מסלול
-            endTime = DateTime.MinValue;
-            return (false, int.MaxValue, null, endTime);
+            //endTime = DateTime.MinValue;
+            return (false, int.MaxValue, null, DateTime.MinValue);
 
         }
 
@@ -370,7 +394,7 @@ namespace BLL
 
         #region אסטרטגיות חיפוש
         // מנסה לבצע את התרגילים המקוריים לפי הסדר, כל עוד אפשרי וזמין
-        private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+        private async Task<(bool found, int numAlternatives, List<int> bestPath, DateTime endTime)>
             TryRegularExercises(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
                               int currentAlternatives, DateTime currentTime, int lastNodeId)
         {
@@ -394,33 +418,38 @@ namespace BLL
                 // בדיקת זמינות
                 if (IsSlotAvailable(nodeId, currentTime, exercisePlan.TimesMax))
                 {
-                    var duration = GetExerciseDuration(exercisePlan);
-                    AddTraineeToSlot(nodeId, currentTime, duration, currentTrainee);
+                    var duration = TimeSpan.FromMinutes(exercisePlan.TimesMax);//  GetExerciseDuration(exercisePlan);
+                   // AddTraineeToSlot(nodeId, currentTime, duration, currentTrainee);
 
                     currentPath.Add(nodeId);
-                    MarkExerciseAsDone(currentTrainee, nodeId, currentTime);
+                    // MarkExerciseAsDone(currentTrainee, nodeId, currentTime);
 
                     var nextTime = currentTime.Add(duration);
 
-                    var result = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
-                                                     currentPath, currentAlternatives, nextTime,
-                                                     out DateTime candidateEndTime);
+                    var result = await BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
+                                                     currentPath, currentAlternatives, nextTime);
 
                     if (result.found)
                     {
+
                         foundAny = true;
                         if (result.numAlternatives < minAlternatives)
                         {
                             minAlternatives = result.numAlternatives;
                             bestPath = new List<int>(result.bestPath);
-                            bestEndTime = candidateEndTime;
+                            bestEndTime = result.endTime;// candidateEndTime;
+                        }
+                        if (result.numAlternatives == 0)
+                        {
+                            // החזר מיידית את התוצאה האופטימלית
+                            return (foundAny, minAlternatives, bestPath, bestEndTime);
                         }
                     }
 
                     // נקה אחרי כשלון
-                    RemoveTraineeFromSlot(nodeId, currentTime, duration);
+                    //RemoveTraineeFromSlot(nodeId, currentTime, duration);
                     currentPath.RemoveAt(currentPath.Count - 1);
-                    UndoMarkExerciseAsDone(currentTrainee, nodeId);
+                    //UndoMarkExerciseAsDone(currentTrainee, nodeId);
                 }
             }
 
@@ -428,7 +457,7 @@ namespace BLL
         }
 
         // מנסה לבצע תרגילים חילופיים במקום תרגילים שלא ניתן לבצע
-        private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+        private async Task<(bool found, int numAlternatives, List<int> bestPath, DateTime endTime)>
             TryAlternativeExercises(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
                                   int currentAlternatives, DateTime currentTime, int lastNodeId)
         {
@@ -468,15 +497,14 @@ namespace BLL
                     {
                         //var duration = GetExerciseDuration(altNodeId);
                         var duration = TimeSpan.FromMinutes(during);
-                        AddTraineeToSlot(altNodeId, currentTime, duration, currentTrainee);
+                      //  AddTraineeToSlot(altNodeId, currentTime, duration, currentTrainee);
 
                         currentPath.Add(altNodeId);
                         var nextTime = currentTime.Add(duration);
-                        MarkExerciseAsDone(currentTrainee, altNodeId, currentTime);
+                        // MarkExerciseAsDone(currentTrainee, altNodeId, currentTime);
 
-                        var result = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
-                                                         currentPath, currentAlternatives + 1, nextTime,
-                                                         out DateTime candidateEndTime);
+                        var result = await BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
+                                                         currentPath, currentAlternatives + 1, nextTime);
 
                         if (result.found)
                         {
@@ -485,14 +513,14 @@ namespace BLL
                             {
                                 minAlternatives = result.numAlternatives;
                                 bestPath = new List<int>(result.bestPath);
-                                bestEndTime = candidateEndTime;
+                                bestEndTime = result.endTime;
                             }
                         }
 
                         // נקה אחרי כשלון
-                        RemoveTraineeFromSlot(altNodeId, currentTime, duration);
+                       // RemoveTraineeFromSlot(altNodeId, currentTime, duration);
                         currentPath.RemoveAt(currentPath.Count - 1);
-                        UndoMarkExerciseAsDone(currentTrainee, altNodeId);
+                       // UndoMarkExerciseAsDone(currentTrainee, altNodeId);
                     }
                 }
             }
@@ -500,7 +528,8 @@ namespace BLL
         }
 
         // מנסה לסדר מחדש מתאמנים אחרים כדי לפנות תרגיל למתאמן הנוכחי, כולל טיפול באלטרנטיבות 
-        private (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+        //private async (bool found, int numAlternatives, List<int> bestPath, DateTime endTime)
+        private async Task<(bool found, int numAlternatives, List<int> bestPath, DateTime endTime)>
             TryReschedulingOthers(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
                                  int currentAlternatives, DateTime currentTime, int lastNodeId)
         {
@@ -524,8 +553,9 @@ namespace BLL
                 {
                     //צריך לבדוק נראה לי שצריך את כל המתאמנים 
                     var occupyingTrainee = GetOccupyingTraineeInSlot(alt, currentTime);
-                    foreach (var ocTrainee in occupyingTrainee)
+                    foreach (var ocTrainee1 in occupyingTrainee)
                     {
+                        var ocTrainee = await traineeBLL.GetTraineeByIdAsync(ocTrainee1);
                         if (ocTrainee != null && ocTrainee.TraineeId != currentTrainee.TraineeId)
                         {
                             var othersRemainingExercisesID = GetRemainingExercisesForTrainee(ocTrainee, currentTime);
@@ -533,13 +563,13 @@ namespace BLL
                                                 .Where(e => othersRemainingExercisesID.Contains(e.ExerciseId))
                                                 .ToList();
                             // קריאה לאלגוריתם הראשי עבור המתאמן השני, עם דגל שמונע ממנו להזיז אחרים
-                            var result = BacktrackWithPriority(
+                            var result = await BacktrackWithPriority(
                                 othersRemainingExercises,
                                 0,
                                 new List<int>(),
                                 0,
                                 currentTime,
-                                out DateTime _,
+                                //out DateTime _,
                                 isReschedulingAnotherTrainee: true
                             );
 
@@ -549,15 +579,15 @@ namespace BLL
 
                                 //var duration = GetExerciseDuration(alt);
                                 var duration = TimeSpan.FromMinutes(during);
-                                AddTraineeToSlot(alt, currentTime, duration, currentTrainee);
+                                //AddTraineeToSlot(alt, currentTime, duration, currentTrainee);
                                 currentPath.Add(alt);
 
-                                MarkExerciseAsDone(currentTrainee, nodeId, currentTime);
+                                // MarkExerciseAsDone(currentTrainee, nodeId, currentTime);
 
-                                var res = BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
+                                var res = await BacktrackWithPriority(exerciseOrder, MarkExerciseDone(mask, i),
                                                              currentPath, currentAlternatives + 2,
-                                                             currentTime.Add(duration),
-                                                             out DateTime candidateEndTime);
+                                                             currentTime.Add(duration));
+                                // out DateTime candidateEndTime);
 
                                 if (res.found)
                                 {
@@ -566,15 +596,15 @@ namespace BLL
                                     {
                                         minAlternatives = result.numAlternatives;
                                         bestPath = new List<int>(result.bestPath);
-                                        bestEndTime = candidateEndTime;
+                                        bestEndTime = result.endTime;// candidateEndTime;
                                     }
                                     break;
                                 }
 
-                                RemoveTraineeFromSlot(alt, currentTime, duration);
+                                //RemoveTraineeFromSlot(alt, currentTime, duration);
                                 currentPath.RemoveAt(currentPath.Count - 1);
                                 UndoApplyNewExerciseOrderToTrainee(ocTrainee, currentTime);
-                                UndoMarkExerciseAsDone(currentTrainee, nodeId);
+                                //UndoMarkExerciseAsDone(currentTrainee, nodeId);
 
                             }
                         }
@@ -693,7 +723,7 @@ namespace BLL
             {
                 if (queueSlot.SlotsByStartTime.TryGetValue(currentSlotTime, out var slot))
                 {
-                    var traineeToRemove = slot.ExercisesByTrainee.Keys.FirstOrDefault(t => t.TraineeId == currentTrainee.TraineeId);
+                    var traineeToRemove = slot.ExercisesByTrainee.Keys.FirstOrDefault(t => t == currentTrainee.TraineeId);
                     if (traineeToRemove != null)
                     {
                         slot.ExercisesByTrainee.Remove(traineeToRemove);
@@ -704,7 +734,7 @@ namespace BLL
         }
 
         // מחזיר את המתאמן שתופס סלוט מסוים, אם קיים
-        private List<TraineeDTO> GetOccupyingTraineeInSlot(int exerciseId, DateTime startTime)
+        private List<int> GetOccupyingTraineeInSlot(int exerciseId, DateTime startTime)
         {
             int exerciseIndex = GetExerciseIndex(exerciseId);
             var queueSlot = queueSlots[exerciseIndex];
@@ -718,10 +748,11 @@ namespace BLL
 
             if (queueSlot.SlotsByStartTime.TryGetValue(startTime, out var slot))
             {
+                //return slot.ExercisesByTrainee.Keys.ToList();
                 return slot.ExercisesByTrainee.Keys.ToList();
             }
 
-            return new List<TraineeDTO>(); // מחזיר רשימה ריקה אם אין סלוט כזה
+            return new List<int>(); // מחזיר רשימה ריקה אם אין סלוט כזה
         }
 
         // מחשב כמה סלוטים דרושים למשך התרגיל
@@ -742,34 +773,34 @@ namespace BLL
             int prevIdx = GetExerciseIndex(prevExerciseId);
             int currIdx = GetExerciseIndex(currentExerciseId);
             int nextIdx = GetExerciseIndex(nextExerciseId);
-
-            if (prevIdx < 0 || currIdx < 0 || nextIdx < 0)
+            //if (prevIdx < 0 || currIdx < 0 || nextIdx < 0)
+            if (currIdx < 0 || nextIdx < 0)
                 return alternatives;
-
-            // הערך שצריך לחפש
-            int referenceValue = transitionMatrix[currIdx, prevIdx].LegalityValue;
-
-            var possibleAlternatives = new List<int>();
-            // שלב א: מציאת כל האלטרנטיביים בשורה של התרגיל הקודם שיש להם את אותו ערך כמו המשבצת המקורית
-            for (int rowIdx = 0; rowIdx < exerciseCount; rowIdx++)
+            if (prevIdx > 0)
             {
-                if (rowIdx == currIdx) continue; // לא התרגיל הנוכחי
-                if (transitionMatrix[rowIdx, prevIdx].LegalityValue == referenceValue)
+                // הערך שצריך לחפש
+                int referenceValue = transitionMatrix[currIdx, prevIdx].LegalityValue;
+                var possibleAlternatives = new List<int>();
+                // שלב א: מציאת כל האלטרנטיביים בשורה של התרגיל הקודם שיש להם את אותו ערך כמו המשבצת המקורית
+                for (int rowIdx = 0; rowIdx < exerciseCount; rowIdx++)
                 {
-                    possibleAlternatives.Add(rowIdx);
+                    if (rowIdx == currIdx) continue; // לא התרגיל הנוכחי
+                    if (transitionMatrix[rowIdx, prevIdx].LegalityValue == referenceValue)
+                    {
+                        possibleAlternatives.Add(rowIdx);
+                    }
+                }
+
+                // שלב ב: עבור כל האפשריים, בדוק אם בתרגיל הבא (בשורה שלו) יש ערך חוקי (>0 או שונה מ-(-1) ו-0)
+                foreach (int altIdx in possibleAlternatives)
+                {
+                    int transitionValue = transitionMatrix[nextIdx, altIdx].LegalityValue;
+                    if (transitionValue != 0 && transitionValue != -1)
+                    {
+                        alternatives.Add(exercises[altIdx].ExerciseId);
+                    }
                 }
             }
-
-            // שלב ב: עבור כל האפשריים, בדוק אם בתרגיל הבא (בשורה שלו) יש ערך חוקי (>0 או שונה מ-(-1) ו-0)
-            foreach (int altIdx in possibleAlternatives)
-            {
-                int transitionValue = transitionMatrix[nextIdx, altIdx].LegalityValue;
-                if (transitionValue != 0 && transitionValue != -1)
-                {
-                    alternatives.Add(exercises[altIdx].ExerciseId);
-                }
-            }
-
             return alternatives;
         }
 
@@ -922,6 +953,47 @@ namespace BLL
         }
 
         #endregion
+
+        #region פונקציות נוספות
+
+        // משלים את המסלול הסופי עבור המתאמן, כולל הוספת תרגילים לסלוטים
+        // בסיום האלגוריתם, עבור המסלול הסופי בלבד:
+        private void AssignTraineeToFinalSlots(
+            TraineeDTO trainee,
+            List<ExercisePlanDTO> exerciseOrder,
+            List<int> bestPath,
+            DateTime startTime)
+        {
+            DateTime currentTime = startTime;
+            for (int i = 0; i < bestPath.Count; i++)
+            {
+                int exerciseId = bestPath[i];
+                // מצא את ה-ExercisePlanDTO המתאים כדי לדעת את זמן התרגיל
+                var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
+                if (plan == null) continue;
+                var duration = TimeSpan.FromMinutes(plan.TimesMax);
+
+                AddTraineeToSlot(exerciseId, currentTime, duration, trainee);
+                //MarkExerciseAsDone(trainee, exerciseId, currentTime); // לא חובה, רק אם אתה רוצה לעדכן סטטוס
+
+                currentTime = currentTime.Add(duration);
+            }
+        }
+
+        // מנקה שיבוצים ישנים לפני הרצה חדשה
+        private void RemoveTraineeFromAllSlots(TraineeDTO trainee)
+        {
+            foreach (var q in queueSlots.Values)
+            {
+                foreach (var slot in q.SlotsByStartTime.Values)
+                {
+                    slot.ExercisesByTrainee.Remove(trainee.TraineeId);
+                }
+            }
+        }
+
+
+        #endregion
     }
 }
 
@@ -1071,21 +1143,21 @@ namespace BLL
 
 
 // הרחבות למחלקות קיימות
-public static class Extensions
-{
-    public static void RemoveTraineeFromSlot(this QueueSlot queueSlot, DateTime startTime, int slotsCount, TraineeDTO trainee)
-    {
-        var currentTime = startTime;
-        for (int i = 0; i < slotsCount; i++)
-        {
-            if (queueSlot.SlotsByStartTime.TryGetValue(currentTime, out var slot))
-            {
-                slot.ExercisesByTrainee.Remove(trainee);
-                currentTime = slot.EndTime;
-            }
-        }
-    }
-}
+//public static class Extensions
+//{
+//    public static void RemoveTraineeFromSlot(this QueueSlot queueSlot, DateTime startTime, int slotsCount, TraineeDTO trainee)
+//    {
+//        var currentTime = startTime;
+//        for (int i = 0; i < slotsCount; i++)
+//        {
+//            if (queueSlot.SlotsByStartTime.TryGetValue(currentTime, out var slot))
+//            {
+//                slot.ExercisesByTrainee.Remove(trainee.TraineeId);
+//                currentTime = slot.EndTime;
+//            }
+//        }
+//    }
+//}
 
 
 

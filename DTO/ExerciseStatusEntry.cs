@@ -8,9 +8,11 @@ namespace DTO
 {
     public class ExerciseStatusEntry
     {
+        public int OriginalExercise { get; set; }// מספר התרגיל ברשימה של המתאמן
         public int ExerciseId { get; set; }
-        public int OrderInList { get; set; }
-        public bool IsDone { get; set; }
-        public DateTime? PerformedAt { get; set; } // אופציונלי
+        public int OrderInList { get; set; }// מיקום התרגיל ברשימה של המתאמן
+        public bool IsDone { get; set; }//  האם התרגיל בוצע
+        public DateTime? PerformedAt { get; set; } // 
+        public DateTime? StartedAt { get; set; } // מתי התחיל התרגיל
     }
 }

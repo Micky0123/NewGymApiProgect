@@ -15,8 +15,5 @@ namespace DTO
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int AlternativesUsed { get; set; } = 0; // מספר החילופים שנעשו
-
-
-
     }
 }

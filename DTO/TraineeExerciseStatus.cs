@@ -10,6 +10,9 @@ namespace DTO
     {
         public TraineeDTO Trainee { get; set; }
         public List<ExerciseStatusEntry> Exercises { get; set; } = new();
+        public int planDayId { get; set; }
+
+
         // לשימוש ב-Undo:
         public Stack<List<ExerciseStatusEntry>> History { get; set; } = new();
     }

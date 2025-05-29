@@ -49,7 +49,7 @@ namespace API.Controllers
             int slotCount = slotCount1;
 
             // יצירת האובייקט כאן!
-            SharedSchedulerManager = new SchedulerManager(exercises,graphEdge,deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
+            SharedSchedulerManager = new SchedulerManager(_traineeBLL,exercises, graphEdge,deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
         }
 
         // דוגמה: קריאה לאלגוריתם לכל מתאמן
@@ -67,7 +67,7 @@ namespace API.Controllers
                 return NotFound("No exercises found for the selected plan day");
 
             // הרצת האלגוריתם
-            var result = SharedSchedulerManager.RunAlgorithmForTrainee(trainee, exerciseOrder, request.StartTime);
+            var result =await SharedSchedulerManager.RunAlgorithmForTrainee(trainee, exerciseOrder, request.StartTime);
             return Ok(result);
         }
 
