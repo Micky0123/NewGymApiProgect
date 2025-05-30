@@ -5,6 +5,8 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DTO;
 using IBLL;
 using IDAL;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -17,52 +19,182 @@ namespace BLL
 
     public class ActiveWorkoutManager
     {
+        private BacktrackingScheduler scheduler;
+        public bool IsInitialized => scheduler != null;
+
         private Dictionary<int, TraineeExerciseStatus> activeTrainees;
-        private SchedulerManager schedulerManager;
+       // private SchedulerManager scheduler1;
         private readonly IPlanDayDAL planDayDAL;
         private readonly IExercisePlanDAL exercisePlanDAL;
         private readonly IMapper mapper;
         private readonly SemaphoreSlim _startWorkoutLock = new SemaphoreSlim(1, 1);
 
+        private readonly ITraineeBLL _traineeBLL;
+        private readonly IPlanDayDAL _planDayDAL;
+        private readonly IExercisePlanDAL _exercisePlanDAL;
+        private readonly IMapper _mapper;
+        //private BacktrackingScheduler _scheduler;
+        private readonly IMemoryCache _cache;
+
         public ActiveWorkoutManager(
+            IMemoryCache cache,
             ITraineeBLL traineeBLL,
-            List<ExerciseDTO> exerciseList,
-            List<GraphEdgeDTO> exerciseEdges,
-            List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-            List<MuscleEdgeDTO> muscleEdges,
-            Dictionary<int, int> equipmentCountByExercise,
-            int slotMinutes,
-            int slotCount,
-            DateTime firstSlotStart,
             IPlanDayDAL planDayDAL,
-            IExercisePlanDAL exercisePlanDAL)
+            IExercisePlanDAL exercisePlanDAL,
+            IMapper mapper)
         {
-            activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
-            schedulerManager = new SchedulerManager(
-                traineeBLL,
-                exerciseList,
-                exerciseEdges,
-                exerciseToMuscleEdges,
-                muscleEdges,
-                equipmentCountByExercise,
-                slotMinutes,
-                slotCount,
-                firstSlotStart
-            );
+            _cache = cache;
+            this._traineeBLL = traineeBLL;
             this.planDayDAL = planDayDAL;
             this.exercisePlanDAL = exercisePlanDAL;
+            this.mapper = mapper;
+
+            activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
+
             var configTaskConverter = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
                 cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
             });
             mapper = new Mapper(configTaskConverter);
+
+        }
+        //public ActiveWorkoutManager(
+        //    ITraineeBLL traineeBLL,
+        //    List<ExerciseDTO> exerciseList,
+        //    List<GraphEdgeDTO> exerciseEdges,
+        //    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        //    List<MuscleEdgeDTO> muscleEdges,
+        //    Dictionary<int, int> equipmentCountByExercise,
+        //    int slotMinutes,
+        //    int slotCount,
+        //    DateTime firstSlotStart,
+        //    IPlanDayDAL planDayDAL,
+        //    IExercisePlanDAL exercisePlanDAL)
+        //{
+        //    activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
+
+        //    scheduler = new BacktrackingScheduler(traineeBLL);
+
+        //    this.planDayDAL = planDayDAL;
+        //    this.exercisePlanDAL = exercisePlanDAL;
+        //    var configTaskConverter = new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
+        //        cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
+        //    });
+        //    mapper = new Mapper(configTaskConverter);
+
+        //    scheduler.Initialize(
+        //        exerciseList: exerciseList,
+        //        exerciseEdges: exerciseEdges,
+        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
+        //        muscleEdges: muscleEdges,
+        //        equipmentCountByExercise: equipmentCountByExercise,
+        //        firstSlotStart: firstSlotStart,
+        //        slotMinutes: slotMinutes,
+        //        slotCount: slotCount
+        //    );
+        //}
+        //public void Initialize(
+        //    List<ExerciseDTO> exerciseList,
+        //    List<GraphEdgeDTO> exerciseEdges,
+        //    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        //    List<MuscleEdgeDTO> muscleEdges,
+        //    Dictionary<int, int> equipmentCountByExercise,
+        //    DateTime firstSlotStart,
+        //    int slotMinutes,
+        //    int slotCount)
+        //{
+        //    scheduler = new BacktrackingScheduler(_traineeBLL);
+        //    scheduler.Initialize(
+        //        exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
+        //        equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
+        //    );
+        //}
+
+        //public void Initialize(
+        //      List<ExerciseDTO> exerciseList,
+        //      List<GraphEdgeDTO> exerciseEdges,
+        //      List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        //      List<MuscleEdgeDTO> muscleEdges,
+        //      Dictionary<int, int> equipmentCountByExercise,
+        //      DateTime firstSlotStart,
+        //      int slotMinutes,
+        //      int slotCount)
+        //{
+        //    scheduler.Initialize(
+        //        exerciseList: exerciseList,
+        //        exerciseEdges: exerciseEdges,
+        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
+        //        muscleEdges: muscleEdges,
+        //        equipmentCountByExercise: equipmentCountByExercise,
+        //        firstSlotStart: firstSlotStart,
+        //        slotMinutes: slotMinutes,
+        //        slotCount: slotCount
+        //    );
+        //}
+
+        //public void Initialize(
+        //   List<ExerciseDTO> exerciseList,
+        //   List<GraphEdgeDTO> exerciseEdges,
+        //   List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        //   List<MuscleEdgeDTO> muscleEdges,
+        //   Dictionary<int, int> equipmentCountByExercise,
+        //   DateTime firstSlotStart,
+        //   int slotMinutes,
+        //   int slotCount)
+        //{
+        //    if (IsInitialized)
+        //        throw new Exception("Scheduler already initialized!");
+
+        //    scheduler = new BacktrackingScheduler(_traineeBLL);
+        //    scheduler.Initialize(
+        //        exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
+        //        equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
+        //    );
+        //}
+
+        public void Initialize(
+    List<ExerciseDTO> exerciseList,
+    List<GraphEdgeDTO> exerciseEdges,
+    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+    List<MuscleEdgeDTO> muscleEdges,
+    Dictionary<int, int> equipmentCountByExercise,
+    DateTime firstSlotStart,
+    int slotMinutes,
+    int slotCount)
+        {
+            if (_cache.TryGetValue("Scheduler", out BacktrackingScheduler existing) && existing != null)
+                throw new Exception("Scheduler already initialized!");
+
+            var scheduler = new BacktrackingScheduler(_traineeBLL);
+            scheduler.Initialize(
+                exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
+                equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
+            );
+            _cache.Set("Scheduler", scheduler);
+        }
+
+        // הפונקציה החדשה:
+        private BacktrackingScheduler GetScheduler()
+        {
+            if (!_cache.TryGetValue("Scheduler", out BacktrackingScheduler scheduler) || scheduler == null)
+                throw new Exception("Scheduler is not initialized!");
+            return scheduler;
+        }
+
+
+        public void ResetScheduler()
+        {
+            scheduler = null;
         }
 
         // פונקציה להדפסת מטריצת המעבר של ה-BacktrackingScheduler
         public void PrintSchedulerMatrix()
         {
-            schedulerManager.Print();
+            var scheduler = GetScheduler();
+            scheduler.PrintTransitionMatrixToConsole();
         }
 
         // קריאה לאלגוריתם והתחלת אימון
@@ -77,7 +209,7 @@ namespace BLL
             await _startWorkoutLock.WaitAsync();
             try
             {
-                var pathResult = await schedulerManager.RunAlgorithmForTrainee(trainee, exerciseOrder, startTime);
+                var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
 
                 if (pathResult == null)
                     throw new Exception("לא נמצא מסלול מתאים עבור מתאמן זה.");

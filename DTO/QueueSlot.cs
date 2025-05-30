@@ -49,14 +49,14 @@ namespace DTO
 
 
         // פונקציית עזר לבדיקה האם סלוט זמן מסוים פנוי
-        public bool IsSlotAvailable(DateTime desiredStartTime)
-        {
-           if(SlotsByStartTime.TryGetValue(desiredStartTime, out Slot slot))
-            {
-                return true;
-            }
-           return false;
-        }
+        //public bool IsSlotAvailable(DateTime desiredStartTime)
+        //{
+        //   if(SlotsByStartTime.TryGetValue(desiredStartTime, out Slot slot))
+        //    {
+        //        return true;
+        //    }
+        //   return false;
+        //}
 
         // פונקציית עזר להוספת מתאמן לסלוט זמן מסוים
         public void AddTraineeToSlot(DateTime desiredStartTime,int sumOfSlots,TraineeDTO trainee)
@@ -64,7 +64,7 @@ namespace DTO
             var startTime = desiredStartTime;
            for (int i = 0; i < sumOfSlots; i++)
            {
-                SlotsByStartTime[startTime].AddTranee(trainee);
+                SlotsByStartTime[startTime].AddTranee(trainee,null);
                 startTime = SlotsByStartTime[startTime].EndTime;
            }
         }

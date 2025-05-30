@@ -11,7 +11,7 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class SchedulerController : ControllerBase
     {
-        private SchedulerManager _schedulerManager;
+        //private SchedulerManager _schedulerManager;
         private readonly IExerciseBLL _exerciseBLL;
         private readonly IPlanDayBLL _planDayBLL;
         private readonly IExercisePlanBLL _planExerciseBLL;
@@ -35,13 +35,13 @@ namespace API.Controllers
             _traineeBLL = traineeBLL;
         }
         [HttpPost("init")]
-        public async void Init(int slotMinutes1,int slotCount1)
+        public async void Init(int slotMinutes1, int slotCount1)
         {
             // שליפת נתונים אסינכרונית
             var exercises = await _exerciseBLL.GetAllExercisesAsync();
             var equipmentCountByExercise = exercises
                 .ToDictionary(e => e.ExerciseId, e => e.Count ?? 0);
-            var graphEdge= await _graphEdgeBLL.GetAllGraphEdgeAsync();
+            var graphEdge = await _graphEdgeBLL.GetAllGraphEdgeAsync();
             var muscleEdge = await muscleEdgeBLL.GetAllMuscleEdgeAsync();
             var deviceMuscleEdge = await _deviceMuscleEdgeBLL.GetAllDeviceMuscleEdgeAsync();
 
@@ -49,7 +49,7 @@ namespace API.Controllers
             int slotCount = slotCount1;
 
             // יצירת האובייקט כאן!
-            SharedSchedulerManager = new SchedulerManager(_traineeBLL,exercises, graphEdge,deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
+            SharedSchedulerManager = new SchedulerManager(_traineeBLL, exercises, graphEdge, deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
         }
 
         // דוגמה: קריאה לאלגוריתם לכל מתאמן

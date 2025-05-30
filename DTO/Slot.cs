@@ -27,11 +27,11 @@ namespace DTO
             EndTime = endTime;
             MaxCapacity= this.EndTime.Ticks - this.StartTime.Ticks;
         }
-        public void AddTranee(TraineeDTO trainee)
+        public void AddTranee(TraineeDTO trainee, PathResult pathResult)
         {
             if (!ExercisesByTrainee.ContainsKey(trainee.TraineeId))
             {
-                ExercisesByTrainee.Add(trainee.TraineeId, null);
+                ExercisesByTrainee.Add(trainee.TraineeId, pathResult);
             }
             //ExercisesByTrainee.Add(trainee.TraineeId, null);
         }
