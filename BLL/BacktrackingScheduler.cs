@@ -1,6 +1,7 @@
 ﻿using DBEntities.Models;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Vml;
+using DocumentFormat.OpenXml.Vml.Office;
 using DTO;
 using IBLL;
 using IDAL;
@@ -272,7 +273,7 @@ namespace BLL
                 RemoveTraineeFromAllSlots(trainee);
 
                 // עדכן את השיבוץ הסופי
-               return await AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.endTime, result.numAlternatives);
+               return await AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.numAlternatives);
 
                 //return new PathResult
                 //{
@@ -960,42 +961,129 @@ namespace BLL
 
         // משלים את המסלול הסופי עבור המתאמן, כולל הוספת תרגילים לסלוטים
         // בסיום האלגוריתם, עבור המסלול הסופי בלבד:
-        private async Task< PathResult> AssignTraineeToFinalSlots(
+        //private async Task< PathResult> AssignTraineeToFinalSlots(
+        //    TraineeDTO trainee,
+        //    List<ExercisePlanDTO> exerciseOrder,
+        //    List<int> bestPath,
+        //    DateTime startTime,
+        //    DateTime endTime,
+        //    int alternativesCount)
+        //{
+        //    //DateTime currentTime = startTime;
+        //    //for (int i = 0; i < bestPath.Count; i++)
+        //    //{
+        //    //    int exerciseId = bestPath[i];
+        //    //    // מצא את ה-ExercisePlanDTO המתאים כדי לדעת את זמן התרגיל
+        //    //    var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
+        //    //    if (plan == null) continue;
+        //    //    var duration = TimeSpan.FromMinutes(plan.TimesMax);
+
+        //    //    AddTraineeToSlot(exerciseId, currentTime, duration, trainee);
+        //    //    //MarkExerciseAsDone(trainee, exerciseId, currentTime); // לא חובה, רק אם אתה רוצה לעדכן סטטוס
+
+        //    //    currentTime = currentTime.Add(duration);
+        //    //}
+        //    var orderInList = 1;
+        //    DateTime currentTime = startTime;
+        //    var slotsForThisExercise1 = new List<Slot>();
+
+        //    foreach (var exerciseId in bestPath)
+        //    {
+        //        var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
+        //        if (plan == null) continue;
+        //        var duration = TimeSpan.FromMinutes(plan.TimesMax);
+
+        //        int exerciseIndex = GetExerciseIndex(exerciseId);
+        //        var queueSlot = queueSlots[exerciseIndex];
+        //        var slotsNeeded = GetSlotsNeeded(duration);
+
+        //        var slotsForThisExercise = new List<Slot>();
+        //        var slotTime = currentTime;
+        //        for (int i = 0; i < slotsNeeded; i++)
+        //        {
+        //            if (queueSlot.SlotsByStartTime.TryGetValue(slotTime, out var slot))
+        //            {
+        //                slotsForThisExercise.Add(slot);
+        //                slotTime = slot.EndTime;
+        //                slotsForThisExercise1.Add(slot);
+
+        //            }
+        //        }
+
+        //        //כל התרגילים שבתוכנית הזו
+        //        // צור את ה-ExerciseEntry
+        //        var entry = new ExerciseEntry
+        //        {
+        //            ExerciseId = exerciseId,
+        //            OrderInList = orderInList,
+        //            StartTime = currentTime,
+        //            //DurationMinutes = plan.TimesMax,
+        //            Slots = slotsForThisExercise,
+        //            EndTime = slotTime
+        //        };
+
+        //        ////המסלול של המתאמן
+        //        //var pathResult = new PathResult
+        //        //{
+        //        //    Trainee = trainee,
+        //        //    ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise),
+        //        //    StartTime = startTime,
+        //        //    EndTime = endTime,
+        //        //    AlternativesUsed = alternativesCount
+        //        //};
+
+        //        //// עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
+        //        //foreach (var slot in slotsForThisExercise)
+        //        //{
+        //        //    slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
+        //        //}
+        //        currentTime = currentTime.Add(duration);
+        //        orderInList++;
+
+
+        //    }
+        //    //המסלול של המתאמן
+        //    var pathResult = new PathResult
+        //    {
+        //        Trainee = trainee,
+        //        ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise1),
+        //        StartTime = startTime,
+        //        EndTime = endTime,
+        //        AlternativesUsed = alternativesCount
+        //    };
+
+        //    // עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
+        //    foreach (var slot in slotsForThisExercise1)
+        //    {
+        //        slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
+        //    }
+        //    return pathResult;
+        //}
+
+        private async Task<PathResult> AssignTraineeToFinalSlots(
             TraineeDTO trainee,
             List<ExercisePlanDTO> exerciseOrder,
             List<int> bestPath,
             DateTime startTime,
-            DateTime endTime,
             int alternativesCount)
         {
-            //DateTime currentTime = startTime;
-            //for (int i = 0; i < bestPath.Count; i++)
-            //{
-            //    int exerciseId = bestPath[i];
-            //    // מצא את ה-ExercisePlanDTO המתאים כדי לדעת את זמן התרגיל
-            //    var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
-            //    if (plan == null) continue;
-            //    var duration = TimeSpan.FromMinutes(plan.TimesMax);
-
-            //    AddTraineeToSlot(exerciseId, currentTime, duration, trainee);
-            //    //MarkExerciseAsDone(trainee, exerciseId, currentTime); // לא חובה, רק אם אתה רוצה לעדכן סטטוס
-
-            //    currentTime = currentTime.Add(duration);
-            //}
-            var orderInList = 1;
-            DateTime currentTime = startTime;
-            var slotsForThisExercise1 = new List<Slot>();
+            var currentTime = startTime;
+            int orderInList = 1;
+            var exerciseEntries = new Dictionary<int, ExerciseEntry>();
+            var allUsedSlots = new List<Slot>();
 
             foreach (var exerciseId in bestPath)
             {
+                // חפש את פרטי התרגיל לתזמון ומשך
                 var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
                 if (plan == null) continue;
-                var duration = TimeSpan.FromMinutes(plan.TimesMax);
 
+                var duration = TimeSpan.FromMinutes(plan.TimesMax);
                 int exerciseIndex = GetExerciseIndex(exerciseId);
                 var queueSlot = queueSlots[exerciseIndex];
-                var slotsNeeded = GetSlotsNeeded(duration);
+                int slotsNeeded = GetSlotsNeeded(duration);
 
+                // חפש את הסלוטים המתאימים לתרגיל הזה
                 var slotsForThisExercise = new List<Slot>();
                 var slotTime = currentTime;
                 for (int i = 0; i < slotsNeeded; i++)
@@ -1004,61 +1092,50 @@ namespace BLL
                     {
                         slotsForThisExercise.Add(slot);
                         slotTime = slot.EndTime;
-                        slotsForThisExercise1.Add(slot);
-
                     }
                 }
 
-                //כל התרגילים שבתוכנית הזו
-                // צור את ה-ExerciseEntry
+                // הגדר את זמן סיום התרגיל (התבסס על זמן סיום הסלוט האחרון)
+                var exerciseStartTime = currentTime;
+                var exerciseEndTime = slotsForThisExercise.Count > 0
+                    ? slotsForThisExercise.Last().EndTime
+                    : currentTime.Add(duration);
+
+                // צור אובייקט תרגיל למסלול
                 var entry = new ExerciseEntry
                 {
                     ExerciseId = exerciseId,
                     OrderInList = orderInList,
-                    StartTime = currentTime,
-                    //DurationMinutes = plan.TimesMax,
-                    Slots = slotsForThisExercise,
-                    EndTime = slotTime
+                    StartTime = exerciseStartTime,
+                    EndTime = exerciseEndTime,
+                    Slots = slotsForThisExercise
                 };
 
-                ////המסלול של המתאמן
-                //var pathResult = new PathResult
-                //{
-                //    Trainee = trainee,
-                //    ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise),
-                //    StartTime = startTime,
-                //    EndTime = endTime,
-                //    AlternativesUsed = alternativesCount
-                //};
+                exerciseEntries[exerciseId] = entry;
+                allUsedSlots.AddRange(slotsForThisExercise);
 
-                //// עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
-                //foreach (var slot in slotsForThisExercise)
-                //{
-                //    slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
-                //}
-                currentTime = currentTime.Add(duration);
+                // עדכן זמן נוכחי לתרגיל הבא
+                currentTime = exerciseEndTime;
                 orderInList++;
-
-
             }
-            //המסלול של המתאמן
+
+            // בנה את המסלול המלא להחזרה
             var pathResult = new PathResult
             {
                 Trainee = trainee,
-                ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise1),
+                ExerciseIdsInPath = exerciseEntries,
                 StartTime = startTime,
-                EndTime = endTime,
+                EndTime = currentTime,
                 AlternativesUsed = alternativesCount
             };
-
-            // עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
-            foreach (var slot in slotsForThisExercise1)
+            // קשר דו-כיווני מתאמן-סלוט
+            foreach (var slot in allUsedSlots)
             {
-                slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
+                slot.AddTranee(trainee, pathResult);
             }
+
             return pathResult;
         }
-
         // מנקה שיבוצים ישנים לפני הרצה חדשה
         private void RemoveTraineeFromAllSlots(TraineeDTO trainee)
         {
