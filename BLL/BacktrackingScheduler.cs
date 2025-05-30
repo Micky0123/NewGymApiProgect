@@ -272,7 +272,7 @@ namespace BLL
                 RemoveTraineeFromAllSlots(trainee);
 
                 // עדכן את השיבוץ הסופי
-                AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.endTime, result.numAlternatives);
+               return await AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.endTime, result.numAlternatives);
 
                 //return new PathResult
                 //{
@@ -960,7 +960,7 @@ namespace BLL
 
         // משלים את המסלול הסופי עבור המתאמן, כולל הוספת תרגילים לסלוטים
         // בסיום האלגוריתם, עבור המסלול הסופי בלבד:
-        private void AssignTraineeToFinalSlots(
+        private async Task< PathResult> AssignTraineeToFinalSlots(
             TraineeDTO trainee,
             List<ExercisePlanDTO> exerciseOrder,
             List<int> bestPath,
@@ -984,6 +984,8 @@ namespace BLL
             //}
             var orderInList = 1;
             DateTime currentTime = startTime;
+            var slotsForThisExercise1 = new List<Slot>();
+
             foreach (var exerciseId in bestPath)
             {
                 var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
@@ -1002,6 +1004,8 @@ namespace BLL
                     {
                         slotsForThisExercise.Add(slot);
                         slotTime = slot.EndTime;
+                        slotsForThisExercise1.Add(slot);
+
                     }
                 }
 
@@ -1017,27 +1021,42 @@ namespace BLL
                     EndTime = slotTime
                 };
 
-                //המסלול של המתאמן
-                var pathResult = new PathResult
-                {
-                    Trainee = trainee,
-                    ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise),
-                    StartTime = startTime,
-                    EndTime = endTime,
-                    AlternativesUsed = alternativesCount
-                };
+                ////המסלול של המתאמן
+                //var pathResult = new PathResult
+                //{
+                //    Trainee = trainee,
+                //    ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise),
+                //    StartTime = startTime,
+                //    EndTime = endTime,
+                //    AlternativesUsed = alternativesCount
+                //};
 
-                // עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
-                foreach (var slot in slotsForThisExercise)
-                {
-                    slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
-                }
-
+                //// עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
+                //foreach (var slot in slotsForThisExercise)
+                //{
+                //    slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
+                //}
                 currentTime = currentTime.Add(duration);
                 orderInList++;
 
 
             }
+            //המסלול של המתאמן
+            var pathResult = new PathResult
+            {
+                Trainee = trainee,
+                ExerciseIdsInPath = CreateExerciseEntries(bestPath, startTime, endTime, slotsForThisExercise1),
+                StartTime = startTime,
+                EndTime = endTime,
+                AlternativesUsed = alternativesCount
+            };
+
+            // עדכן את הסלוטים שיכירו את המתאמן (קשר דו-כיווני)
+            foreach (var slot in slotsForThisExercise1)
+            {
+                slot.AddTranee(trainee, pathResult); // או כל לוגיקה שלך
+            }
+            return pathResult;
         }
 
         // מנקה שיבוצים ישנים לפני הרצה חדשה

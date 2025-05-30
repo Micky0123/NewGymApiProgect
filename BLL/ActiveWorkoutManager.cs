@@ -32,22 +32,22 @@ namespace BLL
         private readonly ITraineeBLL _traineeBLL;
         private readonly IPlanDayDAL _planDayDAL;
         private readonly IExercisePlanDAL _exercisePlanDAL;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         //private BacktrackingScheduler _scheduler;
         private readonly IMemoryCache _cache;
+      
 
         public ActiveWorkoutManager(
             IMemoryCache cache,
             ITraineeBLL traineeBLL,
             IPlanDayDAL planDayDAL,
-            IExercisePlanDAL exercisePlanDAL,
-            IMapper mapper)
+            IExercisePlanDAL exercisePlanDAL)
         {
             _cache = cache;
             this._traineeBLL = traineeBLL;
             this.planDayDAL = planDayDAL;
             this.exercisePlanDAL = exercisePlanDAL;
-            this.mapper = mapper;
+           // this.mapper = mapper;
 
             activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
 
@@ -199,14 +199,15 @@ namespace BLL
 
         // קריאה לאלגוריתם והתחלת אימון
         public async Task StartWorkoutAsync(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime, int planDayId)
-        { 
+        {
+            var scheduler = GetScheduler();
             // ננסה לקבל מיד את המנעול, ואם לא מצליחים נדפיס הודעה ונחכה
             if (!await _startWorkoutLock.WaitAsync(0))
             {
                 Console.WriteLine("המערכת מחשבת נתונים");
                 await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
             }
-            await _startWorkoutLock.WaitAsync();
+           // await _startWorkoutLock.WaitAsync();
             try
             {
                 var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
@@ -227,12 +228,18 @@ namespace BLL
                         StartedAt = null
                     }).ToList();
 
-                activeTrainees[trainee.TraineeId] = new TraineeExerciseStatus
+                //activeTrainees[trainee.TraineeId] = new TraineeExerciseStatus
+                //{
+                //    Trainee = trainee,
+                //    Exercises = exercisesStatus,
+                //    planDayId = planDayId
+                //};
+                _cache.Set($"Trainee_{trainee.TraineeId}", new TraineeExerciseStatus
                 {
                     Trainee = trainee,
                     Exercises = exercisesStatus,
                     planDayId = planDayId
-                };
+                });
 
             }
             finally
@@ -244,8 +251,11 @@ namespace BLL
         // קריאה להתחלת תרגיל עבור מתאמן
         public bool StartExercise(int traineeId, int exerciseId, DateTime startTime)
         {
-            if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
+            //if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
+            //    throw new Exception("Trainee not found");
+            if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found");
+            var scheduler = GetScheduler();
 
             var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
             //var exercise = traineeStatus.Exercises
@@ -262,8 +272,11 @@ namespace BLL
         // קריאה להתחלת תרגיל עבור מתאמן
         public bool CompleteExercise(int traineeId, int exerciseId, DateTime endTime)
         {
-            if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
+            //if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
+            //    throw new Exception("Trainee not found");
+            if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found");
+            var scheduler = GetScheduler();
 
             var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
             if (exercise == null)
@@ -277,13 +290,16 @@ namespace BLL
                 SaveWorkoutToDatabase(traineeStatus);
                 // ניתן למחוק מכאן את המתאמן כעת
                 activeTrainees.Remove(traineeId);
+                _cache.Remove($"Trainee_{traineeId}");
             }
             return true;
         }
 
         // לוגיקה למיפוי ושמירה למסד הנתונים שלך
-        private async void SaveWorkoutToDatabase(TraineeExerciseStatus status)
+        private async Task SaveWorkoutToDatabase(TraineeExerciseStatus status)
         {
+            var scheduler = GetScheduler();
+
             PlanDay planDay = await planDayDAL.GetPlanDayByIdAsync(status.planDayId);
             var planDayDto = mapper.Map<PlanDayDTO>(planDay);
 

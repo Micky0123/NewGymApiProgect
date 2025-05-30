@@ -123,12 +123,31 @@ namespace API.Controllers
 
         // התחלת אימון חדש למתאמן
         [HttpPost("start-workout")]
-        public async Task<IActionResult> StartWorkout([FromBody] StartWorkoutRequest req)
+        public async Task<IActionResult> StartWorkout([FromBody] RunAlgorithmRequest request)
         {
-            try
-            {
-                await _activeWorkoutManager.StartWorkoutAsync(req.Trainee, req.ExerciseOrder, req.StartTime, req.PlanDayId);
-                return Ok("Workout started for trainee " + req.Trainee.TraineeId);
+            //try
+            //{
+            //    await _activeWorkoutManager.StartWorkoutAsync(req.Trainee, req.ExerciseOrder, req.StartTime, req.PlanDayId);
+            //    return Ok("Workout started for trainee " + req.Trainee.TraineeId);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
+            try { 
+            if (request == null || request.Trainee == null || request.planday == 0)
+                return BadRequest("Invalid data");
+
+            var trainee = await _traineeBLL.GetTraineeByIdAsync(request.Trainee);
+            // קבלת כל התרגילים של התוכנית היומית
+            List<ExercisePlanDTO> exerciseOrder = await _planExerciseBLL.GetExercisesByPlanDayIdAsync(request.planday);
+
+            if (exerciseOrder == null || !exerciseOrder.Any())
+                return NotFound("No exercises found for the selected plan day");
+
+            // הרצת האלגוריתם
+             await _activeWorkoutManager.StartWorkoutAsync(trainee, exerciseOrder, request.StartTime, request.planday);
+            return Ok("Workout started for trainee " + trainee.TraineeId);
             }
             catch (Exception ex)
             {
