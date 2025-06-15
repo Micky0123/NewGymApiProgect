@@ -13,10 +13,6 @@ namespace DTO
         public int EquipmentCount { get; set; }// כמות המכשירים במכון עבור התור הזה
         public Dictionary<DateTime, Slot> SlotsByStartTime { get; set; } = new();// רשימה של סלוטים (בכל סלוט יש תרגילים/מתאמנים וכו')
 
-
-        //  public List<Slot> Slots { get; set; } = new List<Slot>();
-
-        // קונסטרקטור
         public QueueSlot(int equipmentCount, DateTime firstSlotStart, int slotMinutes, int slotCount)
         {
             EquipmentCount = equipmentCount;
@@ -35,6 +31,8 @@ namespace DTO
                 SlotsByStartTime[start] = new Slot(start, end);
             }
         }
+
+
         // פעולה שמייצרת סלוטים לפי פרמטר של אורך במינוטות וכמות
         //public void GenerateSlots(DateTime firstSlotStart, int slotMinutes, int slotCount)
         //{

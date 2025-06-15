@@ -31,7 +31,7 @@
   <Interface Name="IBLL.IExercisePlanBLL">
     <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQCCAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IExercisePlanBLL.cs</FileName>
     </TypeIdentifier>
   </Interface>

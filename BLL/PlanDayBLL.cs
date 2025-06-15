@@ -47,6 +47,17 @@ namespace BLL
             return mapper.Map<PlanDayDTO>(day);
         }
 
+        public async Task<List<PlanDayDTO>> GetPlanDaysByTrainingPlanIdAndNotHistorical(int trainingPlanId)
+        {
+            var planDays = await planDayDAL.GetPlanDaysByTrainingPlanIdAndNotHistorical(trainingPlanId);
+            return mapper.Map<List<PlanDayDTO>>(planDays);
+        }
+        public async Task<List<PlanDayDTO>> GetPlanDaysByTrainingPlanIdAndHistorical(int trainingPlanId)
+        {
+            var planDays = await planDayDAL.GetPlanDaysByTrainingPlanIdAndHistorical(trainingPlanId);
+            return mapper.Map<List<PlanDayDTO>>(planDays);
+        }
+
         //public async Task<PlanDayDTO> GetPlanDayByNameAsync(string name)
         //{
         //    PlanDay day = await planDayDAL.GetPlanDayByNameAsync(name);

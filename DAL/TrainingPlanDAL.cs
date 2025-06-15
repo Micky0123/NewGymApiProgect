@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class TrainingPlanDAL :ITrainingPlanDAL
+    public class TrainingPlanDAL : ITrainingPlanDAL
     {
         //public async Task AddTrainingPlanAsync(TrainingPlan trainingPlan)
         //{
@@ -124,7 +124,7 @@ namespace DAL
             }
         }
 
-       public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
+        public async Task<int> AddTrainingPlanAsync(TrainingPlan trainingPlan)
         {
             using GymDbContext ctx = new GymDbContext();
             try
@@ -137,6 +137,102 @@ namespace DAL
             {
                 throw new Exception("Error adding new Training Plan", ex);
 
+            }
+        }
+
+        //public async Task<TrainingPlan?> GetAllActiveTrainingPlansOfTrainee(int traineeId)
+        //{
+        //    await using var ctx = new GymDbContext();
+        //    try
+        //    {
+        //        return await ctx.TrainingPlans
+        //            .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
+        //            .FirstOrDefaultAsync(); // יחזיר את הראשון או null
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // שים לב: כאן החריגה תתפוס גם אם אין איבר
+        //        throw new Exception("Error retrieving active Training Plan by TraineeId", ex);
+        //    }
+        //}
+
+        //public async Task<TrainingPlan?> GetAllHistoryTrainingPlansOfTrainee(int traineeId)
+        //{
+        //    await using var ctx = new GymDbContext();
+        //    try
+        //    {
+        //        return await ctx.TrainingPlans
+        //            .Where(tp => tp.TraineeId == traineeId )
+        //            .FirstOrDefaultAsync(); // יחזיר את הראשון או null
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error retrieving History Training Plan by TraineeId", ex);
+        //    }
+        //}
+
+        // ב-DAL שלך (לדוגמה, TrainingPlanDAL.cs)
+
+        public async Task<TrainingPlan> GetActiveTrainingPlanWithDaysOfTrainee(int traineeId)
+        {
+            await using var ctx = new GymDbContext();
+            try
+            {
+                // כלול את PlanDays ישירות ב-TrainingPlan
+                //return await ctx.TrainingPlans
+                //    .Include(tp => tp.PlanDays) // טען את PlanDays
+                //    .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
+                //    .FirstOrDefaultAsync();
+
+                //// שלב 1: טען את תוכנית האימון הפעילה
+                //var trainingPlan = await ctx.TrainingPlans
+                //    .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
+                //    .FirstOrDefaultAsync();
+
+                //if (trainingPlan == null)
+                //{
+                //    return null; // אין תוכנית אימון פעילה למתאמן זה
+                //}
+
+                //// גם אם הקשר לא "עבד" עם Include מהסיבות הנ"ל.
+                //// אנו נטען אותם ונחבר אותם ידנית לנכס הניווט PlanDays
+                //var planDays = await ctx.PlanDays
+                //    .Where(pd => pd.TrainingPlanId == trainingPlan.TrainingPlanId)
+                //    // אולי תרצה לסנן גם לפי !pd.IsHistoricalProgram אם זה רלוונטי ל"תוכניות יום פעילות"
+                //    .ToListAsync();
+
+                //// חבר את ה-PlanDays לאובייקט ה-TrainingPlan
+                //// (אם PlanDays כבר מכיל נתונים מ-Include, זה יוסיף אותם שוב, אבל כאן אנחנו מניחים שהוא ריק)
+                //// ודא ש-PlanDays במודל הוא ICollection<PlanDay> ולא רק List<PlanDay>
+                //// וודא שאתה לא יוצר רשימה חדשה אלא מוסיף לקיים או מגדיר את הקיים
+                //trainingPlan.PlanDays = planDays; // זה ידרוש ש-PlanDays יהיה Set ולא רק Get במודל
+                //return trainingPlan;
+                var trainingPlan = await ctx.TrainingPlans
+               .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
+               .FirstOrDefaultAsync();
+                return trainingPlan;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving active Training Plan with days by TraineeId", ex);
+            }
+        }
+
+        public async Task<List<TrainingPlan>> GetAllHistoryTrainingPlansWithDaysOfTrainee(int traineeId)
+        {
+            await using var ctx = new GymDbContext();
+            try
+            {
+                // כלול את PlanDays ישירות עבור כל תוכנית היסטורית
+                return await ctx.TrainingPlans
+                    .Include(tp => tp.PlanDays) // טען את PlanDays
+                    .Where(tp => tp.TraineeId == traineeId && !tp.IsActive)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving History Training Plans with days by TraineeId", ex);
             }
         }
     }

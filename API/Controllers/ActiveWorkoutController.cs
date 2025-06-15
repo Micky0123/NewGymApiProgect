@@ -47,46 +47,7 @@ namespace API.Controllers
 
         // אתחול ראשוני של הסקדולר (פעם אחת בתחילת יום/מערכת)
         [HttpPost("initialize")]
-        //public async Task<IActionResult> InitializeScheduler([FromBody] SchedulerInitRequest req)
-        //{
-
-        //    try
-        //    {
-        //        //// שליפת נתונים אסינכרונית
-        //        //var exercises = await _exerciseBLL.GetAllExercisesAsync();
-        //        //var equipmentCountByExercise = exercises
-        //        //    .ToDictionary(e => e.ExerciseId, e => e.Count ?? 0);
-        //        //var graphEdge = await _graphEdgeBLL.GetAllGraphEdgeAsync();
-        //        //var muscleEdge = await muscleEdgeBLL.GetAllMuscleEdgeAsync();
-        //        //var deviceMuscleEdge = await _deviceMuscleEdgeBLL.GetAllDeviceMuscleEdgeAsync();
-
-        //        //var slotMinutes = req.SlotMinutes;
-        //        //int slotCount = req.SlotCount;
-
-        //        //// אחראי לבצע אתחול דרך SchedulerManager (אם צריך)
-        //        //var activeWorkoutManager = new ActiveWorkoutManager(_traineeBLL, exercises, graphEdge, deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
-        //        ////_activeWorkoutManager.Initialize(exercises, graphEdge, deviceMuscleEdge, muscleEdge, equipmentCountByExercise, DateTime.Today.AddHours(7), slotMinutes, slotCount);
-        //        ////return Ok("Scheduler initialized successfully");
-        //        //var exercises = await _exerciseBLL.GetAllExercisesAsync();
-
-        //        var exercises = await _exerciseBLL.GetAllExercisesAsync();
-        //        var equipmentCountByExercise = exercises.ToDictionary(e => e.ExerciseId, e => e.Count ?? 0);
-        //        var graphEdge = await _graphEdgeBLL.GetAllGraphEdgeAsync();
-        //        var muscleEdge = await _muscleEdgeBLL.GetAllMuscleEdgeAsync();
-        //        var deviceMuscleEdge = await _deviceMuscleEdgeBLL.GetAllDeviceMuscleEdgeAsync();
-
-        //        _activeWorkoutManager.Initialize(
-        //            exercises, graphEdge, deviceMuscleEdge, muscleEdge,
-        //            equipmentCountByExercise, DateTime.Today.AddHours(7),
-        //            req.SlotMinutes, req.SlotCount);
-
-        //        return Ok("Scheduler initialized successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+ 
         public async Task<IActionResult> InitializeScheduler([FromBody] SchedulerInitRequest req)
         {
             if (_activeWorkoutManager.IsInitialized)
@@ -125,15 +86,6 @@ namespace API.Controllers
         [HttpPost("start-workout")]
         public async Task<IActionResult> StartWorkout([FromBody] RunAlgorithmRequest request)
         {
-            //try
-            //{
-            //    await _activeWorkoutManager.StartWorkoutAsync(req.Trainee, req.ExerciseOrder, req.StartTime, req.PlanDayId);
-            //    return Ok("Workout started for trainee " + req.Trainee.TraineeId);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
             try { 
             if (request == null || request.Trainee == null || request.planday == 0)
                 return BadRequest("Invalid data");
@@ -212,94 +164,8 @@ namespace API.Controllers
 
     public class SchedulerInitRequest
     {
-        //public List<ExerciseDTO> ExerciseList { get; set; }
-        //public List<GraphEdgeDTO> ExerciseEdges { get; set; }
-        //public List<DeviceMuscleEdgeDTO> ExerciseToMuscleEdges { get; set; }
-        //public List<MuscleEdgeDTO> MuscleEdges { get; set; }
-        //public Dictionary<int, int> EquipmentCountByExercise { get; set; }
-        //public DateTime FirstSlotStart { get; set; }
         public int SlotMinutes { get; set; }
         public int SlotCount { get; set; }
     }
 
-    //    [Route("api/[controller]")]
-    //    [ApiController]
-    //    public class ActiveWorkoutController : ControllerBase
-    //    {
-    //        private readonly ActiveWorkoutManager _activeWorkoutManager;
-
-    //        public ActiveWorkoutController(ActiveWorkoutManager activeWorkoutManager)
-    //        {
-    //            _activeWorkoutManager = activeWorkoutManager;
-    //        }
-
-    //        // התחלת אימון חדש למתאמן
-    //        [HttpPost("start-workout")]
-    //        public async Task<IActionResult> StartWorkout([FromBody] StartWorkoutRequest req)
-    //        {
-    //            try
-    //            {
-    //                await _activeWorkoutManager.StartWorkoutAsync(req.Trainee, req.ExerciseOrder, req.StartTime, req.PlanDayId);
-    //                return Ok("Workout started for trainee " + req.Trainee.TraineeId);
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                return BadRequest(ex.Message);
-    //            }
-    //        }
-
-    //        // התחלת תרגיל
-    //        [HttpPost("start-exercise")]
-    //        public IActionResult StartExercise([FromBody] StartOrCompleteExerciseRequest req)
-    //        {
-    //            try
-    //            {
-    //                bool result = _activeWorkoutManager.StartExercise(req.TraineeId, req.ExerciseId, req.StartTime);
-    //                return Ok(result);
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                return BadRequest(ex.Message);
-    //            }
-    //        }
-
-    //        // סיום תרגיל
-    //        [HttpPost("complete-exercise")]
-    //        public IActionResult CompleteExercise([FromBody] StartOrCompleteExerciseRequest req)
-    //        {
-    //            try
-    //            {
-    //                bool result = _activeWorkoutManager.CompleteExercise(req.TraineeId, req.ExerciseId, req.StartTime);
-    //                return Ok(result);
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                return BadRequest(ex.Message);
-    //            }
-    //        }
-
-    //        // (אופציונלי) הדפסת מטריצת Scheduler
-    //        [HttpGet("print-matrix")]
-    //        public IActionResult PrintMatrix()
-    //        {
-    //            _activeWorkoutManager.PrintSchedulerMatrix();
-    //            return Ok("Printed Scheduler Matrix to console/server logs.");
-    //        }
-    //    }
-
-    //    // מודלים ל-Request
-    //    public class StartWorkoutRequest
-    //    {
-    //        public TraineeDTO Trainee { get; set; }
-    //        public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-    //        public DateTime StartTime { get; set; }
-    //        public int PlanDayId { get; set; }
-    //    }
-
-    //    public class StartOrCompleteExerciseRequest
-    //    {
-    //        public int TraineeId { get; set; }
-    //        public int ExerciseId { get; set; }
-    //        public DateTime StartTime { get; set; }
-    //    }
 }

@@ -23,7 +23,6 @@ namespace BLL
         public bool IsInitialized => scheduler != null;
 
         private Dictionary<int, TraineeExerciseStatus> activeTrainees;
-       // private SchedulerManager scheduler1;
         private readonly IPlanDayDAL planDayDAL;
         private readonly IExercisePlanDAL exercisePlanDAL;
         private readonly IMapper mapper;
@@ -32,8 +31,6 @@ namespace BLL
         private readonly ITraineeBLL _traineeBLL;
         private readonly IPlanDayDAL _planDayDAL;
         private readonly IExercisePlanDAL _exercisePlanDAL;
-        //private readonly IMapper _mapper;
-        //private BacktrackingScheduler _scheduler;
         private readonly IMemoryCache _cache;
       
 
@@ -47,7 +44,6 @@ namespace BLL
             this._traineeBLL = traineeBLL;
             this.planDayDAL = planDayDAL;
             this.exercisePlanDAL = exercisePlanDAL;
-           // this.mapper = mapper;
 
             activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
 
@@ -57,113 +53,18 @@ namespace BLL
                 cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
             });
             mapper = new Mapper(configTaskConverter);
-
         }
-        //public ActiveWorkoutManager(
-        //    ITraineeBLL traineeBLL,
-        //    List<ExerciseDTO> exerciseList,
-        //    List<GraphEdgeDTO> exerciseEdges,
-        //    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //    List<MuscleEdgeDTO> muscleEdges,
-        //    Dictionary<int, int> equipmentCountByExercise,
-        //    int slotMinutes,
-        //    int slotCount,
-        //    DateTime firstSlotStart,
-        //    IPlanDayDAL planDayDAL,
-        //    IExercisePlanDAL exercisePlanDAL)
-        //{
-        //    activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
 
-        //    scheduler = new BacktrackingScheduler(traineeBLL);
-
-        //    this.planDayDAL = planDayDAL;
-        //    this.exercisePlanDAL = exercisePlanDAL;
-        //    var configTaskConverter = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-        //        cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
-        //    });
-        //    mapper = new Mapper(configTaskConverter);
-
-        //    scheduler.Initialize(
-        //        exerciseList: exerciseList,
-        //        exerciseEdges: exerciseEdges,
-        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
-        //        muscleEdges: muscleEdges,
-        //        equipmentCountByExercise: equipmentCountByExercise,
-        //        firstSlotStart: firstSlotStart,
-        //        slotMinutes: slotMinutes,
-        //        slotCount: slotCount
-        //    );
-        //}
-        //public void Initialize(
-        //    List<ExerciseDTO> exerciseList,
-        //    List<GraphEdgeDTO> exerciseEdges,
-        //    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //    List<MuscleEdgeDTO> muscleEdges,
-        //    Dictionary<int, int> equipmentCountByExercise,
-        //    DateTime firstSlotStart,
-        //    int slotMinutes,
-        //    int slotCount)
-        //{
-        //    scheduler = new BacktrackingScheduler(_traineeBLL);
-        //    scheduler.Initialize(
-        //        exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
-        //        equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
-        //    );
-        //}
-
-        //public void Initialize(
-        //      List<ExerciseDTO> exerciseList,
-        //      List<GraphEdgeDTO> exerciseEdges,
-        //      List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //      List<MuscleEdgeDTO> muscleEdges,
-        //      Dictionary<int, int> equipmentCountByExercise,
-        //      DateTime firstSlotStart,
-        //      int slotMinutes,
-        //      int slotCount)
-        //{
-        //    scheduler.Initialize(
-        //        exerciseList: exerciseList,
-        //        exerciseEdges: exerciseEdges,
-        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
-        //        muscleEdges: muscleEdges,
-        //        equipmentCountByExercise: equipmentCountByExercise,
-        //        firstSlotStart: firstSlotStart,
-        //        slotMinutes: slotMinutes,
-        //        slotCount: slotCount
-        //    );
-        //}
-
-        //public void Initialize(
-        //   List<ExerciseDTO> exerciseList,
-        //   List<GraphEdgeDTO> exerciseEdges,
-        //   List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //   List<MuscleEdgeDTO> muscleEdges,
-        //   Dictionary<int, int> equipmentCountByExercise,
-        //   DateTime firstSlotStart,
-        //   int slotMinutes,
-        //   int slotCount)
-        //{
-        //    if (IsInitialized)
-        //        throw new Exception("Scheduler already initialized!");
-
-        //    scheduler = new BacktrackingScheduler(_traineeBLL);
-        //    scheduler.Initialize(
-        //        exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
-        //        equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
-        //    );
-        //}
 
         public void Initialize(
-    List<ExerciseDTO> exerciseList,
-    List<GraphEdgeDTO> exerciseEdges,
-    List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-    List<MuscleEdgeDTO> muscleEdges,
-    Dictionary<int, int> equipmentCountByExercise,
-    DateTime firstSlotStart,
-    int slotMinutes,
-    int slotCount)
+            List<ExerciseDTO> exerciseList,
+            List<GraphEdgeDTO> exerciseEdges,
+            List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+            List<MuscleEdgeDTO> muscleEdges,
+            Dictionary<int, int> equipmentCountByExercise,
+            DateTime firstSlotStart,
+            int slotMinutes,
+            int slotCount)
         {
             if (_cache.TryGetValue("Scheduler", out BacktrackingScheduler existing) && existing != null)
                 throw new Exception("Scheduler already initialized!");
@@ -176,7 +77,7 @@ namespace BLL
             _cache.Set("Scheduler", scheduler);
         }
 
-        // הפונקציה החדשה:
+        // שמירה בזיכרון cache
         private BacktrackingScheduler GetScheduler()
         {
             if (!_cache.TryGetValue("Scheduler", out BacktrackingScheduler scheduler) || scheduler == null)
@@ -207,7 +108,6 @@ namespace BLL
                 Console.WriteLine("המערכת מחשבת נתונים");
                 await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
             }
-           // await _startWorkoutLock.WaitAsync();
             try
             {
                 var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
@@ -227,13 +127,6 @@ namespace BLL
                         PerformedAt = null,
                         StartedAt = null
                     }).ToList();
-
-                //activeTrainees[trainee.TraineeId] = new TraineeExerciseStatus
-                //{
-                //    Trainee = trainee,
-                //    Exercises = exercisesStatus,
-                //    planDayId = planDayId
-                //};
                 _cache.Set($"Trainee_{trainee.TraineeId}", new TraineeExerciseStatus
                 {
                     Trainee = trainee,
@@ -251,17 +144,11 @@ namespace BLL
         // קריאה להתחלת תרגיל עבור מתאמן
         public bool StartExercise(int traineeId, int exerciseId, DateTime startTime)
         {
-            //if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
-            //    throw new Exception("Trainee not found");
             if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found");
             var scheduler = GetScheduler();
 
             var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-            //var exercise = traineeStatus.Exercises
-            //    .Where(e => !e.IsDone)
-            //    .OrderBy(e => e.OrderInList)
-            //    .FirstOrDefault();
             if (exercise == null)
                 throw new Exception("Exercise not found for this trainee");
 
@@ -269,11 +156,9 @@ namespace BLL
             return true;
         }
 
-        // קריאה להתחלת תרגיל עבור מתאמן
+        // קריאה לסיום תרגיל עבור מתאמן
         public bool CompleteExercise(int traineeId, int exerciseId, DateTime endTime)
         {
-            //if (!activeTrainees.TryGetValue(traineeId, out var traineeStatus))
-            //    throw new Exception("Trainee not found");
             if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found");
             var scheduler = GetScheduler();
@@ -295,7 +180,7 @@ namespace BLL
             return true;
         }
 
-        // לוגיקה למיפוי ושמירה למסד הנתונים שלך
+        // לוגיקה למיפוי ושמירה למסד הנתונים 
         private async Task SaveWorkoutToDatabase(TraineeExerciseStatus status)
         {
             var scheduler = GetScheduler();
@@ -313,18 +198,16 @@ namespace BLL
                 CreationDate = DateTime.Now,
                 IsDefaultProgram = false,
                 ParentProgramId = planDayDto.PlanDayId,
-                IsHistoricalProgram = false
+                IsHistoricalProgram = true
             };
             // שמירת ה-PlanDay
             var savedPlanDay = await planDayDAL.AddPlanDayAsync(mapper.Map<PlanDay>(NewplanDay));
-
             foreach (var exercise in status.Exercises)
             {
                 var OrigenExercisePlan = await exercisePlanDAL.GetExercisePlanByIdAsync(exercise.OriginalExercise);
                 // שמירת ה-ExercisePlan
                 var exercisePlan = new ExercisePlanDTO()
                 {
-                    //ExercisePlanId = 0, // או ID חדש שיתקבל מהמסד
                     ExerciseId = exercise.ExerciseId,
                     PlanDayId = status.planDayId,
                     TimesMax = OrigenExercisePlan.TimesMax,
@@ -338,11 +221,8 @@ namespace BLL
                     TrainingDateTime = DateTime.Now,
                     IndexOrder = exercise.OrderInList,
                 };
-
                 await exercisePlanDAL.AddExercisePlanAsync(mapper.Map<ExercisePlan>(exercisePlan));
             }
-
-
         }
 
     }

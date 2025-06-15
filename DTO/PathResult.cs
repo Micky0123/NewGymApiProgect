@@ -10,7 +10,6 @@ namespace DTO
     public class PathResult
     {
         public TraineeDTO Trainee { get; set; }
-        //public List<ExerciseEntry> ExerciseIdsInPath { get; set; } = new();
         public Dictionary< int,ExerciseEntry> ExerciseIdsInPath { get; set; } = new();
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

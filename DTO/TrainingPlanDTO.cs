@@ -26,5 +26,7 @@ namespace DTO
 
         public bool IsActive { get; set; }
 
+        public List<PlanDayDTO> PlanDays { get; set; } = new List<PlanDayDTO>();
+
     }
 }

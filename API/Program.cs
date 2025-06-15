@@ -13,6 +13,8 @@ namespace API
     using API.Profiles;
     using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
     using OfficeOpenXml;
+    using System.Text.Json.Serialization;
+
     public class Program
     {
 
@@ -90,7 +92,14 @@ namespace API
             // or AddTransient/AddSingleton as appropriate
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+             .AddJsonOptions(options =>
+              {
+                  // זה מה שמונע את לולאת ההתייחסות ב-JSON Serialization
+                  options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                  // אפשר להוסיף כאן גם הגדרות אחרות ל-JSON אם יש צורך
+                  options.JsonSerializerOptions.WriteIndented = true; // אופציונלי: יגרום לפלט ה-JSON להיות עם הזחות לקריאה נוחה יותר
+              });
 
             var app = builder.Build();
 

@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DBEntities.Models;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,11 @@ namespace IBLL
         //Task<TrainingPlanDTO> GetTrainingPlanByNameAsync(string name);
         Task UpdateTrainingPlanAsync(TrainingPlanDTO trainingPlan, int id);
         Task DeleteTrainingPlanAsync(int id);
+
+        //Task<TrainingPlanDTO> GetAllActiveTrainingPlansOfTrainee(int traineeId);
+        //Task<TrainingPlanDTO> GetAllHistoryTrainingPlansOfTrainee(int traineeId);
+        Task<TrainingPlanDTO?> GetActiveTrainingPlanDTO(int traineeId);
+        Task<List<PlanDayDTO>> GetPlanDaysForTrainingPlan(int trainingPlanId);
+        Task<List<TrainingPlanDTO>> GetAllHistoryTrainingPlansDTO(int traineeId);
     }
 }

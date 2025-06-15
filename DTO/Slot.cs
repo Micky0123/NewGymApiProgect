@@ -11,18 +11,12 @@ namespace DTO
     {
         public DateTime StartTime { get; set; }   // זמן התחלה
         public DateTime EndTime { get; set; }     // זמן סיום
-        //public Dictionary<TraineeDTO, PathResult> ExercisesByTrainee { get; set; } = new();
-
         public Dictionary<int, PathResult> ExercisesByTrainee { get; set; } = new();
-
-
-        // public List<ExerciseEntry> Exercises { get; set; } = new List<ExerciseEntry>(); //רשימה של תרגילים כלומר מצביעים לתרגילים בתוכנית אימון 
         public bool available { get; set; } = true; //זמינות התרגיל
         public long MaxCapacity { get; set; }//הגדרת משך הזמן של כל סלוט
 
         public Slot( DateTime startTime, DateTime endTime)
         {
-            //MaxCapacity = maxCapacity;
             StartTime = startTime;
             EndTime = endTime;
             MaxCapacity= this.EndTime.Ticks - this.StartTime.Ticks;
@@ -33,7 +27,6 @@ namespace DTO
             {
                 ExercisesByTrainee.Add(trainee.TraineeId, pathResult);
             }
-            //ExercisesByTrainee.Add(trainee.TraineeId, null);
         }
 
     }

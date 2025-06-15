@@ -31,7 +31,7 @@
   <Interface Name="IDAL.IExercisePlanDAL">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQCCAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IExercisePlanDAL.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="IDAL.IJointDAL">
-    <Position X="7.5" Y="2.5" Width="1.5" />
+    <Position X="7.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAIAAAAAAKAAAAAAAAAAABAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>IJointDAL.cs</FileName>
@@ -92,7 +92,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="IDAL.ISizeDAL">
-    <Position X="7.5" Y="4.75" Width="1.5" />
+    <Position X="7.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAAIAgAAAAAAAAAAAAEAAAAAAAAABAA=</HashCode>
       <FileName>ISizeDAL.cs</FileName>

@@ -35,7 +35,7 @@
   <Class Name="DAL.ExercisePlanDAL" BaseTypeListCollapsed="true">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAgAAAAAAABQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAgAAAAAAABQCCAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ExercisePlanDAL.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -105,7 +105,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="DAL.SizeDAL" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="5.25" Width="1.5" />
+    <Position X="9.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAgAAAIAgAAAAAAAAAAAAEAAAAAAAAABAA=</HashCode>
       <FileName>SizeDAL.cs</FileName>
@@ -113,7 +113,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="DAL.SubMuscleDAL" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="2.5" Width="1.5" />
+    <Position X="9.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAAAAAAAAAAAACAAAEMEAAAAAgAQAAAAAAA=</HashCode>
       <FileName>SubMuscleDAL.cs</FileName>
@@ -147,7 +147,7 @@
   <Class Name="DAL.TrainingPlanDAL" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAABAAAAAAAAAAAAAABAAAoAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAABAAAAAAAQAAAAAABAAAoAAAAAAA=</HashCode>
       <FileName>TrainingPlanDAL.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />

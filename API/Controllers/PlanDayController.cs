@@ -58,5 +58,6 @@ namespace API.Controllers
             await planDayBLL.DeletePlanDayAsync(id);
             return Ok("Plan day deleted successfully.");
         }
+     
     }
 }

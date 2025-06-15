@@ -202,6 +202,9 @@ namespace API.Controllers
             return Ok($"Trainee with id {id} was deleted.");
         }
     }
+
+
+
     // מחלקה עבור בקשת Login
     public class LoginRequest
     {

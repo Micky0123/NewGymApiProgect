@@ -84,7 +84,7 @@ namespace BLL
                 cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
                 cfg.CreateMap<TrainingPlan, TrainingPlanDTO>().ReverseMap();
                 cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-                cfg.CreateMap<ExercisePlanDTO, ExercisePlanDTO>().ReverseMap();
+                cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
             });
             mapper = new Mapper(configTaskConverter);
 
@@ -101,19 +101,12 @@ namespace BLL
             {
 
                 logger.LogInformation($"Starting training plan creation for trainee: {traineeID}");
-
-                // שימוש בנתיב לקובץ האקסל מתוך הקונפיגורציה
-                string filePath1 = config.ExcelFilePath;
-
-                // טעינת רשימת הציוד הזמין
-                await LoadExerciseListAsync();
-
+                string filePath1 = config.ExcelFilePath;// שימוש בנתיב לקובץ האקסל מתוך הקונפיגורציה                
+                await LoadExerciseListAsync();// טעינת רשימת הציוד הזמין
                 // אתחול פרמטרי האימון
                 var trainingParams = InitializeTrainingParams();
-
                 // שליפת מזהה זמן האימון
                 var time1 = await trainingDurationDAL.GetTrainingDurationByIdAsync(time);
-
                 // שליפת כל הפרמטרים מהקובץ
                 trainingParams = await GetAllParams(filePath1, daysInWeek, goal, level, time1.TimeTrainingDuration);
 
@@ -121,16 +114,12 @@ namespace BLL
                 {
                     throw new Exception("Failed to retrieve training parameters.");
                 }
-
                 // ניקוי רשימות מערכים עם ערך 0
                 CleanDayLists(trainingParams);
-
                 // רישום לוג של הפרמטרים שנטענו
                 LogTrainingParameters(trainingParams);
-
                 // יצירת תוכנית האימון המותאמת
                 var ListOfProgram = await GenerateOptimizedExercisePlanAsync(trainingParams);
-
                 // שמירת התוכנית במערכת
                 await SaveProgramDefaultAsync(
                     trainingParams,
@@ -141,7 +130,6 @@ namespace BLL
                     goal,
                     level,
                     time);
-
                 logger.LogInformation($"Training plan created successfully for trainee: {traineeID}");
             }
             catch (Exception ex)
@@ -267,10 +255,20 @@ namespace BLL
                             // סינון התרגילים כך שלא יחזרו על עצמם בתתי-שרירים אחרים
                             var filteredExercises = exercises
                                 .Where(e => !usedExercisesForDay.Contains(e.ExerciseId) &&
+                                            !usedExercisesOverall.Contains(e.ExerciseId) &&
                                             (!usedExercisesBySubMuscle.ContainsKey(subMuscle.SubMuscleName) ||
                                              usedExercisesBySubMuscle[subMuscle.SubMuscleName] == e.ExerciseId))
                                 .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
                                 .ToList();
+                            if(filteredExercises.Count == 0)
+                            {
+                                filteredExercises = exercises
+                                .Where(e => !usedExercisesForDay.Contains(e.ExerciseId) &&
+                                            (!usedExercisesBySubMuscle.ContainsKey(subMuscle.SubMuscleName) ||
+                                             usedExercisesBySubMuscle[subMuscle.SubMuscleName] == e.ExerciseId))
+                                .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
+                                .ToList();
+                            }
                             foreach (var exercise in filteredExercises)
                             {
                                 dayExercises.Add(new ExerciseWithMuscleInfo
@@ -288,19 +286,25 @@ namespace BLL
                                 exerciseCount--;
                                 break;
                             }
-
                         }
                     }
 
                     // אם עדיין חסרים תרגילים (לשריר הראשי), חפש תרגילים רגילים
                     if (exerciseCount > 0)
                     {
-                        var allEquipmentExercises = await GetExercisesForMuscleAsync(muscleName, exerciseCount);
-                        var filteredExercises = allEquipmentExercises
+                        var allExercises = await GetExercisesForMuscleAsync(muscleName, exerciseCount);
+                        var filteredExercises = allExercises
+                            .Where(e => !usedExercisesForDay.Contains(e.ExerciseId) &&
+                            !usedExercisesOverall.Contains(e.ExerciseId))
+                            .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
+                            .ToList();
+                        if(filteredExercises.Count == 0)
+                        {
+                            filteredExercises = allExercises
                             .Where(e => !usedExercisesForDay.Contains(e.ExerciseId))
                             .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
                             .ToList();
-
+                        }
                         foreach (var exercise in filteredExercises)
                         {
                             dayExercises.Add(new ExerciseWithMuscleInfo
@@ -320,10 +324,8 @@ namespace BLL
                         }
                     }
                 }
-
                 exercisePlan.Add(dayExercises); // הוספת תרגילי היום לתוכנית
             }
-
             // מיון התרגילים לפי סדר חשיבות של השרירים ותתי-השרירים
             var musclePriorityOrder = trainingParams.musclePriorityOrder;
             var subMusclePriorityOrder = trainingParams.subMusclePriorityOrder;
@@ -339,7 +341,6 @@ namespace BLL
                     logger.LogInformation($"  - {exerciseInfo.Exercise.ExerciseName} (ID: {exerciseInfo.Exercise.ExerciseId}, Muscle: {exerciseInfo.MuscleName}, SubMuscle: {exerciseInfo.SubMuscleName})");
                 }
             }
-
             return exercisePlan;
         }
 
@@ -514,7 +515,9 @@ namespace BLL
                 };
 
                 // שמירת התוכנית במסד הנתונים
-                TrainingPlan trainingP = mapper.Map<TrainingPlanDTO, TrainingPlan>(trainingPlan);
+                TrainingPlan trainingP = mapper.Map<TrainingPlan>(trainingPlan);
+
+               // TrainingPlan trainingP = mapper.Map<TrainingPlanDTO, TrainingPlan>(trainingPlan);
                 var id= await trainingPlanDAL.AddTrainingPlanAsync(trainingP);
                 logger.LogDebug($"Main training plan created");
 
@@ -609,7 +612,7 @@ namespace BLL
                             SubMuscleId = subId == 0 ? (int?)null : subId,
                             TrainingDateTime= DateTime.Now,
                         };
-                        var exerciseP = mapper.Map< ExercisePlanDTO,ExercisePlan>(exercisePlan);
+                        var exerciseP = mapper.Map< ExercisePlanDTO, ExercisePlan >(exercisePlan);
                         await exercisePlanDAL.AddExercisePlanAsync(exerciseP);
 
                         logger.LogDebug($"Main ExercisePlan created");

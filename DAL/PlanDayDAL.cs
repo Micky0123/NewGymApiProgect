@@ -80,6 +80,36 @@ namespace DAL
                 throw new Exception("Error retrieving Plan Day by ID", ex);
             }
         }
+  
+        public async Task<List<PlanDay>> GetPlanDaysByTrainingPlanIdAndNotHistorical(int trainingPlanId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.PlanDays
+                    .Where(pd => pd.TrainingPlanId == trainingPlanId && !pd.IsHistoricalProgram)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Plan Days by TrainingPlanId and historical status", ex);
+            }
+        }
+
+        public async Task<List<PlanDay>> GetPlanDaysByTrainingPlanIdAndHistorical(int trainingPlanId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.PlanDays
+                    .Where(pd => pd.TrainingPlanId == trainingPlanId && pd.IsHistoricalProgram)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving historical Plan Days by TrainingPlanId", ex);
+            }
+        }
 
         //public async Task<PlanDay> GetPlanDayByNameAsync(string name)
         //{

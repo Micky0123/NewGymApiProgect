@@ -17,5 +17,7 @@ namespace IDAL
        // Task<PlanDay> GetPlanDayByNameAsync(string name);
         Task UpdatePlanDayAsync(PlanDay planDay, int id);
         Task DeletePlanDayAsync(int id);
+        Task<List<PlanDay>> GetPlanDaysByTrainingPlanIdAndNotHistorical(int trainingPlanId);
+        Task<List<PlanDay>> GetPlanDaysByTrainingPlanIdAndHistorical(int trainingPlanId);
     }
 }
