@@ -84,11 +84,11 @@ namespace API.Controllers
     }
 
     // מחלקת עזר לבקשה
-    public class RunAlgorithmRequest
-    {
-        public int Trainee { get; set; }
-        //public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-        public int planday {  get; set; }
-        public DateTime StartTime { get; set; }
-    }
+    //public class RunAlgorithmRequest
+    //{
+    //    public int Trainee { get; set; }
+    //    //public List<ExercisePlanDTO> ExerciseOrder { get; set; }
+    //    public int planday {  get; set; }
+    //    public DateTime StartTime { get; set; }
+    //}
 }

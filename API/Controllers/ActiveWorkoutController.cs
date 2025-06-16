@@ -124,11 +124,11 @@ namespace API.Controllers
 
         // סיום תרגיל
         [HttpPost("complete-exercise")]
-        public IActionResult CompleteExercise([FromBody] StartOrCompleteExerciseRequest req)
+        public async Task<IActionResult> CompleteExercise([FromBody] StartOrCompleteExerciseRequest req)
         {
             try
             {
-                bool result = _activeWorkoutManager.CompleteExercise(req.TraineeId, req.ExerciseId, req.StartTime);
+                bool result = await _activeWorkoutManager.CompleteExercise(req.TraineeId, req.ExerciseId, req.StartTime);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -144,7 +144,65 @@ namespace API.Controllers
             _activeWorkoutManager.PrintSchedulerMatrix();
             return Ok("Printed Scheduler Matrix to console/server logs.");
         }
+
+        // ב-ActiveWorkoutController.cs
+        [HttpGet("trainee/{traineeId}/updated-workout-plan")]
+        public async Task<IActionResult> GetUpdatedWorkoutPlanForTrainee(int traineeId)
+        {
+            try
+            {
+                // תפתח פונקציה זו שתחזיר את ה-PathResultDTO המעודכן מהזיכרון/מצב השרת
+                var updatedPlan = _activeWorkoutManager.GetUpdatedWorkoutPlan(traineeId);
+
+                if (updatedPlan == null)
+                {
+                    return NotFound("No active workout plan found or plan completed.");
+                }
+
+                return Ok(updatedPlan); // מחזיר את כל ה-PathResultDTO המעודכן
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        // --- נקודת קצה עבור GetUpdatedWorkoutPlan ---
+        // זו תתאים לבקשת GET ל- /api/ActiveWorkout/GetUpdatedWorkoutPlan/{traineeId}
+        [HttpGet("GetUpdatedWorkoutPlan/{traineeId}")]
+        [ProducesResponseType(typeof(PathResult), StatusCodes.Status200OK)] // מציין את סוג התגובה בהצלחה
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // מציין תגובת 404
+        public ActionResult<PathResult> GetUpdatedWorkoutPlan(int traineeId)
+        {
+            var result = _activeWorkoutManager.GetUpdatedWorkoutPlan(traineeId);
+            if (result == null)
+            {
+                // חשוב: אם הפונקציה ב-manager מחזירה null כשלא נמצא אימון, צריך להחזיר NotFound()
+                // זה יגרום לשגיאת 404 שהפרונטאנד שלך מצפה לה
+                return NotFound($"No active workout found for trainee ID: {traineeId}.");
+            }
+            return Ok(result); // החזרת הנתונים עם קוד 200 OK
+        }
+
+        // --- נקודת קצה עבור GetNextExerciseInWorkout ---
+        // זו תתאים לבקשת GET ל- /api/ActiveWorkout/GetNextExerciseInWorkout/{traineeId}
+        [HttpGet("GetNextExerciseInWorkout/{traineeId}")]
+        [ProducesResponseType(typeof(NextExerciseResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<NextExerciseResponse> GetNextExerciseInWorkout(int traineeId)
+        {
+            var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
+
+            // במקרה ש-GetNextExerciseInWorkout מחזיר תגובה שמציינת שהאימון הושלם/לא נמצא,
+            // נחזיר תמיד Ok, כי ה-NextExerciseResponse DTO כבר מכיל את המידע הזה.
+            // הפרונטאנד יבדוק את שדה IsWorkoutComplete כדי לדעת את הסטטוס.
+            return Ok(response);
+        }
     }
+
+
+
 
     // מודלים ל-Request
     public class StartWorkoutRequest
@@ -167,5 +225,11 @@ namespace API.Controllers
         public int SlotMinutes { get; set; }
         public int SlotCount { get; set; }
     }
-
+    //public class RunAlgorithmRequest
+    //{
+    //    public int Trainee { get; set; }
+    //    //public List<ExercisePlanDTO> ExerciseOrder { get; set; }
+    //    public int planday { get; set; }
+    //    public DateTime StartTime { get; set; }
+    //}
 }

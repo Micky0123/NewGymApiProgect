@@ -85,6 +85,7 @@ namespace API
             builder.Services.AddScoped<CreateTrainingPlan>();
             builder.Services.AddScoped<ActiveWorkoutManager>();
 
+
             builder.Services.AddMemoryCache();
             // builder.Services.AddSingleton<ActiveWorkoutManager>();
             //builder.Services.AddScoped<SchedulerManager>();

@@ -14,6 +14,9 @@ namespace DTO
         public List<Slot> Slots { get; set; } = new List<Slot>();// רשימת סלוטים (אם תרגיל יכול לתפוס יותר מסלוט אחד)
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; } // זמן סיום התרגיל
+
+        public int OriginalExercise { get; set; }// מספר התרגיל ברשימה של המתאמן
+        public bool IsDone { get; set; }//  האם התרגיל בוצע
     }
 }
 

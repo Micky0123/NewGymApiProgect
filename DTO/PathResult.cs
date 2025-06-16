@@ -11,8 +11,10 @@ namespace DTO
     {
         public TraineeDTO Trainee { get; set; }
         public Dictionary< int,ExerciseEntry> ExerciseIdsInPath { get; set; } = new();
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public int AlternativesUsed { get; set; } = 0; // מספר החילופים שנעשו
+        public int CurrentExerciseOrderIndex { get; set; } // עוקב אחרי התרגיל הנוכחי לפי OrderInList
+        public bool IsWorkoutComplete { get; set; } // האם האימון הושלם?
     }
 }
