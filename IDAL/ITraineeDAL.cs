@@ -9,10 +9,11 @@ namespace IDAL
 {
     public interface ITraineeDAL
     {
-        Task AddTraineeAsync(Trainee trainee);
+        Task<Trainee> AddTraineeAsync(Trainee trainee);
         Task<List<Trainee>> GetAllTraineesAsync();
         Task<Trainee> GetTraineeByIdAsync(int id);
         Task<Trainee> GetTraineeByNameAsync(string name);
+        Task<Trainee> GetTraineeByIdNumberAsync(string idNumber);
         Task UpdateTraineeAsync(Trainee trainee, int id);
         Task DeleteTraineeAsync(int id);
     }

@@ -23,6 +23,7 @@ namespace IDAL
         Task<TrainingPlan> GetActiveTrainingPlanWithDaysOfTrainee(int traineeId);
         Task<List<TrainingPlan>> GetAllHistoryTrainingPlansWithDaysOfTrainee(int traineeId);
 
+        Task<TrainingPlan?> GetActiveTrainingPlanWithDetails(int traineeId);
 
         //Task<List<TrainingPlan>> GetAllActiveTrainingPlansOfTrainee(int traineeId);
         //Task<List<TrainingPlan>> GetAllHistoryTrainingPlansOfTrainee(int traineeId);

@@ -80,7 +80,7 @@ namespace DAL
                 throw new Exception("Error retrieving Plan Day by ID", ex);
             }
         }
-  
+
         public async Task<List<PlanDay>> GetPlanDaysByTrainingPlanIdAndNotHistorical(int trainingPlanId)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -151,6 +151,62 @@ namespace DAL
             {
                 throw new Exception("Error updating Plan Day", ex);
             }
+        }
+
+        public async Task<TrainingPlan?> GetActiveTrainingPlanByTraineeIdAsync(int traineeId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // Assumes TrainingPlan entity has a navigation property to Trainee
+                return await ctx.TrainingPlans
+                                 .Include(tp => tp.Trainee) // Eager load Trainee details
+                                 .FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error GetActiveTrainingPlanByTraineeIdAsync", ex);
+            }
+        }
+
+        // New implementation for GetDefaultPlanDaysByTrainingPlanIdAsync
+        public async Task<List<PlanDay>> GetDefaultPlanDaysByTrainingPlanIdAsync(int trainingPlanId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // Assumes TrainingPlan entity has a navigation property to Trainee
+                return await ctx.PlanDays
+                                 .Where(pd => pd.TrainingPlanId == trainingPlanId && pd.IsDefaultProgram)
+                                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error GetDefaultPlanDaysByTrainingPlanIdAsync", ex);
+            }
+
+        }
+
+        // New implementation for GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync
+        public async Task<PlanDay?> GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(int parentPlanDayId, int trainingPlanId)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                // Assumes TrainingPlan entity has a navigation property to Trainee
+                return await ctx.PlanDays
+                                 .Where(pd => pd.ParentProgramId == parentPlanDayId &&
+                                              pd.IsHistoricalProgram == true &&
+                                              pd.TrainingPlanId == trainingPlanId)
+                                 .OrderByDescending(pd => pd.CreationDate)
+                                 .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync", ex);
+            }
+
+
         }
     }
 }

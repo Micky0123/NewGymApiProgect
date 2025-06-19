@@ -11,13 +11,14 @@ namespace DAL
 {
     public class TraineeDAL : ITraineeDAL
     {
-        public async Task AddTraineeAsync(Trainee trainee)
+        public async Task<Trainee> AddTraineeAsync(Trainee trainee)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
                 await ctx.Trainees.AddAsync(trainee);
                 await ctx.SaveChangesAsync();
+                return trainee;
             }
             catch (Exception ex)
             {
@@ -170,6 +171,19 @@ namespace DAL
             catch (Exception ex)
             {
                 throw new Exception("Error retrieving Trainee by name", ex);
+            }
+        }
+        public async Task<Trainee> GetTraineeByIdNumberAsync(string idNumber)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.Trainees.FirstOrDefaultAsync(t => t.Idnumber == idNumber);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Trainee by ID number", ex);
+
             }
         }
 

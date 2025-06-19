@@ -24,11 +24,12 @@ namespace BLL
             });
             mapper = new Mapper(configTaskConverter);
         }
-        public async Task AddTraineeAsync(TraineeDTO Trainee)
+        public async Task<TraineeDTO>  AddTraineeAsync(TraineeDTO Trainee)
         {
 
             Trainee trainee1 = mapper.Map<Trainee>(Trainee);
-            await traineeDAL.AddTraineeAsync(trainee1);
+            var addedTraineeEntity = await traineeDAL.AddTraineeAsync(trainee1);
+            return mapper.Map<TraineeDTO>(addedTraineeEntity);
         }
 
         public async Task DeleteTraineeAsync(int id)
@@ -54,6 +55,11 @@ namespace BLL
             return mapper.Map<TraineeDTO>(trainee);
         }
 
+        public async Task<TraineeDTO> GetTraineeByIdNumberAsync(string idNumber)
+        {
+            Trainee trainee = await traineeDAL.GetTraineeByIdNumberAsync(idNumber);
+            return mapper.Map<TraineeDTO>(trainee);
+        }
         public async Task UpdateTraineeAsync(TraineeDTO Trainee, int id)
         {
             Trainee trainee = mapper.Map<Trainee>(Trainee);

@@ -27,6 +27,7 @@ namespace API.Controllers
         private readonly IDeviceMuscleEdgeBLL _deviceMuscleEdgeBLL;
         private readonly ITraineeBLL _traineeBLL;
 
+
         // הקונסטרקטור מקבל את המנהלים דרך DI
         public ActiveWorkoutController(
             ActiveWorkoutManager activeWorkoutManager,
@@ -47,7 +48,7 @@ namespace API.Controllers
 
         // אתחול ראשוני של הסקדולר (פעם אחת בתחילת יום/מערכת)
         [HttpPost("initialize")]
- 
+
         public async Task<IActionResult> InitializeScheduler([FromBody] SchedulerInitRequest req)
         {
             if (_activeWorkoutManager.IsInitialized)
@@ -86,24 +87,40 @@ namespace API.Controllers
         [HttpPost("start-workout")]
         public async Task<IActionResult> StartWorkout([FromBody] RunAlgorithmRequest request)
         {
-            try { 
-            if (request == null || request.Trainee == null || request.planday == 0)
-                return BadRequest("Invalid data");
-
-            var trainee = await _traineeBLL.GetTraineeByIdAsync(request.Trainee);
-            // קבלת כל התרגילים של התוכנית היומית
-            List<ExercisePlanDTO> exerciseOrder = await _planExerciseBLL.GetExercisesByPlanDayIdAsync(request.planday);
-
-            if (exerciseOrder == null || !exerciseOrder.Any())
-                return NotFound("No exercises found for the selected plan day");
-
-            // הרצת האלגוריתם
-             await _activeWorkoutManager.StartWorkoutAsync(trainee, exerciseOrder, request.StartTime, request.planday);
-            return Ok("Workout started for trainee " + trainee.TraineeId);
-            }
-            catch (Exception ex)
+            try
             {
-                return BadRequest(ex.Message);
+                if (request == null || request.Trainee == null || request.planday == 0)
+                    return BadRequest("Invalid data");
+
+                var trainee = await _traineeBLL.GetTraineeByIdAsync(request.Trainee);
+                // קבלת כל התרגילים של התוכנית היומית
+                List<ExercisePlanDTO> exerciseOrder = await _planExerciseBLL.GetExercisesByPlanDayIdAsync(request.planday);
+
+                if (exerciseOrder == null || !exerciseOrder.Any())
+                    return NotFound("No exercises found for the selected plan day");
+
+                // הרצת האלגוריתם
+                await _activeWorkoutManager.StartWorkoutAsync(trainee, exerciseOrder, request.StartTime, request.planday);
+
+                return Ok("Workout started for trainee " + trainee.TraineeId);
+            }
+            catch (ServerBusyException ex) // תפוס את החריגה הספציפית שלך
+            {
+                Console.Error.WriteLine($"שגיאת שרת עמוס בהתחלת אימון: {ex.Message}");
+                return StatusCode(429, new ProblemDetails
+                {
+                    Type = "https://example.com/problems/server-busy",
+                    Title = "שרת עמוס",
+                    Status = 429,
+                    Detail = ex.Message, // ההודעה מהחריגה המותאמת אישית
+                    Instance = HttpContext.Request.Path
+                });
+            }
+            catch (Exception ex) // תפוס כל חריגה כללית אחרת
+            {
+                Console.Error.WriteLine($"שגיאה כללית בהתחלת אימון: {ex.Message}");
+                // ניתן לשקול כאן להחזיר ProblemDetails גם לשגיאות כלליות
+                return StatusCode(500, $"אירעה שגיאה פנימית בשרת: {ex.Message}");
             }
         }
 
@@ -198,6 +215,29 @@ namespace API.Controllers
             // נחזיר תמיד Ok, כי ה-NextExerciseResponse DTO כבר מכיל את המידע הזה.
             // הפרונטאנד יבדוק את שדה IsWorkoutComplete כדי לדעת את הסטטוס.
             return Ok(response);
+        }
+
+        // ***** NEW ENDPOINT *****
+        [HttpGet("active-plan/{traineeId}")] // Example: GET /api/ActiveWorkout/active-plan/1
+        public async Task<ActionResult<ActiveTrainingPlanResponse>> GetTraineeActiveTrainingPlan(int traineeId)
+        {
+            try
+            {
+                var activePlan = await _activeWorkoutManager.GetActiveTrainingPlanForTrainee(traineeId);
+
+                if (activePlan == null)
+                {
+                    return NotFound($"No active training plan found for trainee with ID {traineeId}.");
+                }
+
+                return Ok(activePlan);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (use a proper logger in real app)
+                Console.WriteLine($"Error in GetTraineeActiveTrainingPlan: {ex.Message}");
+                return StatusCode(500, "An error occurred while retrieving the active training plan.");
+            }
         }
     }
 

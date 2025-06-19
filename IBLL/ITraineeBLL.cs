@@ -9,10 +9,11 @@ namespace IBLL
 {
     public interface ITraineeBLL
     {
-        Task AddTraineeAsync(TraineeDTO trainee);
+        Task<TraineeDTO> AddTraineeAsync(TraineeDTO trainee);
         Task<List<TraineeDTO>> GetAllTraineesAsync();
         Task<TraineeDTO> GetTraineeByIdAsync(int id);
         Task<TraineeDTO> GetTraineeByNameAsync(string name);
+        Task<TraineeDTO> GetTraineeByIdNumberAsync(string idNumber);
 
         Task UpdateTraineeAsync(TraineeDTO trainee, int id);
         Task DeleteTraineeAsync(int id);

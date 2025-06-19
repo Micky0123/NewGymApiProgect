@@ -60,6 +60,15 @@ namespace API.Profiles
                 // לדוגמה, אם ExerciseEntry מכיל ExerciseDetailsDTO
                 // .ForMember(dest => dest.ExerciseDetails, opt => opt.MapFrom(src => src.ExerciseDetails))
                 ;
+
+            CreateMap<RegisterRequest, TraineeDTO>()
+           .ForMember(dest => dest.TraineeId, opt => opt.Ignore()) // תן ל-DB להקצות ID
+           .ForMember(dest => dest.LoginDateTime, opt => opt.Ignore()) // נעדכן ידנית
+           .ForMember(dest => dest.IsAdmin, opt => opt.Ignore()) // נעדכן ידנית
+                                                                 // עבור Gender: AutoMapper אמור למפות אוטומטית int ל-Enum אם הערכים תואמים.
+                                                                 // אם לא, אפשר להוסיף:
+           .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => (TraineeDTO.EGender)src.Gender));
+
         }
 
     }

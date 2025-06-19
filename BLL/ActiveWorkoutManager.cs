@@ -5,6 +5,7 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DTO;
 using IBLL;
 using IDAL;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Graph.Models;
 using Microsoft.Kiota.Abstractions;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -433,6 +435,7 @@ namespace BLL
         private readonly IExercisePlanDAL _exercisePlanDAL; // השתמש בזה ולא בשני שדות נפרדים
         private readonly IMapper _mapper; // השתמש בזה ולא בשני שדות נפרדים
         private readonly IMemoryCache _cache;
+        private readonly ITrainingPlanDAL _trainingPlan;
 
         private readonly SemaphoreSlim _startWorkoutLock = new SemaphoreSlim(1, 1);
 
@@ -441,12 +444,14 @@ namespace BLL
             ITraineeBLL traineeBLL,
             IPlanDayDAL planDayDAL,
             IExercisePlanDAL exercisePlanDAL,
+            ITrainingPlanDAL trainingPlanDAL,
             IMapper mapper)
         {
             _cache = cache;
             _traineeBLL = traineeBLL;
             _planDayDAL = planDayDAL; // שימוש ב-planDayDAL שהוזרק
             _exercisePlanDAL = exercisePlanDAL; // שימוש ב-exercisePlanDAL שהוזרק
+            _trainingPlan = trainingPlanDAL;
             _mapper = mapper; // <--- שמור את המופע המוזרק
             // activeTrainees = new Dictionary<int, TraineeExerciseStatus>(); // אין צורך בזה
 
@@ -504,10 +509,22 @@ namespace BLL
         // --- קריאה לאלגוריתם והתחלת אימון ---
         public async Task<PathResult> StartWorkoutAsync(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime, int planDayId)
         {
-            var scheduler = GetScheduler();
-            await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
-            try
+            var scheduler = GetScheduler(); // המתודה הקיימת שלך
+            bool enteredLock = false; // אתחל כאן כדי להיות בטוחים
+
+            try // בלוק try שמקיף את הניסיון להיכנס למנעול
             {
+                // מחכים עד שהמנעול ישתחרר ב-2 דקות (120 שניות)
+                enteredLock = await _startWorkoutLock.WaitAsync(TimeSpan.FromSeconds(120));
+
+                if (!enteredLock)
+                {
+                    // אם המנעול לא נכנס בתוך 120 שניות, זרוק חריגה מותאמת אישית
+                    throw new ServerBusyException("השרת עמוס כרגע בעיבוד בקשות אימון. אנא המתן מעט ונסה שוב.");
+                }
+
+                // אם הגענו לכאן, נכנסנו למנעול בהצלחה
+                // ... (הקוד הקיים שלך בתוך ה-try הפנימי)
                 // קבל את ה-PathResult מה-scheduler
                 var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
 
@@ -520,28 +537,6 @@ namespace BLL
                 {
                     var exerciseEntryFromScheduler = pair.Value; // PathResultExerciseEntry
                     var originalExercisePlan = exerciseOrder.FirstOrDefault(ep => ep.ExercisePlanId == exerciseEntryFromScheduler.OriginalExercise); // השג את פרטי התוכנית המקוריים
-                    //if (originalExercisePlan == null)
-                    //{
-                    //    // אם לא נמצא, זהו מצב חריג, טפל בו
-                    //    //Console.WriteLine($"Warning: Original ExercisePlan not found for ID: {exerciseEntryFromScheduler.OriginalExercise}");
-                    //    //continue;
-                    //  //אני רוצה שהוא ישים בתרגיל המקורי את התרגיל הנוכחי
-                    //    ;originalExercisePlan = new ExercisePlanDTO
-                    //    {
-                    //        ExerciseId = exerciseEntryFromScheduler.ExerciseId,
-                    //        PlanDayId = planDayId,
-                    //        TimesMax = 0, // או ערך ברירת מחדל אחר
-                    //        TimesMin = 0, // או ערך ברירת מחדל אחר
-                    //        PlanRepetitionsMax = 0, // או ערך ברירת מחדל אחר
-                    //        PlanRepetitionsMin = 0, // או ערך ברירת מחדל אחר
-                    //        PlanSets = 0, // או ערך ברירת מחדל אחר
-                    //        PlanWeight = 0, // או ערך ברירת מחדל אחר
-                    //        CategoryId = 0, // או ערך ברירת מחדל אחר
-                    //        SubMuscleId = 0, // או ערך ברירת מחדל אחר
-                    //        TrainingDateTime = startTime,
-                    //        IndexOrder = exerciseEntryFromScheduler.OrderInList
-                    //    };  
-                    //}
 
                     exercisesStatus.Add(new ExerciseStatusEntry
                     {
@@ -551,13 +546,6 @@ namespace BLL
                         IsDone = false,
                         PerformedAt = null,
                         StartedAt = null,
-                        // העתק פרטים מ-ExercisePlanDTO
-                        //Sets = originalExercisePlan.Sets,
-                        //Reps = originalExercisePlan.Reps,
-                        //RestTime = originalExercisePlan.RestTime,
-                        //TimesMax = originalExercisePlan.TimesMax,
-                        //TimesMin = originalExercisePlan.TimesMin,
-                        //ExerciseDetails = originalExercisePlan.ExerciseDetails // כבר DTO
                     });
                 }
 
@@ -573,16 +561,104 @@ namespace BLL
 
                 _cache.Set($"Trainee_{trainee.TraineeId}", traineeWorkoutStatus);
 
-                // המר את TraineeExerciseStatus ל-PathResultDTO להחזרה ל-frontend
-                //return MapTraineeStatusToPathResultDTO(traineeWorkoutStatus);
-                // *** המר את TraineeExerciseStatus ל-PathResultDTO ישירות כאן ***
-                return _mapper.Map<PathResult>(traineeWorkoutStatus); // <--- שינוי כאן!
+                return _mapper.Map<PathResult>(traineeWorkoutStatus);
             }
-            finally
+            finally // בלוק finally שיוודא שהמנעול משתחרר
             {
-                _startWorkoutLock.Release();
+                // חשוב: שחרר את המנעול רק אם נכנסנו אליו
+                if (enteredLock)
+                {
+                    _startWorkoutLock.Release();
+                }
             }
         }
+
+        //// --- קריאה לאלגוריתם והתחלת אימון ---
+        //public async Task<PathResult> StartWorkoutAsync(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime, int planDayId)
+        //{
+        //    var scheduler = GetScheduler();
+        //    bool enteredLock = await _startWorkoutLock.WaitAsync(TimeSpan.FromSeconds(120)); // מחכים עד שהמנעול ישתחרר ב-2 דקות
+
+
+        //    // אם הגענו לכאן, נכנסו למנעול בהצלחה
+        //    //await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
+        //    try
+        //    {
+        //        // קבל את ה-PathResult מה-scheduler
+        //        var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
+
+        //        if (pathResult == null)
+        //            throw new Exception("לא נמצא מסלול מתאים עבור מתאמן זה.");
+
+        //        // בניית TraineeExerciseStatus מה-PathResult
+        //        var exercisesStatus = new List<ExerciseStatusEntry>();
+        //        foreach (var pair in pathResult.ExerciseIdsInPath.OrderBy(p => p.Value.OrderInList))
+        //        {
+        //            var exerciseEntryFromScheduler = pair.Value; // PathResultExerciseEntry
+        //            var originalExercisePlan = exerciseOrder.FirstOrDefault(ep => ep.ExercisePlanId == exerciseEntryFromScheduler.OriginalExercise); // השג את פרטי התוכנית המקוריים
+        //            //if (originalExercisePlan == null)
+        //            //{
+        //            //    // אם לא נמצא, זהו מצב חריג, טפל בו
+        //            //    //Console.WriteLine($"Warning: Original ExercisePlan not found for ID: {exerciseEntryFromScheduler.OriginalExercise}");
+        //            //    //continue;
+        //            //  //אני רוצה שהוא ישים בתרגיל המקורי את התרגיל הנוכחי
+        //            //    ;originalExercisePlan = new ExercisePlanDTO
+        //            //    {
+        //            //        ExerciseId = exerciseEntryFromScheduler.ExerciseId,
+        //            //        PlanDayId = planDayId,
+        //            //        TimesMax = 0, // או ערך ברירת מחדל אחר
+        //            //        TimesMin = 0, // או ערך ברירת מחדל אחר
+        //            //        PlanRepetitionsMax = 0, // או ערך ברירת מחדל אחר
+        //            //        PlanRepetitionsMin = 0, // או ערך ברירת מחדל אחר
+        //            //        PlanSets = 0, // או ערך ברירת מחדל אחר
+        //            //        PlanWeight = 0, // או ערך ברירת מחדל אחר
+        //            //        CategoryId = 0, // או ערך ברירת מחדל אחר
+        //            //        SubMuscleId = 0, // או ערך ברירת מחדל אחר
+        //            //        TrainingDateTime = startTime,
+        //            //        IndexOrder = exerciseEntryFromScheduler.OrderInList
+        //            //    };  
+        //            //}
+
+        //            exercisesStatus.Add(new ExerciseStatusEntry
+        //            {
+        //                OriginalExercise = exerciseEntryFromScheduler.OriginalExercise == 0 ? exerciseEntryFromScheduler.ExerciseId : exerciseEntryFromScheduler.OriginalExercise,
+        //                ExerciseId = exerciseEntryFromScheduler.ExerciseId,
+        //                OrderInList = exerciseEntryFromScheduler.OrderInList,
+        //                IsDone = false,
+        //                PerformedAt = null,
+        //                StartedAt = null,
+        //                // העתק פרטים מ-ExercisePlanDTO
+        //                //Sets = originalExercisePlan.Sets,
+        //                //Reps = originalExercisePlan.Reps,
+        //                //RestTime = originalExercisePlan.RestTime,
+        //                //TimesMax = originalExercisePlan.TimesMax,
+        //                //TimesMin = originalExercisePlan.TimesMin,
+        //                //ExerciseDetails = originalExercisePlan.ExerciseDetails // כבר DTO
+        //            });
+        //        }
+
+        //        var traineeWorkoutStatus = new TraineeExerciseStatus
+        //        {
+        //            Trainee = trainee,
+        //            Exercises = exercisesStatus,
+        //            planDayId = planDayId,
+        //            WorkoutStartTime = startTime,
+        //            WorkoutEndTime = pathResult.EndTime, // זמן סיום מהאלגוריתם
+        //            CurrentExerciseOrderIndex = 0 // התחל מהתרגיל הראשון
+        //        };
+
+        //        _cache.Set($"Trainee_{trainee.TraineeId}", traineeWorkoutStatus);
+
+        //        // המר את TraineeExerciseStatus ל-PathResultDTO להחזרה ל-frontend
+        //        //return MapTraineeStatusToPathResultDTO(traineeWorkoutStatus);
+        //        // *** המר את TraineeExerciseStatus ל-PathResultDTO ישירות כאן ***
+        //        return _mapper.Map<PathResult>(traineeWorkoutStatus); // <--- שינוי כאן!
+        //    }
+        //    finally
+        //    {
+        //        _startWorkoutLock.Release();
+        //    }
+        //}
 
         // --- קריאה להתחלת תרגיל עבור מתאמן ---
         public bool StartExercise(int traineeId, int exerciseId, DateTime startTime)
@@ -590,7 +666,7 @@ namespace BLL
             if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found or workout not active.");
 
-            var currentExercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId && e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex+1));
+            var currentExercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId && e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex + 1));
             if (currentExercise == null)
             {
                 // זה יכול לקרות אם ה-frontend מנסה להתחיל תרגיל לא נכון או שהסדר השתנה
@@ -609,7 +685,7 @@ namespace BLL
             if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
                 throw new Exception("Trainee not found or workout not active.");
 
-            var exerciseToComplete = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId && !e.IsDone && e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex+1));
+            var exerciseToComplete = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId && !e.IsDone && e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex + 1));
             if (exerciseToComplete == null)
             {
                 throw new Exception($"Exercise {exerciseId} is not the current active exercise or already completed.");
@@ -652,7 +728,7 @@ namespace BLL
                 return new NextExerciseResponse { TraineeId = traineeId, IsWorkoutComplete = true, Message = "לא נמצא אימון פעיל למתאמן." };
             }
 
-            var nextExerciseEntry = traineeStatus.Exercises.FirstOrDefault(e => e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex+1));
+            var nextExerciseEntry = traineeStatus.Exercises.FirstOrDefault(e => e.OrderInList == (traineeStatus.CurrentExerciseOrderIndex + 1));
 
             if (nextExerciseEntry == null)
             {
@@ -673,7 +749,7 @@ namespace BLL
                 NextExercise = _mapper.Map<ExerciseEntry>(nextExerciseEntry), // המרה ל-DTO
                 IsWorkoutComplete = false,
                 RemainingExercisesCount = traineeStatus.Exercises.Count(e => !e.IsDone) - 1, // כמה נותרו (לא כולל הנוכחי)
-              //  RecommendedRestTimeSeconds = nextExerciseEntry.RestTime // זמן מנוחה
+                                                                                             //  RecommendedRestTimeSeconds = nextExerciseEntry.RestTime // זמן מנוחה
             };
         }
 
@@ -740,6 +816,9 @@ namespace BLL
         // --- פונקציות עזר: המרה מ-TraineeExerciseStatus ל-PathResultDTO ---
         private PathResult MapTraineeStatusToPathResultDTO(TraineeExerciseStatus status)
         {
+            // *** פשוט קראי ל-AutoMapper כאן ***
+            return _mapper.Map<PathResult>(status);
+
             // var exerciseEntries = new List<ExerciseEntry>();
             //var exerciseEntries = new Dictionary<int ,ExerciseEntry>();
             //int i = 0;
@@ -761,9 +840,249 @@ namespace BLL
             //    IsWorkoutComplete = status.Exercises.All(e => e.IsDone)
             //};
 
-            // *** פשוט קראי ל-AutoMapper כאן ***
-            return _mapper.Map<PathResult>(status);
         }
+
+        //public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
+        //{
+        //    // Fetch the active training plan for the trainee, including related PlanDays and Trainee details.
+        //    // Using your DAL interfaces, you would call appropriate methods.
+        //    // This assumes your DAL has methods to fetch TrainingPlan with its related PlanDays and Trainee.
+        //    // If IDAL/DAL do not provide direct Include, you might need to fetch them separately
+        //    // or adapt your DAL to provide such composite data.
+
+        //    // Example assuming your DAL methods exist and return DB Entities:
+        //    // First, get the active TrainingPlan.
+        //    var activeTrainingPlan = await _planDayDAL.GetActiveTrainingPlanByTraineeIdAsync(traineeId); // Assuming you add this method to IPlanDayDAL/PlanDayDAL
+
+        //    if (activeTrainingPlan == null)
+        //    {
+        //        return null; // No active plan for this trainee
+        //    }
+
+        //    // Get all default PlanDays for this active training plan
+        //    var defaultPlanDays = await _planDayDAL.GetDefaultPlanDaysByTrainingPlanIdAsync(activeTrainingPlan.TrainingPlanId); // Assuming this method exists
+
+        //    // Get trainee details for TraineeName
+        //    var trainee = await _traineeBLL.GetTraineeByIdAsync(traineeId); // Assuming GetTraineeByIdAsync returns Trainee entity or DTO
+
+        //    // Calculate the start of the current week (Sunday at midnight)
+        //    DateTime today = DateTime.Today;
+        //    DayOfWeek currentDayOfWeek = today.DayOfWeek;
+        //    int daysSinceSunday = (int)currentDayOfWeek - (int)DayOfWeek.Sunday;
+        //    if (daysSinceSunday < 0)
+        //    {
+        //        daysSinceSunday += 7; // Adjust for systems where Sunday is not 0 (e.g., ISO-8601 where Monday is 1)
+        //    }
+        //    DateTime startOfCurrentWeek = today.AddDays(-daysSinceSunday);
+        //    startOfCurrentWeek = new DateTime(startOfCurrentWeek.Year, startOfCurrentWeek.Month, startOfCurrentWeek.Day, 0, 0, 0, DateTimeKind.Local); // Or Utc, depending on your DB storing convention
+
+        //    var planDaysForFrontend = new List<PlanDayResponseForFrontend>();
+
+        //    foreach (var defaultPlanDay in defaultPlanDays)
+        //    {
+        //        // Find the latest completed historical "child" PlanDay for this default PlanDay and the current trainee's active training plan.
+        //        // This assumes PlanDay entity has ParentProgramId, IsHistoricalProgram, CreationDate, and TrainingPlanId.
+        //        var lastCompletedChild = await _planDayDAL.GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(
+        //                                    defaultPlanDay.PlanDayId,
+        //                                    activeTrainingPlan.TrainingPlanId); // Assuming this method exists in IPlanDayDAL/PlanDayDAL
+
+        //        bool isCompletedThisWeek = false;
+        //        if (lastCompletedChild != null && lastCompletedChild.CreationDate >= startOfCurrentWeek)
+        //        {
+        //            isCompletedThisWeek = true;
+        //        }
+
+        //        planDaysForFrontend.Add(new PlanDayResponseForFrontend
+        //        {
+        //            PlanDayId = defaultPlanDay.PlanDayId,
+        //            ProgramName = defaultPlanDay.ProgramName,
+        //            DayOrder = defaultPlanDay.DayOrder,
+        //            IsDefaultProgram = defaultPlanDay.IsDefaultProgram,
+        //            IsCompletedThisWeek = isCompletedThisWeek
+        //        });
+        //    }
+
+        //    var response = new ActiveTrainingPlanResponse
+        //    {
+        //        TrainingPlanId = activeTrainingPlan.TrainingPlanId,
+        //        TraineeId = traineeId, // Use the traineeId from the parameter
+        //        TraineeName = trainee?.TraineeName ?? "Unknown Trainee", // Safely access trainee name
+        //        PlanDays = planDaysForFrontend
+        //    };
+
+        //    return response;
+        //}
+
+        public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
+        {
+            var activePlanEntity = await _trainingPlan.GetActiveTrainingPlanWithDetails(traineeId);
+
+            if (activePlanEntity == null)
+            {
+                return null;
+            }
+
+            // חישוב תחילת השבוע (ראשון ב-00:00)
+            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+
+            var planDaysForFrontend = new List<PlanDayResponseForFrontend>();
+
+            if (activePlanEntity.PlanDays != null)
+            {
+                foreach (var planDayEntity in activePlanEntity.PlanDays.OrderBy(pd => pd.DayOrder))
+                {
+                    if (planDayEntity.IsDefaultProgram)
+                    {
+                        // נבדוק האם יום האימון הושלם השבוע
+                        // אם LastCompletionDate הוא null, או שהוא מוקדם מראשון השבוע - הוא לא הושלם השבוע
+                        //bool isCompletedThisWeek = planDayEntity.CreationDate.HasValue &&
+                        //                           planDayEntity.CreationDate.Value >= startOfWeek;
+
+                        var lastCompletedChild = await _planDayDAL.GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(
+                            planDayEntity.PlanDayId, activePlanEntity.TrainingPlanId);
+
+                        if ((lastCompletedChild != null && lastCompletedChild.CreationDate <= startOfWeek)||(lastCompletedChild == null))
+                        {
+                            // bool isCompletedThisWeek = lastCompletedChild.CreationDate >= startOfWeek;
+                            // הוסף רק ימי אימון שעדיין לא הושלמו השבוע
+                            //if (!isCompletedThisWeek)
+                            //{
+                            planDaysForFrontend.Add(new PlanDayResponseForFrontend
+                            {
+                                PlanDayId = planDayEntity.PlanDayId,
+                                ProgramName = planDayEntity.ProgramName,
+                                DayOrder = planDayEntity.DayOrder,
+                                IsDefaultProgram = planDayEntity.IsDefaultProgram,
+                                IsCompletedThisWeek = false, // תמיד יהיה false כי סיננו החוצה את אלו שהושלמו
+                                                             // העבר שדות נוספים מה-Entity ל-DTO
+                                TrainingPlanId = planDayEntity.TrainingPlanId,
+                                CreationDate = planDayEntity.CreationDate,
+                                ParentProgramId = planDayEntity.ParentProgramId,
+                                IsHistoricalProgram = planDayEntity.IsHistoricalProgram
+                            });
+                            //}
+                        }
+                        else
+                        {
+                            planDaysForFrontend.Add(new PlanDayResponseForFrontend
+                            {
+                                PlanDayId = planDayEntity.PlanDayId,
+                                ProgramName = planDayEntity.ProgramName,
+                                DayOrder = planDayEntity.DayOrder,
+                                IsDefaultProgram = planDayEntity.IsDefaultProgram,
+                                IsCompletedThisWeek = true,
+                                TrainingPlanId = planDayEntity.TrainingPlanId,
+                                CreationDate = planDayEntity.CreationDate,
+                                ParentProgramId = planDayEntity.ParentProgramId,
+                                IsHistoricalProgram = planDayEntity.IsHistoricalProgram
+                            });
+                        }
+
+
+                        //bool isCompletedThisWeek = planDayEntity.CreationDate >= startOfWeek;
+                        //// הוסף רק ימי אימון שעדיין לא הושלמו השבוע
+                        //if (!isCompletedThisWeek)
+                        //{
+                        //    planDaysForFrontend.Add(new PlanDayResponseForFrontend
+                        //    {
+                        //        PlanDayId = planDayEntity.PlanDayId,
+                        //        ProgramName = planDayEntity.ProgramName,
+                        //        DayOrder = planDayEntity.DayOrder,
+                        //        IsDefaultProgram = planDayEntity.IsDefaultProgram,
+                        //        IsCompletedThisWeek = false, // תמיד יהיה false כי סיננו החוצה את אלו שהושלמו
+                        //                                     // העבר שדות נוספים מה-Entity ל-DTO
+                        //        TrainingPlanId = planDayEntity.TrainingPlanId,
+                        //        CreationDate = planDayEntity.CreationDate,
+                        //        ParentProgramId = planDayEntity.ParentProgramId,
+                        //        IsHistoricalProgram = planDayEntity.IsHistoricalProgram
+                        //    });
+                        //}
+                    }
+
+                }
+            }
+
+            var response = new ActiveTrainingPlanResponse
+            {
+                TrainingPlanId = activePlanEntity.TrainingPlanId,
+                TraineeId = activePlanEntity.TraineeId,
+                TraineeName = activePlanEntity.Trainee?.TraineeName ?? "מתאמן",
+                GoalId = activePlanEntity.GoalId,
+                TrainingDays = activePlanEntity.TrainingDays,
+                TrainingDurationId = activePlanEntity.TrainingDurationId,
+                FitnessLevelId = activePlanEntity.FitnessLevelId,
+                StartDate = activePlanEntity.StartDate,
+                EndDate = activePlanEntity.EndDate,
+                IsActive = activePlanEntity.IsActive,
+                PlanDays = planDaysForFrontend
+            };
+
+            return response;
+        }
+
+
+        //public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
+        //{
+        //    // 1. קבל את התוכנית הפעילה ופרטיה מה-DAL
+        //    var activePlanEntity = await .GetActiveTrainingPlanWithDetails(traineeId);
+
+        //    if (activePlanEntity == null)
+        //    {
+        //        return null; // אין תוכנית פעילה
+        //    }
+
+        //    // 2. קבל את היסטוריית האימונים שהושלמו השבוע מה-DAL
+        //    var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+        //    var completedPlanDayIdsThisWeek = await _trainingPlanRepository.GetCompletedPlanDayIdsThisWeek(traineeId, startOfWeek);
+
+        //    // 3. בנה את רשימת ימי האימון עבור ה-Frontend, וסנן החוצה את אלו שהושלמו
+        //    var planDaysForFrontend = new List<PlanDayResponseForFrontend>();
+
+        //    // וודא ש-activePlanEntity.PlanDays אינו null לפני הלולאה
+        //    if (activePlanEntity.PlanDays != null)
+        //    {
+        //        foreach (var planDayEntity in activePlanEntity.PlanDays.OrderBy(pd => pd.DayOrder))
+        //        {
+        //            bool isCompletedThisWeek = completedPlanDayIdsThisWeek.Contains(planDayEntity.PlanDayId);
+
+        //            // אתה רוצה רק ימי אימון שעדיין לא הושלמו השבוע
+        //            if (!isCompletedThisWeek)
+        //            {
+        //                planDaysForFrontend.Add(new PlanDayResponseForFrontend
+        //                {
+        //                    PlanDayId = planDayEntity.PlanDayId,
+        //                    ProgramName = planDayEntity.ProgramName,
+        //                    DayOrder = planDayEntity.DayOrder,
+        //                    IsDefaultProgram = planDayEntity.IsDefaultProgram,
+        //                    IsCompletedThisWeek = false, // יהיה false כי סיננו החוצה את אלו שהושלמו
+        //                    // הוסף את השדות הנוספים שתרצה ב-Frontend DTO
+        //                    TrainingPlanId = planDayEntity.TrainingPlanId,
+        //                    CreationDate = planDayEntity.CreationDate,
+        //                    ParentProgramId = planDayEntity.ParentProgramId,
+        //                    IsHistoricalProgram = planDayEntity.IsHistoricalProgram
+        //                });
+        //            }
+        //        }
+        //    }
+
+        //    // 4. בנה את אובייקט התגובה הסופי עבור ה-Frontend
+        //    var response = new ActiveTrainingPlanResponse
+        //    {
+        //        TrainingPlanId = activePlanEntity.TrainingPlanId,
+        //        TraineeId = activePlanEntity.TraineeId,
+        //        TraineeName = activePlanEntity.Trainee?.TraineeName ?? "מתאמן",
+        //        GoalId = activePlanEntity.GoalId,
+        //        TrainingDays = activePlanEntity.TrainingDays,
+        //        TrainingDurationId = activePlanEntity.TrainingDurationId,
+        //        FitnessLevelId = activePlanEntity.FitnessLevelId,
+        //        StartDate = activePlanEntity.StartDate,
+        //        EndDate = activePlanEntity.EndDate,
+        //        IsActive = activePlanEntity.IsActive,
+        //        PlanDays = planDaysForFrontend // רשימת ימי האימון המסוננת
+        //    };
+
+        //    return response;
+        //}
     }
 }
 

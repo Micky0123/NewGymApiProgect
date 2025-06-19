@@ -25,5 +25,7 @@ namespace IBLL
         TraineeDTO GetTraineeById(int traineeId);
         List<ExercisePlanDTO> GetExercisePlansForPlanDay(int planDayId);
         ExerciseDTO GetExerciseDetails(int exerciseId);
+
+        //Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId);
     }
 }

@@ -78,6 +78,10 @@
               "target": "Package",
               "version": "[8.0.2, )"
             },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
             "Microsoft.Azure.Management.ResourceManager.Fluent": {
               "target": "Package",
               "version": "[1.38.1, )"

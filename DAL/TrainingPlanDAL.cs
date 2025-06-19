@@ -235,5 +235,77 @@ namespace DAL
                 throw new Exception("Error retrieving History Training Plans with days by TraineeId", ex);
             }
         }
+
+        public async Task<TrainingPlan?> GetActiveTrainingPlanWithDetails(int traineeId)
+        {
+            await using var ctx = new GymDbContext();
+            try
+            {
+                //return await ctx.TrainingPlans
+                //.Include(tp => tp.PlanDays)
+                //.Include(tp => tp.Trainee)
+                //.FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
+
+                var trainingPlan = await ctx.TrainingPlans
+                    .Include(tp => tp.Trainee) // עדיין טוען את Trainee אם הוא נדרש ישירות על אובייקט התוכנית
+                    .FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
+
+                if (trainingPlan == null)
+                {
+                    return null; // לא נמצאה תוכנית פעילה, החזר null
+                }
+
+                // 2. מצא את כל ה-PlanDays ששייכים לתוכנית האימון שנמצאה
+                // נניח ש-PlanDay כולל TrainingPlanId כמפתח זר
+                var planDays = await ctx.PlanDays
+                    .Where(pd => pd.TrainingPlanId == trainingPlan.TrainingPlanId)
+                    .OrderBy(pd => pd.DayOrder) // אפשר למיין כאן
+                    .ToListAsync();
+
+                // 3. שייך את ה-PlanDays לתוכנית האימון (אם הוא עדיין לא שויך אוטומטית ע"י ה-Change Tracker)
+                // אם ה-Navigation Property של PlanDays ב-TrainingPlan הוא ICollection<PlanDay>
+                // ו-EF Core מנהל את האובייקטים, ייתכן שזה כבר יקרה אוטומטית.
+                // אבל כדי להיות בטוחים ולטפל במקרים של detached entities:
+                trainingPlan.PlanDays = planDays;
+
+                return trainingPlan;
+            }
+            catch (Exception ex)
+            {
+                // שינוי זמני לצורך אבחון: הדפס את השגיאה לקונסול או ללוגר
+                Console.WriteLine($"An error occurred in GetActiveTrainingPlanWithDetails: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                    Console.WriteLine($"Inner StackTrace: {ex.InnerException.StackTrace}");
+                }
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+
+                // זרוק את השגיאה המקורית או את ה-InnerException אם קיים
+                // זה יאפשר לראות את השגיאה המדויקת יותר בשכבה הגבוהה יותר
+                if (ex.InnerException != null)
+                {
+                    throw ex.InnerException; // זרוק את השגיאה הפנימית המדויקת יותר
+                }
+                throw; // זרוק מחדש את השגיאה המקורית אם אין InnerException
+            }
+        }
+
+        public async Task<List<int>> GetCompletedPlanDayIdsThisWeek(int traineePlan, DateTime startOfWeek)
+        {
+            await using var ctx = new GymDbContext();
+            try
+            {
+                return await ctx.PlanDays
+                .Where(wh => wh.TrainingPlanId == traineePlan && wh.CreationDate >= startOfWeek)
+                .Select(wh => wh.PlanDayId)
+                .Distinct()
+                .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error rGetCompletedPlanDayIdsThisWeek", ex);
+            }
+        }
     }
 }
