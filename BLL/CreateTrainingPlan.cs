@@ -41,7 +41,8 @@ namespace BLL
 
         // כלים נוספים
         private readonly ILogger<TrainingPlanBLL> logger;
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
+
         private readonly List<string> exerciseList;
         private readonly TrainingConfig config;
 
@@ -60,7 +61,8 @@ namespace BLL
             IExerciseDAL exerciseDAL,
             IExercisePlanDAL exercisePlanDAL,
             ITrainingPlanDAL trainingPlanDAL,
-            IPlanDayDAL planDayDAL)
+            IPlanDayDAL planDayDAL,
+            IMapper mapper)
         {
             // אתחול כל השדות
             this.muscleDAL = muscleDAL;
@@ -78,20 +80,21 @@ namespace BLL
             // קריאת קובץ הקונפיגורציה
             this.config = TrainingConfig.Load("config.json");
 
-            // הגדרת AutoMapper להמרת אובייקטים
-            var configTaskConverter = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
-                cfg.CreateMap<TrainingPlan, TrainingPlanDTO>().ReverseMap();
-                cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-                cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
-            });
-            mapper = new Mapper(configTaskConverter);
+            //// הגדרת AutoMapper להמרת אובייקטים
+            //var configTaskConverter = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
+            //    cfg.CreateMap<TrainingPlan, TrainingPlanDTO>().ReverseMap();
+            //    cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
+            //    cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
+            //});
+            //mapper = new Mapper(configTaskConverter);
+            this._mapper = mapper; // <--- שמור את מופע ה-mapper המוזרק
 
         }
 
         #endregion
-        
+
         #region מתודות עיקריות
 
         // מתודה ראשית ליצירת תוכנית אימונים מותאמת אישית
@@ -205,7 +208,7 @@ namespace BLL
                 throw;
             }
         }
-        
+
         // יצירת תוכנית אימון
         public async Task<List<List<ExerciseWithMuscleInfo>>> GenerateOptimizedExercisePlanAsync(TrainingParams trainingParams)
         {
@@ -260,7 +263,7 @@ namespace BLL
                                              usedExercisesBySubMuscle[subMuscle.SubMuscleName] == e.ExerciseId))
                                 .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
                                 .ToList();
-                            if(filteredExercises.Count == 0)
+                            if (filteredExercises.Count == 0)
                             {
                                 filteredExercises = exercises
                                 .Where(e => !usedExercisesForDay.Contains(e.ExerciseId) &&
@@ -298,7 +301,7 @@ namespace BLL
                             !usedExercisesOverall.Contains(e.ExerciseId))
                             .OrderBy(e => Guid.NewGuid()) // רנדומליות בבחירת התרגילים
                             .ToList();
-                        if(filteredExercises.Count == 0)
+                        if (filteredExercises.Count == 0)
                         {
                             filteredExercises = allExercises
                             .Where(e => !usedExercisesForDay.Contains(e.ExerciseId))
@@ -510,19 +513,19 @@ namespace BLL
                     FitnessLevelId = level,
                     TrainingDurationId = 1,
                     StartDate = DateTime.Now,
-                    EndDate= DateTime.Now.AddMonths(3),
+                    EndDate = DateTime.Now.AddMonths(3),
                     IsActive = true,
                 };
 
                 // שמירת התוכנית במסד הנתונים
-                TrainingPlan trainingP = mapper.Map<TrainingPlan>(trainingPlan);
+                TrainingPlan trainingP = _mapper.Map<TrainingPlan>(trainingPlan);
 
-               // TrainingPlan trainingP = mapper.Map<TrainingPlanDTO, TrainingPlan>(trainingPlan);
-                var id= await trainingPlanDAL.AddTrainingPlanAsync(trainingP);
+                // TrainingPlan trainingP = mapper.Map<TrainingPlanDTO, TrainingPlan>(trainingPlan);
+                var id = await trainingPlanDAL.AddTrainingPlanAsync(trainingP);
                 logger.LogDebug($"Main training plan created");
 
                 TrainingPlan savedPlan = await trainingPlanDAL.GetTrainingPlanByIdAsync(id);
-                return mapper.Map<TrainingPlanDTO>(savedPlan);
+                return _mapper.Map<TrainingPlanDTO>(savedPlan);
             }
             catch (Exception ex)
             {
@@ -558,11 +561,11 @@ namespace BLL
                         ParentProgramId = null,
                         IsHistoricalProgram = false
                     };
-                    PlanDay planD = mapper.Map<PlanDayDTO, PlanDay>(planDay);
+                    PlanDay planD = _mapper.Map<PlanDayDTO, PlanDay>(planDay);
                     var savedDay = await planDayDAL.AddPlanDayAsync(planD);
                     var planById = await planDayDAL.GetPlanDayByIdAsync(savedDay);
 
-                    planDays.Add(mapper.Map<PlanDayDTO>(planById));
+                    planDays.Add(_mapper.Map<PlanDayDTO>(planById));
                     logger.LogDebug($"Saved training day {dayIndex + 1}");
                 }
                 return planDays;
@@ -591,12 +594,17 @@ namespace BLL
                     {
                         var exerciseInfo = dayExercises[exerciseIndex];
                         var subId = 0;
-                        if (exerciseInfo.SubMuscleName!=null)
+                        if (exerciseInfo.SubMuscleName != null)
                         {
-                           subId = await subMuscleDAL.GetIdOfSubMuscleByNameAsync(exerciseInfo.SubMuscleName);
+                            subId = await subMuscleDAL.GetIdOfSubMuscleByNameAsync(exerciseInfo.SubMuscleName);
                         }
-
-                        // יצירת רשומת תרגיל בתוכנית
+                        // *** כאן השינוי העיקרי! ***
+                        // ממפה את אובייקט ה-Exercise (מודל DB) ל-ExerciseDTO
+                        //var exerciseDto = mapper.Map<Exercise, ExerciseDTO>(exerciseInfo.Exercise.ExerciseId);
+                        //var exerciseDto = (exerciseInfo.Exercise.ExerciseId);
+                        //var ex= await exerciseDAL.GetExerciseByIdAsync(exerciseDto);
+                        //ex = _mapper.Map<ExerciseDTO, Exercise>(exerciseInfo.Exercise);
+                        //// יצירת רשומת תרגיל בתוכנית
                         var exercisePlan = new ExercisePlanDTO
                         {
                             PlanDayId = planDay.PlanDayId,
@@ -606,13 +614,15 @@ namespace BLL
                             PlanRepetitionsMin = trainingParams.MinRep,
                             PlanRepetitionsMax = trainingParams.MaxRep,
                             CategoryId = exerciseInfo.categoryId,
-                            TimesMin= config.TimesMin,
+                            TimesMin = config.TimesMin,
                             TimesMax = config.TimesMax,
                             PlanWeight = config.Weight,
                             SubMuscleId = subId == 0 ? (int?)null : subId,
-                            TrainingDateTime= DateTime.Now,
+                            TrainingDateTime = DateTime.Now,
+                            //Exercise=exerciseInfo.Exercise,
+                            Exercise = exerciseInfo.Exercise,
                         };
-                        var exerciseP = mapper.Map< ExercisePlanDTO, ExercisePlan >(exercisePlan);
+                        var exerciseP = _mapper.Map<ExercisePlanDTO, ExercisePlan>(exercisePlan);
                         await exercisePlanDAL.AddExercisePlanAsync(exerciseP);
 
                         logger.LogDebug($"Main ExercisePlan created");

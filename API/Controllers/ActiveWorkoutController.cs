@@ -209,7 +209,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<NextExerciseResponse> GetNextExerciseInWorkout(int traineeId)
         {
-            var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
+                var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
 
             // במקרה ש-GetNextExerciseInWorkout מחזיר תגובה שמציינת שהאימון הושלם/לא נמצא,
             // נחזיר תמיד Ok, כי ה-NextExerciseResponse DTO כבר מכיל את המידע הזה.

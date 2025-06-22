@@ -17,6 +17,8 @@ namespace DTO
 
         public int OriginalExercise { get; set; }// מספר התרגיל ברשימה של המתאמן
         public bool IsDone { get; set; }//  האם התרגיל בוצע
+
+        public ExercisePlanDTO ExerciseDetails { get; set; } // פרטי תרגיל בסיסיים כמו שם התרגיל
     }
 }
 

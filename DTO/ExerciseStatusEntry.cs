@@ -16,6 +16,6 @@ namespace DTO
         public DateTime? StartedAt { get; set; } // מתי התחיל התרגיל
 
         public List<Slot> Slots { get; set; } = new List<Slot>();// רשימת סלוטים (אם תרגיל יכול לתפוס יותר מסלוט אחד)
-
+        public ExercisePlanDTO Plan { get; set; }
     }
 }

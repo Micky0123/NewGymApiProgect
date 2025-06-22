@@ -34,5 +34,7 @@ namespace DTO
 
         public DateTime TrainingDateTime { get; set; }
 
+        public ExerciseDTO Exercise { get; set; } // זה יכיל את ה-ExerciseName
+
     }
 }

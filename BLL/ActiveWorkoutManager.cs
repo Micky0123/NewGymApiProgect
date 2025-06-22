@@ -546,6 +546,7 @@ namespace BLL
                         IsDone = false,
                         PerformedAt = null,
                         StartedAt = null,
+                        Plan=exerciseEntryFromScheduler.ExerciseDetails,
                     });
                 }
 
@@ -742,7 +743,8 @@ namespace BLL
                     RemainingExercisesCount = 0
                 };
             }
-
+            var NextExercise = _mapper.Map<ExerciseEntry>(nextExerciseEntry); // המרה ל-DTO
+           // NextExercise.ExerciseDetails=
             return new NextExerciseResponse
             {
                 TraineeId = traineeId,
@@ -807,6 +809,7 @@ namespace BLL
                     SubMuscleId = originalExercisePlan.SubMuscleId,
                     TrainingDateTime = (DateTime)(exerciseStatusEntry.PerformedAt ?? exerciseStatusEntry.StartedAt), // השתמש בזמן הביצוע בפועל
                     IndexOrder = exerciseStatusEntry.OrderInList,
+                    Exercise=exerciseStatusEntry.Plan.Exercise,
                     // ייתכן שתרצה להוסיף כאן גם את StartedAt, PerformedAt, IsDone כ-Custom Properties אם ה-DB תומך
                 };
                 await _exercisePlanDAL.AddExercisePlanAsync(_mapper.Map<ExercisePlan>(exercisePlan));

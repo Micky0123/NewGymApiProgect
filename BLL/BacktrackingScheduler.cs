@@ -125,6 +125,8 @@ namespace BLL
             if (toMuscle >= 0 && fromMuscle >= 0 &&
                 muscleConnections.TryGetValue(fromMuscle, out var neighbors) &&
                 neighbors.Contains(toMuscle))
+                //muscleConnections.TryGetValue(toMuscle, out var neighbors) &&
+                //neighbors.Contains(fromMuscle))
                 return 1 << toMuscle;
 
             return -1; // לא חוקי
@@ -156,7 +158,8 @@ namespace BLL
                 var reachable = new HashSet<int>();
                 for (int j = 0; j < exerciseCount; j++)
                 {
-                    if (i != j && transitionMatrix[j, i].LegalityValue > 0)
+                    if (i != j && transitionMatrix[j,i].LegalityValue > 0)
+                    //if (i != j && transitionMatrix[i, j].LegalityValue > 0)
                     {
                         reachable.Add(exercises[j].ExerciseId);
                     }
@@ -248,7 +251,8 @@ namespace BLL
                         ExerciseId = exId.ExerciseId,
                         OrderInList = idx,
                         IsDone = false,
-                        PerformedAt = null
+                        PerformedAt = null,
+
                     }).ToList()
             };
 
@@ -264,7 +268,7 @@ namespace BLL
                 RemoveTraineeFromAllSlots(trainee);
 
                 // עדכן את השיבוץ הסופי
-               return await AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.numAlternatives);
+                return await AssignTraineeToFinalSlots(trainee, exerciseOrder, result.bestPath, startTime, result.numAlternatives);
             }
             return null;
         }
@@ -587,6 +591,7 @@ namespace BLL
             if (fromIdx < 0 || toIdx < 0) return false;
 
             return transitionMatrix[toIdx, fromIdx].LegalityValue > 0;
+            //return transitionMatrix[fromIdx, toIdx].LegalityValue > 0;
         }
 
         // בודק האם ניתן להגיע מכל תרגיל נוכחי לכל התרגילים שנותרו
@@ -899,6 +904,7 @@ namespace BLL
             {
                 // חפש את פרטי התרגיל לתזמון ומשך
                 var plan = exerciseOrder.FirstOrDefault(x => x.ExerciseId == exerciseId);
+
                 if (plan == null) continue;
 
                 var duration = TimeSpan.FromMinutes(plan.TimesMax);
@@ -930,7 +936,8 @@ namespace BLL
                     OrderInList = orderInList,
                     StartTime = exerciseStartTime,
                     EndTime = exerciseEndTime,
-                    Slots = slotsForThisExercise
+                    Slots = slotsForThisExercise,
+                    ExerciseDetails = plan,
                 };
 
                 exerciseEntries[exerciseId] = entry;
