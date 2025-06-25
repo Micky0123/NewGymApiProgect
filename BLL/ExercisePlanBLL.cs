@@ -58,10 +58,18 @@ namespace BLL
         //    return mapper.Map<ExercisePlanDTO>(plan);
         //}
 
+       public async Task<List<ExercisePlanDTO>> GetdefulteExercisesByPlanDayIdAsync(int planDayId)
+        {
+            List<ExercisePlan> plan = await exercisePlanDAL.GetdefulteExercisesByPlanDayIdAsync(planDayId);
+            return mapper.Map<List<ExercisePlanDTO>>(plan);
+        }
+
         public async Task UpdateExercisePlanAsync(ExercisePlanDTO exercisePlan, int id)
         {
             DBEntities.Models.ExercisePlan plan = mapper.Map<DBEntities.Models.ExercisePlan>(exercisePlan);
             await exercisePlanDAL.UpdateExercisePlanAsync(plan, id);
         }
+
+
     }
 }

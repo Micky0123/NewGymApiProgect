@@ -21,410 +21,7 @@ namespace BLL
 {
 
     public class ActiveWorkoutManager //: IActiveWorkoutManager
-    //{
-    //    private BacktrackingScheduler scheduler;
-    //    public bool IsInitialized => scheduler != null;
 
-    //    private Dictionary<int, TraineeExerciseStatus> activeTrainees;
-    //    private readonly IPlanDayDAL planDayDAL;
-    //    private readonly IExercisePlanDAL exercisePlanDAL;
-    //    private readonly IMapper mapper;
-    //    private readonly SemaphoreSlim _startWorkoutLock = new SemaphoreSlim(1, 1);
-
-    //    private readonly ITraineeBLL _traineeBLL;
-    //    private readonly IPlanDayDAL _planDayDAL;
-    //    private readonly IExercisePlanDAL _exercisePlanDAL;
-    //    private readonly IMemoryCache _cache;
-
-
-    //    public ActiveWorkoutManager(
-    //        IMemoryCache cache,
-    //        ITraineeBLL traineeBLL,
-    //        IPlanDayDAL planDayDAL,
-    //        IExercisePlanDAL exercisePlanDAL)
-    //    {
-    //        _cache = cache;
-    //        this._traineeBLL = traineeBLL;
-    //        this.planDayDAL = planDayDAL;
-    //        this.exercisePlanDAL = exercisePlanDAL;
-
-    //        activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
-
-    //        var configTaskConverter = new MapperConfiguration(cfg =>
-    //        {
-    //            cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-    //            cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
-    //        });
-    //        mapper = new Mapper(configTaskConverter);
-    //    }
-
-
-    //    public void Initialize(
-    //        List<ExerciseDTO> exerciseList,
-    //        List<GraphEdgeDTO> exerciseEdges,
-    //        List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-    //        List<MuscleEdgeDTO> muscleEdges,
-    //        Dictionary<int, int> equipmentCountByExercise,
-    //        DateTime firstSlotStart,
-    //        int slotMinutes,
-    //        int slotCount)
-    //    {
-    //        if (_cache.TryGetValue("Scheduler", out BacktrackingScheduler existing) && existing != null)
-    //            throw new Exception("Scheduler already initialized!");
-
-    //        var scheduler = new BacktrackingScheduler(_traineeBLL);
-    //        scheduler.Initialize(
-    //            exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
-    //            equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
-    //        );
-    //        _cache.Set("Scheduler", scheduler);
-    //    }
-
-    //    // שמירה בזיכרון cache
-    //    private BacktrackingScheduler GetScheduler()
-    //    {
-    //        if (!_cache.TryGetValue("Scheduler", out BacktrackingScheduler scheduler) || scheduler == null)
-    //            throw new Exception("Scheduler is not initialized!");
-    //        return scheduler;
-    //    }
-
-
-    //    public void ResetScheduler()
-    //    {
-    //        scheduler = null;
-    //    }
-
-    //    // פונקציה להדפסת מטריצת המעבר של ה-BacktrackingScheduler
-    //    public void PrintSchedulerMatrix()
-    //    {
-    //        var scheduler = GetScheduler();
-    //        scheduler.PrintTransitionMatrixToConsole();
-    //    }
-
-    //    // קריאה לאלגוריתם והתחלת אימון
-    //    public async Task StartWorkoutAsync(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime, int planDayId)
-    //    {
-    //        var scheduler = GetScheduler();
-    //        // ננסה לקבל מיד את המנעול, ואם לא מצליחים נדפיס הודעה ונחכה
-    //        if (!await _startWorkoutLock.WaitAsync(0))
-    //        {
-    //            Console.WriteLine("המערכת מחשבת נתונים");
-    //            await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
-    //        }
-    //        try
-    //        {
-    //            var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
-
-    //            if (pathResult == null)
-    //                throw new Exception("לא נמצא מסלול מתאים עבור מתאמן זה.");
-
-    //            // בניית סטטוס תרגילים מה-PathResult
-    //            var exercisesStatus = pathResult.ExerciseIdsInPath
-    //                .OrderBy(pair => pair.Value.OrderInList)
-    //                .Select(pair => new ExerciseStatusEntry
-    //                {
-    //                    OriginalExercise = pair.Key,
-    //                    ExerciseId = pair.Value.ExerciseId,
-    //                    OrderInList = pair.Value.OrderInList,
-    //                    IsDone = false,
-    //                    PerformedAt = null,
-    //                    StartedAt = null
-    //                }).ToList();
-    //            _cache.Set($"Trainee_{trainee.TraineeId}", new TraineeExerciseStatus
-    //            {
-    //                Trainee = trainee,
-    //                Exercises = exercisesStatus,
-    //                planDayId = planDayId
-    //            });
-
-    //        }
-    //        finally
-    //        {
-    //            _startWorkoutLock.Release();
-    //        }
-    //    }
-
-    //    // קריאה להתחלת תרגיל עבור מתאמן
-    //    public bool StartExercise(int traineeId, int exerciseId, DateTime startTime)
-    //    {
-    //        if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
-    //            throw new Exception("Trainee not found");
-    //        var scheduler = GetScheduler();
-
-    //        var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-    //        if (exercise == null)
-    //            throw new Exception("Exercise not found for this trainee");
-
-    //        exercise.StartedAt = startTime;
-    //        return true;
-    //    }
-
-    //    // קריאה לסיום תרגיל עבור מתאמן
-    //    public bool CompleteExercise(int traineeId, int exerciseId, DateTime endTime)
-    //    {
-    //        if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
-    //            throw new Exception("Trainee not found");
-    //        var scheduler = GetScheduler();
-
-    //        var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-    //        if (exercise == null)
-    //            throw new Exception("Exercise not found for this trainee");
-
-    //        exercise.IsDone = true;
-    //        exercise.PerformedAt = endTime;
-
-    //        if (traineeStatus.Exercises.All(e => e.IsDone))
-    //        {
-    //            SaveWorkoutToDatabase(traineeStatus);
-    //            // ניתן למחוק מכאן את המתאמן כעת
-    //            activeTrainees.Remove(traineeId);
-    //            _cache.Remove($"Trainee_{traineeId}");
-    //        }
-    //        return true;
-    //    }
-
-    //    // לוגיקה למיפוי ושמירה למסד הנתונים 
-    //    private async Task SaveWorkoutToDatabase(TraineeExerciseStatus status)
-    //    {
-    //        var scheduler = GetScheduler();
-
-    //        PlanDay planDay = await planDayDAL.GetPlanDayByIdAsync(status.planDayId);
-    //        var planDayDto = mapper.Map<PlanDayDTO>(planDay);
-
-    //        // דוגמה: המרה ל-PlanDay, ExercisePlan ושמירה ב-DB
-    //        var NewplanDay = new PlanDayDTO()
-    //        {
-    //            //PlanDayId = 0, // או ID חדש שיתקבל מהמסד
-    //            TrainingPlanId = planDayDto.TrainingPlanId, // או ID של תוכנית האימון המתאימה
-    //            ProgramName = "Workout Plan",
-    //            DayOrder = planDayDto.DayOrder, // או סדר היום המתאים
-    //            CreationDate = DateTime.Now,
-    //            IsDefaultProgram = false,
-    //            ParentProgramId = planDayDto.PlanDayId,
-    //            IsHistoricalProgram = true
-    //        };
-    //        // שמירת ה-PlanDay
-    //        var savedPlanDay = await planDayDAL.AddPlanDayAsync(mapper.Map<PlanDay>(NewplanDay));
-    //        foreach (var exercise in status.Exercises)
-    //        {
-    //            var OrigenExercisePlan = await exercisePlanDAL.GetExercisePlanByIdAsync(exercise.OriginalExercise);
-    //            // שמירת ה-ExercisePlan
-    //            var exercisePlan = new ExercisePlanDTO()
-    //            {
-    //                ExerciseId = exercise.ExerciseId,
-    //                PlanDayId = status.planDayId,
-    //                TimesMax = OrigenExercisePlan.TimesMax,
-    //                TimesMin = OrigenExercisePlan.TimesMin,
-    //                PlanRepetitionsMax = OrigenExercisePlan.TimesMax,
-    //                PlanRepetitionsMin = OrigenExercisePlan.TimesMin,
-    //                PlanSets = OrigenExercisePlan.PlanSets,
-    //                PlanWeight = OrigenExercisePlan.PlanWeight,
-    //                CategoryId = OrigenExercisePlan.CategoryId,
-    //                SubMuscleId = OrigenExercisePlan.SubMuscleId,
-    //                TrainingDateTime = DateTime.Now,
-    //                IndexOrder = exercise.OrderInList,
-    //            };
-    //            await exercisePlanDAL.AddExercisePlanAsync(mapper.Map<ExercisePlan>(exercisePlan));
-    //        }
-    //    }
-
-
-
-    //    //public async Task<List<PathResult>> GetUpdatedWorkoutPlan(int traineeId)
-    //    //{
-
-    //    //}
-
-
-
-
-    //    //// שומרים את תוכניות האימון הפעילות בזיכרון.
-    //    //// מפתח: TraineeId, ערך: PathResultDTO (תוכנית האימון הפעילה)
-    //    //private static readonly ConcurrentDictionary<int, PathResultDTO> _activeWorkoutPlans = new ConcurrentDictionary<int, PathResultDTO>();
-
-    //    //// נתוני דוגמה (בפרויקט אמיתי זה יגיע ממסד נתונים או שירות אחר)
-    //    //private static readonly List<TraineeDTO> _mockTrainees = new List<TraineeDTO>
-    //    //{
-    //    //    new TraineeDTO { TraineeId = 1, Name = "ישראל ישראלי", CurrentPlanDayId = 1 },
-    //    //    new TraineeDTO { TraineeId = 2, Name = "שרה כהן", CurrentPlanDayId = 2 }
-    //    //};
-
-    //    //private static readonly List<ExerciseDTO> _mockExercises = new List<ExerciseDTO>
-    //    //{
-    //    //    new ExerciseDTO { ExerciseId = 1, ExerciseName = "לחיצת חזה במוט", Description = "תרגיל לחיזוק שרירי החזה", MuscleIds = new List<int> { 1 } },
-    //    //    new ExerciseDTO { ExerciseId = 2, ExerciseName = "חתירה בפולי תחתון", Description = "תרגיל לחיזוק שרירי הגב", MuscleIds = new List<int> { 2 } },
-    //    //    new ExerciseDTO { ExerciseId = 3, ExerciseName = "לחיצת כתפיים בדאמבלים", Description = "תרגיל לחיזוק שרירי הכתפיים", MuscleIds = new List<int> { 3 } },
-    //    //    new ExerciseDTO { ExerciseId = 4, ExerciseName = "סקוואט", Description = "תרגיל רגליים", MuscleIds = new List<int> { 4, 5 } },
-    //    //    new ExerciseDTO { ExerciseId = 5, ExerciseName = "בייספס יד-יד", Description = "תרגיל לידיים", MuscleIds = new List<int> { 6 } }
-    //    //};
-
-    //    //private static readonly List<ExercisePlanDTO> _mockExercisePlans = new List<ExercisePlanDTO>
-    //    //{
-    //    //    // PlanDayId 1
-    //    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 1, Sets = 3, Reps = 10, RestTime = 60, TimesMax = 20, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 1) },
-    //    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 2, Sets = 4, Reps = 8, RestTime = 90, TimesMax = 25, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 2) },
-    //    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 4, Sets = 3, Reps = 12, RestTime = 60, TimesMax = 20, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 4) },
-    //    //    // PlanDayId 2
-    //    //    new ExercisePlanDTO { PlanDayId = 2, ExerciseId = 3, Sets = 3, Reps = 10, RestTime = 60, TimesMax = 15, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 3) },
-    //    //    new ExercisePlanDTO { PlanDayId = 2, ExerciseId = 5, Sets = 3, Reps = 12, RestTime = 45, TimesMax = 10, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 5) }
-    //    //};
-
-
-    //    // --- פונקציה שמפעילה את האלגוריתם (לצורך הדוגמה, יצירת מסלול פשוט) ---
-    //    public PathResult RunAlgorithmAndInitializeWorkout(RunAlgorithmRequest request)
-    //    {
-    //        // הסרה של אימון קודם אם קיים
-    //        _activeWorkoutPlans.TryRemove(request.Trainee, out _);
-
-    //        // 1. קבל את פרטי המתאמן והתרגילים ליום התוכנית
-    //        TraineeDTO trainee = GetTraineeById(request.Trainee);
-    //        if (trainee == null)
-    //        {
-    //            throw new ArgumentException("Trainee not found.");
-    //        }
-
-    //        List<ExercisePlanDTO> exerciseOrder = GetExercisePlansForPlanDay(request.planday);
-    //        if (exerciseOrder == null || !exerciseOrder.Any())
-    //        {
-    //            throw new ArgumentException("No exercises found for the specified plan day.");
-    //        }
-
-    //        // 2. "הפעלת האלגוריתם" (לצורך הדוגמה, סדר תרגילים רנדומלי או לפי ID)
-    //        // בפרויקט אמיתי, כאן היית מפעיל לוגיקה מורכבת של תזמון
-    //        var bestPathIds = exerciseOrder.Select(ep => ep.ExerciseId).ToList(); // לדוגמה, לפי סדר ה-ID
-
-    //        // 3. בנה את ה-PathResultDTO הסופי עם זמנים ופרטים
-    //        var currentTime = request.StartTime;
-    //        var exerciseEntries = new Dictionary<int, ExerciseEntry>();
-    //        int orderInList = 0;
-
-    //        foreach (var exerciseId in bestPathIds)
-    //        {
-    //            var planDetails = exerciseOrder.FirstOrDefault(ep => ep.ExerciseId == exerciseId);
-    //            if (planDetails == null) continue;
-
-    //            var duration = TimeSpan.FromMinutes(planDetails.TimesMax); // משך תרגיל מהתוכנית
-    //            var exerciseDetails = GetExerciseDetails(exerciseId);
-
-    //            // קביעת זמני התרגיל - פשוט לצרכי הדוגמה
-    //            var exerciseStartTime = currentTime;
-    //            var exerciseEndTime = currentTime.Add(duration);
-
-    //            var entry = new ExerciseEntry
-    //            {
-    //                ExerciseId = exerciseId,
-    //                OrderInList = orderInList,
-    //                StartTime = exerciseStartTime,
-    //                EndTime = exerciseEndTime,
-    //                //ExerciseDetails = exerciseDetails,
-    //                //Sets = planDetails.Sets,
-    //                //Reps = planDetails.Reps,
-    //                //RestTime = planDetails.RestTime
-    //            };
-    //            exerciseEntries.Add(exerciseId, entry);
-
-    //            currentTime = exerciseEndTime;//.AddSeconds(planDetails.RestTime); // הוסף זמן מנוחה
-    //            orderInList++;
-    //        }
-
-    //        var pathResultDto = new PathResult
-    //        {
-    //            Trainee = trainee,
-    //            ExerciseIdsInPath = exerciseEntries,
-    //            StartTime = request.StartTime,
-    //            EndTime = currentTime, // סוף האימון
-    //            AlternativesUsed = 0, // או כפי שהאלגוריתם מחזיר
-    //            //CurrentExerciseIndex = 0 // מתחיל מהתרגיל הראשון
-    //        };
-
-    //        // שמור את תוכנית האימון הפעילה בזיכרון
-    //        _activeWorkoutPlans[trainee.TraineeId] = pathResultDto;
-
-    //        return pathResultDto;
-    //    }
-
-    //    // --- פונקציה לקבלת תוכנית האימון המעודכנת (כל התוכנית) ---
-    //    public PathResult GetUpdatedWorkoutPlan(int traineeId)
-    //    {
-    //        _activeWorkoutPlans.TryGetValue(traineeId, out var plan);
-    //        return plan; // מחזיר את ה-DTO ישירות מהזיכרון
-    //    }
-
-    //    // --- פונקציה לקבלת התרגיל הבא ---
-    //    public NextExerciseResponse GetNextExerciseInWorkout(int traineeId)
-    //    {
-    //        if (!_activeWorkoutPlans.TryGetValue(traineeId, out var currentPlan))
-    //        {
-    //            return new NextExerciseResponse { IsWorkoutComplete = true, Message = "לא נמצא אימון פעיל למתאמן." };
-    //        }
-
-    //        var sortedEntries = currentPlan.ExerciseEntries.Values.OrderBy(e => e.OrderInList).ToList();
-
-    //        if (currentPlan.CurrentExerciseIndex >= sortedEntries.Count)
-    //        {
-    //            // האימון הסתיים
-    //            return new NextExerciseResponse { IsWorkoutComplete = true, Message = "האימון הושלם בהצלחה!" };
-    //        }
-
-    //        var nextExerciseEntry = sortedEntries[currentPlan.CurrentExerciseIndex];
-
-    //        // עדכן את האינדקס לתרגיל הבא לפעם הבאה
-    //        // (זה חשוב אם ה-frontend לא תמיד קורא ל-CompleteExercise)
-    //        // currentPlan.CurrentExerciseIndex++; // נעדכן רק ב-CompleteExercise
-
-    //        return new NextExerciseResponse
-    //        {
-    //            NextExercise = nextExerciseEntry,
-    //            IsWorkoutComplete = false,
-    //            RemainingExercisesCount = sortedEntries.Count - (currentPlan.CurrentExerciseIndex + 1),
-    //            Message = "תרגיל הבא."
-    //        };
-    //    }
-
-    //    // --- פונקציה לסימון תרגיל כהושלם (מעדכן את מצב האימון בזיכרון) ---
-    //    public bool CompleteExercise(int traineeId, int exerciseId)
-    //    {
-    //        if (!_activeWorkoutPlans.TryGetValue(traineeId, out var currentPlan))
-    //        {
-    //            return false; // אין אימון פעיל
-    //        }
-
-    //        var currentEntries = currentPlan.ExerciseEntries.Values.OrderBy(e => e.OrderInList).ToList();
-    //        var exerciseToComplete = currentEntries.FirstOrDefault(e => e.ExerciseId == exerciseId && e.OrderInList == currentPlan.CurrentExerciseIndex);
-
-    //        if (exerciseToComplete == null)
-    //        {
-    //            // התרגיל לא תואם לתרגיל הנוכחי הצפוי
-    //            return false;
-    //        }
-
-    //        // עדכן את האינדקס לתרגיל הבא
-    //        currentPlan.CurrentExerciseIndex++;
-
-    //        // אם נשאר מקום (לדוגמה, מכונה תפוסה) ניתן לעדכן את סדר התרגילים כאן
-    //        // לדוגמה: אם התרגיל הבא לא זמין, ניתן לדלג עליו ולמצוא את הבא בתור
-    //        // for (int i = currentPlan.CurrentExerciseIndex; i < currentEntries.Count; i++) { ... }
-
-    //        return true;
-    //    }
-
-    //    // --- פונקציות עזר (במקום DAL/DB) ---
-    //    public TraineeDTO GetTraineeById(int traineeId)
-    //    {
-    //        return _mockTrainees.FirstOrDefault(t => t.TraineeId == traineeId);
-    //    }
-
-    //    public List<ExercisePlanDTO> GetExercisePlansForPlanDay(int planDayId)
-    //    {
-    //        return _mockExercisePlans.Where(ep => ep.PlanDayId == planDayId).ToList();
-    //    }
-
-    //    public ExerciseDTO GetExerciseDetails(int exerciseId)
-    //    {
-    //        return _mockExercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-    //    }
-    // }
-    // public class ActiveWorkoutManager : IActiveWorkoutManager
     {
         private BacktrackingScheduler scheduler; // נשנה את זה ל-GetScheduler()
         public bool IsInitialized => _cache.TryGetValue("Scheduler", out BacktrackingScheduler existing) && existing != null; // עדכון לשימוש ב-cache
@@ -436,8 +33,14 @@ namespace BLL
         private readonly IMapper _mapper; // השתמש בזה ולא בשני שדות נפרדים
         private readonly IMemoryCache _cache;
         private readonly ITrainingPlanDAL _trainingPlan;
+        
 
         private readonly SemaphoreSlim _startWorkoutLock = new SemaphoreSlim(1, 1);
+
+        // *** שדה חדש לניהול אימונים פעילים ***
+        // נשתמש ב-ConcurrentDictionary כדי לשמור מעקב אחר ה-TraineeExerciseStatus של מתאמנים פעילים.
+        // זה מאפשר גישה מהירה לכל האימונים הפעילים.
+        private readonly ConcurrentDictionary<int, TraineeExerciseStatus> _activeWorkoutsInternal = new ConcurrentDictionary<int, TraineeExerciseStatus>();
 
         public ActiveWorkoutManager(
             IMemoryCache cache,
@@ -561,6 +164,7 @@ namespace BLL
                 };
 
                 _cache.Set($"Trainee_{trainee.TraineeId}", traineeWorkoutStatus);
+                _activeWorkoutsInternal.TryAdd(trainee.TraineeId, traineeWorkoutStatus); // הוסף למעקב
 
                 return _mapper.Map<PathResult>(traineeWorkoutStatus);
             }
@@ -677,6 +281,7 @@ namespace BLL
             currentExercise.StartedAt = startTime;
             // *** הוסף את השורה הקריטית הזו!!! ***
             _cache.Set($"Trainee_{traineeId}", traineeStatus);
+            _activeWorkoutsInternal.AddOrUpdate(traineeId, traineeStatus, (key, oldValue) => traineeStatus); // עדכן גם במילון הפנימי
             return true;
         }
 
@@ -704,9 +309,16 @@ namespace BLL
                 // שמור ל-DB רק אם כל האימון הסתיים
                 await SaveWorkoutToDatabase(traineeStatus);
                 _cache.Remove($"Trainee_{traineeId}"); // הסר מהזיכרון cache
+                _activeWorkoutsInternal.TryRemove(traineeId, out _); // הסר ממילון האימונים הפעילים
                 Console.WriteLine($"Workout for Trainee {traineeId} completed and saved.");
             }
             // אם האימון לא הושלם, ה-TraineeExerciseStatus נשאר במטמון עם הסטטוס המעודכן
+            else
+            {
+                // אם האימון לא הושלם, עדכן את מצבו במטמון ובמילון הפנימי
+                _cache.Set($"Trainee_{traineeId}", traineeStatus);
+                _activeWorkoutsInternal.AddOrUpdate(traineeId, traineeStatus, (key, oldValue) => traineeStatus);
+            }
             return true;
         }
 
@@ -845,76 +457,6 @@ namespace BLL
 
         }
 
-        //public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
-        //{
-        //    // Fetch the active training plan for the trainee, including related PlanDays and Trainee details.
-        //    // Using your DAL interfaces, you would call appropriate methods.
-        //    // This assumes your DAL has methods to fetch TrainingPlan with its related PlanDays and Trainee.
-        //    // If IDAL/DAL do not provide direct Include, you might need to fetch them separately
-        //    // or adapt your DAL to provide such composite data.
-
-        //    // Example assuming your DAL methods exist and return DB Entities:
-        //    // First, get the active TrainingPlan.
-        //    var activeTrainingPlan = await _planDayDAL.GetActiveTrainingPlanByTraineeIdAsync(traineeId); // Assuming you add this method to IPlanDayDAL/PlanDayDAL
-
-        //    if (activeTrainingPlan == null)
-        //    {
-        //        return null; // No active plan for this trainee
-        //    }
-
-        //    // Get all default PlanDays for this active training plan
-        //    var defaultPlanDays = await _planDayDAL.GetDefaultPlanDaysByTrainingPlanIdAsync(activeTrainingPlan.TrainingPlanId); // Assuming this method exists
-
-        //    // Get trainee details for TraineeName
-        //    var trainee = await _traineeBLL.GetTraineeByIdAsync(traineeId); // Assuming GetTraineeByIdAsync returns Trainee entity or DTO
-
-        //    // Calculate the start of the current week (Sunday at midnight)
-        //    DateTime today = DateTime.Today;
-        //    DayOfWeek currentDayOfWeek = today.DayOfWeek;
-        //    int daysSinceSunday = (int)currentDayOfWeek - (int)DayOfWeek.Sunday;
-        //    if (daysSinceSunday < 0)
-        //    {
-        //        daysSinceSunday += 7; // Adjust for systems where Sunday is not 0 (e.g., ISO-8601 where Monday is 1)
-        //    }
-        //    DateTime startOfCurrentWeek = today.AddDays(-daysSinceSunday);
-        //    startOfCurrentWeek = new DateTime(startOfCurrentWeek.Year, startOfCurrentWeek.Month, startOfCurrentWeek.Day, 0, 0, 0, DateTimeKind.Local); // Or Utc, depending on your DB storing convention
-
-        //    var planDaysForFrontend = new List<PlanDayResponseForFrontend>();
-
-        //    foreach (var defaultPlanDay in defaultPlanDays)
-        //    {
-        //        // Find the latest completed historical "child" PlanDay for this default PlanDay and the current trainee's active training plan.
-        //        // This assumes PlanDay entity has ParentProgramId, IsHistoricalProgram, CreationDate, and TrainingPlanId.
-        //        var lastCompletedChild = await _planDayDAL.GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(
-        //                                    defaultPlanDay.PlanDayId,
-        //                                    activeTrainingPlan.TrainingPlanId); // Assuming this method exists in IPlanDayDAL/PlanDayDAL
-
-        //        bool isCompletedThisWeek = false;
-        //        if (lastCompletedChild != null && lastCompletedChild.CreationDate >= startOfCurrentWeek)
-        //        {
-        //            isCompletedThisWeek = true;
-        //        }
-
-        //        planDaysForFrontend.Add(new PlanDayResponseForFrontend
-        //        {
-        //            PlanDayId = defaultPlanDay.PlanDayId,
-        //            ProgramName = defaultPlanDay.ProgramName,
-        //            DayOrder = defaultPlanDay.DayOrder,
-        //            IsDefaultProgram = defaultPlanDay.IsDefaultProgram,
-        //            IsCompletedThisWeek = isCompletedThisWeek
-        //        });
-        //    }
-
-        //    var response = new ActiveTrainingPlanResponse
-        //    {
-        //        TrainingPlanId = activeTrainingPlan.TrainingPlanId,
-        //        TraineeId = traineeId, // Use the traineeId from the parameter
-        //        TraineeName = trainee?.TraineeName ?? "Unknown Trainee", // Safely access trainee name
-        //        PlanDays = planDaysForFrontend
-        //    };
-
-        //    return response;
-        //}
 
         public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
         {
@@ -1024,6 +566,220 @@ namespace BLL
         }
 
 
+        // לכן, האפשרות עם ConcurrentDictionary בתוך ה-BLL היא הדרך הנכונה.
+        public List<PathResult> GetAllActiveWorkouts()
+        {
+            var activeWorkoutsList = new List<PathResult>();
+            foreach (var workoutStatus in _activeWorkoutsInternal.Values)
+            {
+                activeWorkoutsList.Add(MapTraineeStatusToPathResultDTO(workoutStatus));
+            }
+            return activeWorkoutsList;
+        }
+        public  async Task<List<TraineeDTO>> GetAllActiveTraineesId()
+        {
+            var activeTrainee =new List<TraineeDTO>();
+            //=  _activeWorkoutsInternal.Keys.ToList();
+            // var activeWorkoutsList = new List<PathResult>();
+            var trainee = await _traineeBLL.GetAllTraineesAsync();
+            foreach (var item in trainee)
+            {
+                if (_cache.TryGetValue($"Trainee_{item.TraineeId}", out TraineeExerciseStatus traineeStatus) && traineeStatus != null)
+                {
+                    activeTrainee.Add(item);
+                }
+            }
+            return activeTrainee;
+        }
+
+        // מכיוון ש-IMemoryCache אינו מספק דרך מובנית לקבל את כל הערכים,
+        // נדרש לנהל רשימה של מפתחות (TraineeIds) של אימונים פעילים,
+        // או לעבור על טווח אפשרי של TraineeIds אם ידוע.
+        // הדרך הנפוצה היא לשמור רשימת מפתחות נפרדת או להשתמש בפתרון Cache מתקדם יותר
+        // כמו Distributed Cache שמספק אפשרויות לסקירה.
+
+        // לצורך הדוגמה בלבד: אם היית שומר רשימה של TraineeIds של אימונים פעילים,
+        // היית עובר עליה ומוציא כל אחד מהם מהמטמון.
+        // כרגע, בהיעדר רשימה כזו, אי אפשר לשלוף את כולם ביעילות.
+        // לכן, אני מציע פתרון שמסתמך על מעבר על 'Keys' במטמון (אך זה לא נתמך ישירות ב-IMemoryCache).
+        // הפתרון היעיל ביותר הוא לשמור רשימה של ה-TraineeIds שיש להם אימון פעיל.
+
+        // למען הדוגמה וההמחשה, נניח שהייתה לנו גישה כלשהי למפתחות,
+        // או שהיה לך מנגנון ששומר רשימה של ה-TraineeIds של האימונים הפעילים:
+
+        // לדוגמה, אם הייתה לך רשימה של ID של מתאמנים פעילים
+        // List<int> activeTraineeIds = GetActiveTraineeIdsFromSomewhere(); // פונקציה ששולפת את ה-ID-ים
+
+        // פתרון בסיסי שיכול לדרוש סיוע נוסף:
+        // ב-IMemoryCache, אין דרך פשוטה לקבל את כל המפתחות.
+        // כדי שזה יעבוד, יש להוסיף רשימה (ConcurrentDictionary או ConcurrentBag)
+        // של ה-TraineeIds שהתחילו אימון ועדיין לא סיימו.
+
+        // נניח שיש לנו ConcurrentDictionary<int, TraineeExerciseStatus> ששומר את כל האימונים הפעילים
+        // במקום להסתמך רק על _cache.Set / _cache.Remove,
+        // נוכל להשתמש באובייקט זה כ"רשימת המפתחות" שלנו.
+        // למשל: private readonly ConcurrentDictionary<int, TraineeExerciseStatus> _activeWorkoutsCache;
+
+        // מכיוון שה-BLL שלך כבר משתמש ב-_cache.Set וב-_cache.Remove
+        // עם מפתחות בפורמט "Trainee_{traineeId}", הפתרון הפשוט ביותר
+        // הוא להוסיף רשימה פנימית או ConcurrentHashSet של ה-TraineeIds
+        // הפעילים כשמתחילים ומסיימים אימון.
+
+        // לדוגמה:
+        // public class ActiveWorkoutManager : IActiveWorkoutManagerBLL
+        // {
+        //     private readonly ConcurrentHashSet<int> _activeTraineeIds = new ConcurrentHashSet<int>(); // דרושה חבילת System.Collections.Concurrent.ConcurrentHashSet (או לממש בעצמך)
+
+        //     // ... בנאי ...
+
+        //     public async Task<PathResult> StartWorkoutAsync(...)
+        //     {
+        //         // ... קוד קיים ...
+        //         _cache.Set($"Trainee_{trainee.TraineeId}", traineeWorkoutStatus);
+        //         _activeTraineeIds.Add(trainee.TraineeId); // הוסף את ה-ID לרשימת הפעילים
+        //         // ...
+        //     }
+
+        //     public async Task<bool> CompleteExercise(...)
+        //     {
+        //         // ... קוד קיים ...
+        //         if (traineeStatus.Exercises.All(e => e.IsDone))
+        //         {
+        //             // ...
+        //             _cache.Remove($"Trainee_{traineeId}");
+        //             _activeTraineeIds.TryRemove(traineeId); // הסר את ה-ID מרשימת הפעילים
+        //         }
+        //         // ...
+        //     }
+
+        // כעת, ניתן לממש את GetAllActiveWorkouts באופן הבא:
+        // (שים לב שזה עדיין דורש תמיכה של ConcurrentHashSet או מנגנון דומה)
+
+        // אם אין לנו גישה ישירה לכל מפתחות המטמון, נצטרך מנגנון חיצוני:
+        // הדרך הנכונה ביותר היא לשמור רשימה של Trainee IDs פעילים:
+        // private readonly ConcurrentDictionary<int, bool> _activeTraineeTracking = new ConcurrentDictionary<int, bool>();
+
+        // נניח שהוספת לוגיקה לעדכון _activeTraineeTracking ב-StartWorkoutAsync וב-CompleteExercise.
+        // דוגמה למימוש GetAllActiveWorkouts עם הנחה זו:
+
+        // פה נצטרך גישה למנגנון שיודע אילו TraineeIds פעילים.
+        // אם אין לך מנגנון כזה, הפונקציה לא יכולה לעבוד ביעילות עם IMemoryCache בלבד.
+        // הפתרון המעשי ביותר הוא לעבור למטמון מבוזר (IDistributedCache) יחד עם Redis,
+        // שמאפשר שאילתות על מפתחות (לדוגמה, עם pattern "Trainee_*").
+        // או לחלופין, להוסיף ConcurrentDictionary במחלקת ה-BLL שלך שינהל את ה-TraineeExerciseStatus ישירות.
+
+        // *** פתרון מומלץ: אחסון האימונים הפעילים במבנה נתונים פנימי ב-BLL ***
+        // זהו הפתרון הפשוט והנכון ביותר בהתחשב בארכיטקטורה הנוכחית שלך.
+        // במקום להסתמך על IMemoryCache גם עבור שמירת סטטוס האימון וגם עבור אחזור כל המפתחות (שלא נתמך),
+        // נשתמש ב-IMemoryCache לאחסון זמני פרטני, וב-ConcurrentDictionary בתוך ה-BLL עצמו
+        // כדי לנהל את אוסף האימונים הפעילים.
+
+        // הוסף שדה זה למחלקה שלך:
+        // private readonly ConcurrentDictionary<int, TraineeExerciseStatus> _activeWorkouts = new ConcurrentDictionary<int, TraineeExerciseStatus>();
+
+        // עדכן את StartWorkoutAsync:
+        // _cache.Set($"Trainee_{trainee.TraineeId}", traineeWorkoutStatus);
+        // _activeWorkouts.TryAdd(trainee.TraineeId, traineeWorkoutStatus); // הוספה למילון האימונים הפעילים
+
+        // עדכן את CompleteExercise:
+        // if (traineeStatus.Exercises.All(e => e.IsDone))
+        // {
+        //     await SaveWorkoutToDatabase(traineeStatus);
+        //     _cache.Remove($"Trainee_{traineeId}");
+        //     _activeWorkouts.TryRemove(traineeId, out _); // הסרה ממילון האימונים הפעילים
+        //     Console.WriteLine($"Workout for Trainee {traineeId} completed and saved.");
+        // } else {
+        //     _activeWorkouts.AddOrUpdate(traineeId, traineeStatus, (key, oldValue) => traineeStatus); // עדכן אם לא הושלם
+        // }
+
+        // כעת, מימוש GetAllActiveWorkouts יהיה פשוט:
+        //foreach (var workoutStatus in _activeWorkouts.Values)
+        //{
+        //    activeWorkouts.Add(_mapper.Map<TraineeWorkoutStatusDTO>(workoutStatus));
+        //}
+
+        //return activeWorkouts;
+
+        // הערה: ללא שינוי במבנה ה-BLL לאחסון רשימת ה-IDs הפעילים,
+        // לא ניתן לממש את GetAllActiveWorkouts ביעילות עם IMemoryCache בלבד.
+        // הקוד למטה הוא רק דוגמה היפותטית אם הייתה דרך לגשת לכל הערכים,
+        // אבל זה לא הדרך ש-IMemoryCache עובד באופן טבעי.
+
+        // הדרך היחידה לעשות זאת עם IMemoryCache בלבד (וזה לא מומלץ/יעיל)
+        // היא אם היית שומר את *כל* ה-TraineeIds במפתח קבוע,
+        // וזה יוצר בעיות סנכרון וניהול.
+
+        //public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
+        //{
+        //    // Fetch the active training plan for the trainee, including related PlanDays and Trainee details.
+        //    // Using your DAL interfaces, you would call appropriate methods.
+        //    // This assumes your DAL has methods to fetch TrainingPlan with its related PlanDays and Trainee.
+        //    // If IDAL/DAL do not provide direct Include, you might need to fetch them separately
+        //    // or adapt your DAL to provide such composite data.
+
+        //    // Example assuming your DAL methods exist and return DB Entities:
+        //    // First, get the active TrainingPlan.
+        //    var activeTrainingPlan = await _planDayDAL.GetActiveTrainingPlanByTraineeIdAsync(traineeId); // Assuming you add this method to IPlanDayDAL/PlanDayDAL
+
+        //    if (activeTrainingPlan == null)
+        //    {
+        //        return null; // No active plan for this trainee
+        //    }
+
+        //    // Get all default PlanDays for this active training plan
+        //    var defaultPlanDays = await _planDayDAL.GetDefaultPlanDaysByTrainingPlanIdAsync(activeTrainingPlan.TrainingPlanId); // Assuming this method exists
+
+        //    // Get trainee details for TraineeName
+        //    var trainee = await _traineeBLL.GetTraineeByIdAsync(traineeId); // Assuming GetTraineeByIdAsync returns Trainee entity or DTO
+
+        //    // Calculate the start of the current week (Sunday at midnight)
+        //    DateTime today = DateTime.Today;
+        //    DayOfWeek currentDayOfWeek = today.DayOfWeek;
+        //    int daysSinceSunday = (int)currentDayOfWeek - (int)DayOfWeek.Sunday;
+        //    if (daysSinceSunday < 0)
+        //    {
+        //        daysSinceSunday += 7; // Adjust for systems where Sunday is not 0 (e.g., ISO-8601 where Monday is 1)
+        //    }
+        //    DateTime startOfCurrentWeek = today.AddDays(-daysSinceSunday);
+        //    startOfCurrentWeek = new DateTime(startOfCurrentWeek.Year, startOfCurrentWeek.Month, startOfCurrentWeek.Day, 0, 0, 0, DateTimeKind.Local); // Or Utc, depending on your DB storing convention
+
+        //    var planDaysForFrontend = new List<PlanDayResponseForFrontend>();
+
+        //    foreach (var defaultPlanDay in defaultPlanDays)
+        //    {
+        //        // Find the latest completed historical "child" PlanDay for this default PlanDay and the current trainee's active training plan.
+        //        // This assumes PlanDay entity has ParentProgramId, IsHistoricalProgram, CreationDate, and TrainingPlanId.
+        //        var lastCompletedChild = await _planDayDAL.GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(
+        //                                    defaultPlanDay.PlanDayId,
+        //                                    activeTrainingPlan.TrainingPlanId); // Assuming this method exists in IPlanDayDAL/PlanDayDAL
+
+        //        bool isCompletedThisWeek = false;
+        //        if (lastCompletedChild != null && lastCompletedChild.CreationDate >= startOfCurrentWeek)
+        //        {
+        //            isCompletedThisWeek = true;
+        //        }
+
+        //        planDaysForFrontend.Add(new PlanDayResponseForFrontend
+        //        {
+        //            PlanDayId = defaultPlanDay.PlanDayId,
+        //            ProgramName = defaultPlanDay.ProgramName,
+        //            DayOrder = defaultPlanDay.DayOrder,
+        //            IsDefaultProgram = defaultPlanDay.IsDefaultProgram,
+        //            IsCompletedThisWeek = isCompletedThisWeek
+        //        });
+        //    }
+
+        //    var response = new ActiveTrainingPlanResponse
+        //    {
+        //        TrainingPlanId = activeTrainingPlan.TrainingPlanId,
+        //        TraineeId = traineeId, // Use the traineeId from the parameter
+        //        TraineeName = trainee?.TraineeName ?? "Unknown Trainee", // Safely access trainee name
+        //        PlanDays = planDaysForFrontend
+        //    };
+
+        //    return response;
+        //}
+
         //public async Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId)
         //{
         //    // 1. קבל את התוכנית הפעילה ופרטיה מה-DAL
@@ -1117,3 +873,417 @@ namespace BLL
 //   .ForMember(dest => dest.TimesMax, opt => opt.Ignore())
 //   .ForMember(dest => dest.TimesMin, opt => opt.Ignore())
 //   .ForMember(dest => dest.ExerciseDetails, opt => opt.Ignore());
+
+
+
+
+
+
+
+
+
+
+//{
+//    private BacktrackingScheduler scheduler;
+//    public bool IsInitialized => scheduler != null;
+
+//    private Dictionary<int, TraineeExerciseStatus> activeTrainees;
+//    private readonly IPlanDayDAL planDayDAL;
+//    private readonly IExercisePlanDAL exercisePlanDAL;
+//    private readonly IMapper mapper;
+//    private readonly SemaphoreSlim _startWorkoutLock = new SemaphoreSlim(1, 1);
+
+//    private readonly ITraineeBLL _traineeBLL;
+//    private readonly IPlanDayDAL _planDayDAL;
+//    private readonly IExercisePlanDAL _exercisePlanDAL;
+//    private readonly IMemoryCache _cache;
+
+
+//    public ActiveWorkoutManager(
+//        IMemoryCache cache,
+//        ITraineeBLL traineeBLL,
+//        IPlanDayDAL planDayDAL,
+//        IExercisePlanDAL exercisePlanDAL)
+//    {
+//        _cache = cache;
+//        this._traineeBLL = traineeBLL;
+//        this.planDayDAL = planDayDAL;
+//        this.exercisePlanDAL = exercisePlanDAL;
+
+//        activeTrainees = new Dictionary<int, TraineeExerciseStatus>();
+
+//        var configTaskConverter = new MapperConfiguration(cfg =>
+//        {
+//            cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
+//            cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
+//        });
+//        mapper = new Mapper(configTaskConverter);
+//    }
+
+
+//    public void Initialize(
+//        List<ExerciseDTO> exerciseList,
+//        List<GraphEdgeDTO> exerciseEdges,
+//        List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+//        List<MuscleEdgeDTO> muscleEdges,
+//        Dictionary<int, int> equipmentCountByExercise,
+//        DateTime firstSlotStart,
+//        int slotMinutes,
+//        int slotCount)
+//    {
+//        if (_cache.TryGetValue("Scheduler", out BacktrackingScheduler existing) && existing != null)
+//            throw new Exception("Scheduler already initialized!");
+
+//        var scheduler = new BacktrackingScheduler(_traineeBLL);
+//        scheduler.Initialize(
+//            exerciseList, exerciseEdges, exerciseToMuscleEdges, muscleEdges,
+//            equipmentCountByExercise, firstSlotStart, slotMinutes, slotCount
+//        );
+//        _cache.Set("Scheduler", scheduler);
+//    }
+
+//    // שמירה בזיכרון cache
+//    private BacktrackingScheduler GetScheduler()
+//    {
+//        if (!_cache.TryGetValue("Scheduler", out BacktrackingScheduler scheduler) || scheduler == null)
+//            throw new Exception("Scheduler is not initialized!");
+//        return scheduler;
+//    }
+
+
+//    public void ResetScheduler()
+//    {
+//        scheduler = null;
+//    }
+
+//    // פונקציה להדפסת מטריצת המעבר של ה-BacktrackingScheduler
+//    public void PrintSchedulerMatrix()
+//    {
+//        var scheduler = GetScheduler();
+//        scheduler.PrintTransitionMatrixToConsole();
+//    }
+
+//    // קריאה לאלגוריתם והתחלת אימון
+//    public async Task StartWorkoutAsync(TraineeDTO trainee, List<ExercisePlanDTO> exerciseOrder, DateTime startTime, int planDayId)
+//    {
+//        var scheduler = GetScheduler();
+//        // ננסה לקבל מיד את המנעול, ואם לא מצליחים נדפיס הודעה ונחכה
+//        if (!await _startWorkoutLock.WaitAsync(0))
+//        {
+//            Console.WriteLine("המערכת מחשבת נתונים");
+//            await _startWorkoutLock.WaitAsync(); // מחכים עד שהמנעול ישתחרר
+//        }
+//        try
+//        {
+//            var pathResult = await scheduler.FindOptimalPath(trainee, exerciseOrder, startTime);
+
+//            if (pathResult == null)
+//                throw new Exception("לא נמצא מסלול מתאים עבור מתאמן זה.");
+
+//            // בניית סטטוס תרגילים מה-PathResult
+//            var exercisesStatus = pathResult.ExerciseIdsInPath
+//                .OrderBy(pair => pair.Value.OrderInList)
+//                .Select(pair => new ExerciseStatusEntry
+//                {
+//                    OriginalExercise = pair.Key,
+//                    ExerciseId = pair.Value.ExerciseId,
+//                    OrderInList = pair.Value.OrderInList,
+//                    IsDone = false,
+//                    PerformedAt = null,
+//                    StartedAt = null
+//                }).ToList();
+//            _cache.Set($"Trainee_{trainee.TraineeId}", new TraineeExerciseStatus
+//            {
+//                Trainee = trainee,
+//                Exercises = exercisesStatus,
+//                planDayId = planDayId
+//            });
+
+//        }
+//        finally
+//        {
+//            _startWorkoutLock.Release();
+//        }
+//    }
+
+//    // קריאה להתחלת תרגיל עבור מתאמן
+//    public bool StartExercise(int traineeId, int exerciseId, DateTime startTime)
+//    {
+//        if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
+//            throw new Exception("Trainee not found");
+//        var scheduler = GetScheduler();
+
+//        var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+//        if (exercise == null)
+//            throw new Exception("Exercise not found for this trainee");
+
+//        exercise.StartedAt = startTime;
+//        return true;
+//    }
+
+//    // קריאה לסיום תרגיל עבור מתאמן
+//    public bool CompleteExercise(int traineeId, int exerciseId, DateTime endTime)
+//    {
+//        if (!_cache.TryGetValue($"Trainee_{traineeId}", out TraineeExerciseStatus traineeStatus) || traineeStatus == null)
+//            throw new Exception("Trainee not found");
+//        var scheduler = GetScheduler();
+
+//        var exercise = traineeStatus.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+//        if (exercise == null)
+//            throw new Exception("Exercise not found for this trainee");
+
+//        exercise.IsDone = true;
+//        exercise.PerformedAt = endTime;
+
+//        if (traineeStatus.Exercises.All(e => e.IsDone))
+//        {
+//            SaveWorkoutToDatabase(traineeStatus);
+//            // ניתן למחוק מכאן את המתאמן כעת
+//            activeTrainees.Remove(traineeId);
+//            _cache.Remove($"Trainee_{traineeId}");
+//        }
+//        return true;
+//    }
+
+//    // לוגיקה למיפוי ושמירה למסד הנתונים 
+//    private async Task SaveWorkoutToDatabase(TraineeExerciseStatus status)
+//    {
+//        var scheduler = GetScheduler();
+
+//        PlanDay planDay = await planDayDAL.GetPlanDayByIdAsync(status.planDayId);
+//        var planDayDto = mapper.Map<PlanDayDTO>(planDay);
+
+//        // דוגמה: המרה ל-PlanDay, ExercisePlan ושמירה ב-DB
+//        var NewplanDay = new PlanDayDTO()
+//        {
+//            //PlanDayId = 0, // או ID חדש שיתקבל מהמסד
+//            TrainingPlanId = planDayDto.TrainingPlanId, // או ID של תוכנית האימון המתאימה
+//            ProgramName = "Workout Plan",
+//            DayOrder = planDayDto.DayOrder, // או סדר היום המתאים
+//            CreationDate = DateTime.Now,
+//            IsDefaultProgram = false,
+//            ParentProgramId = planDayDto.PlanDayId,
+//            IsHistoricalProgram = true
+//        };
+//        // שמירת ה-PlanDay
+//        var savedPlanDay = await planDayDAL.AddPlanDayAsync(mapper.Map<PlanDay>(NewplanDay));
+//        foreach (var exercise in status.Exercises)
+//        {
+//            var OrigenExercisePlan = await exercisePlanDAL.GetExercisePlanByIdAsync(exercise.OriginalExercise);
+//            // שמירת ה-ExercisePlan
+//            var exercisePlan = new ExercisePlanDTO()
+//            {
+//                ExerciseId = exercise.ExerciseId,
+//                PlanDayId = status.planDayId,
+//                TimesMax = OrigenExercisePlan.TimesMax,
+//                TimesMin = OrigenExercisePlan.TimesMin,
+//                PlanRepetitionsMax = OrigenExercisePlan.TimesMax,
+//                PlanRepetitionsMin = OrigenExercisePlan.TimesMin,
+//                PlanSets = OrigenExercisePlan.PlanSets,
+//                PlanWeight = OrigenExercisePlan.PlanWeight,
+//                CategoryId = OrigenExercisePlan.CategoryId,
+//                SubMuscleId = OrigenExercisePlan.SubMuscleId,
+//                TrainingDateTime = DateTime.Now,
+//                IndexOrder = exercise.OrderInList,
+//            };
+//            await exercisePlanDAL.AddExercisePlanAsync(mapper.Map<ExercisePlan>(exercisePlan));
+//        }
+//    }
+
+
+
+//    //public async Task<List<PathResult>> GetUpdatedWorkoutPlan(int traineeId)
+//    //{
+
+//    //}
+
+
+
+
+//    //// שומרים את תוכניות האימון הפעילות בזיכרון.
+//    //// מפתח: TraineeId, ערך: PathResultDTO (תוכנית האימון הפעילה)
+//    //private static readonly ConcurrentDictionary<int, PathResultDTO> _activeWorkoutPlans = new ConcurrentDictionary<int, PathResultDTO>();
+
+//    //// נתוני דוגמה (בפרויקט אמיתי זה יגיע ממסד נתונים או שירות אחר)
+//    //private static readonly List<TraineeDTO> _mockTrainees = new List<TraineeDTO>
+//    //{
+//    //    new TraineeDTO { TraineeId = 1, Name = "ישראל ישראלי", CurrentPlanDayId = 1 },
+//    //    new TraineeDTO { TraineeId = 2, Name = "שרה כהן", CurrentPlanDayId = 2 }
+//    //};
+
+//    //private static readonly List<ExerciseDTO> _mockExercises = new List<ExerciseDTO>
+//    //{
+//    //    new ExerciseDTO { ExerciseId = 1, ExerciseName = "לחיצת חזה במוט", Description = "תרגיל לחיזוק שרירי החזה", MuscleIds = new List<int> { 1 } },
+//    //    new ExerciseDTO { ExerciseId = 2, ExerciseName = "חתירה בפולי תחתון", Description = "תרגיל לחיזוק שרירי הגב", MuscleIds = new List<int> { 2 } },
+//    //    new ExerciseDTO { ExerciseId = 3, ExerciseName = "לחיצת כתפיים בדאמבלים", Description = "תרגיל לחיזוק שרירי הכתפיים", MuscleIds = new List<int> { 3 } },
+//    //    new ExerciseDTO { ExerciseId = 4, ExerciseName = "סקוואט", Description = "תרגיל רגליים", MuscleIds = new List<int> { 4, 5 } },
+//    //    new ExerciseDTO { ExerciseId = 5, ExerciseName = "בייספס יד-יד", Description = "תרגיל לידיים", MuscleIds = new List<int> { 6 } }
+//    //};
+
+//    //private static readonly List<ExercisePlanDTO> _mockExercisePlans = new List<ExercisePlanDTO>
+//    //{
+//    //    // PlanDayId 1
+//    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 1, Sets = 3, Reps = 10, RestTime = 60, TimesMax = 20, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 1) },
+//    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 2, Sets = 4, Reps = 8, RestTime = 90, TimesMax = 25, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 2) },
+//    //    new ExercisePlanDTO { PlanDayId = 1, ExerciseId = 4, Sets = 3, Reps = 12, RestTime = 60, TimesMax = 20, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 4) },
+//    //    // PlanDayId 2
+//    //    new ExercisePlanDTO { PlanDayId = 2, ExerciseId = 3, Sets = 3, Reps = 10, RestTime = 60, TimesMax = 15, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 3) },
+//    //    new ExercisePlanDTO { PlanDayId = 2, ExerciseId = 5, Sets = 3, Reps = 12, RestTime = 45, TimesMax = 10, ExerciseDetails = _mockExercises.FirstOrDefault(e => e.ExerciseId == 5) }
+//    //};
+
+
+//    // --- פונקציה שמפעילה את האלגוריתם (לצורך הדוגמה, יצירת מסלול פשוט) ---
+//    public PathResult RunAlgorithmAndInitializeWorkout(RunAlgorithmRequest request)
+//    {
+//        // הסרה של אימון קודם אם קיים
+//        _activeWorkoutPlans.TryRemove(request.Trainee, out _);
+
+//        // 1. קבל את פרטי המתאמן והתרגילים ליום התוכנית
+//        TraineeDTO trainee = GetTraineeById(request.Trainee);
+//        if (trainee == null)
+//        {
+//            throw new ArgumentException("Trainee not found.");
+//        }
+
+//        List<ExercisePlanDTO> exerciseOrder = GetExercisePlansForPlanDay(request.planday);
+//        if (exerciseOrder == null || !exerciseOrder.Any())
+//        {
+//            throw new ArgumentException("No exercises found for the specified plan day.");
+//        }
+
+//        // 2. "הפעלת האלגוריתם" (לצורך הדוגמה, סדר תרגילים רנדומלי או לפי ID)
+//        // בפרויקט אמיתי, כאן היית מפעיל לוגיקה מורכבת של תזמון
+//        var bestPathIds = exerciseOrder.Select(ep => ep.ExerciseId).ToList(); // לדוגמה, לפי סדר ה-ID
+
+//        // 3. בנה את ה-PathResultDTO הסופי עם זמנים ופרטים
+//        var currentTime = request.StartTime;
+//        var exerciseEntries = new Dictionary<int, ExerciseEntry>();
+//        int orderInList = 0;
+
+//        foreach (var exerciseId in bestPathIds)
+//        {
+//            var planDetails = exerciseOrder.FirstOrDefault(ep => ep.ExerciseId == exerciseId);
+//            if (planDetails == null) continue;
+
+//            var duration = TimeSpan.FromMinutes(planDetails.TimesMax); // משך תרגיל מהתוכנית
+//            var exerciseDetails = GetExerciseDetails(exerciseId);
+
+//            // קביעת זמני התרגיל - פשוט לצרכי הדוגמה
+//            var exerciseStartTime = currentTime;
+//            var exerciseEndTime = currentTime.Add(duration);
+
+//            var entry = new ExerciseEntry
+//            {
+//                ExerciseId = exerciseId,
+//                OrderInList = orderInList,
+//                StartTime = exerciseStartTime,
+//                EndTime = exerciseEndTime,
+//                //ExerciseDetails = exerciseDetails,
+//                //Sets = planDetails.Sets,
+//                //Reps = planDetails.Reps,
+//                //RestTime = planDetails.RestTime
+//            };
+//            exerciseEntries.Add(exerciseId, entry);
+
+//            currentTime = exerciseEndTime;//.AddSeconds(planDetails.RestTime); // הוסף זמן מנוחה
+//            orderInList++;
+//        }
+
+//        var pathResultDto = new PathResult
+//        {
+//            Trainee = trainee,
+//            ExerciseIdsInPath = exerciseEntries,
+//            StartTime = request.StartTime,
+//            EndTime = currentTime, // סוף האימון
+//            AlternativesUsed = 0, // או כפי שהאלגוריתם מחזיר
+//            //CurrentExerciseIndex = 0 // מתחיל מהתרגיל הראשון
+//        };
+
+//        // שמור את תוכנית האימון הפעילה בזיכרון
+//        _activeWorkoutPlans[trainee.TraineeId] = pathResultDto;
+
+//        return pathResultDto;
+//    }
+
+//    // --- פונקציה לקבלת תוכנית האימון המעודכנת (כל התוכנית) ---
+//    public PathResult GetUpdatedWorkoutPlan(int traineeId)
+//    {
+//        _activeWorkoutPlans.TryGetValue(traineeId, out var plan);
+//        return plan; // מחזיר את ה-DTO ישירות מהזיכרון
+//    }
+
+//    // --- פונקציה לקבלת התרגיל הבא ---
+//    public NextExerciseResponse GetNextExerciseInWorkout(int traineeId)
+//    {
+//        if (!_activeWorkoutPlans.TryGetValue(traineeId, out var currentPlan))
+//        {
+//            return new NextExerciseResponse { IsWorkoutComplete = true, Message = "לא נמצא אימון פעיל למתאמן." };
+//        }
+
+//        var sortedEntries = currentPlan.ExerciseEntries.Values.OrderBy(e => e.OrderInList).ToList();
+
+//        if (currentPlan.CurrentExerciseIndex >= sortedEntries.Count)
+//        {
+//            // האימון הסתיים
+//            return new NextExerciseResponse { IsWorkoutComplete = true, Message = "האימון הושלם בהצלחה!" };
+//        }
+
+//        var nextExerciseEntry = sortedEntries[currentPlan.CurrentExerciseIndex];
+
+//        // עדכן את האינדקס לתרגיל הבא לפעם הבאה
+//        // (זה חשוב אם ה-frontend לא תמיד קורא ל-CompleteExercise)
+//        // currentPlan.CurrentExerciseIndex++; // נעדכן רק ב-CompleteExercise
+
+//        return new NextExerciseResponse
+//        {
+//            NextExercise = nextExerciseEntry,
+//            IsWorkoutComplete = false,
+//            RemainingExercisesCount = sortedEntries.Count - (currentPlan.CurrentExerciseIndex + 1),
+//            Message = "תרגיל הבא."
+//        };
+//    }
+
+//    // --- פונקציה לסימון תרגיל כהושלם (מעדכן את מצב האימון בזיכרון) ---
+//    public bool CompleteExercise(int traineeId, int exerciseId)
+//    {
+//        if (!_activeWorkoutPlans.TryGetValue(traineeId, out var currentPlan))
+//        {
+//            return false; // אין אימון פעיל
+//        }
+
+//        var currentEntries = currentPlan.ExerciseEntries.Values.OrderBy(e => e.OrderInList).ToList();
+//        var exerciseToComplete = currentEntries.FirstOrDefault(e => e.ExerciseId == exerciseId && e.OrderInList == currentPlan.CurrentExerciseIndex);
+
+//        if (exerciseToComplete == null)
+//        {
+//            // התרגיל לא תואם לתרגיל הנוכחי הצפוי
+//            return false;
+//        }
+
+//        // עדכן את האינדקס לתרגיל הבא
+//        currentPlan.CurrentExerciseIndex++;
+
+//        // אם נשאר מקום (לדוגמה, מכונה תפוסה) ניתן לעדכן את סדר התרגילים כאן
+//        // לדוגמה: אם התרגיל הבא לא זמין, ניתן לדלג עליו ולמצוא את הבא בתור
+//        // for (int i = currentPlan.CurrentExerciseIndex; i < currentEntries.Count; i++) { ... }
+
+//        return true;
+//    }
+
+//    // --- פונקציות עזר (במקום DAL/DB) ---
+//    public TraineeDTO GetTraineeById(int traineeId)
+//    {
+//        return _mockTrainees.FirstOrDefault(t => t.TraineeId == traineeId);
+//    }
+
+//    public List<ExercisePlanDTO> GetExercisePlansForPlanDay(int planDayId)
+//    {
+//        return _mockExercisePlans.Where(ep => ep.PlanDayId == planDayId).ToList();
+//    }
+
+//    public ExerciseDTO GetExerciseDetails(int exerciseId)
+//    {
+//        return _mockExercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
+//    }
+// }
+// public class ActiveWorkoutManager : IActiveWorkoutManager

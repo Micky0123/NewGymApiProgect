@@ -209,7 +209,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<NextExerciseResponse> GetNextExerciseInWorkout(int traineeId)
         {
-                var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
+            var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
 
             // במקרה ש-GetNextExerciseInWorkout מחזיר תגובה שמציינת שהאימון הושלם/לא נמצא,
             // נחזיר תמיד Ok, כי ה-NextExerciseResponse DTO כבר מכיל את המידע הזה.
@@ -239,32 +239,87 @@ namespace API.Controllers
                 return StatusCode(500, "An error occurred while retrieving the active training plan.");
             }
         }
-    }
+
+
+
+        [HttpGet("all-trainees")]
+        public async Task<ActionResult<IEnumerable<TraineeDTO>>> GetAllActiveTraineesIds()
+        {
+            try
+            {
+                //var trainees = await _traineeBLL.GetAllTraineesAsync(); // יש לוודא שפונקציה זו קיימת ב-ITraineeBLL ומחזירה רשימה של TraineeDTO
+                List<TraineeDTO> trainees = await _activeWorkoutManager.GetAllActiveTraineesId(); // יש לוודא שפונקציה זו קיימת ב-ITraineeBLL ומחזירה רשימה של TraineeDTO
+                //var traineeList = new List<TraineeDTO>();
+                //foreach (var trainee in trainees)
+                //{
+                //    traineeList.Add(await _traineeBLL.GetTraineeByIdAsync(trainee));
+                //}
+
+                if (trainees == null)
+                {
+                    return NotFound("No trainees found in the system.");
+                }
+                return Ok(trainees);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllTrainees: {ex.Message}");
+                return StatusCode(500, "An error occurred while retrieving trainees.");
+            }
+        }
+
+
+
+        [HttpGet("all-active-workouts")]
+        public ActionResult<IEnumerable<ActiveTrainingPlanResponse>> GetAllActiveWorkouts()
+        {
+            try
+            {
+                // נניח ש-ActiveWorkoutManager מכיל מתודה כזו
+                // שתחזיר רשימה של כל האימונים הפעילים כרגע בזיכרון המערכת
+                var activeWorkouts = _activeWorkoutManager.GetAllActiveWorkouts();
+
+                if (activeWorkouts == null || !activeWorkouts.Any())
+                {
+                    return Ok(new List<ActiveTrainingPlanResponse>()); // החזר רשימה ריקה אם אין
+                }
+                return Ok(activeWorkouts);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllActiveWorkouts: {ex.Message}");
+                return StatusCode(500, "An error occurred while retrieving all active workouts.");
+            }
+        }
+
+        //[HttpGet("all-active-trainees")]
+        //public ActionResult<List<int>> GetAllActiveTraineesIds() => new List<int>(); // List<int> GetAllActiveTraineesIds()
+}
 
 
 
 
-    // מודלים ל-Request
-    public class StartWorkoutRequest
-    {
-        public TraineeDTO Trainee { get; set; }
-        public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-        public DateTime StartTime { get; set; }
-        public int PlanDayId { get; set; }
-    }
+// מודלים ל-Request
+public class StartWorkoutRequest
+{
+    public TraineeDTO Trainee { get; set; }
+    public List<ExercisePlanDTO> ExerciseOrder { get; set; }
+    public DateTime StartTime { get; set; }
+    public int PlanDayId { get; set; }
+}
 
-    public class StartOrCompleteExerciseRequest
-    {
-        public int TraineeId { get; set; }
-        public int ExerciseId { get; set; }
-        public DateTime StartTime { get; set; }
-    }
+public class StartOrCompleteExerciseRequest
+{
+    public int TraineeId { get; set; }
+    public int ExerciseId { get; set; }
+    public DateTime StartTime { get; set; }
+}
 
-    public class SchedulerInitRequest
-    {
-        public int SlotMinutes { get; set; }
-        public int SlotCount { get; set; }
-    }
+public class SchedulerInitRequest
+{
+    public int SlotMinutes { get; set; }
+    public int SlotCount { get; set; }
+}
     //public class RunAlgorithmRequest
     //{
     //    public int Trainee { get; set; }

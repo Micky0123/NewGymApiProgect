@@ -466,7 +466,7 @@ namespace BLL
             int daysInWeek,
             int goal,
             int level,
-            object time)
+            int time)
         {
             logger.LogInformation($"Starting to save training program: {programName} for trainee: {traineeID}");
 
@@ -500,7 +500,7 @@ namespace BLL
             int daysInWeek,
             int goal,
             int level,
-            object time)
+            int time)
         {
             try
             {
@@ -511,7 +511,7 @@ namespace BLL
                     TrainingDays = daysInWeek,
                     GoalId = goal,
                     FitnessLevelId = level,
-                    TrainingDurationId = 1,
+                    TrainingDurationId = time,
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddMonths(3),
                     IsActive = true,
