@@ -81,19 +81,6 @@ namespace DAL
             }
         }
 
-        //public async Task<TrainingPlan> GetTrainingPlanByNameAsync(string name)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.TrainingPlans.FirstOrDefaultAsync(t => t.PlanName == name);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error retrieving Training Plan by name", ex);
-        //    }
-        //}
-
         public async Task UpdateTrainingPlanAsync(TrainingPlan trainingPlan, int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -140,73 +127,11 @@ namespace DAL
             }
         }
 
-        //public async Task<TrainingPlan?> GetAllActiveTrainingPlansOfTrainee(int traineeId)
-        //{
-        //    await using var ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.TrainingPlans
-        //            .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
-        //            .FirstOrDefaultAsync(); // יחזיר את הראשון או null
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // שים לב: כאן החריגה תתפוס גם אם אין איבר
-        //        throw new Exception("Error retrieving active Training Plan by TraineeId", ex);
-        //    }
-        //}
-
-        //public async Task<TrainingPlan?> GetAllHistoryTrainingPlansOfTrainee(int traineeId)
-        //{
-        //    await using var ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.TrainingPlans
-        //            .Where(tp => tp.TraineeId == traineeId )
-        //            .FirstOrDefaultAsync(); // יחזיר את הראשון או null
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error retrieving History Training Plan by TraineeId", ex);
-        //    }
-        //}
-
-        // ב-DAL שלך (לדוגמה, TrainingPlanDAL.cs)
-
         public async Task<TrainingPlan> GetActiveTrainingPlanWithDaysOfTrainee(int traineeId)
         {
             await using var ctx = new GymDbContext();
             try
             {
-                // כלול את PlanDays ישירות ב-TrainingPlan
-                //return await ctx.TrainingPlans
-                //    .Include(tp => tp.PlanDays) // טען את PlanDays
-                //    .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
-                //    .FirstOrDefaultAsync();
-
-                //// שלב 1: טען את תוכנית האימון הפעילה
-                //var trainingPlan = await ctx.TrainingPlans
-                //    .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
-                //    .FirstOrDefaultAsync();
-
-                //if (trainingPlan == null)
-                //{
-                //    return null; // אין תוכנית אימון פעילה למתאמן זה
-                //}
-
-                //// גם אם הקשר לא "עבד" עם Include מהסיבות הנ"ל.
-                //// אנו נטען אותם ונחבר אותם ידנית לנכס הניווט PlanDays
-                //var planDays = await ctx.PlanDays
-                //    .Where(pd => pd.TrainingPlanId == trainingPlan.TrainingPlanId)
-                //    // אולי תרצה לסנן גם לפי !pd.IsHistoricalProgram אם זה רלוונטי ל"תוכניות יום פעילות"
-                //    .ToListAsync();
-
-                //// חבר את ה-PlanDays לאובייקט ה-TrainingPlan
-                //// (אם PlanDays כבר מכיל נתונים מ-Include, זה יוסיף אותם שוב, אבל כאן אנחנו מניחים שהוא ריק)
-                //// ודא ש-PlanDays במודל הוא ICollection<PlanDay> ולא רק List<PlanDay>
-                //// וודא שאתה לא יוצר רשימה חדשה אלא מוסיף לקיים או מגדיר את הקיים
-                //trainingPlan.PlanDays = planDays; // זה ידרוש ש-PlanDays יהיה Set ולא רק Get במודל
-                //return trainingPlan;
                 var trainingPlan = await ctx.TrainingPlans
                .Where(tp => tp.TraineeId == traineeId && tp.IsActive)
                .FirstOrDefaultAsync();
@@ -224,7 +149,6 @@ namespace DAL
             await using var ctx = new GymDbContext();
             try
             {
-                // כלול את PlanDays ישירות עבור כל תוכנית היסטורית
                 return await ctx.TrainingPlans
                     .Include(tp => tp.PlanDays) // טען את PlanDays
                     .Where(tp => tp.TraineeId == traineeId && !tp.IsActive)
@@ -241,13 +165,8 @@ namespace DAL
             await using var ctx = new GymDbContext();
             try
             {
-                //return await ctx.TrainingPlans
-                //.Include(tp => tp.PlanDays)
-                //.Include(tp => tp.Trainee)
-                //.FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
-
                 var trainingPlan = await ctx.TrainingPlans
-                    .Include(tp => tp.Trainee) // עדיין טוען את Trainee אם הוא נדרש ישירות על אובייקט התוכנית
+                    .Include(tp => tp.Trainee) 
                     .FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
 
                 if (trainingPlan == null)
@@ -256,16 +175,12 @@ namespace DAL
                 }
 
                 // 2. מצא את כל ה-PlanDays ששייכים לתוכנית האימון שנמצאה
-                // נניח ש-PlanDay כולל TrainingPlanId כמפתח זר
                 var planDays = await ctx.PlanDays
                     .Where(pd => pd.TrainingPlanId == trainingPlan.TrainingPlanId)
-                    .OrderBy(pd => pd.DayOrder) // אפשר למיין כאן
+                    .OrderBy(pd => pd.DayOrder) 
                     .ToListAsync();
 
                 // 3. שייך את ה-PlanDays לתוכנית האימון (אם הוא עדיין לא שויך אוטומטית ע"י ה-Change Tracker)
-                // אם ה-Navigation Property של PlanDays ב-TrainingPlan הוא ICollection<PlanDay>
-                // ו-EF Core מנהל את האובייקטים, ייתכן שזה כבר יקרה אוטומטית.
-                // אבל כדי להיות בטוחים ולטפל במקרים של detached entities:
                 trainingPlan.PlanDays = planDays;
 
                 return trainingPlan;

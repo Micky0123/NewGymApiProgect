@@ -21,11 +21,9 @@ namespace IBLL
         // מסמן שתרגיל הושלם
         bool CompleteExercise(int traineeId, int exerciseId);
 
-        // פונקציות עזר לדוגמה (בפרויקט אמיתי יגיעו מ-DB או Mock)
         TraineeDTO GetTraineeById(int traineeId);
         List<ExercisePlanDTO> GetExercisePlansForPlanDay(int planDayId);
         ExerciseDTO GetExerciseDetails(int exerciseId);
 
-        //Task<ActiveTrainingPlanResponse?> GetActiveTrainingPlanForTrainee(int traineeId);
     }
 }

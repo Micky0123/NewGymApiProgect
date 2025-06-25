@@ -13,7 +13,6 @@ namespace IBLL
         Task<List<JointDTO>> GetAllJointsAsync();
         Task<JointDTO> GetJointByIdAsync(int id);
         Task<JointDTO> GetJointByNameAsync(string name);
-
         Task UpdateJointAsync(JointDTO joint, int id);
         Task DeleteJointAsync(int id);
     }

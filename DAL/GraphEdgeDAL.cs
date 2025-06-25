@@ -63,7 +63,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                var graphEdges = await ctx.GraphEdges.Where(x => x.Device1Id == devaiceID1).ToListAsync(); // ToListAsync במקום ToList
+                var graphEdges = await ctx.GraphEdges.Where(x => x.Device1Id == devaiceID1).ToListAsync(); 
                 return graphEdges;
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                var graphEdges = await ctx.GraphEdges.Where(x => x.Device2Id == devaiceID2).ToListAsync(); // ToListAsync במקום ToList
+                var graphEdges = await ctx.GraphEdges.Where(x => x.Device2Id == devaiceID2).ToListAsync(); 
                 return graphEdges;
             }
             catch (Exception ex)
@@ -99,8 +99,6 @@ namespace DAL
             }
         }
 
-
-        //***************************************
         public async Task UpdateGraphEdgeAsync(GraphEdge graphEdge, int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -111,8 +109,6 @@ namespace DAL
                 {
                     throw new Exception("GraphEdge not found");
                 }
-
-                // existingGraphEdge.GoalName = goal.GoalName;
                 await ctx.SaveChangesAsync();
 
             }

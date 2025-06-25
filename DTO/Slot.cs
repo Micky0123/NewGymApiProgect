@@ -31,13 +31,3 @@ namespace DTO
 
     }
 }
-
-//public bool TryAddExercise(ExerciseEntry entry)
-//{
-//    if (Exercises.Count < MaxCapacity)
-//    {
-//        Exercises.Add(entry);
-//        return true;
-//    }
-//    return false; // מלא
-//}

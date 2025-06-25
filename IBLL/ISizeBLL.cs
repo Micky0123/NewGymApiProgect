@@ -13,7 +13,6 @@ namespace IBLL
         Task<List<SizeDTO>> GetAllSizesAsync();
         Task<SizeDTO> GetSizeByIdAsync(int id);
         Task<SizeDTO> GetSizeByNameAsync(string name);
-
         Task UpdateSizeAsync(SizeDTO size, int id);
         Task DeleteSizeAsync(int id);
     }

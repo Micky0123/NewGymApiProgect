@@ -78,9 +78,6 @@ namespace BLL
             {
                 // שליפת כל התרגילים והשרירים שלהם
                 var exercises = await exerciseDAL.GetAllExercisesAsync();
-                //var exercises = await _context.Exercises
-                //.Include(e => e.Muscles)
-                //.ToListAsync();
 
                 // עבור כל תרגיל
                 foreach (var exercise1 in exercises)
@@ -95,9 +92,6 @@ namespace BLL
 
                         var muscles1 = await exerciseDAL.GetAllMusclesByExerciseAsync(exercise1.ExerciseId);
                         var muscle2 = await exerciseDAL.GetAllMusclesByExerciseAsync(exercise2.ExerciseId);
-                        //bool hasCommonMuscle = muscles1.Any(m1 => muscle2.Any(m2 => m1.MuscleId == m2.MuscleId));
-                        // בדיקה אם יש שריר משותף
-                        //bool hasCommonMuscle = exercise1.Muscles.Any(m1 => exercise2.Muscles.Any(m2 => m1.MuscleId == m2.MuscleId));
                         bool hasCommonMuscle= muscles1==muscle2;
 
                         if (hasCommonMuscle)
@@ -122,7 +116,6 @@ namespace BLL
                     }
                 }
                 Console.WriteLine("Graph edges created successfully.");
-                // אם הכל עבר בהצלחה
                 return true;
             }
             catch (Exception ex)
@@ -132,9 +125,6 @@ namespace BLL
                 return false; // במקרה של כישלון
                 throw; // אפשר לזרוק שוב את החריגה אם צריך לטפל בה במקום אחר
             }
-
-
         }
-
     }
 }

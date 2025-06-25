@@ -14,7 +14,6 @@ namespace IBLL
         Task<ExercisePlanDTO> GetExercisePlanByIdAsync(int id);
         Task<List<ExercisePlanDTO>> GetExercisesByPlanDayIdAsync(int planDayId);
         Task<List<ExercisePlanDTO>> GetdefulteExercisesByPlanDayIdAsync(int planDayId);
-        //Task<ExercisePlanDTO> GetExercisePlanByNameAsync(string name);
         Task UpdateExercisePlanAsync(ExercisePlanDTO exercisePlan, int id);
         Task DeleteExercisePlanAsync(int id);
     }

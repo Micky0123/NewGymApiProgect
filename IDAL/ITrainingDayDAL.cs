@@ -12,7 +12,6 @@ namespace IDAL
         Task AddTrainingDayAsync(TrainingDay trainingDay);
         Task<List<TrainingDay>> GetAllTrainingDaysAsync();
         Task<TrainingDay> GetTrainingDayByIdAsync(int id);
-       // Task<TrainingDay> GetTrainingDayByNameAsync(string name);
         Task UpdateTrainingDayAsync(TrainingDay trainingDay, int id);
         Task DeleteTrainingDayAsync(int id);
     }

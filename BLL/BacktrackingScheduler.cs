@@ -125,8 +125,6 @@ namespace BLL
             if (toMuscle >= 0 && fromMuscle >= 0 &&
                 muscleConnections.TryGetValue(fromMuscle, out var neighbors) &&
                 neighbors.Contains(toMuscle))
-                //muscleConnections.TryGetValue(toMuscle, out var neighbors) &&
-                //neighbors.Contains(fromMuscle))
                 return 1 << toMuscle;
 
             return -1; // לא חוקי
@@ -159,7 +157,6 @@ namespace BLL
                 for (int j = 0; j < exerciseCount; j++)
                 {
                     if (i != j && transitionMatrix[j,i].LegalityValue > 0)
-                    //if (i != j && transitionMatrix[i, j].LegalityValue > 0)
                     {
                         reachable.Add(exercises[j].ExerciseId);
                     }
@@ -580,7 +577,7 @@ namespace BLL
             return mask | (1 << exerciseIndex);
         }
 
-        // ###בודק אם מותר לעבור בין שני תרגילים בזמן נתון 
+        // בודק אם מותר לעבור בין שני תרגילים בזמן נתון 
         private bool IsLegalTransition(int fromNodeId, int toNodeId)
         {
             if (fromNodeId == -1) return true; // התחלה
@@ -591,7 +588,6 @@ namespace BLL
             if (fromIdx < 0 || toIdx < 0) return false;
 
             return transitionMatrix[toIdx, fromIdx].LegalityValue > 0;
-            //return transitionMatrix[fromIdx, toIdx].LegalityValue > 0;
         }
 
         // בודק האם ניתן להגיע מכל תרגיל נוכחי לכל התרגילים שנותרו
@@ -817,71 +813,6 @@ namespace BLL
             if (status.History.Count > 0)
                 status.Exercises = status.History.Pop();
         }
-        #endregion
-
-        #region פונקציות עזר - כלליות
-
-        // מבטל סימון של תרגיל כבוצע אצל מתאמן
-        //private void UndoMarkExerciseAsDone(TraineeDTO trainee, int exerciseId)
-        //{
-        //    if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-        //        return;
-
-        //    var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-        //    if (ex != null)
-        //    {
-        //        ex.IsDone = false;
-        //        ex.PerformedAt = null;
-        //    }
-        //}
-
-        // מסמן תרגיל כבוצע אצל מתאמן ומעדכן את זמן הביצוע
-        //private void MarkExerciseAsDone(TraineeDTO trainee, int exerciseId, DateTime performedAt)
-        //{
-        //    if (!traineesExerciseStatus.TryGetValue(trainee.TraineeId, out TraineeExerciseStatus status))
-        //        return;
-
-        //    var ex = status.Exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-        //    if (ex != null)
-        //    {
-        //        ex.IsDone = true;
-        //        ex.PerformedAt = performedAt;
-        //    }
-        //}
-
-        // מחזיר את משך הזמן של תרגיל לפי מזהה
-        //private TimeSpan GetExerciseDuration(ExercisePlanDTO exercisePlan)
-        //{
-        //    //var exerciseDuration = exercisePlan.TimesMax;
-        //    return TimeSpan.FromMinutes(exercisePlan.TimesMax);
-        //    // var exercise = exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
-
-        //    //return exercise?.Duration ?? TimeSpan.FromMinutes(15); 
-        //}
-
-        // יוצר אובייקטים של ExerciseEntry עבור כל תרגיל במסלול הנבחר
-        //private Dictionary<int, ExerciseEntry> CreateExerciseEntries(List<int> exercisePath, DateTime startTime, DateTime endTime, List<Slot> Slots)
-        //{
-        //    var entries = new Dictionary<int, ExerciseEntry>();
-
-        //    for (int i = 0; i < exercisePath.Count; i++)
-        //    {
-        //        int exerciseId = exercisePath[i];
-        //        int exerciseIndex = GetExerciseIndex(exerciseId);
-
-        //        entries[i] = new ExerciseEntry
-        //        {
-        //            ExerciseId = exerciseId,
-        //            OrderInList = i,
-        //            Slots = Slots,
-        //            StartTime = startTime,
-        //            EndTime = endTime,
-        //        };
-        //    }
-
-        //    return entries;
-        //}
-
         #endregion
 
         #region פונקציות נוספות

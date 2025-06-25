@@ -14,11 +14,9 @@ namespace BLL
     public class SchedulerManager
     {
         private BacktrackingScheduler scheduler;
-        //public SchedulerManager(List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+\        public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
             List<MuscleEdgeDTO> muscleEdges, Dictionary<int, int> equipmentCountByExercise, int slotMinutes, int slotCount, DateTime firstSlotStart)
         {
-           // scheduler = new BacktrackingScheduler();
             scheduler = new BacktrackingScheduler(traineeBLL);
             // אתחול (פעם אחת בלבד)
             scheduler.Initialize(
@@ -32,66 +30,6 @@ namespace BLL
                 slotCount: slotCount
             );
         }
-        //public void Print()
-        //{
-        //    scheduler.PrintTransitionMatrixToConsole();
-        //}
-
-
-        //private BacktrackingScheduler scheduler;
-
-        //public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //    List<MuscleEdgeDTO> muscleEdges, Dictionary<int, int> equipmentCountByExercise, int slotMinutes, int slotCount, DateTime firstSlotStart)
-        //{
-        //    scheduler = new BacktrackingScheduler(traineeBLL);
-        //    // אתחול (פעם אחת בלבד)
-        //    scheduler.Initialize(
-        //        exerciseList: exerciseList,
-        //        exerciseEdges: exerciseEdges,
-        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
-        //        muscleEdges: muscleEdges,
-        //        equipmentCountByExercise: equipmentCountByExercise,
-        //        firstSlotStart: firstSlotStart,
-        //        slotMinutes: slotMinutes,
-        //        slotCount: slotCount
-        //    );
-        //}
-        ////public SchedulerManager(ITraineeBLL traineeBLL )
-        ////{
-        ////    scheduler = new BacktrackingScheduler(traineeBLL);
-        ////    //// אתחול (פעם אחת בלבד)
-        ////    //scheduler.Initialize(
-        ////    //    exerciseList: exerciseList,
-        ////    //    exerciseEdges: exerciseEdges,
-        ////    //    exerciseToMuscleEdges:exerciseToMuscleEdges,
-        ////    //    muscleEdges:muscleEdges,
-        ////    //    equipmentCountByExercise: equipmentCountByExercise,
-        ////    //    firstSlotStart: firstSlotStart,
-        ////    //    slotMinutes: slotMinutes,
-        ////    //    slotCount: slotCount
-        ////    //);
-        ////}
-        //public void Initialize(
-        //      List<ExerciseDTO> exerciseList,
-        //      List<GraphEdgeDTO> exerciseEdges,
-        //      List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
-        //      List<MuscleEdgeDTO> muscleEdges,
-        //      Dictionary<int, int> equipmentCountByExercise,
-        //      DateTime firstSlotStart,
-        //      int slotMinutes,
-        //      int slotCount)
-        //{
-        //    scheduler.Initialize(
-        //        exerciseList: exerciseList,
-        //        exerciseEdges: exerciseEdges,
-        //        exerciseToMuscleEdges: exerciseToMuscleEdges,
-        //        muscleEdges: muscleEdges,
-        //        equipmentCountByExercise: equipmentCountByExercise,
-        //        firstSlotStart: firstSlotStart,
-        //        slotMinutes: slotMinutes,
-        //        slotCount: slotCount
-        //    );
-        //}
         public void Print()
         {
             scheduler.PrintTransitionMatrixToConsole();

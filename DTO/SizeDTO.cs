@@ -9,7 +9,6 @@ namespace DTO
     public class SizeDTO
     {
         public int MuscleGroupId { get; set; }
-
         public string MuscleGroupName { get; set; }
     }
 }

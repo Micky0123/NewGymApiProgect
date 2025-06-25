@@ -11,7 +11,6 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class SchedulerController : ControllerBase
     {
-        //private SchedulerManager _schedulerManager;
         private readonly IExerciseBLL _exerciseBLL;
         private readonly IPlanDayBLL _planDayBLL;
         private readonly IExercisePlanBLL _planExerciseBLL;
@@ -48,11 +47,9 @@ namespace API.Controllers
             int slotMinutes = slotMinutes1;
             int slotCount = slotCount1;
 
-            // יצירת האובייקט כאן!
             SharedSchedulerManager = new SchedulerManager(_traineeBLL, exercises, graphEdge, deviceMuscleEdge, muscleEdge, equipmentCountByExercise, slotMinutes, slotCount, DateTime.Today.AddHours(7));
         }
 
-        // דוגמה: קריאה לאלגוריתם לכל מתאמן
         [HttpPost("runAlgorithm")]
         public async Task<ActionResult<PathResult>> RunAlgorithm([FromBody] RunAlgorithmRequest request)
         {
@@ -82,13 +79,4 @@ namespace API.Controllers
             return Ok("Matrix printed to console.");
         }
     }
-
-    // מחלקת עזר לבקשה
-    //public class RunAlgorithmRequest
-    //{
-    //    public int Trainee { get; set; }
-    //    //public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-    //    public int planday {  get; set; }
-    //    public DateTime StartTime { get; set; }
-    //}
 }

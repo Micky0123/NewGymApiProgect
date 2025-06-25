@@ -69,7 +69,6 @@ namespace DAL
                 throw new Exception("Error retrieving Exercise Plan by ID", ex);
             }
         }
-        //❤
 
         public async Task<List<ExercisePlan>> GetExercisesByPlanDayIdAsync(int planDayId)
         {
@@ -120,19 +119,6 @@ namespace DAL
                 })
                 .ToListAsync();
         }
-        //public async Task<ExercisePlan> GetExercisePlanByNameAsync(string name)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.ExercisePlans.FirstOrDefaultAsync(e => e.PlanName == name);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error retrieving Exercise Plan by name", ex);
-        //    }
-        //}
-
         public async Task UpdateExercisePlanAsync(ExercisePlan exercisePlan, int id)
         {
             using GymDbContext ctx = new GymDbContext();

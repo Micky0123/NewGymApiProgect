@@ -71,10 +71,6 @@ namespace API.Controllers
             {
                 return BadRequest("SubMuscle data is missing");
             }
-            //if (id != subMuscle.SubMuscleId)
-            //{
-            //    return BadRequest("SubMuscle id mismatch");
-            //}
             var subMuscle1 = await subMuscleBLL.GetSubMuscleByIdAsync(id);
             if (subMuscle1 == null)
             {

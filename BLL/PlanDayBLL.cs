@@ -58,12 +58,6 @@ namespace BLL
             return mapper.Map<List<PlanDayDTO>>(planDays);
         }
 
-        //public async Task<PlanDayDTO> GetPlanDayByNameAsync(string name)
-        //{
-        //    PlanDay day = await planDayDAL.GetPlanDayByNameAsync(name);
-        //    return mapper.Map<PlanDayDTO>(day);
-        //}
-
         public async Task UpdatePlanDayAsync(PlanDayDTO planDay, int id)
         {
             PlanDay day = mapper.Map<PlanDay>(planDay);

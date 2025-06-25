@@ -144,7 +144,6 @@ namespace DAL
         {
             using (var context = new GymDbContext())
             {
-                // בדוק אם התרגיל קיים במסד הנתונים
                 var exercise = await context.Exercises
                     .Include(e => e.Categories) // טען את הקטגוריות שקשורות לתרגיל
                     .FirstOrDefaultAsync(e => e.ExerciseId == exerciseId);
@@ -236,7 +235,7 @@ namespace DAL
                     .Select(e => e.Joints.Count)
                     .FirstOrDefaultAsync(); // שליפה של כמות המפרקים בלבד
 
-                return jointCount; // החזרת כמות המפרקים
+                return jointCount; 
             }
             catch (Exception ex)
             {

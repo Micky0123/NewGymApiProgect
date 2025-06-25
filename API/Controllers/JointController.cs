@@ -53,7 +53,6 @@ namespace API.Controllers
             var newJoint = new JointDTO
             {
                 JointName = joint.JointName
-                // Do not set a value for ID, it will be automatically assigned
             };
 
             await jointBLL.AddJointAsync(newJoint);
@@ -69,10 +68,6 @@ namespace API.Controllers
             {
                 return BadRequest("Joint data is missing");
             }
-            //if (id != joint.JointId)
-            //{
-            //    return BadRequest("Joint id mismatch");
-            //}
             var joint1 = await jointBLL.GetJointByIdAsync(id);
             if (joint1 == null)
             {

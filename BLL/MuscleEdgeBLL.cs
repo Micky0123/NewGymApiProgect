@@ -74,20 +74,15 @@ namespace BLL
         {
             try
             {
-                // Fetch all muscles
                 var muscles = await muscleDAL.GetAllMusclesAsync();
-
-                // Create edges between every two muscles (or based on specific logic)
                 foreach (var muscle1 in muscles)
                 {
 
-                    foreach (var muscle2 in muscles) // Avoid duplicate pairs
+                    foreach (var muscle2 in muscles) 
                     {
-                        // Check if muscle1 is in the large muscle list
                         if ((largeMuscleList.Any(m => m == muscle1.MuscleName)) || (smallMuscleList.Any(m => m == muscle1.MuscleName) &&
                                  smallMuscleList.Any(m => m == muscle2.MuscleName)))
                         {
-                            // Add an edge from muscle1 (large) to muscle2
                             var muscleEdge = new MuscleEdge
                             {
                                 MuscleId1 = muscle1.MuscleId,

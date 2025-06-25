@@ -9,19 +9,6 @@ namespace DAL
 {
     public class PlanDayDAL : IPlanDayDAL
     {
-        //public async Task AddPlanDayAsync(PlanDay planDay)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        await ctx.PlanDays.AddAsync(planDay);
-        //        await ctx.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error adding new Plan Day", ex);
-        //    }
-        //}
         public async Task<int> AddPlanDayAsync(PlanDay planDay)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -111,19 +98,6 @@ namespace DAL
             }
         }
 
-        //public async Task<PlanDay> GetPlanDayByNameAsync(string name)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        return await ctx.PlanDays.FirstOrDefaultAsync(p => p.DayName == name);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error retrieving Plan Day by name", ex);
-        //    }
-        //}
-
         public async Task UpdatePlanDayAsync(PlanDay planDay, int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -158,7 +132,6 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // Assumes TrainingPlan entity has a navigation property to Trainee
                 return await ctx.TrainingPlans
                                  .Include(tp => tp.Trainee) // Eager load Trainee details
                                  .FirstOrDefaultAsync(tp => tp.TraineeId == traineeId && tp.IsActive);
@@ -169,13 +142,11 @@ namespace DAL
             }
         }
 
-        // New implementation for GetDefaultPlanDaysByTrainingPlanIdAsync
         public async Task<List<PlanDay>> GetDefaultPlanDaysByTrainingPlanIdAsync(int trainingPlanId)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // Assumes TrainingPlan entity has a navigation property to Trainee
                 return await ctx.PlanDays
                                  .Where(pd => pd.TrainingPlanId == trainingPlanId && pd.IsDefaultProgram)
                                  .ToListAsync();
@@ -187,13 +158,11 @@ namespace DAL
 
         }
 
-        // New implementation for GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync
         public async Task<PlanDay?> GetLastCompletedHistoricalPlanDayForParentAndTrainingPlanAsync(int parentPlanDayId, int trainingPlanId)
         {
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // Assumes TrainingPlan entity has a navigation property to Trainee
                 return await ctx.PlanDays
                                  .Where(pd => pd.ParentProgramId == parentPlanDayId &&
                                               pd.IsHistoricalProgram == true &&

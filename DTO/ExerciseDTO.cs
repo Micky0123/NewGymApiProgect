@@ -20,8 +20,5 @@ namespace DTO
 
         public int? MuscleGroupId { get; set; }
         public int? Count { get; set; }
-
-        // אם דרוש, תוסיף:
-        //public TimeSpan? Duration { get; set; }
     }
 }

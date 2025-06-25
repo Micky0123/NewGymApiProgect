@@ -71,8 +71,6 @@ namespace BLL
         public async Task<List<int>> GetCategoryIdsOfExercise(int exerciseId)
         {
             var cat = await exerciseDAL.GetCategoryIdsOfExercise(exerciseId);
-            // למשל: אפשר לסנן קטגוריות שלא פעילות
-            // categories = categories.Where(c => c.IsActive).ToList();
             return mapper.Map<List<int>>(cat);
         }
     }

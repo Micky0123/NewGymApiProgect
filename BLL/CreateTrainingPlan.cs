@@ -79,17 +79,7 @@ namespace BLL
             this.exerciseList = new List<string>();
             // קריאת קובץ הקונפיגורציה
             this.config = TrainingConfig.Load("config.json");
-
-            //// הגדרת AutoMapper להמרת אובייקטים
-            //var configTaskConverter = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<Muscle, MuscleDTO>().ReverseMap();
-            //    cfg.CreateMap<TrainingPlan, TrainingPlanDTO>().ReverseMap();
-            //    cfg.CreateMap<PlanDay, PlanDayDTO>().ReverseMap();
-            //    cfg.CreateMap<ExercisePlan, ExercisePlanDTO>().ReverseMap();
-            //});
-            //mapper = new Mapper(configTaskConverter);
-            this._mapper = mapper; // <--- שמור את מופע ה-mapper המוזרק
+            this._mapper = mapper;
 
         }
 
@@ -104,7 +94,7 @@ namespace BLL
             {
 
                 logger.LogInformation($"Starting training plan creation for trainee: {traineeID}");
-                string filePath1 = config.ExcelFilePath;// שימוש בנתיב לקובץ האקסל מתוך הקונפיגורציה                
+                string filePath1 = config.ExcelFilePath;// שימוש בנתיב לקובץ האקסל מתוך הקונפיגורציה 
                 await LoadExerciseListAsync();// טעינת רשימת הציוד הזמין
                 // אתחול פרמטרי האימון
                 var trainingParams = InitializeTrainingParams();
@@ -519,8 +509,6 @@ namespace BLL
 
                 // שמירת התוכנית במסד הנתונים
                 TrainingPlan trainingP = _mapper.Map<TrainingPlan>(trainingPlan);
-
-                // TrainingPlan trainingP = mapper.Map<TrainingPlanDTO, TrainingPlan>(trainingPlan);
                 var id = await trainingPlanDAL.AddTrainingPlanAsync(trainingP);
                 logger.LogDebug($"Main training plan created");
 
@@ -598,13 +586,7 @@ namespace BLL
                         {
                             subId = await subMuscleDAL.GetIdOfSubMuscleByNameAsync(exerciseInfo.SubMuscleName);
                         }
-                        // *** כאן השינוי העיקרי! ***
-                        // ממפה את אובייקט ה-Exercise (מודל DB) ל-ExerciseDTO
-                        //var exerciseDto = mapper.Map<Exercise, ExerciseDTO>(exerciseInfo.Exercise.ExerciseId);
-                        //var exerciseDto = (exerciseInfo.Exercise.ExerciseId);
-                        //var ex= await exerciseDAL.GetExerciseByIdAsync(exerciseDto);
-                        //ex = _mapper.Map<ExerciseDTO, Exercise>(exerciseInfo.Exercise);
-                        //// יצירת רשומת תרגיל בתוכנית
+                        // יצירת רשומת תרגיל בתוכנית
                         var exercisePlan = new ExercisePlanDTO
                         {
                             PlanDayId = planDay.PlanDayId,
@@ -619,7 +601,6 @@ namespace BLL
                             PlanWeight = config.Weight,
                             SubMuscleId = subId == 0 ? (int?)null : subId,
                             TrainingDateTime = DateTime.Now,
-                            //Exercise=exerciseInfo.Exercise,
                             Exercise = exerciseInfo.Exercise,
                         };
                         var exerciseP = _mapper.Map<ExercisePlanDTO, ExercisePlan>(exercisePlan);
@@ -964,7 +945,7 @@ namespace BLL
             return timeCategoryList;
         }
 
-        /// שליפת רשימת ימים חדשה מהגיליון*****************
+        // שליפת רשימת ימים חדשה מהגיליון
         private List<List<DayEntry>> ExtractDayListsNew(IXLWorksheet worksheet, int daysInWeek, int time)
         {
             var dayLists = new List<List<DayEntry>>(); // רשימה של רשימות DayEntry
@@ -1007,11 +988,8 @@ namespace BLL
 
             return dayLists;
         }
-        // יצירת תיאור היום בהתבסס על השרירים ❤
         private string CreateDayDescription(List<ExerciseWithMuscleInfo> dayExercises, int dayNumber)
         {
-            //var muscles = dayExercises.Select(ex => ex.MuscleName).Distinct().ToList();
-            //string musclesList = string.Join(", ", muscles);
             return $"יום {dayNumber} ";
         }
 

@@ -48,12 +48,6 @@ namespace BLL
             return mapper.Map<TrainingDayDTO>(trainingDay);
         }
 
-        //public async Task<TrainingDayDTO> GetTrainingDayByNameAsync(string name)
-        //{
-        //    TrainingDay trainingDay = await trainingDayDAL.GetTrainingDayByNameAsync(name);
-        //    return mapper.Map<TrainingDayDTO>(trainingDay);
-        //}
-
         public async Task UpdateTrainingDayAsync(TrainingDayDTO trainingDay, int id)
         {
             TrainingDay trainingDayEntity = mapper.Map<TrainingDay>(trainingDay);

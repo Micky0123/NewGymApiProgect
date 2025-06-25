@@ -52,7 +52,6 @@ namespace API.Controllers
             var newMuscleType = new MuscleTypeDTO
             {
                 MuscleTypeName = muscleType.MuscleTypeName
-                // Do not set a value for ID, it will be automatically assigned
             };
 
             await muscleTypeBLL.AddMuscleTypeAsync(newMuscleType);
@@ -68,10 +67,6 @@ namespace API.Controllers
             {
                 return BadRequest("Muscle type data is missing");
             }
-            //if (id != muscleType.Id)
-            //{
-            //    return BadRequest("Muscle type id mismatch");
-            //}
             var muscleType1 = await muscleTypeBLL.GetMuscleTypeByIdAsync(id);
             if (muscleType1 == null)
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
+    //בדיקת העומס על השרת 
     public class ServerBusyException:Exception
     {
         public ServerBusyException() : base("השרת עמוס כרגע ביצירת תוכניות אימונים. אנא המתן רגע ונסה שוב.") { }

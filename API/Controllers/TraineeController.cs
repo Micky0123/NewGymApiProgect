@@ -18,14 +18,14 @@ namespace API.Controllers
     {
         //private readonly ITraineeBLL traineeBLL;
         private readonly IMapper _mapper;
-        private readonly ITraineeBLL _traineeBLL; // שיניתי לשם עקבי עם _
-        private readonly CreateTrainingPlan _createTrainingPlan; // הוספנו את הזרקת השירות
+        private readonly ITraineeBLL _traineeBLL; 
+        private readonly CreateTrainingPlan _createTrainingPlan;
 
         public TraineeController(ITraineeBLL traineeBLL, IMapper mapper, CreateTrainingPlan createTrainingPlan)
         {
             _traineeBLL = traineeBLL;
             _mapper = mapper;
-            _createTrainingPlan = createTrainingPlan; // אתחול
+            _createTrainingPlan = createTrainingPlan; 
         }
 
         // GET: api/<TraineeController>
@@ -75,8 +75,8 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("Register")] // שיניתי את הראוט ל-"Register" כדי שיהיה יותר ברור
-        public async Task<ActionResult> Register([FromBody] DTO.RegisterRequest request) // נשתמש ב-RegisterRequest DTO חדש
+        [HttpPost("Register")] 
+        public async Task<ActionResult> Register([FromBody] DTO.RegisterRequest request) 
         {
             if (request == null)
             {
@@ -86,8 +86,6 @@ namespace API.Controllers
 
             Console.WriteLine($"Received TraineeName: {request.TraineeName}, Email: {request.Email}");
 
-            // 1. בדוק אם מתאמן עם אותו שם או ת"ז כבר קיים (מומלץ לבדוק לפי ID Number או Email במקום TraineeName)
-            // נניח ש-GetTraineeByIdNumberAsync קיים ב-TraineeBLL
             var existingTraineeByIdNumber = await _traineeBLL.GetTraineeByIdNumberAsync(request.IdNumber);
             if (existingTraineeByIdNumber != null)
             {
@@ -95,23 +93,14 @@ namespace API.Controllers
                 return Conflict($"Trainee with ID number {request.IdNumber} already exists."); // Conflict 409 הוא קוד סטטוס מתאים יותר
             }
 
-            // ניתן גם לבדוק לפי אימייל:
-            // var existingTraineeByEmail = await _traineeBLL.GetTraineeByEmailAsync(request.Email);
-            // if (existingTraineeByEmail != null) { ... return Conflict(...) }
-
             try
             {
                 // 2. מיפוי מ-RegisterRequest ל-TraineeDTO ויצירת מתאמן חדש
                 var newTraineeDto = _mapper.Map<TraineeDTO>(request);
-                newTraineeDto.LoginDateTime = DateTime.Now; // עדכון שדה ספציפי
+                newTraineeDto.LoginDateTime = DateTime.Now; 
                 newTraineeDto.IsAdmin = false; // לוודא שמשתמש חדש אינו אדמין כברירת מחדל
                 newTraineeDto.TraineeId = 0; // ודא שה-ID מאופס כדי שה-DB יקצה חדש
 
-                // **חשוב:** כאן יש לבצע Hash לסיסמה לפני השמירה ב-DB!
-                // לדוגמה: newTraineeDto.Password = HashPassword(request.Password);
-                // כרגע נשאיר את זה כפי שזה, אך זו חולשה אבטחתית חמורה שיש לתקן בהקדם.
-
-                // שמור את המתאמן ב-DB וקבל את ה-TraineeDTO המעודכן (עם ה-TraineeId שנוצר)
                 var createdTrainee = await _traineeBLL.AddTraineeAsync(newTraineeDto);
 
                 if (createdTrainee == null || createdTrainee.TraineeId == 0)
@@ -122,13 +111,12 @@ namespace API.Controllers
                 }
 
                 // 3. יצירת תוכנית אימון דיפולטיבית עבור המתאמן החדש
-                // משתמשים ב-TraineeId של המתאמן שנוצר זה עתה
                 await _createTrainingPlan.addProgramExerciseAsync(
                     request.TrainingDays,
                     request.GoalId,
                     request.FitnessLevelId,
                     request.TrainingDuration,
-                    createdTrainee.TraineeId // העברת ה-TraineeId החדש
+                    createdTrainee.TraineeId 
                 );
 
                 Console.WriteLine($"Trainee {createdTrainee.TraineeName} successfully registered and default program created.");
@@ -137,7 +125,6 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Console.Error.WriteLine($"Error during registration: {ex.Message}");
-                // ניתן להוסיף יותר פרטים לשגיאה אם צריך (לדוגמה, ex.InnerException?.Message)
                 return StatusCode(500, $"An error occurred during registration: {ex.Message}");
             }
         }
@@ -164,7 +151,7 @@ namespace API.Controllers
 
             // שימוש ב-AutoMapper למיפוי אוטומטי
             var newTrainee = _mapper.Map<TraineeDTO>(trainee);
-            newTrainee.LoginDateTime = DateTime.Now; // עדכון שדה ספציפי
+            newTrainee.LoginDateTime = DateTime.Now; 
 
             await _traineeBLL.AddTraineeAsync(newTrainee);
 
@@ -180,7 +167,6 @@ namespace API.Controllers
                 return BadRequest("Trainee data is missing");
             }
 
-            // ודא שהתואם בין ID שנשלח ל-TraineeId
             if (trainee.TraineeId != 0 && trainee.TraineeId != id)
             {
                 return BadRequest("Trainee ID mismatch.");

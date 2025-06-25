@@ -72,10 +72,6 @@ namespace API.Controllers
             {
                 return BadRequest("Exercise data is missing");
             }
-            //if (id != exercise.ExerciseId)
-            //{
-            //    return BadRequest("Exercise id mismatch");
-            //}
             var exercise1 = await exerciseBLL.GetExerciseByIdAsync(id);
             if (exercise1 == null)
             {

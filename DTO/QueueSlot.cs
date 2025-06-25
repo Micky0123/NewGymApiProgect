@@ -22,7 +22,6 @@ namespace DTO
         public void GenerateSlots(DateTime firstSlotStart, int slotMinutes, int slotCount)
         {
             SlotsByStartTime.Clear();
-            // התאריך של היום הנוכחי בשעה 07:00
             for (int i = 0; i < slotCount; i++)
             {
                 var start = firstSlotStart.AddMinutes(i * slotMinutes);
@@ -31,30 +30,6 @@ namespace DTO
                 SlotsByStartTime[start] = new Slot(start, end);
             }
         }
-
-
-        // פעולה שמייצרת סלוטים לפי פרמטר של אורך במינוטות וכמות
-        //public void GenerateSlots(DateTime firstSlotStart, int slotMinutes, int slotCount)
-        //{
-        //    Slots.Clear();
-        //    for (int i = 0; i < slotCount; i++)
-        //    {
-        //        var start = firstSlotStart.AddMinutes(i * slotMinutes);
-        //        var end = start.AddMinutes(slotMinutes);
-        //        Slots.Add(new Slot(start, end));
-        //    }
-        //}
-
-
-        // פונקציית עזר לבדיקה האם סלוט זמן מסוים פנוי
-        //public bool IsSlotAvailable(DateTime desiredStartTime)
-        //{
-        //   if(SlotsByStartTime.TryGetValue(desiredStartTime, out Slot slot))
-        //    {
-        //        return true;
-        //    }
-        //   return false;
-        //}
 
         // פונקציית עזר להוספת מתאמן לסלוט זמן מסוים
         public void AddTraineeToSlot(DateTime desiredStartTime,int sumOfSlots,TraineeDTO trainee)
@@ -66,47 +41,5 @@ namespace DTO
                 startTime = SlotsByStartTime[startTime].EndTime;
            }
         }
-
-        // פונקציית עזר להסרת מתאמן מסלוט זמן מסוים
-        //public Trainee RemoveTraineeFromSlot(int timeSlot)
-        //{
-        //    if (timeSlot >= 0 && timeSlot < TimeSlots.Length && TimeSlots[timeSlot].Count > 0)
-        //    {
-        //        return TimeSlots[timeSlot].Dequeue();
-        //    }
-        //    return null;
-        //}
-
-        //// פונקציית עזר לבדיקה מי המתאמן הנוכחי בסלוט
-        //public Trainee GetCurrentTraineeInSlot(int timeSlot)
-        //{
-        //    if (timeSlot >= 0 && timeSlot < TimeSlots.Length && TimeSlots[timeSlot].Count > 0)
-        //    {
-        //        return TimeSlots[timeSlot].Peek();
-        //    }
-        //    return null;
-        //}
     }
 }
-
-
-
-
-//public class QueueSlot<T>
-//{
-//    // מערך של סלוטים, כל סלוט מצביע לרשימה
-//    public List<T>[] Slots { get; private set; }
-
-//    // קונסטרקטור שמקבל את מספר הסלוטים ומאתחל כל סלוט לרשימה ריקה
-//    public QueueSlot(int slotCount)
-//    {
-//        if (slotCount <= 0)
-//            throw new ArgumentException("slotCount must be positive");
-
-//        Slots = new List<T>[slotCount];
-//        for (int i = 0; i < slotCount; i++)
-//        {
-//            Slots[i] = new List<T>();
-//        }
-//    }
-//}

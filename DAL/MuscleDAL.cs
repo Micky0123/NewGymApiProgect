@@ -134,9 +134,6 @@ namespace DAL
             }
         }
 
-
-
-
         public async Task<List<Exercise>> GetExercisesForMuscleAsync(string muscleName)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -181,11 +178,6 @@ namespace DAL
                 {
                     throw new Exception($"Category '{categoryName}' not found.");
                 }
-
-                // שליפת כל התרגילים הקשורים לשריר ולקטגוריה
-                //var exercises = await ctx.Exercises
-                //    .Where(e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) && e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-                //    .ToListAsync();
                 var exercises = await ctx.Exercises
                           .Where(e => e.MuscleId == muscle.MuscleId)
                           .ToListAsync();
@@ -200,37 +192,6 @@ namespace DAL
         public async Task<List<Exercise>> GetExercisesForMuscleAndCategoryAsync(string muscleName, string categoryName)
         {
             using GymDbContext ctx = new GymDbContext();
-            //try
-            //{
-            //    // שליפת השריר מתוך הטבלה Muscles
-            //    var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
-
-            //    if (muscle == null)
-            //    {
-            //        throw new Exception($"Muscle '{muscleName}' not found.");
-            //    }
-
-            //    // שליפת הקטגוריה מתוך הטבלה Categories
-            //    var category = await ctx.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
-
-            //    if (category == null)
-            //    {
-            //        throw new Exception($"Category '{categoryName}' not found.");
-            //    }
-
-            //    // שליפת כל התרגילים הקשורים לשריר ולקטגוריה
-            //    var exercises = await ctx.Exercises
-            //        .Where(e =>
-            //            e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-            //            e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-            //        .ToListAsync();
-
-            //    return exercises;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Error retrieving exercises for muscle and category", ex);
-            //}
             try
             {
                 var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
@@ -247,13 +208,6 @@ namespace DAL
                     throw new Exception($"Category '{categoryName}' not found.");
                 }
 
-                //var exercises = await ctx.Exercises
-                //    .Where(e =>
-                //        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-                //        e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-                //.ToListAsync();
-
-                //logger.LogInformation($"Found {exercises.Count} exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
                 var exercises = await ctx.Exercises
                     .Where(e =>
                         e.MuscleId == muscle.MuscleId &&
@@ -274,7 +228,6 @@ namespace DAL
             using GymDbContext ctx = new GymDbContext();
             try
             {
-                // שליפת השריר מתוך הטבלה Muscles
                 var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
                 if (muscle == null)
                 {
@@ -287,29 +240,6 @@ namespace DAL
                     throw new Exception($"TypeMuscle '{TypeMuscle}' not found.");
                 }
 
-                //var equipment = new List<Equipment>();
-                //for (int i=0; i<equipmentIds.Count; i++)
-                //{
-                //    equipment.Add(await ctx.Equipment.FirstOrDefaultAsync(m => m.EquipmentId == equipmentIds[i]));
-                //    if (equipment == null)
-                //    {
-                //        throw new Exception($"Equipment '{equipmentIds[i]}' not found.");
-                //    }
-                //}
-
-                // var exercises = await ctx.Exercises
-                //    .Where(e =>
-                //        e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-                //        e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
-                //        e.Equipment.Any < ec => ec.EquipmentId == equipment.EquipmentId))
-                //.ToListAsync();
-                //var exercises = await ctx.Exercises
-                //.Where(e =>
-                //    e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-                //    e.MuscleTypes.Any(ec => ec.MuscleTypeId == muscleType.MuscleTypeId) &&
-                //    e.Equipment.Any(ec => equipmentIds.Contains(ec.EquipmentId)))
-                //.ToListAsync();
-                //return exercises;
                 var exercises = await ctx.Exercises
                 .Where(e =>
                     e.MuscleId == muscle.MuscleId &&
@@ -318,13 +248,6 @@ namespace DAL
                 .ToListAsync();
 
                 return exercises;
-
-                // שליפת כל התרגילים הקשורים לשריר ולסוג שריר
-                //var exercises = await ctx.Exercises
-                //    .Where
-                //    (e => e.Muscles.Any(em => em.MuscleId == muscle.MuscleId)
-                //    && e.MuscleTypes == muscleType)
-                //    .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -346,32 +269,6 @@ namespace DAL
         }
 
 
-
-        //public async Task<List<Exercise>> GetExercisesForSubMuscleAsync(string subMuscleName)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        // שליפת השריר מתוך הטבלה Muscles
-        //        var submuscle = await ctx.SubMuscles.FirstOrDefaultAsync(m => m.SubMuscleName == subMuscleName);
-
-        //        if (submuscle == null)
-        //        {
-        //            throw new Exception($"subMuscle '{submuscle}' not found.");
-        //        }
-
-        //        // שליפת כל התרגילים הקשורים לשריר
-        //        var exercises = await ctx.Exercises
-        //            .Where(e => e.SubMuscles.Any(em => em.SubMuscleId == submuscle.SubMuscleId))
-        //            .ToListAsync();
-
-        //        return exercises;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error updating ProgramExercise", ex);
-        //    }
-        //}
 
         public async Task<List<Exercise>> GetExercisesForSubMuscleAsync(string subMuscleName)
         {
@@ -403,73 +300,6 @@ namespace DAL
         }
 
 
-
-        //public async Task<List<Exercise>> GetExercisesForMuscleAndTypeAsync(string muscleName, string typeMuscle)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        var muscle = await ctx.Muscles.FirstOrDefaultAsync(m => m.MuscleName == muscleName);
-        //        if (muscle == null)
-        //        {
-        //            logger.LogWarning($"Muscle '{muscleName}' not found.");
-        //            throw new Exception($"Muscle '{muscleName}' not found.");
-        //        }
-
-        //        var subMuscle = await ctx.SubMuscles.FirstOrDefaultAsync(sm=>sm.SubMuscleName==typeMuscle);
-
-        //        var category = await ctx.Categories.FirstOrDefaultAsync(c => c.CategoryName == categoryName);
-        //        if (category == null)
-        //        {
-        //            logger.LogWarning($"Category '{categoryName}' not found.");
-        //            throw new Exception($"Category '{categoryName}' not found.");
-        //        }
-
-        //        var exercises = await ctx.Exercises
-        //            .Where(e =>
-        //                e.Muscles.Any(em => em.MuscleId == muscle.MuscleId) &&
-        //                e.Categories.Any(ec => ec.CategoryId == category.CategoryId))
-        //        .ToListAsync();
-
-        //        logger.LogInformation($"Found {exercises.Count} exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
-
-        //        return exercises;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        logger.LogError(ex, $"Error retrieving exercises for Muscle '{muscleName}' and Category '{categoryName}'.");
-        //        throw;
-        //    }
-        //}
-
-        //public async Task<List<SubMuscle>> GetSubMusclesOfMuscaleAsync(string muscleName)
-        //{
-        //    using GymDbContext ctx = new GymDbContext();
-        //    try
-        //    {
-        //        // שליפת השריר הראשי לפי שם השריר
-        //        var muscle = await ctx.Muscles
-        //            .FirstOrDefaultAsync(m => m.MuscleName == muscleName);
-
-        //        if (muscle == null)
-        //        {
-        //            throw new Exception($"Muscle with name '{muscleName}' not found.");
-        //        }
-
-        //        // שליפת תת-שרירים הקשורים לשריר הראשי
-        //        var subMuscles = await ctx.SubMuscles
-        //            .Where(sm => sm.MuscleId == muscle.MuscleId)
-        //            .ToListAsync();
-
-        //        return subMuscles;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // כתיבת שגיאות ללוג
-        //        logger.LogError(ex, $"Error fetching sub-muscles for muscle: {muscleName}");
-        //        throw;
-        //    }
-        //}
         public async Task<List<string>> GetMusclesOfSubMuscle()
         {
             using GymDbContext ctx = new GymDbContext();

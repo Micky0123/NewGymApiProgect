@@ -99,7 +99,6 @@ namespace DAL
             }
         }
 
-        //***************************
         public async Task UpdateDeviceMuscleEdgeAsync(DeviceMuscleEdge deviceMuscleEdge, int id)
         {
             using GymDbContext ctx = new GymDbContext();
@@ -110,8 +109,6 @@ namespace DAL
                 {
                     throw new Exception("deviceMuscleEdge not found");
                 }
-
-                // existingGraphEdge.GoalName = goal.GoalName;
                 await ctx.SaveChangesAsync();
 
             }

@@ -13,8 +13,6 @@ namespace DTO
         public int TrainingPlanId { get; set; }
         public int TraineeId { get; set; } // נוסיף את זה לנוחות, למרות שזה לא היה במבנה הקודם
         public string TraineeName { get; set; } = null!; // שם המתאמן, כדי להציג אותו ב-Frontend
-
-        // הוספת שאר מאפייני ה-TrainingPlanDTO שצוינו בבעיות שלך
         public int GoalId { get; set; }
         public int TrainingDays { get; set; }
         public int TrainingDurationId { get; set; }

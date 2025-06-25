@@ -69,10 +69,6 @@ namespace API.Controllers
             {
                 return BadRequest("Category data is missing");
             }
-            //if (id != category.CategoryId)
-            //{
-            //    return BadRequest("Category id mismatch");
-            //}
             var category1 = await categoryBLL.GetCategoryByIdAsync(id);
             if (category1 == null)
             {

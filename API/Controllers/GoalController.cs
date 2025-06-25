@@ -68,10 +68,6 @@ namespace API.Controllers
             {
                 return BadRequest("goal data is missing");
             }
-            //if (id != category.CategoryId)
-            //{
-            //    return BadRequest("Category id mismatch");
-            //}
             var goal1 = await goalBLL.GetGoalByIdAsync(id);
             if (goal1 == null)
             {

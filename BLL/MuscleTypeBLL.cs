@@ -51,7 +51,6 @@ namespace BLL
 
         public async Task<MuscleTypeDTO> GetMuscleTypeByNameAsync(string name)
         {
-            // Note: This method is not implemented in the DAL, so we'll throw an exception
             throw new NotImplementedException();
         }
 

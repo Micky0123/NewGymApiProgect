@@ -52,12 +52,6 @@ namespace BLL
             return mapper.Map<List<ExercisePlanDTO>>(plan);
         }
 
-        //public async Task<ExercisePlanDTO> GetExercisePlanByNameAsync(string name)
-        //{
-        //    ExercisePlan plan = await exercisePlanDAL.GetExercisePlanByNameAsync(name);
-        //    return mapper.Map<ExercisePlanDTO>(plan);
-        //}
-
        public async Task<List<ExercisePlanDTO>> GetdefulteExercisesByPlanDayIdAsync(int planDayId)
         {
             List<ExercisePlan> plan = await exercisePlanDAL.GetdefulteExercisesByPlanDayIdAsync(planDayId);

@@ -13,11 +13,8 @@ namespace IBLL
         Task AddPlanDayAsync(PlanDayDTO planDay);
         Task<List<PlanDayDTO>> GetAllPlanDaysAsync();
         Task<PlanDayDTO> GetPlanDayByIdAsync(int id);
-        //Task<List<PlanDayDTO>> GetPlanDaysByPlanIdAsync(int planId);
-        //Task<PlanDayDTO> GetPlanDayByNameAsync(string name);
         Task UpdatePlanDayAsync(PlanDayDTO planDay, int id);
         Task DeletePlanDayAsync(int id);
-
         Task<List<PlanDayDTO>> GetPlanDaysByTrainingPlanIdAndNotHistorical(int trainingPlanId);
         Task<List<PlanDayDTO>> GetPlanDaysByTrainingPlanIdAndHistorical(int trainingPlanId);
     }

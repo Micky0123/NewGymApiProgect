@@ -70,10 +70,6 @@ namespace API.Controllers
             {
                 return BadRequest("Muscle data is missing");
             }
-            //if (id != muscle.MuscleId)
-            //{
-            //    return BadRequest("Muscle id mismatch");
-            //}
             var muscle1 = await muscleBLL.GetMuscleByIdAsync(id);
             if (muscle1 == null)
             {
@@ -92,15 +88,12 @@ namespace API.Controllers
             {
                 return NotFound($"Muscle with id {id} was not found.");
             }
-            // Check if the muscle is used in any submuscle
-            //get all submuscles with the same muscle id
             var subMuscle = await subMuscleBLL.GetAllMuscleByMuscleIdAsync(id);
             if (subMuscle != null)
             {
                 return BadRequest($"Muscle with id {id} is used in submuscle.");
             }
 
-            // Check if the muscle is used in any exercise
             await muscleBLL.DeleteMuscleAsync(id);
             return Ok($"Muscle with id {id} was deleted.");
         }

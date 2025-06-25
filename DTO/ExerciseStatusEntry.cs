@@ -12,10 +12,9 @@ namespace DTO
         public int ExerciseId { get; set; }
         public int OrderInList { get; set; }// מיקום התרגיל ברשימה של המתאמן
         public bool IsDone { get; set; }//  האם התרגיל בוצע
-        public DateTime? PerformedAt { get; set; } // 
-        public DateTime? StartedAt { get; set; } // מתי התחיל התרגיל
-
-        public List<Slot> Slots { get; set; } = new List<Slot>();// רשימת סלוטים (אם תרגיל יכול לתפוס יותר מסלוט אחד)
+        public DateTime? PerformedAt { get; set; }
+        public DateTime? StartedAt { get; set; } 
+        public List<Slot> Slots { get; set; } = new List<Slot>();// רשימת סלוטים 
         public ExercisePlanDTO Plan { get; set; }
     }
 }

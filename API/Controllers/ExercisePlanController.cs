@@ -59,14 +59,12 @@ namespace API.Controllers
             return Ok("Exercise plan deleted successfully.");
         }
 
-        // --- נקודת הקצה החדשה שביקשת ---
         [HttpGet("planDay/{planDayId}/exercises")]
         public async Task<ActionResult<List<ExercisePlanDTO>>> GetExercisesForPlanDay(int planDayId)
         {
             var exercises = await exercisePlanBLL.GetExercisesByPlanDayIdAsync(planDayId);
             if (exercises == null || !exercises.Any())
             {
-                // ייתכן שתרצה להחזיר רשימה ריקה במקום NotFound אם זה מקרה לגיטימי
                 return Ok(new List<ExercisePlanDTO>());
             }
             return Ok(exercises);

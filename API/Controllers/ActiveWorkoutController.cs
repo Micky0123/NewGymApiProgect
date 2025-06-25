@@ -35,8 +35,6 @@ namespace API.Controllers
             IExerciseBLL exerciseBLL, IPlanDayBLL planDayBLL, IExercisePlanBLL planPlanBLL, IGraphEdgeBLL graphEdgeBLL, IMuscleEdgeBLL muscleEdgeBLL, IDeviceMuscleEdgeBLL deviceMuscleEdgeBLL, ITraineeBLL traineeBLL)
         {
             _activeWorkoutManager = activeWorkoutManager;
-            // _schedulerManager = schedulerManager;
-            // דוגמה לאתחול פרמטרים, בפועל תביאי אותם מה-DB או מה-API
             this._exerciseBLL = exerciseBLL;
             _planDayBLL = planDayBLL;
             _planExerciseBLL = planPlanBLL;
@@ -185,39 +183,26 @@ namespace API.Controllers
         }
 
 
-        // --- נקודת קצה עבור GetUpdatedWorkoutPlan ---
-        // זו תתאים לבקשת GET ל- /api/ActiveWorkout/GetUpdatedWorkoutPlan/{traineeId}
         [HttpGet("GetUpdatedWorkoutPlan/{traineeId}")]
-        [ProducesResponseType(typeof(PathResult), StatusCodes.Status200OK)] // מציין את סוג התגובה בהצלחה
-        [ProducesResponseType(StatusCodes.Status404NotFound)] // מציין תגובת 404
         public ActionResult<PathResult> GetUpdatedWorkoutPlan(int traineeId)
         {
             var result = _activeWorkoutManager.GetUpdatedWorkoutPlan(traineeId);
             if (result == null)
             {
-                // חשוב: אם הפונקציה ב-manager מחזירה null כשלא נמצא אימון, צריך להחזיר NotFound()
-                // זה יגרום לשגיאת 404 שהפרונטאנד שלך מצפה לה
                 return NotFound($"No active workout found for trainee ID: {traineeId}.");
             }
-            return Ok(result); // החזרת הנתונים עם קוד 200 OK
+            return Ok(result);
         }
 
-        // --- נקודת קצה עבור GetNextExerciseInWorkout ---
-        // זו תתאים לבקשת GET ל- /api/ActiveWorkout/GetNextExerciseInWorkout/{traineeId}
         [HttpGet("GetNextExerciseInWorkout/{traineeId}")]
         [ProducesResponseType(typeof(NextExerciseResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<NextExerciseResponse> GetNextExerciseInWorkout(int traineeId)
         {
             var response = _activeWorkoutManager.GetNextExerciseInWorkout(traineeId);
-
-            // במקרה ש-GetNextExerciseInWorkout מחזיר תגובה שמציינת שהאימון הושלם/לא נמצא,
-            // נחזיר תמיד Ok, כי ה-NextExerciseResponse DTO כבר מכיל את המידע הזה.
-            // הפרונטאנד יבדוק את שדה IsWorkoutComplete כדי לדעת את הסטטוס.
             return Ok(response);
         }
 
-        // ***** NEW ENDPOINT *****
         [HttpGet("active-plan/{traineeId}")] // Example: GET /api/ActiveWorkout/active-plan/1
         public async Task<ActionResult<ActiveTrainingPlanResponse>> GetTraineeActiveTrainingPlan(int traineeId)
         {
@@ -247,14 +232,7 @@ namespace API.Controllers
         {
             try
             {
-                //var trainees = await _traineeBLL.GetAllTraineesAsync(); // יש לוודא שפונקציה זו קיימת ב-ITraineeBLL ומחזירה רשימה של TraineeDTO
-                List<TraineeDTO> trainees = await _activeWorkoutManager.GetAllActiveTraineesId(); // יש לוודא שפונקציה זו קיימת ב-ITraineeBLL ומחזירה רשימה של TraineeDTO
-                //var traineeList = new List<TraineeDTO>();
-                //foreach (var trainee in trainees)
-                //{
-                //    traineeList.Add(await _traineeBLL.GetTraineeByIdAsync(trainee));
-                //}
-
+                List<TraineeDTO> trainees = await _activeWorkoutManager.GetAllActiveTraineesId();
                 if (trainees == null)
                 {
                     return NotFound("No trainees found in the system.");
@@ -275,8 +253,6 @@ namespace API.Controllers
         {
             try
             {
-                // נניח ש-ActiveWorkoutManager מכיל מתודה כזו
-                // שתחזיר רשימה של כל האימונים הפעילים כרגע בזיכרון המערכת
                 var activeWorkouts = _activeWorkoutManager.GetAllActiveWorkouts();
 
                 if (activeWorkouts == null || !activeWorkouts.Any())
@@ -292,39 +268,20 @@ namespace API.Controllers
             }
         }
 
-        //[HttpGet("all-active-trainees")]
-        //public ActionResult<List<int>> GetAllActiveTraineesIds() => new List<int>(); // List<int> GetAllActiveTraineesIds()
-}
+    }
 
 
+    public class StartOrCompleteExerciseRequest
+    {
+        public int TraineeId { get; set; }
+        public int ExerciseId { get; set; }
+        public DateTime StartTime { get; set; }
+    }
 
+    public class SchedulerInitRequest
+    {
+        public int SlotMinutes { get; set; }
+        public int SlotCount { get; set; }
+    }
 
-// מודלים ל-Request
-public class StartWorkoutRequest
-{
-    public TraineeDTO Trainee { get; set; }
-    public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-    public DateTime StartTime { get; set; }
-    public int PlanDayId { get; set; }
-}
-
-public class StartOrCompleteExerciseRequest
-{
-    public int TraineeId { get; set; }
-    public int ExerciseId { get; set; }
-    public DateTime StartTime { get; set; }
-}
-
-public class SchedulerInitRequest
-{
-    public int SlotMinutes { get; set; }
-    public int SlotCount { get; set; }
-}
-    //public class RunAlgorithmRequest
-    //{
-    //    public int Trainee { get; set; }
-    //    //public List<ExercisePlanDTO> ExerciseOrder { get; set; }
-    //    public int planday { get; set; }
-    //    public DateTime StartTime { get; set; }
-    //}
 }

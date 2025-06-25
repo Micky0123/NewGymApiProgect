@@ -39,8 +39,6 @@ namespace API
 
             builder.Services.AddScoped<ICategoryBLL, CategoryBLL>();
             builder.Services.AddScoped<ICategoryDAL, CategoryDAL>();
-            //add all BLL and DAL classes here
-            // builder.Services.AddScoped<IEquipmentBLL, EquipmentBLL>();
             builder.Services.AddScoped<IEquipmentDAL, EquipmentDAL>();
             builder.Services.AddScoped<IExerciseBLL, ExerciseBLL>();
             builder.Services.AddScoped<IExerciseDAL, ExerciseDAL>();
@@ -56,8 +54,6 @@ namespace API
             builder.Services.AddScoped<ISubMuscleDAL, SubMuscleDAL>();
             builder.Services.AddScoped<ITraineeBLL, TraineeBLL>();
             builder.Services.AddScoped<ITraineeDAL, TraineeDAL>();
-            //builder.Services.AddScoped<IProgramExerciseBLL, ProgramExerciseBLL>();
-            //builder.Services.AddScoped<IProgramExerciseDAL, ProgramExerciseDAL>();
             builder.Services.AddScoped<ITrainingDayBLL, TrainingDayBLL>();
             builder.Services.AddScoped<ITrainingDayDAL, TrainingDayDAL>();
             builder.Services.AddScoped<IFitnessLevelBLL, FitnessLevelBLL>();
@@ -74,7 +70,6 @@ namespace API
             builder.Services.AddScoped<IDeviceMuscleEdgeDAL, DeviceMuscleEdgeDAL>();
             builder.Services.AddScoped<IMuscleEdgeBLL, MuscleEdgeBLL>();
             builder.Services.AddScoped<IMuscleEdgeDAL, MuscleEdgeDAL>();
-
             builder.Services.AddScoped<IExercisePlanBLL, ExercisePlanBLL>();
             builder.Services.AddScoped<IExercisePlanDAL, ExercisePlanDAL>();
             builder.Services.AddScoped<IPlanDayDAL, PlanDayDAL>();
@@ -88,10 +83,6 @@ namespace API
 
             builder.Services.AddMemoryCache();
             // builder.Services.AddSingleton<ActiveWorkoutManager>();
-            //builder.Services.AddScoped<SchedulerManager>();
-
-            // or AddTransient/AddSingleton as appropriate
-            // Add services to the container.
 
             builder.Services.AddControllers()
              .AddJsonOptions(options =>
@@ -130,24 +121,3 @@ namespace API
         }
     }
 }
-       // הגדרת רישיון EPPlus
-            //OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            //ExcelPackage.License = LicenseContext.NonCommercial;
-            //ExcelPackage.SetLicenseContext(LicenseContext.NonCommercial);
-            //OfficeOpenXml.ExcelPackage.SetLicenseContext(OfficeOpenXml.LicenseContext.NonCommercial);
-            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            //ExcelPackage.License = LicenseContext.NonCommercial;
-            // ExcelPackage.SetLicense(LicenseContext.NonCommercial);
-            // קריאת הרישיון מתוך appsettings.json
-            //var licenseContext = builder.Configuration["EPPlus:LicenseContext"];
-            //if (Enum.TryParse(licenseContext, out LicenseContext license))
-            //{
-            //    ExcelPackage.SetLicense(license);
-            //}
-            // קריאת הרישיון מתוך appsettings.json
-            //var licenseContext = builder.Configuration["EPPlus:LicenseContext"];
-            //if (Enum.TryParse(licenseContext, out LicenseContext license))
-            //{
-            //    // הגדרת הרישיון
-            //    ExcelPackage.LicenseContext = license;
-            //}
