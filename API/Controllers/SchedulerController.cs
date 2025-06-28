@@ -24,7 +24,6 @@ namespace API.Controllers
         // אפשרות 1: יצירת מופע בכל קריאה
         public SchedulerController(IExerciseBLL exerciseBLL, IPlanDayBLL planDayBLL, IExercisePlanBLL planPlanBLL, IGraphEdgeBLL graphEdgeBLL, IMuscleEdgeBLL muscleEdgeBLL, IDeviceMuscleEdgeBLL deviceMuscleEdgeBLL, ITraineeBLL traineeBLL)
         {
-            // דוגמה לאתחול פרמטרים, בפועל תביאי אותם מה-DB או מה-API
             this._exerciseBLL = exerciseBLL;
             _planDayBLL = planDayBLL;
             _planExerciseBLL = planPlanBLL;

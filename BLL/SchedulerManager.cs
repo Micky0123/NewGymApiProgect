@@ -14,7 +14,7 @@ namespace BLL
     public class SchedulerManager
     {
         private BacktrackingScheduler scheduler;
-\        public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
+        public SchedulerManager(ITraineeBLL traineeBLL, List<ExerciseDTO> exerciseList, List<GraphEdgeDTO> exerciseEdges, List<DeviceMuscleEdgeDTO> exerciseToMuscleEdges,
             List<MuscleEdgeDTO> muscleEdges, Dictionary<int, int> equipmentCountByExercise, int slotMinutes, int slotCount, DateTime firstSlotStart)
         {
             scheduler = new BacktrackingScheduler(traineeBLL);

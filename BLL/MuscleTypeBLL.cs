@@ -51,7 +51,8 @@ namespace BLL
 
         public async Task<MuscleTypeDTO> GetMuscleTypeByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            MuscleType muscleType1 = await muscleTypeDAL.GetMuscleTypesByNameAsync(name);
+            return mapper.Map<MuscleTypeDTO>(muscleType1);
         }
 
         public async Task UpdateMuscleTypeAsync(MuscleTypeDTO muscleType, int id)

@@ -270,7 +270,7 @@ namespace BLL
             return null;
         }
 
-        // אלגוריתם רקורסיבי עיקרי למציאת מסלול אופטימלי, תוך שמירה על חוקיות וזמינות.
+        // אלגוריתם רקורסיבי עיקרי למציאת מסלול , תוך שמירה על חוקיות וזמינות.
         // משתמש בזיכרון (memoization) להאצת חישוב.
         private async Task<(bool found, int numAlternatives, List<int> bestPath, DateTime endTime)>
         BacktrackWithPriority(List<ExercisePlanDTO> exerciseOrder, int mask, List<int> currentPath,
@@ -290,7 +290,7 @@ namespace BLL
             }
 
             // תנאי סיום - כל התרגילים בוצעו
-            if (mask == (1 << exerciseOrder.Count) - 1)
+            if (mask == (1 << exerciseOrder.Count) - 1|| currentPath.Count == exerciseOrder.Count)
             {
                 var result = (true, currentAlternatives, new List<int>(currentPath), currentTime);
 
@@ -452,7 +452,6 @@ namespace BLL
                 // אלטרנטיבות לפי הפונקציה החדשה:
                 var alternatives = GetAlternativeExercises(lastNodeId, originalNodeId, nextIdx);
 
-
                 foreach (int altNodeId in alternatives)
                 {
                     if (!IsLegalTransition(lastNodeId, altNodeId)) continue;
@@ -508,7 +507,6 @@ namespace BLL
                 alternatives.AddRange(GetAlternativeExercises(lastNodeId, nodeId, nextNodeId));
                 foreach (var alt in alternatives)
                 {
-                    //צריך לבדוק נראה לי שצריך את כל המתאמנים 
                     var occupyingTrainee = GetOccupyingTraineeInSlot(alt, currentTime);
                     foreach (var ocTrainee1 in occupyingTrainee)
                     {
@@ -551,7 +549,6 @@ namespace BLL
                                 }
                                 currentPath.RemoveAt(currentPath.Count - 1);
                                 UndoApplyNewExerciseOrderToTrainee(ocTrainee, currentTime);
-
                             }
                         }
 

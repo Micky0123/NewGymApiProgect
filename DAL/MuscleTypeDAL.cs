@@ -57,6 +57,18 @@ namespace DAL
                 throw new Exception("Error retrieving all MuscleTypes", ex);
             }
         }
+        public async Task<MuscleType> GetMuscleTypesByNameAsync(string name)
+        {
+            using GymDbContext ctx = new GymDbContext();
+            try
+            {
+                return await ctx.MuscleTypes.FirstOrDefaultAsync(m => m.MuscleTypeName == name);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving MuscleType by ID", ex);
+            }
+        }
 
         public async Task<MuscleType> GetMuscleTypeByIdAsync(int id)
         {

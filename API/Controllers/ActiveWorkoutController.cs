@@ -17,8 +17,6 @@ namespace API.Controllers
     public class ActiveWorkoutController : ControllerBase
     {
         private readonly ActiveWorkoutManager _activeWorkoutManager;
-        // private readonly SchedulerManager _schedulerManager;
-
         private readonly IExerciseBLL _exerciseBLL;
         private readonly IPlanDayBLL _planDayBLL;
         private readonly IExercisePlanBLL _planExerciseBLL;
@@ -31,7 +29,6 @@ namespace API.Controllers
         // הקונסטרקטור מקבל את המנהלים דרך DI
         public ActiveWorkoutController(
             ActiveWorkoutManager activeWorkoutManager,
-            //SchedulerManager schedulerManager,
             IExerciseBLL exerciseBLL, IPlanDayBLL planDayBLL, IExercisePlanBLL planPlanBLL, IGraphEdgeBLL graphEdgeBLL, IMuscleEdgeBLL muscleEdgeBLL, IDeviceMuscleEdgeBLL deviceMuscleEdgeBLL, ITraineeBLL traineeBLL)
         {
             _activeWorkoutManager = activeWorkoutManager;

@@ -89,9 +89,9 @@ namespace API.Controllers
                 return NotFound($"Muscle with id {id} was not found.");
             }
             var subMuscle = await subMuscleBLL.GetAllMuscleByMuscleIdAsync(id);
-            if (subMuscle != null)
+            if (subMuscle != null || subMuscle.Count > 0)
             {
-                return BadRequest($"Muscle with id {id} is used in submuscle.");
+                return Ok($"Muscle with id {id} is used in submuscle.");
             }
 
             await muscleBLL.DeleteMuscleAsync(id);

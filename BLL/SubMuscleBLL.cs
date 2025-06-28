@@ -39,6 +39,10 @@ namespace BLL
         public async Task<List<SubMuscleDTO>> GetAllMuscleByMuscleIdAsync(int id)
         {
             var list = await subMuscleDAL.GetAllSubMuscleByMuscleIdAsync(id);
+            if (list == null)
+            {
+                return new List<SubMuscleDTO>();
+            }
             return mapper.Map<List<SubMuscleDTO>>(list);
         }
 

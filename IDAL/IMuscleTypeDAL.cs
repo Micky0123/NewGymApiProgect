@@ -12,6 +12,7 @@ namespace IDAL
         Task<MuscleType> GetMuscleTypeByIdAsync(int id);
         Task<List<MuscleType>> GetAllMuscleTypesAsync();
         Task AddMuscleTypeAsync(MuscleType muscleType);
+        Task<MuscleType> GetMuscleTypesByNameAsync(string name);
         Task UpdateMuscleTypeAsync(MuscleType muscleType);
         Task DeleteMuscleTypeAsync(int id);
     }
